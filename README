@@ -4,7 +4,8 @@ Zutilo is a small Firefox extension that serves as a plugin for the Zotero Firef
 
 Current feature list:
 
-* Right click items in the Zotero library and copy their tags to the clipboard as a '\n' delimited list.
+* Right click items in the Zotero library and copy their tags to the clipboard as a '\r\n' delimited list.
+* Right click items in the Zotero library and copy their authors to the clipboard as a '\r\n' delimited list.
 
 How to install:
 

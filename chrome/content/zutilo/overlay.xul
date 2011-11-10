@@ -12,6 +12,8 @@
 	
 	<menupopup id="zotero-itemmenu">
 		<menuseparator />
+		<menuitem label="&zutilo.copyCreators;"
+			oncommand="Zotero.Zutilo.copyCreators()"/>
 		<menuitem label="&zutilo.copyTags;"
 			oncommand="Zotero.Zutilo.copyTags()"/>
 	</menupopup>
