@@ -7,13 +7,41 @@ Zotero.Zutilo = {
 
 	},
     
+    copyCreators: function() {
+        
+        var win = this.wm.getMostRecentWindow("navigator:browser");
+        var zitems = win.ZoteroPane.getSelectedItems();
+        
+        if (!zitems.length) {
+			win.alert("Please select at least one item.");
+			return;
+		}
+        
+        var creatorsArray = [];
+        for (var i = 0; i < zitems.length; i++) {
+            var tempCreators = zitems[i].getCreators();
+            var arrayStr = '';
+            for (var j = 0; j < tempCreators.length; j++) {
+                arrayStr = '\n' + creatorsArray.join('\n') + '\n';
+                var tempName = tempCreators[j].ref.firstName + ' ' + tempCreators[j].ref.lastName;
+                tempName = tempName.replace(/^\s+|\s+$/g, '') ;
+                if (arrayStr.indexOf('\n' + tempName + '\n') == -1) {
+                    creatorsArray.push(tempName);
+                }
+            }
+        }
+        var clipboardText = creatorsArray.join('\r\n');
+        
+        return this.addToClipboard(clipboardText);
+    },
+    
     copyTags: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
         var zitems = win.ZoteroPane.getSelectedItems();
         
         if (!zitems.length) {
-			win.alert("Please select at least one citation.");
+			win.alert("Please select at least one item.");
 			return;
 		}
         
@@ -31,15 +59,19 @@ Zotero.Zutilo = {
                 }
             }
         }
+        var clipboardText = tagsArray.join('\r\n');
         
-        var copytext = tagsArray.join('\n');
+        return this.addToClipboard(clipboardText);
+    },
+    
+    addToClipboard: function(clipboardText) {
         
         var str = Components.classes["@mozilla.org/supports-string;1"].
             createInstance(Components.interfaces.nsISupportsString);
         if (!str) {
             return false;
         }
-        str.data = copytext;
+        str.data = clipboardText;
 
         var trans = Components.classes["@mozilla.org/widget/transferable;1"].
               createInstance(Components.interfaces.nsITransferable);
@@ -48,7 +80,7 @@ Zotero.Zutilo = {
         }
 
         trans.addDataFlavor("text/unicode");
-        trans.setTransferData("text/unicode",str,copytext.length * 2);
+        trans.setTransferData("text/unicode",str,clipboardText.length * 2);
 
         var clipid = Components.interfaces.nsIClipboard;
         var clip = Components.classes["@mozilla.org/widget/clipboard;1"].getService(clipid);
