@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+	
+	<Description about="urn:mozilla:install-manifest">
+		<em:id>zutilo@wesailatdawn.com</em:id>
+		<em:name>Zutilo Utility for Zotero</em:name>
+		<em:version>1.0.0</em:version>
+		<em:description>A utility adding assorted macros for Zotero</em:description>
+		<em:creator>W. S.<br/>Princeton University</em:creator>
+		<em:updateURL>https://www.wesailatdawn.com/download/zutilo.xpi</em:updateURL>
+		<em:type>2</em:type> <!-- type=extension -->
+		
+		<!-- Requires Zotero -->
+		<em:requires>
+			<Description>
+				<em:id>zotero@chnm.gmu.edu</em:id>
+				<em:name>Zotero</em:name>
+				<em:homepageURL>http://www.zotero.org</em:homepageURL>
+				<em:minVersion>1.0.0b4.r5</em:minVersion>
+				<em:maxVersion>1.0.*</em:maxVersion>
+			</Description>
+		</em:requires>
+    
+		<!-- Requires Firefox -->
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>2.0</em:minVersion>
+				<em:maxVersion>9.0.*</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+	</Description>
+</RDF>
