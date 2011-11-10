@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://zutilo/skin/overlay.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://zutilo/locale/zutilo.dtd">
+
+<overlay id="zutilo-overlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="zutilo-strings"
+			src="chrome://zutilo/locale/zutilo.properties"/>
+	</stringbundleset>
+	
+	<menupopup id="zotero-itemmenu">
+		<menuseparator />
+		<menuitem label="&zutilo.copyTags;"
+			oncommand="Zotero.Zutilo.copyTags()"/>
+	</menupopup>
+	
+	<!-- Include the main extension logic -->
+	<script src="chrome://zotero/content/include.js"/>
+	<script src="chrome://zutilo/content/include.js"/>
+</overlay>
