@@ -8,6 +8,6 @@ Current feature list:
 
 How to install:
 
-If you have the zutilo.xpi file, go to Tools->Add-ons in Firefox and then click on the gear button and choose "Install Add-on From File." Then select the .xpi file.
+If you have the zutilo.xpi file, go to Tools->Add-ons in Firefox and then click on the gear button and choose "Install Add-on From File." Then select the .xpi file.  (If you haven't downloaded anything yet, just download the .xpi file).
 
 If you have the unzipped set of files (install.rdf, the chrome folder, etc.), you can zip them all, change the .zip extension to a .xpi extension and follow the directions above, or create a text file named zutilo@wesailatdawn.com, put the directory path to Zutilo's chrome folder as its only line of text, and save the file in the extensions folder of your Firefox profile folder.
