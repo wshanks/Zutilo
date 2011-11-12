@@ -23,10 +23,7 @@ Zotero.Zutilo = {
             var arrayStr = '';
             for (var j = 0; j < tempCreators.length; j++) {
                 arrayStr = '\n' + creatorsArray.join('\n') + '\n';
-                var tempName = tempCreators[j].ref.lastName;
-                if (tempCreators[j].ref.firstName != '') {
-                    tempName += ', ' + tempCreators[j].ref.firstName;
-                }
+                var tempName = tempCreators[j].ref.firstName + ' ' + tempCreators[j].ref.lastName;
                 tempName = tempName.replace(/^\s+|\s+$/g, '') ;
                 if (arrayStr.indexOf('\n' + tempName + '\n') == -1) {
                     creatorsArray.push(tempName);
