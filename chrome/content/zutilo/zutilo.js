@@ -14,7 +14,7 @@ Zotero.Zutilo = {
         
         if (!zitems.length) {
 			win.alert("Please select at least one item.");
-			return;
+			return false;
 		}
         
         var creatorsArray = [];
@@ -43,7 +43,7 @@ Zotero.Zutilo = {
         
         if (!zitems.length) {
 			win.alert("Please select at least one item.");
-			return;
+			return false;
 		}
         
         var tagsArray = [];
@@ -91,6 +91,66 @@ Zotero.Zutilo = {
         
         clip.setData(trans,null,clipid.kGlobalClipboard);
         return true;
+    },
+    
+    modifyAttachmentPaths: function() {
+        
+        var win = this.wm.getMostRecentWindow("navigator:browser");
+        var zitems = win.ZoteroPane.getSelectedItems();
+        
+        if (!zitems.length) {
+			win.alert("Please select at least one item.");
+			return false;
+		}
+        
+        var oldPath = prompt("Old partial path to attachments' directory to be replaced: ", "");
+        var newPath = prompt("New partial path to be used for attachments with paths matching the old partial path: ", "");
+        
+        if ((oldPath == null) || (newPath == null)) {
+        	return false;
+        }
+        
+        var zitem;
+        var attachArray = [];
+        var zattachment;
+        var attachPath;
+        while (zitems.length > 0) {
+        	zitem = zitems.shift();
+        	
+        	attachArray = zitem.getAttachments(false);
+        	while (attachArray.length > 0) {
+        		zattachment = Zotero.Items.get(attachArray.shift());
+        		attachPath = zattachment.attachmentPath;
+        		if (attachPath.search(oldPath) == 0) {
+        			zattachment.attachmentPath = attachPath.replace(oldPath,newPath);
+        		}
+        	}
+        }
+    },
+    
+    showAttachmentPaths: function() {
+        
+        var win = this.wm.getMostRecentWindow("navigator:browser");
+        var zitems = win.ZoteroPane.getSelectedItems();
+        
+        if (!zitems.length) {
+			win.alert("Please select at least one item.");
+			return false;
+		}
+               
+        var zitem;
+        var attachArray = [];
+        var zattachment;
+        var attachPath;
+        while (zitems.length > 0) {
+        	zitem = zitems.shift();
+        	
+        	attachArray = zitem.getAttachments(false);
+        	while (attachArray.length > 0) {
+        		zattachment = Zotero.Items.get(attachArray.shift());
+        		alert(zattachment.attachmentPath);
+        	}
+        }
     }
 };
 
