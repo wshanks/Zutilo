@@ -16,6 +16,14 @@
 			oncommand="Zotero.Zutilo.copyCreators()"/>
 		<menuitem label="&zutilo.copyTags;"
 			oncommand="Zotero.Zutilo.copyTags()"/>
+		<menu id="zutilo-attachment-menu" label="&zutilo.attachmentsMenu;">
+			<menupopup>
+				<menuitem label="&zutilo.modifyAttachmentPathsLabel;"
+					oncommand="Zotero.Zutilo.modifyAttachmentPaths()"/>
+				<menuitem label="&zutilo.showAttachmentPathsLabel;"
+					oncommand="Zotero.Zutilo.showAttachmentPaths()"/>
+			</menupopup>
+		</menu>
 	</menupopup>
 	
 	<!-- Include the main extension logic -->
