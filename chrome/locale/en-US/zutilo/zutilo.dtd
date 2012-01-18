@@ -1,6 +1,9 @@
 <!ENTITY zutilo.name			"Zutilo">
+
 <!ENTITY zutilo.copyTags "Copy tags to clipboard">
 <!ENTITY zutilo.copyCreators "Copy creators to clipboard">
-<!ENTITY zutilo.attachmentsMenu "Attachment functions">
+
+<!ENTITY zutilo.zotero.itemmenu "Zutilo">
 <!ENTITY zutilo.modifyAttachmentPathsLabel "Modify attachment paths">
 <!ENTITY zutilo.showAttachmentPathsLabel "Show attachment paths">
+<!ENTITY zutilo.relateItemsLabel "Relate selected items">
