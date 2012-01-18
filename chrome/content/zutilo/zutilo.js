@@ -4,7 +4,51 @@ Zotero.Zutilo = {
 	init: function () {
         this.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 				.getService(Components.interfaces.nsIWindowMediator);
-
+				
+		var gmyextensionBundle = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService);  
+  
+		var _bundle = gmyextensionBundle.createBundle("chrome://zutilo/locale/zutilo.properties");
+		
+		//Add item to Zotero menu of contentAreaContextMenu for 
+		//saving links as attachments.
+		var menu = document.getElementById("zotero-content-area-context-menu");
+		var popup = menu.menupopup;
+		const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+		var item = document.createElementNS(XUL_NS, "menuitem"); // create a new XUL menuitem
+		item.setAttribute("label", _bundle.GetStringFromName("zutilo.context.savelink"));
+		item.setAttribute("id", "contentAreaContextMenu-zotero-zutilo-attach");
+		item.setAttribute("oncommand", "alert('woo');");
+		popup.appendChild(item);
+		menu = document.getElementById("contentAreaContextMenu");
+		menu.addEventListener("popupshowing", Zotero.Zutilo.contextPopup, false);
+		
+		//Add event listener to disable items in Zotero item menu popup when they can not be used
+		menu = document.getElementById("zotero-itemmenu");
+		menu.addEventListener("popupshowing", function() {
+			Zotero.Zutilo.zoteroItemPopup(Zotero);
+		}, false);
+		
+		//Add event listener to disable items in Zutilo popup menu of Zotero item popup menu
+		menu = document.getElementById("zutilo-zotero-itemmenu");
+		menu.addEventListener("popupshowing", function() {
+			Zotero.Zutilo.zutiloItemPopup(Zotero);
+		}, false);
+	},
+	
+	contextPopup: function () {
+	
+		menuitem = document.getElementById("contentAreaContextMenu-zotero-zutilo-attach");
+	
+		if (window.gContextMenu.onLink) {
+			menuitem.hidden = false;
+		}
+		else {
+			menuitem.hidden = true;
+		}	
+		
+		//Permanently hiding this for the moment because the attach function has not been
+		//written yet
+		menuitem.hidden = true;
 	},
     
     copyCreators: function() {
@@ -128,6 +172,24 @@ Zotero.Zutilo = {
         }
     },
     
+    relateItems: function() {
+    	var win = this.wm.getMostRecentWindow("navigator:browser");
+        var zitems = win.ZoteroPane.getSelectedItems();
+        
+        if (!zitems.length) {
+			win.alert("Please select at least one item.");
+			return false;
+		}
+		
+		var ids = [];
+		for (var ii = 0; ii<zitems.length; ii++) {
+			ids[ii] = zitems[ii].id;
+		}
+		for (ii = 0; ii<zitems.length; ii++) {
+			zitems[ii]._setRelatedItems(ids);
+		}
+    },
+    
     showAttachmentPaths: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
@@ -151,6 +213,45 @@ Zotero.Zutilo = {
         		alert(zattachment.attachmentPath);
         	}
         }
+    },
+    
+    zoteroItemPopup: function(zot) {
+    	var showMenuAndItems = true;
+    	
+    	var win = zot.Zutilo.wm.getMostRecentWindow("navigator:browser");
+        var zitems = win.ZoteroPane.getSelectedItems();
+        
+        if (zitems.length == 0) {
+        	showMenuAndItems = false;
+        } else {
+        	for each(var zitem in zitems) {
+        		var itemType = zot.ItemTypes.getName(zitem.itemTypeID);
+        		if (itemType == "attachment" || itemType == "note") {
+        			showMenuAndItems = false;
+        		}
+        	}
+        }
+        
+        menu = document.getElementById("zutilo-zotero-itemmenu");
+        itemTags = document.getElementById("zutilo-copy-tags");
+        itemCreators = document.getElementById("zutilo-copy-creators");
+		menu.disabled = !showMenuAndItems;
+		itemTags.disabled = !showMenuAndItems;
+		itemCreators.disabled = !showMenuAndItems;
+    },
+    
+    zutiloItemPopup: function(zot) {
+    	var showItems = true;
+    	
+    	var win = zot.Zutilo.wm.getMostRecentWindow("navigator:browser");
+        var zitems = win.ZoteroPane.getSelectedItems();
+        
+        if (zitems.length < 2) {
+        	showItems = false;
+        }
+        
+        itemRelate = document.getElementById("zutilo-relateitems-zotero-itemmenu");
+		itemRelate.disabled = !showItems;
     }
 };
 
