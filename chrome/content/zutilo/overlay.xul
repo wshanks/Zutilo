@@ -12,21 +12,24 @@
 	
 	<menupopup id="zotero-itemmenu">
 		<menuseparator />
-		<menuitem label="&zutilo.copyCreators;"
-			id="zutilo-copy-creators"
-			oncommand="Zotero.Zutilo.copyCreators()"/>
 		<menuitem label="&zutilo.copyTags;"
 			id="zutilo-copy-tags"
 			oncommand="Zotero.Zutilo.copyTags()"/>
+		<menuitem label="&zutilo.pasteTags;"
+			id="zutilo-paste-tags"
+			oncommand="Zotero.Zutilo.pasteTags()"/>
+		<menuitem id="zutilo-relateitems" 
+			label="&zutilo.relateItemsLabel;"
+			oncommand="Zotero.Zutilo.relateItems()"/>
 		<menu id="zutilo-zotero-itemmenu" label="&zutilo.zotero.itemmenu;">
 			<menupopup>
+				<menuitem label="&zutilo.copyCreators;"
+					id="zutilo-copy-creators"
+					oncommand="Zotero.Zutilo.copyCreators()"/>
 				<menuitem label="&zutilo.modifyAttachmentPathsLabel;"
 					oncommand="Zotero.Zutilo.modifyAttachmentPaths()"/>
 				<menuitem label="&zutilo.showAttachmentPathsLabel;"
 					oncommand="Zotero.Zutilo.showAttachmentPaths()"/>
-				<menuitem id="zutilo-relateitems-zotero-itemmenu" 
-					label="&zutilo.relateItemsLabel;"
-					oncommand="Zotero.Zutilo.relateItems()"/>
 			</menupopup>
 		</menu>
 	</menupopup>

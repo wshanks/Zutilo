@@ -113,28 +113,73 @@ Zotero.Zutilo = {
         
         var str = Components.classes["@mozilla.org/supports-string;1"].
             createInstance(Components.interfaces.nsISupportsString);
-        if (!str) {
-            return false;
-        }
+        if (!str) return false;
+        
         str.data = clipboardText;
 
         var trans = Components.classes["@mozilla.org/widget/transferable;1"].
               createInstance(Components.interfaces.nsITransferable);
-        if (!trans) {
-            return false;
-        }
+        if (!trans) return false;
 
         trans.addDataFlavor("text/unicode");
         trans.setTransferData("text/unicode",str,clipboardText.length * 2);
 
         var clipid = Components.interfaces.nsIClipboard;
         var clip = Components.classes["@mozilla.org/widget/clipboard;1"].getService(clipid);
-        if (!clip) {
-            return false;
-        }
+        if (!clip) return false;
         
-        clip.setData(trans,null,clipid.kGlobalClipboard);
+        clip.setData(trans,null,clip.kGlobalClipboard);
         return true;
+    },
+    
+    pasteTags: function() {
+        
+        var win = this.wm.getMostRecentWindow("navigator:browser");
+        var zitems = win.ZoteroPane.getSelectedItems();
+        
+        if (!zitems.length) {
+			win.alert("Please select at least one item.");
+			return false;
+		}
+        
+        var clipboardText = this.getFromClipboard();
+        
+        var tagArray = clipboardText.split(/\r\n?|\n/);
+        
+        for (var i = 0; i < zitems.length; i++) {
+            //The following line might be needed to work around some item 
+            //handling issues, but I will leave it out for now.
+            //var tempID = Zotero.Items.getLibraryKeyHash(zitems[i]);
+            zitems[i].addTags(tagArray);
+        }
+    },
+    
+    getFromClipboard: function() {
+
+        var trans = Components.classes["@mozilla.org/widget/transferable;1"].
+              createInstance(Components.interfaces.nsITransferable);
+        if (!trans) return false;
+		trans.addDataFlavor("text/unicode");
+
+        var clip = Components.classes["@mozilla.org/widget/clipboard;1"].
+        	getService(Components.interfaces.nsIClipboard);
+        if (!clip) return false;
+        
+        clip.getData(trans,clip.kGlobalClipboard);
+        
+        var str = new Object();
+		var strLength = new Object();
+        
+        trans.getTransferData("text/unicode", str, strLength);
+        
+        if (str) {
+		  str = str.value.QueryInterface(Components.interfaces.nsISupportsString);
+		  pasteText = str.data.substring(0, strLength.value / 2);
+		} else {
+			pasteText='';
+		}
+        
+        return pasteText;
     },
     
     modifyAttachmentPaths: function() {
@@ -233,11 +278,15 @@ Zotero.Zutilo = {
         }
         
         menu = document.getElementById("zutilo-zotero-itemmenu");
-        itemTags = document.getElementById("zutilo-copy-tags");
-        itemCreators = document.getElementById("zutilo-copy-creators");
+        itemCopyTags = document.getElementById("zutilo-copy-tags");
+        itemPasteTags = document.getElementById("zutilo-paste-tags");
 		menu.disabled = !showMenuAndItems;
-		itemTags.disabled = !showMenuAndItems;
-		itemCreators.disabled = !showMenuAndItems;
+		itemCopyTags.disabled = !showMenuAndItems;
+		itemPasteTags.disabled = !showMenuAndItems;
+		
+		showMultiSelectionItems = showMenuAndItems && (zitems.length > 1);
+		itemRelate = document.getElementById("zutilo-relateitems");
+		itemRelate.disabled = !showMultiSelectionItems;
     },
     
     zutiloItemPopup: function(zot) {
@@ -250,8 +299,10 @@ Zotero.Zutilo = {
         	showItems = false;
         }
         
-        itemRelate = document.getElementById("zutilo-relateitems-zotero-itemmenu");
-		itemRelate.disabled = !showItems;
+        //The relateitems menu item was moved out of the popup.  I'm leaving this here
+        //as a placeholder in case a future item of the popup requires a similar callback.
+        //itemRelate = document.getElementById("zutilo-relateitems");
+		//itemRelate.disabled = !showItems;
     }
 };
 
