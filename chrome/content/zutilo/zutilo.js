@@ -2,6 +2,9 @@ Zotero.Zutilo = {
 	DB: null,
 	
 	init: function () {
+	
+		Zotero.Zutilo.Prefs.init();
+		
         this.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 				.getService(Components.interfaces.nsIWindowMediator);
 				
@@ -11,29 +14,160 @@ Zotero.Zutilo = {
 		
 		//Add item to Zotero menu of contentAreaContextMenu for 
 		//saving links as attachments.
+		/** Not ready for release
 		var menu = document.getElementById("zotero-content-area-context-menu");
 		var popup = menu.menupopup;
 		const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 		var item = document.createElementNS(XUL_NS, "menuitem"); // create a new XUL menuitem
 		item.setAttribute("label", this._bundle.GetStringFromName("zutilo.context.savelink"));
 		item.setAttribute("id", "contentAreaContextMenu-zotero-zutilo-attach");
-		item.setAttribute("oncommand", "alert('woo');");
+		item.setAttribute("oncommand", "Zotero.Zutilo.saveAsAttachment();");
 		popup.appendChild(item);
 		menu = document.getElementById("contentAreaContextMenu");
 		menu.addEventListener("popupshowing", Zotero.Zutilo.contextPopup, false);
+		**/
 		
-		//Add event listener to disable items in Zotero item menu popup when they can not be used
-		menu = document.getElementById("zotero-itemmenu");
+		//Event listener currently not used.  Menu is created by zoteroItemPopup() 
+		//and left alone until preferences are changed.
+		//Add event listener to add items to Zotero item menu popup
+		/** menu = document.getElementById("zotero-itemmenu");
 		menu.addEventListener("popupshowing", function() {
-			Zotero.Zutilo.zoteroItemPopup(Zotero);
-		}, false);
+			Zotero.Zutilo.zoteroItemPopup();
+		}, false); **/
 		
-		//Add event listener to disable items in Zutilo popup menu of Zotero item popup menu
-		menu = document.getElementById("zutilo-zotero-itemmenu");
-		menu.addEventListener("popupshowing", function() {
-			Zotero.Zutilo.zutiloItemPopup(Zotero);
-		}, false);
+		//All strings here should be the exact name of Zutilo functions that take no
+		//argument and that should be able to be called from the Zotero item menu
+		this._itemmenuFunctions = ["copyTags","pasteTags","relateItems","showAttachments",
+			"modifyAttachments","copyCreators"];
+		this._defaults = new Object();
+		this._defaults.itemmenuAppearance = 'Zutilo';
+		
+		//Set up prefs
+		this.prefSetup();
+		//Set up item menu submenu
+		this.zoteroItemPopup();
 	},
+	
+	prefSetup: function() {
+		//Get each itemmenu pref.  Any undefined pref will be set to the default value
+		for (var index=0;index<this._itemmenuFunctions.length;index++) {
+			Zotero.Zutilo.Prefs.get('itemmenu.'+this._itemmenuFunctions[index]);
+		}
+	},
+	
+	zoteroItemPopup: function() {
+    	
+    	var zoteroItemmenu = document.getElementById("zotero-itemmenu");
+    	
+    	var appSettings = new Array(this._itemmenuFunctions.length);
+    	for (var index=0;index<appSettings.length;index++) {
+    		appSettings[index] = this.Prefs.get('itemmenu.'+this._itemmenuFunctions[index]);
+    	}
+    	
+    	if ((appSettings.indexOf('Zotero') != -1) || 
+    		(appSettings.indexOf('Zutilo') != -1)) {
+			var zutiloSeparator = document.createElement("menuseparator");
+			zutiloSeparator.setAttribute('id','zutilo-itemmenu-separator');
+			zoteroItemmenu.appendChild(zutiloSeparator);
+		} else {
+			return;
+		}
+			
+    	if (appSettings.indexOf('Zotero') != -1) {
+			this._addPopupItems(zoteroItemmenu,appSettings,'Zotero');
+		}
+		
+		if (appSettings.indexOf('Zutilo') != -1) {
+			var zutiloSubmenu = document.createElement("menu");
+			zutiloSubmenu.setAttribute("id","zutilo-itemmenu-submenu");
+			zutiloSubmenu.setAttribute("label",
+				this._bundle.GetStringFromName("zutilo.itemmenu.zutilo"));
+			zoteroItemmenu.appendChild(zutiloSubmenu);
+			
+			var zutiloSubmenuPopup = document.createElement("menupopup");
+			zutiloSubmenuPopup.setAttribute("id","zutilo-itemmenu-submenupopup");
+			zutiloSubmenu.appendChild(zutiloSubmenuPopup);
+			
+			this._addPopupItems(zutiloSubmenuPopup,appSettings,'Zutilo');
+		}
+    },
+    
+    refreshZoteroItemPopup: function() {
+    	var zoteroItemmenu = document.getElementById("zotero-itemmenu");
+    	
+    	this._removeLabeledChildren(zoteroItemmenu,'zutilo-itemmenu-');
+    	
+    	this.zoteroItemPopup();
+    },
+    
+    _addPopupItems: function(menuPopup,appearanceSettings,targetSetting) {
+    	var menuFunc;
+    	for (var index=0;index<this._itemmenuFunctions.length;index++) {
+    		if (appearanceSettings[index] === targetSetting) {
+				menuFunc = this._zoteroMenuItem(this._itemmenuFunctions[index]);
+				menuPopup.appendChild(menuFunc);
+    		}
+    	}
+    },
+    
+    _zoteroMenuItem: function(functionName) {
+    	var menuFunc = document.createElement("menuitem");
+		menuFunc.setAttribute("id","zutilo-itemmenu-" + functionName);
+		menuFunc.setAttribute("label",
+			this._bundle.GetStringFromName("zutilo.itemmenu."+functionName));
+		menuFunc.setAttribute("oncommand","Zotero.Zutilo."+functionName+"();");
+		return menuFunc;
+    },
+    
+    //Remove labeled children and all of their descendants.
+    _removeLabeledChildren: function(parentElem,childLabel) {
+    	var elemChildren = parentElem.childNodes;
+
+    	for (var index=0;index<elemChildren.length;) {
+    		if (elemChildren[index].id.indexOf(childLabel) == 0) {
+    			this._removeAllDescendants(elemChildren[index]);
+    			parentElem.removeChild(elemChildren[index]);
+    		} else {
+    			index++;
+    		}
+    	}
+    },
+    
+    _removeAllDescendants: function(parentElem) {
+    	var childList = parentElem.childNodes;
+    	for (var index=0;index<childList.length;index++) {
+    		this._removeAllDescendants(childList[index]);
+    		parentElem.removeChild(childList[index]);
+    	}
+    },
+	
+	addToClipboard: function(clipboardText) {
+        
+        var str = Components.classes["@mozilla.org/supports-string;1"].
+            createInstance(Components.interfaces.nsISupportsString);
+        if (!str) {
+            return false;
+        }
+        str.data = clipboardText;
+
+        var trans = Components.classes["@mozilla.org/widget/transferable;1"].
+              createInstance(Components.interfaces.nsITransferable);
+        if (!trans) {
+            return false;
+        }
+
+        trans.addDataFlavor("text/unicode");
+        trans.setTransferData("text/unicode",str,clipboardText.length * 2);
+
+        var clipid = Components.interfaces.nsIClipboard;
+        var clip = Components.classes["@mozilla.org/widget/clipboard;1"].getService(clipid);
+        if (!clip) {
+            return false;
+        }
+        
+        clip.setData(trans,null,clipid.kGlobalClipboard);
+        return true;
+    },
 	
 	contextPopup: function () {
 	
@@ -45,10 +179,6 @@ Zotero.Zutilo = {
 		else {
 			menuitem.hidden = true;
 		}	
-		
-		//Permanently hiding this for the moment because the attach function has not been
-		//written yet
-		menuitem.hidden = true;
 	},
 	
 	editItemInfoGUI: function() {
@@ -159,29 +289,6 @@ Zotero.Zutilo = {
         return this.addToClipboard(clipboardText);
     },
     
-    addToClipboard: function(clipboardText) {
-        
-        var str = Components.classes["@mozilla.org/supports-string;1"].
-            createInstance(Components.interfaces.nsISupportsString);
-        if (!str) return false;
-        
-        str.data = clipboardText;
-
-        var trans = Components.classes["@mozilla.org/widget/transferable;1"].
-              createInstance(Components.interfaces.nsITransferable);
-        if (!trans) return false;
-
-        trans.addDataFlavor("text/unicode");
-        trans.setTransferData("text/unicode",str,clipboardText.length * 2);
-
-        var clipid = Components.interfaces.nsIClipboard;
-        var clip = Components.classes["@mozilla.org/widget/clipboard;1"].getService(clipid);
-        if (!clip) return false;
-        
-        clip.setData(trans,null,clip.kGlobalClipboard);
-        return true;
-    },
-    
     pasteTags: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
@@ -201,6 +308,8 @@ Zotero.Zutilo = {
             //var tempID = Zotero.Items.getLibraryKeyHash(zitems[i]);
             zitems[i].addTags(tagArray);
         }
+        
+        return true;
     },
     
     getFromClipboard: function() {
@@ -231,7 +340,7 @@ Zotero.Zutilo = {
         return pasteText;
     },
     
-    modifyAttachmentPaths: function() {
+    modifyAttachments: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
         var attachmentArray = this.getSelectedAttachments();
@@ -255,7 +364,22 @@ Zotero.Zutilo = {
 					attachmentPath.replace(oldPath,newPath);
 			}
         }
+        
+        return true;
     },
+    
+    openPreferences: function (paneID, action) {
+		var io = {
+			pane: paneID,
+			action: action
+		};
+		var featureStr='chrome,titlebar,toolbar=yes,centerscreen,';
+		var modalStr = Zotero.Prefs.get('browser.preferences.instantApply', true) 
+			? 'dialog=no' : 'modal';
+		featureStr=featureStr+modalStr;
+		window.openDialog('chrome://zutilo/content/preferences.xul',
+			'zutilo-prefs',featureStr,io);
+	},
     
     relateItems: function() {
     	var win = this.wm.getMostRecentWindow("navigator:browser");
@@ -272,9 +396,86 @@ Zotero.Zutilo = {
 		for (ii = 0; ii<zitems.length; ii++) {
 			zitems[ii]._setRelatedItems(ids);
 		}
+		
+		return true;
     },
     
-    showAttachmentPaths: function() {
+    saveAsAttachment: function() {
+    	//Check if save path exists
+    	//Download to save path
+    	//Add attachment to currently selected item(s)
+    	var win = this.wm.getMostRecentWindow("navigator:browser");
+    	var zitems = win.ZoteroPane.getSelectedItems();
+    	
+    	if (!zitems.length || zitems.length > 1)  {
+			win.alert("Please select one item.");
+			return false;
+		}
+    	
+    	var zitem = zitems[0];
+    	
+		var link = this.getContextMenuLinkURL();
+		link = Zotero.Utilities.resolveIntermediateURL(link);
+		var uriObject = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService).newURI(link, null, null);
+		var attachmentFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+		var originalFileName = this.getDefaultFileName(uriObject);
+		
+		var baseDir = Zotero.ZotFile.prefs.getCharPref("dest_dir");
+		var filename = Zotero.ZotFile.getFilename(zitem, originalFileName);
+		var location = Zotero.ZotFile.getLocation(zitem,baseDir,Zotero.ZotFile.prefs.getBoolPref("subfolder"),Zotero.ZotFile.prefs.getCharPref("subfolderFormat"));
+		
+		//Validate location and create necessary subdirectories.
+		destinationFile = Components.classes["@mozilla.org/file/local;1"]
+			.createInstance(Components.interfaces.nsILocalFile);
+		destinationFile.initWithPath(location);
+		attachmentFile.setRelativeDescriptor(destinationFile,filename);
+		
+		if (!destinationFile.exists()) {
+			destinationFile.create(Components.interfaces.nsIFile.DIRECTORY_TYPE,parseInt('0777',8));
+		}
+		
+		//Download to location
+		try {
+			var acObject = new AutoChosen(attachmentFile, uriObject);
+
+			internalSave(link, null, filename, null, null, false, null, acObject, null, false);
+		}
+		catch (e) {
+			saveURL(link, attachmentFile, null, false, false, null);
+		}
+		
+		//Create linked attachment in Zotero
+		Zotero.Attachments.linkFromFile(attachmentFile, zitem.itemID,zitem.libraryID);
+		
+		return true;
+    },
+    
+    getContextMenuLinkURL : function()
+    {
+        if (gContextMenu.linkURL.length)
+            return(gContextMenu.linkURL);
+        else
+            return(gContextMenu.linkURL());
+    },
+    
+    // compatibility issue
+    getDefaultFileName : function(uri)
+    {
+        var fileName;
+
+        try
+        {
+            fileName = getDefaultFileName(null, uri, null, null);
+        }
+        catch (e)
+        {
+            fileName = getDefaultFileName(null, null, uri, null);
+        }
+
+        return fileName;
+    },
+    
+    showAttachments: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
         var attachmentArray = this.getSelectedAttachments();
@@ -286,46 +487,9 @@ Zotero.Zutilo = {
         for (var index=0; index<attachmentArray.length; index++) {
         	win.alert(attachmentArray[index].attachmentPath);
         }
+        return true;
     },
-    
-    zoteroItemPopup: function(zot) {
-    	var showMenuAndItems = true;
-    	
-    	var win = zot.Zutilo.wm.getMostRecentWindow("navigator:browser");
-        var zitems = win.ZoteroPane.getSelectedItems();
-        
-        if (zitems.length == 0) {
-        	showMenuAndItems = false;
-        }
-        
-        menu = document.getElementById("zutilo-zotero-itemmenu");
-        itemCopyTags = document.getElementById("zutilo-copy-tags");
-        itemPasteTags = document.getElementById("zutilo-paste-tags");
-		menu.disabled = !showMenuAndItems;
-		itemCopyTags.disabled = !showMenuAndItems;
-		itemPasteTags.disabled = !showMenuAndItems;
-		
-		showMultiSelectionItems = showMenuAndItems && (zitems.length > 1);
-		itemRelate = document.getElementById("zutilo-relateitems");
-		itemRelate.disabled = !showMultiSelectionItems;
-    },
-    
-    zutiloItemPopup: function(zot) {
-    	var showItems = true;
-    	
-    	var win = zot.Zutilo.wm.getMostRecentWindow("navigator:browser");
-        var zitems = win.ZoteroPane.getSelectedItems();
-        
-        if (zitems.length < 2) {
-        	showItems = false;
-        }
-        
-        //The relateitems menu item was moved out of the popup.  I'm leaving this here
-        //as a placeholder in case a future item of the popup requires a similar callback.
-        //itemRelate = document.getElementById("zutilo-relateitems");
-		//itemRelate.disabled = !showItems;
-    },
-    
+	
     checkItemType: function(itemObj,itemType) {
     	switch (itemType) {
     		case "attachment":
@@ -336,8 +500,8 @@ Zotero.Zutilo = {
     			return itemObj.isRegularItem();
     			break;
     		default:
-    			return Zotero.ItemTypes.getName(itemObj.itemTypeID) == itemType;
     	}
+    	return Zotero.ItemTypes.getName(itemObj.itemTypeID) == itemType;
     },
     
     //Remove duplicate Zotero item objects from itemArray
@@ -436,7 +600,7 @@ Zotero.Zutilo = {
 				}
 				break;
     		case 'regular2':
-				if (itemArray.length<2) {
+				if ((!itemArray.length) || (itemArray.length<2)) {
 					win.alert(this._bundle.GetStringFromName("zutilo.checkItems.regular2"));
 					checkBool = false;
 				}
@@ -453,5 +617,150 @@ Zotero.Zutilo = {
     }
 };
 
+Zotero.Zutilo.Prefs = new function() {
+	// Privileged methods
+	this.init = init;
+	this.get = get;
+	this.set = set;
+	
+	this.register = register;
+	this.unregister = unregister;
+	this.observe = observe;
+	
+	// Public properties
+	//this.prefBranch; //Set in init()
+	
+	function init(){
+		var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+						.getService(Components.interfaces.nsIPrefService);
+		this.prefBranch = prefs.getBranch('extensions.zutilo.');
+		
+		// Register observer to handle pref changes
+		this.register();
+	}
+	
+	
+	/**
+	* Retrieve a preference
+	**/
+	
+	function get(pref, global){
+		var prefVal;
+		try {
+			if (global) {
+				var service = Components.classes["@mozilla.org/preferences-service;1"]
+					.getService(Components.interfaces.nsIPrefService);
+			}
+			else {
+				var service = this.prefBranch;
+			}
+			
+			switch (this.prefBranch.getPrefType(pref)){
+				case this.prefBranch.PREF_BOOL:
+					prefVal = this.prefBranch.getBoolPref(pref);
+				case this.prefBranch.PREF_STRING:
+					prefVal = this.prefBranch.getCharPref(pref);
+				case this.prefBranch.PREF_INT:
+					prefVal = this.prefBranch.getIntPref(pref);
+			}
+		}
+		catch (e){
+			//Do nothing because getting preferences always generates an error for some 
+			//reason
+		}
+		
+		if (!prefVal) {
+			var splitPref = pref.split('.');
+			if ((splitPref[0] == 'itemmenu') && 
+				(Zotero.Zutilo._itemmenuFunctions.indexOf(splitPref[1]) != -1)) {
+				Zotero.Zutilo.Prefs.set(pref,Zotero.Zutilo._defaults.itemmenuAppearance);
+			}
+		}
+		
+		return prefVal;
+	}
+	
+	
+	/**
+	* Set a preference
+	**/
+	
+	function set(pref, value) {
+		try {
+			switch (this.prefBranch.getPrefType(pref)){
+				case this.prefBranch.PREF_BOOL:
+					return this.prefBranch.setBoolPref(pref, value);
+				case this.prefBranch.PREF_STRING:
+					return this.prefBranch.setCharPref(pref, value);
+				case this.prefBranch.PREF_INT:
+					return this.prefBranch.setIntPref(pref, value);
+				
+				// If not an existing pref, create appropriate type automatically
+				case 0:
+					if (typeof value == 'boolean') {
+						return this.prefBranch.setBoolPref(pref, value);
+					}
+					if (typeof value == 'string') {
+						return this.prefBranch.setCharPref(pref, value);
+					}
+					if (parseInt(value) == value) {
+						return this.prefBranch.setIntPref(pref, value);
+					}
+					throw ("Invalid preference value '" + value + "' for pref '" + pref + "'");
+			}
+		}
+		catch (e){
+			throw ("Invalid preference '" + pref + "'");
+		}
+		return false;
+	}
+	
+	
+	this.clear = function (pref) {
+		try {
+			this.prefBranch.clearUserPref(pref);
+		}
+		catch (e) {
+			throw ("Invalid preference '" + pref + "'");
+		}
+	}
+	
+	//
+	// Methods to register a preferences observer
+	//
+	function register(){
+		this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch2);
+		this.prefBranch.addObserver("", this, false);
+	}
+	
+	function unregister(){
+		if (!this.prefBranch){
+			return;
+		}
+		this.prefBranch.removeObserver("", this);
+	}
+	
+	function observe(subject, topic, data){
+		if(topic!="nsPref:changed"){
+			return;
+		}
+		// subject is the nsIPrefBranch we're observing (after appropriate QI)
+		// data is the name of the pref that's been changed (relative to subject)
+		switch (data){
+			case "customAttachmentPath":
+				break;
+		}
+		
+		//Check for itemmenu preference change.  Refresh item menu if there is a change
+		if (data.indexOf('itemmenu') == 0 ) {
+			var prefParts = data.split('.');
+			if (Zotero.Zutilo._itemmenuFunctions.indexOf(prefParts[1]) != -1) {
+				Zotero.Zutilo.refreshZoteroItemPopup();
+			}
+		}
+	}
+}
+
 // Initialize the utility
 window.addEventListener('load', function(e) { Zotero.Zutilo.init(); }, false);
+window.addEventListener('unload', function(e) {Zotero.Zutilo.Prefs.unregister(); }, false);

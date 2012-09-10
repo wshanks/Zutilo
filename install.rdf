@@ -5,10 +5,11 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>zutilo@wesailatdawn.com</em:id>
 		<em:name>Zutilo Utility for Zotero</em:name>
-		<em:version>1.1.3</em:version>
+		<em:version>1.1.4</em:version>
 		<em:description>A utility adding assorted macros for Zotero</em:description>
 		<em:creator>W. S.<br/>Princeton University</em:creator>
 		<em:updateURL>https://www.wesailatdawn.com/download/zutilo.xpi</em:updateURL>
+		<em:optionsURL>chrome://zutilo/content/preferences.xul</em:optionsURL>
 		<em:type>2</em:type> <!-- type=extension -->
 		
 		<!-- Requires Zotero -->
@@ -26,7 +27,7 @@
 		<em:targetApplication>
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-				<em:minVersion>2.0</em:minVersion>
+				<em:minVersion>3.5</em:minVersion>
 				<em:maxVersion>*.0.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
