@@ -1,10 +1,13 @@
 <!ENTITY zutilo.name			"Zutilo">
 
-<!ENTITY zutilo.copyTags "Copy tags to clipboard">
-<!ENTITY zutilo.pasteTags "Paste tags from clipboard">
-<!ENTITY zutilo.relateItemsLabel "Relate selected items">
+<!ENTITY zutilo.zotero.actions.preferences	"Zutilo Preferences...">
 
-<!ENTITY zutilo.zotero.itemmenu "Zutilo">
-<!ENTITY zutilo.copyCreators "Copy creators to clipboard">
-<!ENTITY zutilo.modifyAttachmentPathsLabel "Modify attachment paths">
-<!ENTITY zutilo.showAttachmentPathsLabel "Show attachment paths">
+<!ENTITY zutilo.preferences.title	"Zutilo Preferences">
+<!ENTITY zutilo.preferences.generalSettings "General Settings">
+<!ENTITY zutilo.preferences.attachmentDirectory "Attachment directory">
+<!ENTITY zutilo.preferences.useBasePath "Use Zotero base path">
+<!ENTITY zutilo.preferences.custom "Custom">
+<!ENTITY zutilo.preferences.choose "Choose...">
+
+<!ENTITY zutilo.preferences.userInterface "User Interface">
+
