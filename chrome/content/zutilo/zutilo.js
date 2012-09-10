@@ -50,7 +50,59 @@ Zotero.Zutilo = {
 		//written yet
 		menuitem.hidden = true;
 	},
-    
+	
+	editItemInfoGUI: function() {
+		var win = this.wm.getMostRecentWindow("navigator:browser");
+		var zitems = win.ZoteroPane.getSelectedItems();
+		
+		if (zitems.length == 1) {
+			var tabIndex = 0;
+			
+			document.getElementById("zotero-view-tabbox").selectedIndex = tabIndex;
+			
+			itemBoxObj=document.getElementById("zotero-editpane-item-box").focusFirstField('info');
+		}
+	},
+	
+	addNoteGUI: function() {
+		var win = this.wm.getMostRecentWindow("navigator:browser");
+		var zitems = win.ZoteroPane.getSelectedItems();
+		
+		if (zitems.length == 1) {
+			var tabIndex = 1;
+			
+			document.getElementById("zotero-view-tabbox").selectedIndex = tabIndex;
+			
+			ZoteroItemPane.addNote(false);
+		}
+	},
+	
+	addTagGUI: function() {
+		var win = this.wm.getMostRecentWindow("navigator:browser");
+		var zitems = win.ZoteroPane.getSelectedItems();
+		
+		if (zitems.length == 1) {
+			var tabIndex = 2;
+			
+			document.getElementById("zotero-view-tabbox").selectedIndex = tabIndex;
+			
+			document.getElementById("zotero-editpane-tags").new();
+		}
+	},
+	
+	addRelatedGUI: function() {
+		var win = this.wm.getMostRecentWindow("navigator:browser");
+		var zitems = win.ZoteroPane.getSelectedItems();
+		
+		if (zitems.length == 1) {
+			var tabIndex = 3;
+			
+			document.getElementById("zotero-view-tabbox").selectedIndex = tabIndex;
+			
+			document.getElementById("zotero-editpane-related").add();
+		}
+	},
+	
     copyCreators: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");

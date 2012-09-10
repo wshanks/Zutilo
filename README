@@ -22,6 +22,18 @@ Change the beginning of the path to all eligible attachments of selected items. 
 * Relate items:
 Set all selected items to be related to each other.
 
+* Functions for editing items with the keyboard:
+Zutilo currently implements several functions that are useful for working with the keyboard.  These functions can not be called from any popup menu.  They were created to be called by another plugin such as Keyconfig, which can assign a keyboard shortcut to any function.  To use them, assign a keyboard shortcut to Zotero.Zutilo.functionName() where "functionName" is replaced by one of the function names below.  The following functions work when only a single Zotero item is selected:
+
+-- editItemInfoGUI:
+	Select the "Info" tab in the item pane.  Set the focus first editable field of the item's info.
+-- addNoteGUI:
+	Select the "Notes" tab of the item pane.  Create a new note.
+-- addTagGUI:
+	Select the "Tags" tab of the item pane.  Open a textbox for creating a new tag.
+-- addRelatedGUI:
+	Select the "Related" tab of the item pane.  Open the dialog for adding related items.
+
 How to install:
 
 If you have the zutilo.xpi file, go to Tools->Add-ons in Firefox and then click on the gear button and choose "Install Add-on From File." Then select the .xpi file.  (If you haven't downloaded anything yet, just download the .xpi file).
