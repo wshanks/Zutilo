@@ -7,6 +7,9 @@ Current feature list:
 * Copy tags:
 Right click items in the Zotero library and copy their tags to the clipboard as a '\r\n' delimited list.
 
+* Paste tags:
+Right click items in the Zotero library and paste the contents of the clipboard to them.  The contents of the clipboard must be a '\r\n' or '\n' delimited list (such as the list created by the copy tags function described above).
+
 * Copy creators:
 Right click items in the Zotero library and copy their creators to the clipboard as a '\r\n' delimited list.
 
@@ -27,4 +30,4 @@ If you have the unzipped set of files (install.rdf, the chrome folder, etc.), yo
 
 Credits:
 
-I started out by modifying the Zotero HelloWorld plugin.  I borrowed code from the Autocopy Firefox addon to make the functions that copy content to the clipboard.  I think everything else I got by looking through the Zotero source code.
+I started out by modifying the Zotero HelloWorld plugin.  I think everything else I got by looking through copying the Zotero source code or the examples in the Mozilla Developer Network documentation.
