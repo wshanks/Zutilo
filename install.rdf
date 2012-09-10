@@ -5,7 +5,7 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>zutilo@wesailatdawn.com</em:id>
 		<em:name>Zutilo Utility for Zotero</em:name>
-		<em:version>1.1.1</em:version>
+		<em:version>1.1.2</em:version>
 		<em:description>A utility adding assorted macros for Zotero</em:description>
 		<em:creator>W. S.<br/>Princeton University</em:creator>
 		<em:updateURL>https://www.wesailatdawn.com/download/zutilo.xpi</em:updateURL>
