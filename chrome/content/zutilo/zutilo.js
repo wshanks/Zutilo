@@ -7,7 +7,7 @@ Zotero.Zutilo = {
 				
 		var gmyextensionBundle = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService);  
   
-		var _bundle = gmyextensionBundle.createBundle("chrome://zutilo/locale/zutilo.properties");
+		this._bundle = gmyextensionBundle.createBundle("chrome://zutilo/locale/zutilo.properties");
 		
 		//Add item to Zotero menu of contentAreaContextMenu for 
 		//saving links as attachments.
@@ -15,7 +15,7 @@ Zotero.Zutilo = {
 		var popup = menu.menupopup;
 		const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 		var item = document.createElementNS(XUL_NS, "menuitem"); // create a new XUL menuitem
-		item.setAttribute("label", _bundle.GetStringFromName("zutilo.context.savelink"));
+		item.setAttribute("label", this._bundle.GetStringFromName("zutilo.context.savelink"));
 		item.setAttribute("id", "contentAreaContextMenu-zotero-zutilo-attach");
 		item.setAttribute("oncommand", "alert('woo');");
 		popup.appendChild(item);
@@ -106,10 +106,9 @@ Zotero.Zutilo = {
     copyCreators: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
-        var zitems = win.ZoteroPane.getSelectedItems();
+        var zitems = this.getSelectedItems('regular');
         
-        if (!zitems.length) {
-			win.alert("Please select at least one item.");
+        if (!this.checkItemNumber(zitems,'regular1')) {
 			return false;
 		}
         
@@ -135,10 +134,9 @@ Zotero.Zutilo = {
     copyTags: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
-        var zitems = win.ZoteroPane.getSelectedItems();
+        var zitems = this.getSelectedItems('regular');
         
-        if (!zitems.length) {
-			win.alert("Please select at least one item.");
+        if (!this.checkItemNumber(zitems,'regular1')) {
 			return false;
 		}
         
@@ -187,10 +185,9 @@ Zotero.Zutilo = {
     pasteTags: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
-        var zitems = win.ZoteroPane.getSelectedItems();
+        var zitems = this.getSelectedItems('regular');
         
-        if (!zitems.length) {
-			win.alert("Please select at least one item.");
+        if (!this.checkItemNumber(zitems,'regular1')) {
 			return false;
 		}
         
@@ -237,44 +234,34 @@ Zotero.Zutilo = {
     modifyAttachmentPaths: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
-        var zitems = win.ZoteroPane.getSelectedItems();
+        var attachmentArray = this.getSelectedAttachments();
         
-        if (!zitems.length) {
-			win.alert("Please select at least one item.");
+        if (!this.checkItemNumber(attachmentArray,'attachment1')) {
 			return false;
 		}
         
-        var oldPath = prompt("Old partial path to attachments' directory to be replaced: ", "");
-        var newPath = prompt("New partial path to be used for attachments with paths matching the old partial path: ", "");
+        var oldPath = prompt(this._bundle.GetStringFromName("zutilo.attachments.oldPath"), "");
+        var newPath = prompt(this._bundle.GetStringFromName("zutilo.attachments.newPath"), "");
         
         if ((oldPath == null) || (newPath == null)) {
         	return false;
         }
         
-        var zitem;
-        var attachArray = [];
-        var zattachment;
-        var attachPath;
-        while (zitems.length > 0) {
-        	zitem = zitems.shift();
-        	
-        	attachArray = zitem.getAttachments(false);
-        	while (attachArray.length > 0) {
-        		zattachment = Zotero.Items.get(attachArray.shift());
-        		attachPath = zattachment.attachmentPath;
-        		if (attachPath.search(oldPath) == 0) {
-        			zattachment.attachmentPath = attachPath.replace(oldPath,newPath);
-        		}
-        	}
+        var attachmentPath;
+        for (var index=0; index<attachmentArray.length; index++) {
+			attachmentPath = attachmentArray[index].attachmentPath;
+			if (attachmentPath.search(oldPath) == 0) {
+				attachmentArray[index].attachmentPath = 
+					attachmentPath.replace(oldPath,newPath);
+			}
         }
     },
     
     relateItems: function() {
     	var win = this.wm.getMostRecentWindow("navigator:browser");
-        var zitems = win.ZoteroPane.getSelectedItems();
+        var zitems = this.getSelectedItems('regular');
         
-        if (!zitems.length) {
-			win.alert("Please select at least one item.");
+        if (!this.checkItemNumber(zitems,'regular2')) {
 			return false;
 		}
 		
@@ -290,25 +277,14 @@ Zotero.Zutilo = {
     showAttachmentPaths: function() {
         
         var win = this.wm.getMostRecentWindow("navigator:browser");
-        var zitems = win.ZoteroPane.getSelectedItems();
+        var attachmentArray = this.getSelectedAttachments();
         
-        if (!zitems.length) {
-			win.alert("Please select at least one item.");
+        if (!this.checkItemNumber(attachmentArray,'attachment1')) {
 			return false;
 		}
-               
-        var zitem;
-        var attachArray = [];
-        var zattachment;
-        var attachPath;
-        while (zitems.length > 0) {
-        	zitem = zitems.shift();
-        	
-        	attachArray = zitem.getAttachments(false);
-        	while (attachArray.length > 0) {
-        		zattachment = Zotero.Items.get(attachArray.shift());
-        		alert(zattachment.attachmentPath);
-        	}
+        
+        for (var index=0; index<attachmentArray.length; index++) {
+        	win.alert(attachmentArray[index].attachmentPath);
         }
     },
     
@@ -320,13 +296,6 @@ Zotero.Zutilo = {
         
         if (zitems.length == 0) {
         	showMenuAndItems = false;
-        } else {
-        	for each(var zitem in zitems) {
-        		var itemType = zot.ItemTypes.getName(zitem.itemTypeID);
-        		if (itemType == "attachment" || itemType == "note") {
-        			showMenuAndItems = false;
-        		}
-        	}
         }
         
         menu = document.getElementById("zutilo-zotero-itemmenu");
@@ -355,6 +324,132 @@ Zotero.Zutilo = {
         //as a placeholder in case a future item of the popup requires a similar callback.
         //itemRelate = document.getElementById("zutilo-relateitems");
 		//itemRelate.disabled = !showItems;
+    },
+    
+    checkItemType: function(itemObj,itemType) {
+    	switch (itemType) {
+    		case "attachment":
+    			return itemObj.isAttachment();
+    		case "note":
+    			return itemObj.isNote();
+    		case "regular":
+    			return itemObj.isRegularItem();
+    			break;
+    		default:
+    			return Zotero.ItemTypes.getName(itemObj.itemTypeID) == itemType;
+    	}
+    },
+    
+    //Remove duplicate Zotero item objects from itemArray
+    removeDuplicateItems: function(itemArray) {
+    	//Get array of itemID's
+    	var itemIDArray=[];
+    	for (var index=0;index<itemArray.length;index++) {
+    		itemIDArray[index]=itemArray[index].itemID;
+    	}
+    	
+    	//Create array of unique itemID's
+    	var tempObject={}, uniqueIDs=[];
+    	for (index=0;index<itemIDArray.length;index++) {
+    		tempObject[itemIDArray[index]]=itemIDArray[index];
+    	}
+    	for (index in tempObject) uniqueIDs.push(tempObject[index]);
+    	
+    	return Zotero.Items.get(uniqueIDs);
+    },
+    
+    //Separate itemArray into an array of items with type itemType and an array with those 
+    //with different item types
+    siftItems: function(itemArray, itemType) {
+    	var matchedItems=[], unmatchedItems=[];
+    	var numItems=itemArray.length;
+    	while (itemArray.length>0) {
+    		if (this.checkItemType(itemArray[0],itemType)) {
+    			matchedItems.push(itemArray.shift());
+    		} else {
+    			unmatchedItems.push(itemArray.shift());
+    		}
+    	}
+    	
+    	return {
+    		'matched': matchedItems,
+    		'unmatched': unmatchedItems
+    	};
+    },
+    
+    //Get all selected attachment items and all of the child attachments of all selected 
+    //regular items.  
+    //To get just the selected attachment items, 
+    //use Zotero.Zutilo.siftItems(inputArray,'attachment') instead.
+    getSelectedAttachments: function() {
+    	
+    	var zitems = this.getSelectedItems();
+    	if (!zitems) {
+    		return [];
+		}
+    	
+    	//Add child attachments of all selected regular items to attachmentItems
+    	var zitem, attachmentItems=[];
+        while (zitems.length > 0) {
+        	zitem = zitems.shift();
+        	
+        	if (zitem.isRegularItem()) {
+        		attachmentItems = 
+        			attachmentItems.concat(Zotero.Items.get(zitem.getAttachments(false)));
+        	} else if (zitem.isAttachment()) {
+        		attachmentItems.push(zitem);
+        	}
+        }
+        
+        //Return attachments after removing duplicate items (when parent and child are 
+        //selected)
+        return this.removeDuplicateItems(attachmentItems);
+    },
+    
+    //Return array with the selected item objects.  If itemTypeID is passed, return
+    //only items of that type
+    getSelectedItems: function(itemType) {
+		var win = this.wm.getMostRecentWindow("navigator:browser");
+        var zitems = win.ZoteroPane.getSelectedItems();
+        
+        if (!zitems.length) {
+			return false;
+		}
+		
+		if (itemType) {
+			var siftedItems=this.siftItems(zitems,itemType);
+			return siftedItems.matched;
+		} else {
+			return zitems;
+		}
+    },
+    
+    checkItemNumber: function(itemArray, checkType) {
+		var win = this.wm.getMostRecentWindow("navigator:browser");
+    	var checkBool=true;
+    	
+    	switch (checkType) {
+    		case 'regular1':
+				if (!itemArray.length) {
+					win.alert(this._bundle.GetStringFromName("zutilo.checkItems.regular1"));
+					checkBool = false;
+				}
+				break;
+    		case 'regular2':
+				if (itemArray.length<2) {
+					win.alert(this._bundle.GetStringFromName("zutilo.checkItems.regular2"));
+					checkBool = false;
+				}
+				break;
+    		case 'attachment1':
+				if (!itemArray.length) {
+					win.alert(this._bundle.GetStringFromName("zutilo.checkItems.attachment1"));
+					checkBool = false;
+				}
+				break;
+    	}
+    	
+    	return checkBool;
     }
 };
 
