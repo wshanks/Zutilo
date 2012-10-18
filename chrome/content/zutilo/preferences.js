@@ -1,3 +1,8 @@
+/** Copyright 2012 Will Shanks.
+Zutilo is licensed under a Creative Commons Attribution-Share Alike 
+([CC-BY-SA](http://creativecommons.org/licenses/by-sa/3.0/deed.en_US)) license.
+**/
+
 function chooseAttachmentDirectory() {
 	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 			.getService(Components.interfaces.nsIWindowMediator);
