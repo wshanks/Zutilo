@@ -36,7 +36,7 @@ Zotero.Zutilo = {
 		//Event listener currently not used.  Menu is created by zoteroItemPopup() 
 		//and left alone until preferences are changed.
 		//Add event listener to add items to Zotero item menu popup
-		/** menu = document.getElementById("zotero-itemmenu");
+		/** var menu = document.getElementById("zotero-itemmenu");
 		menu.addEventListener("popupshowing", function() {
 			Zotero.Zutilo.zoteroItemPopup();
 		}, false); **/
@@ -122,8 +122,7 @@ Zotero.Zutilo = {
 		menuFunc.setAttribute("label",
 			this._bundle.GetStringFromName("zutilo.itemmenu."+functionName));
 		//menuFunc.setAttribute("oncommand","Zotero.Zutilo."+functionName+"();");
-		//menuFunc.addEventListener("command", function() {Zotero.Zutilo[functionName]},false);
-		menuFunc.oncommand = Zotero.Zutilo[functionName];
+		menuFunc.addEventListener('command', function() {Zotero.Zutilo[functionName]();},false);
 		return menuFunc;
     },
     
@@ -277,9 +276,8 @@ Zotero.Zutilo = {
         
         return this.addToClipboard(clipboardText);
     },
-/**    
+	  
     copyTags: function() {
-        alert('test');
         var win = this.wm.getMostRecentWindow("navigator:browser");
         var zitems = this.getSelectedItems('regular');
         
@@ -304,9 +302,6 @@ Zotero.Zutilo = {
         var clipboardText = tagsArray.join('\r\n');
         
         return this.addToClipboard(clipboardText);
-    },**/
-    copyTags: function() {
-    	alert('test112');
     },
     
     pasteTags: function() {
