@@ -1,7 +1,7 @@
-/** Copyright 2012 Will Shanks.
-Zutilo is licensed under a Creative Commons Attribution-Share Alike 
-([CC-BY-SA](http://creativecommons.org/licenses/by-sa/3.0/deed.en_US)) license.
-**/
+/* Copyright 2012 Will Shanks.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 
 Zotero.Zutilo = {
@@ -122,6 +122,7 @@ Zotero.Zutilo = {
 		menuFunc.setAttribute("label",
 			this._bundle.GetStringFromName("zutilo.itemmenu."+functionName));
 		menuFunc.setAttribute("oncommand","Zotero.Zutilo."+functionName+"();");
+		//menuFunc.addEventListener("oncommand",Zotero.Zutilo[functionName],false);
 		return menuFunc;
     },
     
@@ -161,6 +162,15 @@ Zotero.Zutilo = {
         if (!trans) {
             return false;
         }
+        
+        var sourceWindow = document.defaultView;
+        var privacyContext = 
+        	sourceWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor).
+			getInterface(Components.interfaces.nsIWebNavigation).
+			QueryInterface(Components.interfaces.nsILoadContext);
+		if ('init' in trans) {
+			trans.init(privacyContext);
+		}
 
         trans.addDataFlavor("text/unicode");
         trans.setTransferData("text/unicode",str,clipboardText.length * 2);
@@ -323,6 +333,9 @@ Zotero.Zutilo = {
         var trans = Components.classes["@mozilla.org/widget/transferable;1"].
               createInstance(Components.interfaces.nsITransferable);
         if (!trans) return false;
+        if ('init' in trans) {
+			trans.init(null);
+		}
 		trans.addDataFlavor("text/unicode");
 
         var clip = Components.classes["@mozilla.org/widget/clipboard;1"].
@@ -379,12 +392,16 @@ Zotero.Zutilo = {
 			pane: paneID,
 			action: action
 		};
-		var featureStr='chrome,titlebar,toolbar=yes,centerscreen,';
+		/* Not sure this instantApply check is important.  Mozilla warns against
+		using browser.preferences.instantApply, so just leaving dialog=yes on for now.
+		var featureStr='chrome,titlebar,toolbar=yes,resizable,centerscreen,';
 		var modalStr = Zotero.Prefs.get('browser.preferences.instantApply', true) 
-			? 'dialog=no' : 'modal';
-		featureStr=featureStr+modalStr;
+			? 'dialog=yes' : 'modal';
+		featureStr=featureStr+modalStr;*/
 		window.openDialog('chrome://zutilo/content/preferences.xul',
-			'zutilo-prefs',featureStr,io);
+			'zutilo-prefs',
+			'chrome,titlebar,toolbar=yes,resizable,centerscreen,dialog=yes'
+			,io);
 	},
     
     relateItems: function() {
@@ -423,7 +440,7 @@ Zotero.Zutilo = {
 		var link = this.getContextMenuLinkURL();
 		link = Zotero.Utilities.resolveIntermediateURL(link);
 		var uriObject = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService).newURI(link, null, null);
-		var attachmentFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+		var attachmentFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsIFile);
 		var originalFileName = this.getDefaultFileName(uriObject);
 		
 		var baseDir = Zotero.ZotFile.prefs.getCharPref("dest_dir");
@@ -432,7 +449,7 @@ Zotero.Zutilo = {
 		
 		//Validate location and create necessary subdirectories.
 		destinationFile = Components.classes["@mozilla.org/file/local;1"]
-			.createInstance(Components.interfaces.nsILocalFile);
+			.createInstance(Components.interfaces.nsIFile);
 		destinationFile.initWithPath(location);
 		attachmentFile.setRelativeDescriptor(destinationFile,filename);
 		
@@ -735,7 +752,7 @@ Zotero.Zutilo.Prefs = new function() {
 	// Methods to register a preferences observer
 	//
 	function register(){
-		this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch2);
+		this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch);
 		this.prefBranch.addObserver("", this, false);
 	}
 	
