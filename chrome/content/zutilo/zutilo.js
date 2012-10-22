@@ -121,8 +121,9 @@ Zotero.Zutilo = {
 		menuFunc.setAttribute("id","zutilo-itemmenu-" + functionName);
 		menuFunc.setAttribute("label",
 			this._bundle.GetStringFromName("zutilo.itemmenu."+functionName));
-		menuFunc.setAttribute("oncommand","Zotero.Zutilo."+functionName+"();");
-		//menuFunc.addEventListener("oncommand",Zotero.Zutilo[functionName],false);
+		//menuFunc.setAttribute("oncommand","Zotero.Zutilo."+functionName+"();");
+		//menuFunc.addEventListener("command", function() {Zotero.Zutilo[functionName]},false);
+		menuFunc.oncommand = Zotero.Zutilo[functionName];
 		return menuFunc;
     },
     
@@ -276,9 +277,9 @@ Zotero.Zutilo = {
         
         return this.addToClipboard(clipboardText);
     },
-    
+/**    
     copyTags: function() {
-        
+        alert('test');
         var win = this.wm.getMostRecentWindow("navigator:browser");
         var zitems = this.getSelectedItems('regular');
         
@@ -303,6 +304,9 @@ Zotero.Zutilo = {
         var clipboardText = tagsArray.join('\r\n');
         
         return this.addToClipboard(clipboardText);
+    },**/
+    copyTags: function() {
+    	alert('test112');
     },
     
     pasteTags: function() {
@@ -392,12 +396,12 @@ Zotero.Zutilo = {
 			pane: paneID,
 			action: action
 		};
-		/* Not sure this instantApply check is important.  Mozilla warns against
-		using browser.preferences.instantApply, so just leaving dialog=yes on for now.
-		var featureStr='chrome,titlebar,toolbar=yes,resizable,centerscreen,';
-		var modalStr = Zotero.Prefs.get('browser.preferences.instantApply', true) 
-			? 'dialog=yes' : 'modal';
-		featureStr=featureStr+modalStr;*/
+		// Not sure this instantApply check is important.  Mozilla warns against
+		//using browser.preferences.instantApply, so just leaving dialog=yes on for now.
+		//var featureStr='chrome,titlebar,toolbar=yes,resizable,centerscreen,';
+		//var modalStr = Zotero.Prefs.get('browser.preferences.instantApply', true) 
+		//	? 'dialog=yes' : 'modal';
+		//featureStr=featureStr+modalStr;
 		window.openDialog('chrome://zutilo/content/preferences.xul',
 			'zutilo-prefs',
 			'chrome,titlebar,toolbar=yes,resizable,centerscreen,dialog=yes'
