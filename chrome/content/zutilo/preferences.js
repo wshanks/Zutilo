@@ -1,7 +1,7 @@
-/** Copyright 2012 Will Shanks.
-Zutilo is licensed under a Creative Commons Attribution-Share Alike 
-([CC-BY-SA](http://creativecommons.org/licenses/by-sa/3.0/deed.en_US)) license.
-**/
+/* Copyright 2012 Will Shanks.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 function chooseAttachmentDirectory() {
 	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]

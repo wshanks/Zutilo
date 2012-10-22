@@ -52,9 +52,16 @@ For reference, here are a few other functions in Zotero that I have found it use
 How to install
 --------------
 
+The easiest way to install is via [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page"). Just navigate there in Firefox and click on the install button.
+
 If you have the zutilo.xpi file, go to Tools->Add-ons in Firefox and then click on the gear button and choose "Install Add-on From File." Then select the .xpi file.  (If you haven't downloaded anything yet, just download the .xpi file).
 
-If you have the unzipped set of files (install.rdf, the chrome folder, etc.), you can zip them all, change the .zip extension to a .xpi extension and follow the directions above, or create a text file named zutilo@wesailatdawn.com, put the directory path to Zutilo's chrome folder as its only line of text, and save the file in the extensions folder of your Firefox profile folder.
+If you have the unzipped set of files (install.rdf, the chrome folder, etc.), you can zip them all, change the .zip extension to a .xpi extension and follow the directions above, or create a text file named zutilo@www.wesailatdawn.com, put the directory path to Zutilo's chrome folder as its only line of text, and save the file in the extensions folder of your Firefox profile folder.
+
+Feature Requests and Bug Submissions
+------------------------------------
+
+The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page"). Issues and patches can be submitted there.
 
 Credits
 -------

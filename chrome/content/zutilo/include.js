@@ -1,6 +1,10 @@
+var Zotero = Components.classes["@zotero.org/Zotero;1"]
+                       .getService(Components.interfaces.nsISupports)
+                       .wrappedJSObject;
+
 // Only create main object once
 if (!Zotero.Zutilo) {
-	const loader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
+	const zutiloLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
 					.getService(Components.interfaces.mozIJSSubScriptLoader);
-	loader.loadSubScript("chrome://zutilo/content/zutilo.js");
+	zutiloLoader.loadSubScript("chrome://zutilo/content/zutilo.js");
 }
