@@ -121,7 +121,6 @@ Zotero.Zutilo = {
 		menuFunc.setAttribute("id","zutilo-itemmenu-" + functionName);
 		menuFunc.setAttribute("label",
 			this._bundle.GetStringFromName("zutilo.itemmenu."+functionName));
-		//menuFunc.setAttribute("oncommand","Zotero.Zutilo."+functionName+"();");
 		menuFunc.addEventListener('command', function() {Zotero.Zutilo[functionName]();},false);
 		return menuFunc;
     },
@@ -276,7 +275,7 @@ Zotero.Zutilo = {
         
         return this.addToClipboard(clipboardText);
     },
-	  
+	
     copyTags: function() {
         var win = this.wm.getMostRecentWindow("navigator:browser");
         var zitems = this.getSelectedItems('regular');

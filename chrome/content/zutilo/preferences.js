@@ -82,3 +82,7 @@ function addItemmenuRadiogroup(itemmenuFunction) {
 	var itemmenuRows = document.getElementById("zutilo-prefpane-ui-rows");
 	itemmenuRows.appendChild(newRow);
 }
+
+showReadme = function() {
+	window.openDialog('chrome://zutilo/content/readme.xul', 'zutilo-readme-window', 'chrome');
+}
