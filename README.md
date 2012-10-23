@@ -48,11 +48,15 @@ For reference, here are a few other functions in Zotero that I have found it use
 	Save the current page as a webpage item in Zotero.
 * __Zotero_Browser.scrapeThisPage():__
 	Adds an item to the Zotero library from the current webpage (equivalent to clicking on the little page/book icon in the Firefox address bar).
+	
+### Limitations ###
+
+All of Zutilo should work with Zotero as a browser pane in Firefox and with Zotero Standalone.  Zutilo currently provides only limited functionality with Zotero as a separate tab in Firefox (the item menu popup items do not appear).  I apologize for this inconvenience and would welcome any help in tracking down the cause of this issue.
 
 How to install
 --------------
 
-The easiest way to install is via [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page"). (WARNING: I just discovered that one of the tweaks I did to address an issue raised by the Mozilla Add-ons page when I uploaded Zutilo to it caused its functions to stop working.  The version of the code on the github page does work though.  Please follow the instructions below (you can get a working .xpi file from [the last commit to contain it](https://github.com/willsALMANJ/Zutilo/blob/883f63b338eae6068ab65d081e9fbfc0fd8dae0d/zutilo.xpi)).  I will try to get a working version of the .xpi up on the Add-ons page soon (it takes a few days to get it approved)).  Just navigate there in Firefox and click on the install button.
+The easiest way to install is via [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page").  Just navigate there in Firefox and click on the install button.
 
 If you have the zutilo.xpi file, go to Tools->Add-ons in Firefox and then click on the gear button and choose "Install Add-on From File." Then select the .xpi file.  (If you haven't downloaded anything yet, just download the .xpi file).
 

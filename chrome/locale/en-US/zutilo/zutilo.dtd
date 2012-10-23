@@ -9,5 +9,8 @@
 <!ENTITY zutilo.preferences.custom "Custom">
 <!ENTITY zutilo.preferences.choose "Choose...">
 
-<!ENTITY zutilo.preferences.userInterface "User Interface">
+<!ENTITY zutilo.preferences.readme.caption "About Zutilo">
+<!ENTITY zutilo.preferences.readme.button "Show readme document">
+<!ENTITY zutilo.readme.title "About Zutilo...">
 
+<!ENTITY zutilo.preferences.userInterface "User Interface">

@@ -25,7 +25,15 @@
 					</hbox>
 				</radiogroup>
 				
-			</groupbox>		                      
+			</groupbox>
+			
+			<groupbox>
+				<caption label="&zutilo.preferences.readme.caption;"/>
+				
+				<hbox align="center">
+					<button id="zutilo-readme-launch" label="&zutilo.preferences.readme.button;" oncommand="showReadme();"/>
+				</hbox>
+			</groupbox>             
 		</prefpane>
 		
 		<prefpane label="&zutilo.preferences.userInterface;" id="zutilo-prefpane-ui" onpaneload="buildItemmenuPrefs()" flex="1">
