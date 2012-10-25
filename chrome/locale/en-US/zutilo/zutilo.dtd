@@ -12,5 +12,7 @@
 <!ENTITY zutilo.preferences.readme.caption "About Zutilo">
 <!ENTITY zutilo.preferences.readme.button "Show readme document">
 <!ENTITY zutilo.readme.title "About Zutilo...">
+<!ENTITY zutilo.about.openaddon "Open Add-on page">
+<!ENTITY zutilo.about.opengithub "Open GitHub page">
 
 <!ENTITY zutilo.preferences.userInterface "User Interface">

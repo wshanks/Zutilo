@@ -83,6 +83,20 @@ function addItemmenuRadiogroup(itemmenuFunction) {
 	itemmenuRows.appendChild(newRow);
 }
 
-showReadme = function() {
+function showReadme() {
 	window.openDialog('chrome://zutilo/content/readme.xul', 'zutilo-readme-window', 'chrome');
+}
+
+function openLink(url) {
+	// first construct an nsIURI object using the ioservice
+	var ioservice = Components.classes["@mozilla.org/network/io-service;1"]
+		.getService(Components.interfaces.nsIIOService);
+	
+	var uriToOpen = ioservice.newURI(url, null, null);
+	
+	var extps = Components.classes["@mozilla.org/uriloader/external-protocol-service;1"]
+		.getService(Components.interfaces.nsIExternalProtocolService);
+	
+	// now, open it!
+	extps.loadURI(uriToOpen, null);
 }

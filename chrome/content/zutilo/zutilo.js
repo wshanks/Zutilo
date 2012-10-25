@@ -10,6 +10,7 @@ Zotero.Zutilo = {
 	init: function () {
 	
 		Zotero.Zutilo.Prefs.init();
+		Zotero.Zutilo.ZoteroPrefs.init();
 		
         this.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 				.getService(Components.interfaces.nsIWindowMediator);
@@ -51,7 +52,7 @@ Zotero.Zutilo = {
 		//Set up prefs
 		this.prefSetup();
 		//Set up item menu submenu
-		this.zoteroItemPopup();
+		this.zoteroItemPopupSetup();
 	},
 	
 	prefSetup: function() {
@@ -61,9 +62,44 @@ Zotero.Zutilo = {
 		}
 	},
 	
+	zoteroDocument: function () {
+		var zDoc = document;
+		
+		if (Zotero.Prefs.get('showIn')!=1) {
+			var numTabs = gBrowser.browsers.length;
+			for(var index = 0; index < numTabs; index++) {
+				var currentBrowser = gBrowser.getBrowserAtIndex(index);
+				if(ZOTERO_TAB_URL == currentBrowser.currentURI.spec) {
+					zDoc = currentBrowser.contentDocument;
+					break;
+				}
+			}
+		}
+		
+		return zDoc;
+	},
+	
+	zoteroItemPopupSetup: function() {
+		// For tab mode, Zotero creates the tab and overlay after Zutilo is loaded, so
+		// the Zotero item menu can't be overlaid yet.  Create a listener to overlay on
+		// its first appearance.
+		if (Zotero.Prefs.get('showIn')!=1) {
+			gBrowser.addEventListener("load", function zutiloFirstTabPopup(event) {
+				var tabDoc = event.originalTarget;
+				if (tabDoc.defaultView.location == ZOTERO_TAB_URL) {
+					Zotero.Zutilo.refreshZoteroItemPopup();
+					gBrowser.removeEventListener("load",zutiloFirstTabPopup,false);
+				}
+			}, true);
+		} else {
+			this.zoteroItemPopup();
+		}
+	},
+	
 	zoteroItemPopup: function() {
+    	var zDoc = this.zoteroDocument();
     	
-    	var zoteroItemmenu = document.getElementById("zotero-itemmenu");
+    	var zoteroItemmenu = zDoc.getElementById("zotero-itemmenu");
     	
     	var appSettings = new Array(this._itemmenuFunctions.length);
     	for (var index=0;index<appSettings.length;index++) {
@@ -72,7 +108,7 @@ Zotero.Zutilo = {
     	
     	if ((appSettings.indexOf('Zotero') != -1) || 
     		(appSettings.indexOf('Zutilo') != -1)) {
-			var zutiloSeparator = document.createElement("menuseparator");
+			var zutiloSeparator = zDoc.createElement("menuseparator");
 			zutiloSeparator.setAttribute('id','zutilo-itemmenu-separator');
 			zoteroItemmenu.appendChild(zutiloSeparator);
 		} else {
@@ -84,13 +120,13 @@ Zotero.Zutilo = {
 		}
 		
 		if (appSettings.indexOf('Zutilo') != -1) {
-			var zutiloSubmenu = document.createElement("menu");
+			var zutiloSubmenu = zDoc.createElement("menu");
 			zutiloSubmenu.setAttribute("id","zutilo-itemmenu-submenu");
 			zutiloSubmenu.setAttribute("label",
 				this._bundle.GetStringFromName("zutilo.itemmenu.zutilo"));
 			zoteroItemmenu.appendChild(zutiloSubmenu);
 			
-			var zutiloSubmenuPopup = document.createElement("menupopup");
+			var zutiloSubmenuPopup = zDoc.createElement("menupopup");
 			zutiloSubmenuPopup.setAttribute("id","zutilo-itemmenu-submenupopup");
 			zutiloSubmenu.appendChild(zutiloSubmenuPopup);
 			
@@ -99,7 +135,8 @@ Zotero.Zutilo = {
     },
     
     refreshZoteroItemPopup: function() {
-    	var zoteroItemmenu = document.getElementById("zotero-itemmenu");
+    	var zDoc = this.zoteroDocument();
+    	var zoteroItemmenu = zDoc.getElementById("zotero-itemmenu");
     	
     	this._removeLabeledChildren(zoteroItemmenu,'zutilo-itemmenu-');
     	
@@ -117,7 +154,8 @@ Zotero.Zutilo = {
     },
     
     _zoteroMenuItem: function(functionName) {
-    	var menuFunc = document.createElement("menuitem");
+    	var zDoc = this.zoteroDocument();
+    	var menuFunc = zDoc.createElement("menuitem");
 		menuFunc.setAttribute("id","zutilo-itemmenu-" + functionName);
 		menuFunc.setAttribute("label",
 			this._bundle.GetStringFromName("zutilo.itemmenu."+functionName));
@@ -203,9 +241,12 @@ Zotero.Zutilo = {
 		if (zitems.length == 1) {
 			var tabIndex = 0;
 			
-			document.getElementById("zotero-view-tabbox").selectedIndex = tabIndex;
+			var zoteroViewTabbox = 
+				this.zoteroDocument().getElementById("zotero-view-tabbox");
+			zoteroViewTabbox.selectedIndex = tabIndex;
 			
-			itemBoxObj=document.getElementById("zotero-editpane-item-box").focusFirstField('info');
+			itemBoxObj=this.zoteroDocument().getElementById("zotero-editpane-item-box").
+				focusFirstField('info');
 		}
 	},
 	
@@ -216,8 +257,11 @@ Zotero.Zutilo = {
 		if (zitems.length == 1) {
 			var tabIndex = 1;
 			
-			document.getElementById("zotero-view-tabbox").selectedIndex = tabIndex;
-			
+			var zoteroViewTabbox = 
+				this.zoteroDocument().getElementById("zotero-view-tabbox");
+			zoteroViewTabbox.selectedIndex = tabIndex;
+			//This version didn't work in tab mode:
+			//ZoteroPane.newNote(false, zitems[0].id); 
 			ZoteroItemPane.addNote(false);
 		}
 	},
@@ -229,9 +273,11 @@ Zotero.Zutilo = {
 		if (zitems.length == 1) {
 			var tabIndex = 2;
 			
-			document.getElementById("zotero-view-tabbox").selectedIndex = tabIndex;
+			var zoteroViewTabbox = 
+				this.zoteroDocument().getElementById("zotero-view-tabbox");
+			zoteroViewTabbox.selectedIndex = tabIndex;
 			
-			document.getElementById("zotero-editpane-tags").new();
+			this.zoteroDocument().getElementById("zotero-editpane-tags").new();
 		}
 	},
 	
@@ -242,9 +288,11 @@ Zotero.Zutilo = {
 		if (zitems.length == 1) {
 			var tabIndex = 3;
 			
-			document.getElementById("zotero-view-tabbox").selectedIndex = tabIndex;
+			var zoteroViewTabbox = 
+				this.zoteroDocument().getElementById("zotero-view-tabbox");
+			zoteroViewTabbox.selectedIndex = tabIndex;
 			
-			document.getElementById("zotero-editpane-related").add();
+			this.zoteroDocument().getElementById("zotero-editpane-related").add();
 		}
 	},
 	
@@ -778,6 +826,55 @@ Zotero.Zutilo.Prefs = new function() {
 			if (Zotero.Zutilo._itemmenuFunctions.indexOf(prefParts[1]) != -1) {
 				Zotero.Zutilo.refreshZoteroItemPopup();
 			}
+		}
+	}
+}
+
+Zotero.Zutilo.ZoteroPrefs = new function() {
+	// Privileged methods
+	this.init = init;
+	
+	this.register = register;
+	this.unregister = unregister;
+	this.observe = observe;
+	
+	// Public properties
+	//this.prefBranch; //Set in init()
+	
+	function init(){
+		var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+						.getService(Components.interfaces.nsIPrefService);
+		this.prefBranch = prefs.getBranch('extensions.zotero.');
+		
+		// Register observer to handle pref changes
+		this.register();
+	}
+	
+	//
+	// Methods to register a preferences observer
+	//
+	function register(){
+		this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch);
+		this.prefBranch.addObserver("", this, false);
+	}
+	
+	function unregister(){
+		if (!this.prefBranch){
+			return;
+		}
+		this.prefBranch.removeObserver("", this);
+	}
+	
+	function observe(subject, topic, data){
+		if(topic!="nsPref:changed"){
+			return;
+		}
+		// subject is the nsIPrefBranch we're observing (after appropriate QI)
+		// data is the name of the pref that's been changed (relative to subject)
+		switch (data){
+			case "showIn":
+				Zotero.Zutilo.refreshZoteroItemPopup();
+				break;
 		}
 	}
 }
