@@ -463,7 +463,11 @@ Zotero.Zutilo = {
 			ids[ii] = zitems[ii].id;
 		}
 		for (ii = 0; ii<zitems.length; ii++) {
-			zitems[ii]._setRelatedItems(ids);
+			for (var jj=0; jj<ids.length; jj++) {
+				if (ii != jj) {
+					zitems[ii].addRelatedItem(ids[jj]);
+				}
+			}
 		}
 		
 		return true;
