@@ -51,7 +51,7 @@ For reference, here are a few other functions in Zotero that I have found it use
 	
 ### Limitations ###
 
-All of Zutilo should work with Zotero as a browser pane in Firefox and with Zotero Standalone.  Zutilo currently provides only limited functionality with Zotero as a separate tab in Firefox (the item menu popup items do not appear).  I apologize for this inconvenience and would welcome any help in tracking down the cause of this issue.
+At the moment, all of Zutilo works with Zotero as a Firefox browser pane or separate tab and with Zotero Standalone.  (In the past, some functions have not worked with the separate tab and Standalone versions.  If something does not seem to work with one of these modes, try using Zotero as a browser pane in Firefox and see if it works there.  Then please contact me via the [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Mozilla Add-ons page") or the [GitHub](https://github.com/willsALMANJ/Zutilo "GitHub page")).
 
 How to install
 --------------

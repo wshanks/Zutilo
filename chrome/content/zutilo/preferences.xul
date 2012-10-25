@@ -18,7 +18,7 @@
 					<radio label="&zutilo.preferences.useBasePath;" value="true"/>
 					<hbox>
 						<radio label="&zutilo.preferences.custom;" value="false"/>
-						<textbox id="zutilo-custom-attachment-direcotry" preference="pref-customAttachmentPath" flex="1"/>
+						<textbox id="zutilo-custom-attachment-directory" preference="pref-customAttachmentPath" flex="1"/>
 						<button id="zutilo-custom-attachment-directory-button" 
 							label="&zutilo.preferences.choose; " 
 							oncommand="var file = chooseAttachmentDirectory(); if (!file) { event.stopPropagation(); }"/>
@@ -32,6 +32,16 @@
 				
 				<hbox align="center">
 					<button id="zutilo-readme-launch" label="&zutilo.preferences.readme.button;" oncommand="showReadme();"/>
+					<button label="&zutilo.about.openaddon;" oncommand="openLink('https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/');"/>
+					<button label="&zutilo.about.opengithub;" oncommand="openLink('https://github.com/willsALMANJ/Zutilo');"/>
+					
+					<!-- If openLink() ever breaks with an update to Gecko, this code can 
+					be used instead (does not open links in default browser).
+					<button label="&zutilo.about.openaddon;" oncommand="document.getElementById('zutilo-openaddon-label').click();"/>
+					<label id="zutilo-openaddon-label" href="https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/" class="text-link" value="&zutilo.about.openaddon;" hidden="true"/>
+					<button label="&zutilo.about.opengithub;" oncommand="document.getElementById('zutilo-github-label').click();"/>
+					<label id="zutilo-opengithub-label" href="https://github.com/willsALMANJ/Zutilo" class="text-link" value="&zutilo.about.openaddon;" hidden="true"/>
+					-->
 				</hbox>
 			</groupbox>             
 		</prefpane>
@@ -52,7 +62,7 @@
 			</groupbox>
 		</prefpane>
 		
-		<script src="preferences.js"/> 
+		<script src="chrome://zutilo/content/preferences.js"/> 
 		<script src="chrome://zotero/content/include.js"/>
 		<script src="chrome://zutilo/content/include.js"/>
 </prefwindow>  
