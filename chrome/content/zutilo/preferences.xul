@@ -6,7 +6,24 @@
 
 <prefwindow id="zutilo-prefs" title="&zutilo.preferences.title;" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
         
-		<prefpane label="&zutilo.preferences.generalSettings;" id="zutilo-prefpane-general" flex="1">
+		<prefpane label="&zutilo.preferences.userInterface;" id="zutilo-prefpane-ui" onpaneload="buildItemmenuPrefs()" flex="1">
+        	<preferences id="zutilo-prefpane-ui-preferences"></preferences>
+        	<groupbox>
+				<grid>
+					<columns>
+						<column/>
+						<column flex="1"/>
+					</columns>
+				
+					<rows id="zutilo-prefpane-ui-rows">
+						<!-- rows added dynamically by buildItemmenuPrefs() -->
+					</rows>
+				</grid>
+			</groupbox>
+		</prefpane>
+		
+		<!-- Attachment functions are not ready for main release, so hide these prefs for now
+		<prefpane label="&zutilo.preferences.attachments;" id="zutilo-prefpane-attachments" flex="1">
 			<preferences id="zutilo-prefpane-general-preferences">
 				<preference id="pref-customAttachmentPath" name="extensions.zutilo.customAttachmentPath" type="string"/>
 			</preferences>  
@@ -26,6 +43,11 @@
 				</radiogroup>
 				
 			</groupbox>
+		</prefpane>
+		-->
+			
+		<prefpane label="&zutilo.preferences.about;" id="zutilo-prefpane-about" flex="1">
+			<preferences></preferences>
 			
 			<groupbox>
 				<caption label="&zutilo.preferences.readme.caption;"/>
@@ -44,22 +66,6 @@
 					-->
 				</hbox>
 			</groupbox>             
-		</prefpane>
-		
-		<prefpane label="&zutilo.preferences.userInterface;" id="zutilo-prefpane-ui" onpaneload="buildItemmenuPrefs()" flex="1">
-        	<preferences id="zutilo-prefpane-ui-preferences"></preferences>
-        	<groupbox>
-				<grid>
-					<columns>
-						<column/>
-						<column flex="1"/>
-					</columns>
-				
-					<rows id="zutilo-prefpane-ui-rows">
-						<!-- rows added dynamically by buildItemmenuPrefs() -->
-					</rows>
-				</grid>
-			</groupbox>
 		</prefpane>
 		
 		<script src="chrome://zutilo/content/preferences.js"/> 
