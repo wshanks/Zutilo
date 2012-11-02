@@ -2,17 +2,19 @@
 
 <!ENTITY zutilo.zotero.actions.preferences	"Zutilo Preferences...">
 
+<!ENTITY zutilo.preferences.userInterface "User Interface">
+
 <!ENTITY zutilo.preferences.title	"Zutilo Preferences">
-<!ENTITY zutilo.preferences.generalSettings "General Settings">
+<!ENTITY zutilo.preferences.attachments "Attachments">
 <!ENTITY zutilo.preferences.attachmentDirectory "Attachment directory">
 <!ENTITY zutilo.preferences.useBasePath "Use Zotero base path">
 <!ENTITY zutilo.preferences.custom "Custom">
 <!ENTITY zutilo.preferences.choose "Choose...">
 
+<!ENTITY zutilo.preferences.about "About">
 <!ENTITY zutilo.preferences.readme.caption "About Zutilo">
 <!ENTITY zutilo.preferences.readme.button "Show readme document">
 <!ENTITY zutilo.readme.title "About Zutilo...">
 <!ENTITY zutilo.about.openaddon "Open Add-on page">
 <!ENTITY zutilo.about.opengithub "Open GitHub page">
 
-<!ENTITY zutilo.preferences.userInterface "User Interface">
