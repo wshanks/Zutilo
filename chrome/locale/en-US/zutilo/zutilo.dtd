@@ -4,6 +4,7 @@
 
 <!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero not active!">
 <!ENTITY zutilo.zoteronotactive.message "Zutilo is a plugin for the Zotero Firefox extension.  Zotero must be installed and enabled for Zutilo to be used. Zutilo can be disabled or uninstalled from the Add-ons Manager.">
+<!ENTITY zutilo.zoteronotactive.zoteropage "Close window and go to Zotero home page">
 <!ENTITY zutilo.zoteronotactive.addonmanager "Close window and open Add-ons Manager">
 <!ENTITY zutilo.zoteronotactive.dontshow "Close window and don't show again">
 <!ENTITY zutilo.zoteronotactive.close "Close">

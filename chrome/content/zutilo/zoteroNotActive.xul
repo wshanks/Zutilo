@@ -14,11 +14,13 @@
 	height="400">
 	
 	<script src="resource://zutilomodules/preferences.jsm"/>
+	<script src="chrome://zutilo/content/preferences.js"/>
 	
 	<text value="&zutilo.zoteronotactive.title;" style="font-weight: bold; font-size: x-large; font-family: Roman"/>
 	<groupbox flex="1">
 		
 	<description class="bigText">&zutilo.zoteronotactive.message;</description>
+	<button label="&zutilo.zoteronotactive.zoteropage;" oncommand="openLink('http://www.zotero.org/');window.close();"/>
 	<button label="&zutilo.zoteronotactive.addonmanager;" oncommand="window.opener.BrowserOpenAddonsMgr();window.close();"/>
 	<button label="&zutilo.zoteronotactive.dontshow;" oncommand="Zutilo.Prefs.set('warnZoteroNotActive',false);window.close();"/>
 	</groupbox>
