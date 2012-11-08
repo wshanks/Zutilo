@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://zutilo/skin/dialog.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://zutilo/locale/zutilo.dtd">
+
+<dialog
+	id="zutilo-zoteroNotActive-dialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	orient="vertical"
+	buttons="accept"
+	buttonlabelaccept="&zutilo.zoteronotactive.close;"
+	ondialogaccept="return true;"
+	flex="1"
+	width="400"
+	height="400">
+	
+	<script src="resource://zutilomodules/preferences.jsm"/>
+	
+	<text value="&zutilo.zoteronotactive.title;" style="font-weight: bold; font-size: x-large; font-family: Roman"/>
+	<groupbox flex="1">
+		
+	<description class="bigText">&zutilo.zoteronotactive.message;</description>
+	<button label="&zutilo.zoteronotactive.addonmanager;" oncommand="window.opener.BrowserOpenAddonsMgr();window.close();"/>
+	<button label="&zutilo.zoteronotactive.dontshow;" oncommand="Zutilo.Prefs.set('warnZoteroNotActive',false);window.close();"/>
+	</groupbox>
+</dialog>

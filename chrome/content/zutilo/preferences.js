@@ -3,41 +3,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-function chooseAttachmentDirectory() {
-	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-			.getService(Components.interfaces.nsIWindowMediator);
-	var win = wm.getMostRecentWindow('navigator:browser');
-	
-	var ps = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-		.getService(Components.interfaces.nsIPromptService);
-	
-	
-	var nsIFilePicker = Components.interfaces.nsIFilePicker;
-	while (true) {
-		var fp = Components.classes["@mozilla.org/filepicker;1"]
-					.createInstance(nsIFilePicker);
-		fp.init(win, Zotero.getString('attachmentBasePath.selectDir'), nsIFilePicker.modeGetFolder);
-		fp.appendFilters(nsIFilePicker.filterAll);
-		if (fp.show() == nsIFilePicker.returnOK) {
-			var file = fp.file;
-			
-			// Set new data directory
-			Zotero.Zutilo.Prefs.set('customAttachmentPath', file.persistentDescriptor);
-			Zotero.Prefs.set('lastDataDir', file.path);
-			break;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	return file.path;
-}
+Components.utils.import("resource://zutilomodules/zutilo.jsm");
+Components.utils.import("resource://zutilomodules/preferences.jsm");
 
 function buildItemmenuPrefs() {
-	for (var index=0;index<Zotero.Zutilo._itemmenuFunctions.length;index++) {
-		addItemmenuPreference(Zotero.Zutilo._itemmenuFunctions[index]);
-		addItemmenuRadiogroup(Zotero.Zutilo._itemmenuFunctions[index]);
+	for (var index=0;index<Zutilo._itemmenuFunctions.length;index++) {
+		addItemmenuPreference(Zutilo._itemmenuFunctions[index]);
+		addItemmenuRadiogroup(Zutilo._itemmenuFunctions[index]);
 	}
 }
 
@@ -57,7 +29,7 @@ function addItemmenuRadiogroup(itemmenuFunction) {
 	var newHbox = document.createElement("hbox");
 	newHbox.setAttribute("align","center");
 	var newLabel = document.createElement("label");
-	newLabel.setAttribute("value",Zotero.Zutilo._bundle.GetStringFromName(
+	newLabel.setAttribute("value",Zutilo._bundle.GetStringFromName(
 		"zutilo.preferences.itemmenu."+ itemmenuFunction));
 	newHbox.appendChild(newLabel);
 	newRow.appendChild(newHbox);
@@ -67,11 +39,12 @@ function addItemmenuRadiogroup(itemmenuFunction) {
 	newRadiogroup.setAttribute("align","center");
 	newRadiogroup.setAttribute("preference","pref-itemmenu-"+itemmenuFunction);
 	
-	var labelList = ['Zotero','Zutilo','Hide'];
+	var labelList = ['Zotero','Zutilo',Zutilo._bundle.GetStringFromName(
+		"zutilo.preferences.itemmenu.Hide")];
 	var newRadio;
 	for (var index=0;index<labelList.length;index++) {
 		newRadio = document.createElement("radio");
-		newRadio.setAttribute("label",Zotero.Zutilo._bundle.GetStringFromName(
+		newRadio.setAttribute("label",Zutilo._bundle.GetStringFromName(
 			"zutilo.preferences.itemmenu."+ labelList[index]));
 		newRadio.setAttribute("value",labelList[index]);
 		newRadiogroup.appendChild(newRadio);

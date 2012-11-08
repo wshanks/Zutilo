@@ -29,7 +29,7 @@ Set all selected items to be related to each other.  (Function name: "relateItem
 
 ### Item editing functions ###
 
-Zutilo currently implements several functions that are useful for working with the keyboard.  These functions can not be called from any graphical element.  They were created to be called by another plugin such as Keyconfig, which can assign a keyboard shortcut to any function.  To use them, assign a keyboard shortcut to Zotero.Zutilo.functionName() where "functionName" is replaced by one of the function names below (You can also use the function names of the functions described in the "Item menu functions" section above which are given in parentheses at the end of each function description).  The following functions work when only a single Zotero item is selected:
+Zutilo currently implements several functions that are useful for working with the keyboard.  These functions can not be called from any graphical element.  They were created to be called by another plugin such as Keyconfig, which can assign a keyboard shortcut to any function.  To use them, assign a keyboard shortcut to ZutiloChrome.zoteroOverlay.functionName() where "functionName" is replaced by one of the function names below (You can also use the function names of the functions described in the "Item menu functions" section above which are given in parentheses at the end of each function description).  The following functions work when only a single Zotero item is selected:
 
 * __editItemInfoGUI:__
 	Select the "Info" tab in the item pane.  Set the focus to the first editable field of the item's info.
@@ -53,14 +53,20 @@ For reference, here are a few other functions in Zotero that I have found it use
 
 At the moment, all of Zutilo works with Zotero as a Firefox browser pane or separate tab and with Zotero Standalone.  (In the past, some functions have not worked with the separate tab and Standalone versions.  If something does not seem to work with one of these modes, try using Zotero as a browser pane in Firefox and see if it works there.  Then please contact me via the [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Mozilla Add-ons page") or the [GitHub](https://github.com/willsALMANJ/Zutilo "GitHub page")).
 
+One warning: I (and a number of others now) have been using Zutilo for a while now on my own Zotero collection without issue.  If I am alerted to any bugs, I try to fix them as quickly as possible.  That said, please either back up your data or test out Zutilo's functions on a small number of items to make sure it works the way you expect when you use it for the first time!
+
 How to install
 --------------
 
-The easiest way to install is via [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page").  Just navigate there in Firefox and click on the install button.
+The easiest way to install Zutilo for Zotero as a Firefox extension is via [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page").  Just navigate there in Firefox and click on the "Add to Firefox" button.  For Zotero Standalone, you will have to download the .xpi file and install it manually (see below).
 
-If you have the zutilo.xpi file, go to Tools->Add-ons in Firefox and then click on the gear button and choose "Install Add-on From File." Then select the .xpi file.  (If you haven't downloaded anything yet, just download the .xpi file).
+To get the .xpi file, go to [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page").  If you are using Firefox, instead of clicking on the "Add to Firefox" button, right-click on the button and choose "Save Link As...."  You will then get a dialog that lets you save the .xpi file.  If you are using a web browser other than Firefox, the "Add to Firefox" button should instead be a "Download Now" button.  You can click on it to download the .xpi file.
 
-If you have the unzipped set of files (install.rdf, the chrome folder, etc.), you can zip them all, change the .zip extension to a .xpi extension and follow the directions above, or create a text file named zutilo@www.wesailatdawn.com, put the directory path to Zutilo's chrome folder as its only line of text, and save the file in the extensions folder of your Firefox profile folder.
+Once you have the zutilo.xpi file, go to Tools->Add-ons in either Firefox or Zotero Standalone.  Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File." Then select the .xpi file.
+
+If you have trouble with the Mozilla Add-ons page, you can also download Zutilo from [the downloads section of Zutilo's GitHub page](https://github.com/willsALMANJ/Zutilo/downloads "Zutilo's GitHub page").  Click on the "Download as zip" button there.  Then unzip the downloaded file, zip it back again, and change the file extension from "zip" to "xpi" (I don't know why GitHub's version of the zip file can't be used directly, but unzipping and rezipping seems to work).
+
+If you have trouble getting the .xpi file to work with Firefox, there is one other method you can try.  Save all of the unzipped Zutilo files somewhere on you computer where you want to keep Zutilo.  Create a text file named zutilo@www.wesailatdawn.com, put the directory path to Zutilo's chrome folder as its only line of text, and save the file in the extensions folder of your Firefox profile folder (this method would probably also work with Zotero Standalone if you could find its extensions folder).  This method is useful if you want to use git to pull in updates to Zutilo from GitHub (though if you use Zutilo in Firefox and install it from the Mozilla Add-ons page Firefox should automatically update Zutilo once updates get approved by Mozilla (a little bit after they are posted to GitHub)).
 
 Feature Requests and Bug Submissions
 ------------------------------------

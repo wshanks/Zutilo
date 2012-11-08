@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://zutilo/skin/overlay.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://zutilo/locale/zutilo.dtd">
+
+<overlay id="zutilo-firefox"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	
+	<script src="chrome://zutilo/content/firefoxOverlay.js"/>
+</overlay>

@@ -21,30 +21,6 @@
 				</grid>
 			</groupbox>
 		</prefpane>
-		
-		<!-- Attachment functions are not ready for main release, so hide these prefs for now
-		<prefpane label="&zutilo.preferences.attachments;" id="zutilo-prefpane-attachments" flex="1">
-			<preferences id="zutilo-prefpane-general-preferences">
-				<preference id="pref-customAttachmentPath" name="extensions.zutilo.customAttachmentPath" type="string"/>
-			</preferences>  
-			
-			<groupbox>
-			   <caption label="&zutilo.preferences.attachmentDirectory;"/>
-											
-				<radiogroup id="zutilo-use-zotero-base-path" preference="pref-useZoteroBasePath">
-					<radio label="&zutilo.preferences.useBasePath;" value="true"/>
-					<hbox>
-						<radio label="&zutilo.preferences.custom;" value="false"/>
-						<textbox id="zutilo-custom-attachment-directory" preference="pref-customAttachmentPath" flex="1"/>
-						<button id="zutilo-custom-attachment-directory-button" 
-							label="&zutilo.preferences.choose; " 
-							oncommand="var file = chooseAttachmentDirectory(); if (!file) { event.stopPropagation(); }"/>
-					</hbox>
-				</radiogroup>
-				
-			</groupbox>
-		</prefpane>
-		-->
 			
 		<prefpane label="&zutilo.preferences.about;" id="zutilo-prefpane-about" flex="1">
 			<preferences></preferences>
@@ -68,7 +44,6 @@
 			</groupbox>             
 		</prefpane>
 		
-		<script src="chrome://zutilo/content/preferences.js"/> 
 		<script src="chrome://zotero/content/include.js"/>
-		<script src="chrome://zutilo/content/include.js"/>
+		<script src="chrome://zutilo/content/preferences.js"/>
 </prefwindow>  
