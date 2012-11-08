@@ -2,14 +2,18 @@
 
 <!ENTITY zutilo.zotero.actions.preferences	"Zutilo Preferences...">
 
-<!ENTITY zutilo.preferences.userInterface "User Interface">
+<!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero not active!">
+<!ENTITY zutilo.zoteronotactive.message "Zutilo is a plugin for the Zotero Firefox extension.  Zotero must be installed and enabled for Zutilo to be used. Zutilo can be disabled or uninstalled from the Add-ons Manager.">
+<!ENTITY zutilo.zoteronotactive.addonmanager "Close window and open Add-ons Manager">
+<!ENTITY zutilo.zoteronotactive.dontshow "Close window and don't show again">
+<!ENTITY zutilo.zoteronotactive.close "Close">
 
 <!ENTITY zutilo.preferences.title	"Zutilo Preferences">
-<!ENTITY zutilo.preferences.attachments "Attachments">
-<!ENTITY zutilo.preferences.attachmentDirectory "Attachment directory">
-<!ENTITY zutilo.preferences.useBasePath "Use Zotero base path">
-<!ENTITY zutilo.preferences.custom "Custom">
-<!ENTITY zutilo.preferences.choose "Choose...">
+
+<!ENTITY zutilo.preferences.general "General">
+<!ENTITY zutilo.preferences.general.zoteronotactive "Warn on startup when Zotero is not enabled or not installed.">
+
+<!ENTITY zutilo.preferences.userInterface "User Interface">
 
 <!ENTITY zutilo.preferences.about "About">
 <!ENTITY zutilo.preferences.readme.caption "About Zutilo">
@@ -18,3 +22,8 @@
 <!ENTITY zutilo.about.openaddon "Open Add-on page">
 <!ENTITY zutilo.about.opengithub "Open GitHub page">
 
+<!ENTITY zutilo.preferences.attachments "Attachments">
+<!ENTITY zutilo.preferences.attachmentDirectory "Attachment directory">
+<!ENTITY zutilo.preferences.useBasePath "Use Zotero base path">
+<!ENTITY zutilo.preferences.custom "Custom">
+<!ENTITY zutilo.preferences.choose "Choose...">
