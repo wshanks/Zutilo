@@ -33,19 +33,18 @@ ZutiloChrome.zoteroOverlay = {
 	},
 	
 	checkIfUpgraded: function() {
-		var lastVersion = Zutilo.Prefs.get('lastVersion');
-		
-		Components.utils.import("resource://gre/modules/AddonManager.jsm");
-		AddonManager.getAddonByID(Zutilo.id,function(aAddon) {
-				if (lastVersion != aAddon.version) {
-					Zutilo.Prefs.set('lastVersion',aAddon.version);
-					var upgradeMsg = 
-						Zutilo._bundle.GetStringFromName("zutilo.startup.upgrademessage");
-					if (upgradeMsg) {
-						alert(upgradeMsg);
-					}
+		Application.getExtensions(function (extensions) {
+			var zutiloExtension = extensions.get(Zutilo.id);
+		 
+			if (zutiloExtension.firstRun) {
+				var upgradeMsg = 
+					Zutilo._bundle.GetStringFromName("zutilo.startup.upgrademessage");
+				if (upgradeMsg) {
+					alert(upgradeMsg);
 				}
-			});
+			}
+		});
+		
 	},
 	
 	///////////////////////////////////////////
