@@ -42,10 +42,15 @@ ZutiloChrome.zoteroOverlay = {
 			var zutiloExtension = extensions.get(Zutilo.id);
 		 
 			if (zutiloExtension.firstRun) {
+				var upgradeTitle = 
+					Zutilo._bundle.GetStringFromName("zutilo.startup.upgradetitle");
 				var upgradeMsg = 
 					Zutilo._bundle.GetStringFromName("zutilo.startup.upgrademessage");
 				if (upgradeMsg) {
-					alert(upgradeMsg);
+					var prompts = 
+						Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
+    					getService(Ci.nsIPromptService);
+					prompts.alert(null,upgradeTitle,upgradeMsg);
 				}
 			}
 		});
@@ -199,16 +204,33 @@ ZutiloChrome.zoteroOverlay = {
 	},
 		
 	modifyAttachments: function() {
-		
-		var win = this.wm.getMostRecentWindow("navigator:browser");
 		var attachmentArray = this.getSelectedAttachments();
 		
 		if (!this.checkItemNumber(attachmentArray,'attachment1')) {
 			return false;
 		}
+		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
+			getService(Ci.nsIPromptService);
+		var promptTitle = 
+			Zutilo._bundle.GetStringFromName("zutilo.attachments.modifyTitle");
 		
-		var oldPath = prompt(this._bundle.GetStringFromName("zutilo.attachments.oldPath"), "");
-		var newPath = prompt(this._bundle.GetStringFromName("zutilo.attachments.newPath"), "");
+		var promptText = { value: "" };
+		var pressedOK = prompts.prompt(null,promptTitle,
+			Zutilo._bundle.GetStringFromName("zutilo.attachments.oldPath"),
+			promptText,null,{});
+		oldPath = promptText.value;
+		if (!pressedOK) {
+			return false;
+		}
+				
+		promptText = { value: "" };
+		pressedOK = prompts.prompt(null,promptTitle,
+			Zutilo._bundle.GetStringFromName("zutilo.attachments.newPath"),
+			promptText,null,{});
+		newPath = promptText.value;
+		if (!pressedOK) {
+			return false;
+		}
 		
 		if ((oldPath == null) || (newPath == null)) {
 			return false;
@@ -228,21 +250,23 @@ ZutiloChrome.zoteroOverlay = {
 	
 	showAttachments: function() {
 	
-		var win = this.wm.getMostRecentWindow("navigator:browser");
 		var attachmentArray = this.getSelectedAttachments();
 		
 		if (!this.checkItemNumber(attachmentArray,'attachment1')) {
 			return false;
 		}
 		
+		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
+			getService(Ci.nsIPromptService);
 		for (var index=0; index<attachmentArray.length; index++) {
-			win.alert(attachmentArray[index].attachmentPath);
+			var title = Zutilo._bundle.
+				formatStringFromName("zutilo.attachments.showTitle",[index+1],1);
+			prompts.alert(null,title,attachmentArray[index].attachmentPath);
 		}
 		return true;
 	},
     
 	relateItems: function() {
-		var win = this.wm.getMostRecentWindow("navigator:browser");
 		var zitems = this.getSelectedItems('regular');
 		
 		if (!this.checkItemNumber(zitems,'regular2')) {
@@ -497,27 +521,30 @@ ZutiloChrome.zoteroOverlay = {
 	},
 	
 	checkItemNumber: function(itemArray, checkType) {
-		var win = this.wm.getMostRecentWindow("navigator:browser");
 		var checkBool=true;
 		
+		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
+			getService(Ci.nsIPromptService);
+		
+		var errorTitle = Zutilo._bundle.GetStringFromName("zutilo.checkItems.errorTitle");
 		switch (checkType) {
 			case 'regular1':
 				if (!itemArray.length) {
-					win.alert(Zutilo._bundle.
+					prompts.alert(null,errorTitle,Zutilo._bundle.
 						GetStringFromName("zutilo.checkItems.regular1"));
 					checkBool = false;
 				}
 				break;
 			case 'regular2':
 				if ((!itemArray.length) || (itemArray.length<2)) {
-					win.alert(Zutilo._bundle.
+					prompts.alert(null,errorTitle,Zutilo._bundle.
 						GetStringFromName("zutilo.checkItems.regular2"));
 					checkBool = false;
 				}
 				break;
 			case 'attachment1':
 				if (!itemArray.length) {
-					win.alert(Zutilo._bundle.
+					prompts.alert(null,errorTitle,Zutilo._bundle.
 						GetStringFromName("zutilo.checkItems.attachment1"));
 					checkBool = false;
 				}
