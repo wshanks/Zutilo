@@ -4,30 +4,63 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
  
 ///////////////////////////////////////////
-// Firefox start up
+// Include used modules
 ///////////////////////////////////////////
+
 Components.utils.import("resource://gre/modules/AddonManager.jsm");
 
-Components.utils.import("resource://zutilomodules/zutilo.jsm");
-Components.utils.import("resource://zutilomodules/preferences.jsm");
+///////////////////////////////////////////
+// Include core modules
+///////////////////////////////////////////
 
-AddonManager.getAddonByID(Zutilo.zoteroID,function(aAddon) {
-	if (aAddon) {
-		Zutilo.zoteroActive=aAddon.isActive;
-	} else {
-		Zutilo.zoteroActive=false;
-	}
-	
-	var showWarn = Zutilo.Prefs.get('warnZoteroNotActive');
-	
-	if (!Zutilo.zoteroActive && showWarn) {
-		window.openDialog('chrome://zutilo/content/zoteroNotActive.xul', 
-			'zutilo-zoteroNotActive-window', 'chrome');
-	}
-});
+Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
 ///////////////////////////////////////////
 // Firefox overlay
 ///////////////////////////////////////////
 
-// Not added yet
+/**
+ * ZutiloChrome namespace.
+ */
+if ("undefined" == typeof(ZutiloChrome)) {
+  var ZutiloChrome = {};
+};
+
+ZutiloChrome.firefoxOverlay = {
+	init: function() {
+		var that = this;
+		window.setTimeout(function() { that.initPostLoad(); }, 500);
+	},
+	
+	initPostLoad: function() {
+		this.checkZoteroActive();
+		
+		ZutiloChrome.generalOverlay.showUpgradeMessage();
+	},
+	
+	checkZoteroActive: function() {
+
+		AddonManager.getAddonByID(Zutilo.zoteroID,function(aAddon) {
+			if (aAddon) {
+				Zutilo.zoteroActive=aAddon.isActive;
+			} else {
+				Zutilo.zoteroActive=false;
+			}
+			
+			var showWarn = Zutilo.Prefs.get('warnZoteroNotActive');
+			
+			if (!Zutilo.zoteroActive && showWarn) {
+				window.openDialog('chrome://zutilo/content/zoteroNotActive.xul', 
+					'zutilo-zoteroNotActive-window', 'chrome');
+			}
+		});
+	}
+};
+
+///////////////////////////////////////////
+// Firefox start up
+///////////////////////////////////////////
+
+window.addEventListener('load', function(e) {
+		ZutiloChrome.firefoxOverlay.init(); 
+	}, false);

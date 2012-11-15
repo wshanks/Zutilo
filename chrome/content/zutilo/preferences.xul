@@ -37,8 +37,8 @@
 				
 				<hbox align="center">
 					<button id="zutilo-readme-launch" label="&zutilo.preferences.readme.button;" oncommand="showReadme();"/>
-					<button label="&zutilo.about.openaddon;" oncommand="openLink('https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/');"/>
-					<button label="&zutilo.about.opengithub;" oncommand="openLink('https://github.com/willsALMANJ/Zutilo');"/>
+					<button label="&zutilo.about.openaddon;" oncommand="Zutilo.openLink('https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/');"/>
+					<button label="&zutilo.about.opengithub;" oncommand="Zutilo.openLink('https://github.com/willsALMANJ/Zutilo');"/>
 					
 					<!-- If openLink() ever breaks with an update to Gecko, this code can 
 					be used instead (does not open links in default browser).
@@ -51,6 +51,5 @@
 			</groupbox>             
 		</prefpane>
 		
-		<script src="chrome://zotero/content/include.js"/>
 		<script src="chrome://zutilo/content/preferences.js"/>
 </prefwindow>  

@@ -15,21 +15,22 @@
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	orient="vertical"
 	buttons="accept"
-	buttonlabelaccept="&zutilo.zoteronotactive.close;"
-	ondialogaccept="return true;"
+	ondialogaccept="return onAccept();"
 	flex="1"
+	title="&zutilo.zoteronotactive.title;"
 	width="400"
 	height="400">
 	
-	<script src="resource://zutilomodules/preferences.jsm"/>
-	<script src="chrome://zutilo/content/preferences.js"/>
-	
-	<text value="&zutilo.zoteronotactive.title;" style="font-weight: bold; font-size: x-large; font-family: Roman"/>
-	<groupbox flex="1">
-		
-	<description class="bigText">&zutilo.zoteronotactive.message;</description>
-	<button label="&zutilo.zoteronotactive.zoteropage;" oncommand="openLink('http://www.zotero.org/');window.close();"/>
-	<button label="&zutilo.zoteronotactive.addonmanager;" oncommand="window.opener.BrowserOpenAddonsMgr();window.close();"/>
-	<button label="&zutilo.zoteronotactive.dontshow;" oncommand="Zutilo.Prefs.set('warnZoteroNotActive',false);window.close();"/>
-	</groupbox>
+	<script src="chrome://zutilo/content/zoteroNotActive.js"/>
+
+	<description id="zutilo-zoteronotactive-infomessage">
+		&zutilo.zoteronotactive.infomessage;
+	</description>
+	<description id="zutilo-zoteronotactive-actionmessage">
+		&zutilo.zoteronotactive.actionmessage;
+	</description>
+	<checkbox id="zutilo-zoteronotactive-zoteropage" label="&zutilo.zoteronotactive.zoteropage;"/>
+	<checkbox id="zutilo-zoteronotactive-addonmanager" label="&zutilo.zoteronotactive.addonmanager;"/>
+	<checkbox id="zutilo-zoteronotactive-dontshow" label="&zutilo.zoteronotactive.dontshow;"/>
+
 </dialog>
