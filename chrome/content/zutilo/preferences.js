@@ -3,8 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-Components.utils.import("resource://zutilomodules/zutilo.jsm");
-Components.utils.import("resource://zutilomodules/preferences.jsm");
+Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
 function buildItemmenuPrefs() {
 	for (var index=0;index<Zutilo._itemmenuFunctions.length;index++) {
@@ -57,19 +56,6 @@ function addItemmenuRadiogroup(itemmenuFunction) {
 }
 
 function showReadme() {
-	window.openDialog('chrome://zutilo/content/readme.xul', 'zutilo-readme-window', 'chrome');
-}
-
-function openLink(url) {
-	// first construct an nsIURI object using the ioservice
-	var ioservice = Components.classes["@mozilla.org/network/io-service;1"]
-		.getService(Components.interfaces.nsIIOService);
-	
-	var uriToOpen = ioservice.newURI(url, null, null);
-	
-	var extps = Components.classes["@mozilla.org/uriloader/external-protocol-service;1"]
-		.getService(Components.interfaces.nsIExternalProtocolService);
-	
-	// now, open it!
-	extps.loadURI(uriToOpen, null);
+	window.openDialog('chrome://zutilo/content/readme.xul', 
+		'zutilo-readme-window', 'chrome');
 }

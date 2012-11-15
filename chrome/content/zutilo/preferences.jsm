@@ -8,7 +8,7 @@ var EXPORTED_SYMBOLS = [];
 const Cc = Components.classes;
 const Ci = Components.interfaces;
 
-Components.utils.import("resource://zutilomodules/zutilo.jsm");
+Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
 Zutilo.Prefs = {
 

@@ -2,9 +2,8 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
- 
-Components.utils.import("resource://zutilomodules/zutilo.jsm");
-Components.utils.import("resource://zutilomodules/preferences.jsm");
+
+Components.utils.import("chrome://zutilo/content/zutilo.jsm");
  
  /**
  * ZutiloChrome namespace.
@@ -26,35 +25,15 @@ ZutiloChrome.zoteroOverlay = {
 		this.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 				.getService(Components.interfaces.nsIWindowMediator);
 		
-		this.checkIfUpgraded();
-		
 		this.itemmenuPrefObserver.register();
+		
+		ZutiloChrome.generalOverlay.showUpgradeMessage();
 		
 		this.zoteroItemPopup();
 	},
 	
 	cleanup: function() {
 		this.itemmenuPrefObserver.unregister();
-	},
-	
-	checkIfUpgraded: function() {
-		Application.getExtensions(function (extensions) {
-			var zutiloExtension = extensions.get(Zutilo.id);
-		 
-			if (zutiloExtension.firstRun) {
-				var upgradeTitle = 
-					Zutilo._bundle.GetStringFromName("zutilo.startup.upgradetitle");
-				var upgradeMsg = 
-					Zutilo._bundle.GetStringFromName("zutilo.startup.upgrademessage");
-				if (upgradeMsg) {
-					var prompts = 
-						Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
-    					getService(Ci.nsIPromptService);
-					prompts.alert(null,upgradeTitle,upgradeMsg);
-				}
-			}
-		});
-		
 	},
 	
 	///////////////////////////////////////////
@@ -126,8 +105,6 @@ ZutiloChrome.zoteroOverlay = {
 	// Functions called from Zotero item menu
 	///////////////////////////////////////////
 	copyCreators: function() {
-		
-		var win = this.wm.getMostRecentWindow("navigator:browser");
 		var zitems = this.getSelectedItems('regular');
 		
 		if (!this.checkItemNumber(zitems,'regular1')) {
@@ -150,11 +127,15 @@ ZutiloChrome.zoteroOverlay = {
 		}
 		var clipboardText = creatorsArray.join('\r\n');
 		
-		return this.addToClipboard(clipboardText);
+		const gClipboardHelper = 
+			Components.classes["@mozilla.org/widget/clipboardhelper;1"]
+            .getService(Components.interfaces.nsIClipboardHelper);
+		gClipboardHelper.copyString(clipboardText);
+		
+		return true;
 	},
 		
 	copyTags: function() {
-		var win = this.wm.getMostRecentWindow("navigator:browser");
 		var zitems = this.getSelectedItems('regular');
 		
 		if (!this.checkItemNumber(zitems,'regular1')) {
@@ -177,12 +158,15 @@ ZutiloChrome.zoteroOverlay = {
 		}
 		var clipboardText = tagsArray.join('\r\n');
 		
-		return this.addToClipboard(clipboardText);
+		const gClipboardHelper = 
+			Components.classes["@mozilla.org/widget/clipboardhelper;1"]
+            .getService(Components.interfaces.nsIClipboardHelper);
+		gClipboardHelper.copyString(clipboardText);
+		
+		return true;
 	},
 		
 	pasteTags: function() {
-		
-		var win = this.wm.getMostRecentWindow("navigator:browser");
 		var zitems = this.getSelectedItems('regular');
 		
 		if (!this.checkItemNumber(zitems,'regular1')) {
@@ -557,50 +541,14 @@ ZutiloChrome.zoteroOverlay = {
 	///////////////////////////////////////////
 	// Clipboard functions
 	///////////////////////////////////////////
-	addToClipboard: function(clipboardText) {
-		
-		var str = Components.classes["@mozilla.org/supports-string;1"].
-			createInstance(Components.interfaces.nsISupportsString);
-		if (!str) {
-			return false;
-		}
-		str.data = clipboardText;
-	
-		var trans = Components.classes["@mozilla.org/widget/transferable;1"].
-			  createInstance(Components.interfaces.nsITransferable);
-		if (!trans) {
-			return false;
-		}
-		
-		var sourceWindow = document.defaultView;
-		var privacyContext = 
-			sourceWindow.QueryInterface(Components.interfaces.nsIInterfaceRequestor).
-			getInterface(Components.interfaces.nsIWebNavigation).
-			QueryInterface(Components.interfaces.nsILoadContext);
-		if ('init' in trans) {
-			trans.init(privacyContext);
-		}
-	
-		trans.addDataFlavor("text/unicode");
-		trans.setTransferData("text/unicode",str,clipboardText.length * 2);
-	
-		var clipid = Components.interfaces.nsIClipboard;
-		var clip = Components.classes["@mozilla.org/widget/clipboard;1"].getService(clipid);
-		if (!clip) {
-			return false;
-		}
-		
-		clip.setData(trans,null,clipid.kGlobalClipboard);
-		return true;
-	},
 	
 	getFromClipboard: function() {
 	
 		var trans = Components.classes["@mozilla.org/widget/transferable;1"].
 			  createInstance(Components.interfaces.nsITransferable);
-		if (!trans) return false;
 		if ('init' in trans) {
-			trans.init(null);
+			trans.init(window.QueryInterface(Ci.nsIInterfaceRequestor).
+				getInterface(Ci.nsIWebNavigation));
 		}
 		trans.addDataFlavor("text/unicode");
 	
@@ -616,8 +564,8 @@ ZutiloChrome.zoteroOverlay = {
 		trans.getTransferData("text/unicode", str, strLength);
 		
 		if (str) {
-		  str = str.value.QueryInterface(Components.interfaces.nsISupportsString);
-		  pasteText = str.data.substring(0, strLength.value / 2);
+			pasteText = str.value.
+				QueryInterface(Components.interfaces.nsISupportsString).data;
 		} else {
 			pasteText='';
 		}

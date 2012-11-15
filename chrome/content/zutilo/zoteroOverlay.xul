@@ -26,6 +26,6 @@
 	</menupopup>
 	
 	<!-- Include the main extension logic -->
-	<script src="chrome://zotero/content/include.js"/>
+	<script src="chrome://zutilo/content/generalOverlay.js"/>
 	<script src="chrome://zutilo/content/zoteroOverlay.js"/>
 </overlay>
