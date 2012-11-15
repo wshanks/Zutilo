@@ -27,7 +27,7 @@ ZutiloChrome.zoteroOverlay = {
 		
 		this.itemmenuPrefObserver.register();
 		
-		ZutiloChrome.generalOverlay.showUpgradeMessage();
+		ZutiloChrome.showUpgradeMessage();
 		
 		this.zoteroItemPopup();
 	},
@@ -40,65 +40,74 @@ ZutiloChrome.zoteroOverlay = {
 	// Functions for GUI keyboard shortcuts
 	///////////////////////////////////////////	
 	editItemInfoGUI: function() {
-		var win = this.wm.getMostRecentWindow("navigator:browser");
-		var zitems = win.ZoteroPane.getSelectedItems();
-		
-		if (zitems.length == 1) {
-			var tabIndex = 0;
-			
-			var zoteroViewTabbox = 
-				document.getElementById("zotero-view-tabbox");
-			zoteroViewTabbox.selectedIndex = tabIndex;
-			
-			itemBoxObj=document.getElementById("zotero-editpane-item-box").
-				focusFirstField('info');
+		var zitems = this.getSelectedItems('regular');
+		if (!this.checkItemNumber(zitems,'regularSingle')) {
+			return false;
 		}
+		
+		//Select info tab of item pane
+		var tabIndex = 0;
+		var zoteroViewTabbox = 
+			ZoteroPane.document.getElementById("zotero-view-tabbox");
+		zoteroViewTabbox.selectedIndex = tabIndex;
+		//Focus first entry textbox of info pane
+		ZoteroPane.document.getElementById("zotero-editpane-item-box").
+			focusFirstField('info');
+		
+		return true;
 	},
 		
 	addNoteGUI: function() {
-		var win = this.wm.getMostRecentWindow("navigator:browser");
-		var zitems = win.ZoteroPane.getSelectedItems();
-		
-		if (zitems.length == 1) {
-			var tabIndex = 1;
-			
-			var zoteroViewTabbox = 
-				document.getElementById("zotero-view-tabbox");
-			zoteroViewTabbox.selectedIndex = tabIndex;
-			//This version didn't work in tab mode:
-			//ZoteroPane.newNote(false, zitems[0].id); 
-			ZoteroItemPane.addNote(false);
+		var zitems = this.getSelectedItems('regular');
+		if (!this.checkItemNumber(zitems,'regularSingle')) {
+			return false;
 		}
+		
+		//Select note tab of item pane
+		var tabIndex = 1;
+		var zoteroViewTabbox = 
+			ZoteroPane.document.getElementById("zotero-view-tabbox");
+		zoteroViewTabbox.selectedIndex = tabIndex;
+		//Create new note
+		ZoteroPane.newNote(false, zitems[0].id);
+		//This version didn't work in tab mode:
+		//ZoteroItemPane.addNote(false);
+		
+		return true;
 	},
 		
 	addTagGUI: function() {
-		var win = this.wm.getMostRecentWindow("navigator:browser");
-		var zitems = win.ZoteroPane.getSelectedItems();
-		
-		if (zitems.length == 1) {
-			var tabIndex = 2;
-			
-			var zoteroViewTabbox = 
-				document.getElementById("zotero-view-tabbox");
-			zoteroViewTabbox.selectedIndex = tabIndex;
-			
-			document.getElementById("zotero-editpane-tags").new();
+		var zitems = this.getSelectedItems('regular');
+		if (!this.checkItemNumber(zitems,'regularSingle')) {
+			return false;
 		}
+		
+		//Select tag tab of item pane
+		var tabIndex = 2;
+		var zoteroViewTabbox = 
+			ZoteroPane.document.getElementById("zotero-view-tabbox");
+		zoteroViewTabbox.selectedIndex = tabIndex;
+		//Focus new tag entry textbox
+		ZoteroPane.document.getElementById("zotero-editpane-tags").new();
+		
+		return true;
 	},
 		
 	addRelatedGUI: function() {
-		var win = this.wm.getMostRecentWindow("navigator:browser");
-		var zitems = win.ZoteroPane.getSelectedItems();
-		
-		if (zitems.length == 1) {
-			var tabIndex = 3;
-			
-			var zoteroViewTabbox = 
-				document.getElementById("zotero-view-tabbox");
-			zoteroViewTabbox.selectedIndex = tabIndex;
-			
-			document.getElementById("zotero-editpane-related").add();
+		var zitems = this.getSelectedItems('regular');
+		if (!this.checkItemNumber(zitems,'regularSingle')) {
+			return false;
 		}
+		
+		//Select related tab of item pane
+		var tabIndex = 3;
+		var zoteroViewTabbox = 
+			ZoteroPane.document.getElementById("zotero-view-tabbox");
+		zoteroViewTabbox.selectedIndex = tabIndex;
+		//Open add related window
+		ZoteroPane.document.getElementById("zotero-editpane-related").add();
+		
+		return true;
 	},
 		
 	///////////////////////////////////////////
@@ -173,7 +182,7 @@ ZutiloChrome.zoteroOverlay = {
 			return false;
 		}
 		
-		var clipboardText = this.getFromClipboard();
+		var clipboardText = ZutiloChrome.getFromClipboard();
 		
 		var tagArray = clipboardText.split(/\r\n?|\n/);
 		
@@ -194,7 +203,7 @@ ZutiloChrome.zoteroOverlay = {
 			return false;
 		}
 		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
-			getService(Ci.nsIPromptService);
+			getService(Components.interfaces.nsIPromptService);
 		var promptTitle = 
 			Zutilo._bundle.GetStringFromName("zutilo.attachments.modifyTitle");
 		
@@ -233,7 +242,6 @@ ZutiloChrome.zoteroOverlay = {
 	},
 	
 	showAttachments: function() {
-	
 		var attachmentArray = this.getSelectedAttachments();
 		
 		if (!this.checkItemNumber(attachmentArray,'attachment1')) {
@@ -241,10 +249,11 @@ ZutiloChrome.zoteroOverlay = {
 		}
 		
 		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
-			getService(Ci.nsIPromptService);
+			getService(Components.interfaces.nsIPromptService);
 		for (var index=0; index<attachmentArray.length; index++) {
 			var title = Zutilo._bundle.
-				formatStringFromName("zutilo.attachments.showTitle",[index+1],1);
+				formatStringFromName("zutilo.attachments.showTitle",
+				[index+1,attachmentArray.length],2);
 			prompts.alert(null,title,attachmentArray[index].attachmentPath);
 		}
 		return true;
@@ -383,26 +392,6 @@ ZutiloChrome.zoteroOverlay = {
 	},
 	
 	///////////////////////////////////////////
-	// Functions for Zotero actions menu
-	///////////////////////////////////////////
-	openPreferences: function (paneID, action) {
-		var io = {
-			pane: paneID,
-			action: action
-		};
-		// Not sure this instantApply check is important.  Mozilla warns against
-		//using browser.preferences.instantApply, so just leaving dialog=yes on for now.
-		//var featureStr='chrome,titlebar,toolbar=yes,resizable,centerscreen,';
-		//var modalStr = Zotero.Prefs.get('browser.preferences.instantApply', true) 
-		//	? 'dialog=yes' : 'modal';
-		//featureStr=featureStr+modalStr;
-		window.openDialog('chrome://zutilo/content/preferences.xul',
-			'zutilo-prefs',
-			'chrome,titlebar,toolbar=yes,resizable,centerscreen,dialog=yes'
-			,io);
-	},
-	
-	///////////////////////////////////////////
 	// Zotero item selection and sorting
 	///////////////////////////////////////////
 	
@@ -438,9 +427,7 @@ ZutiloChrome.zoteroOverlay = {
 	//Return array with the selected item objects.  If itemTypeID is passed, return
 	//only items of that type
 	getSelectedItems: function(itemType) {
-		var win = this.wm.getMostRecentWindow("navigator:browser");
-		var zitems = win.ZoteroPane.getSelectedItems();
-		
+		var zitems = window.ZoteroPane.getSelectedItems();
 		if (!zitems.length) {
 			return false;
 		}
@@ -508,7 +495,7 @@ ZutiloChrome.zoteroOverlay = {
 		var checkBool=true;
 		
 		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
-			getService(Ci.nsIPromptService);
+			getService(Components.interfaces.nsIPromptService);
 		
 		var errorTitle = Zutilo._bundle.GetStringFromName("zutilo.checkItems.errorTitle");
 		switch (checkType) {
@@ -516,6 +503,13 @@ ZutiloChrome.zoteroOverlay = {
 				if (!itemArray.length) {
 					prompts.alert(null,errorTitle,Zutilo._bundle.
 						GetStringFromName("zutilo.checkItems.regular1"));
+					checkBool = false;
+				}
+				break;
+			case 'regularSingle':
+				if ((!itemArray.length) || (itemArray.length>1)) {
+					prompts.alert(null,errorTitle,Zutilo._bundle.
+						GetStringFromName("zutilo.checkItems.regularSingle"));
 					checkBool = false;
 				}
 				break;
@@ -536,41 +530,6 @@ ZutiloChrome.zoteroOverlay = {
 		}
 		
 		return checkBool;
-	},
-	
-	///////////////////////////////////////////
-	// Clipboard functions
-	///////////////////////////////////////////
-	
-	getFromClipboard: function() {
-	
-		var trans = Components.classes["@mozilla.org/widget/transferable;1"].
-			  createInstance(Components.interfaces.nsITransferable);
-		if ('init' in trans) {
-			trans.init(window.QueryInterface(Ci.nsIInterfaceRequestor).
-				getInterface(Ci.nsIWebNavigation));
-		}
-		trans.addDataFlavor("text/unicode");
-	
-		var clip = Components.classes["@mozilla.org/widget/clipboard;1"].
-			getService(Components.interfaces.nsIClipboard);
-		if (!clip) return false;
-		
-		clip.getData(trans,clip.kGlobalClipboard);
-		
-		var str = new Object();
-		var strLength = new Object();
-		
-		trans.getTransferData("text/unicode", str, strLength);
-		
-		if (str) {
-			pasteText = str.value.
-				QueryInterface(Components.interfaces.nsISupportsString).data;
-		} else {
-			pasteText='';
-		}
-		
-		return pasteText;
 	}
 };
 

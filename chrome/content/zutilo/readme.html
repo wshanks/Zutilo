@@ -71,6 +71,13 @@ Adds an item to the Zotero library from the current webpage (equivalent to click
 
 <p>If you have trouble getting the .xpi file to work with Firefox, there is one other method you can try.  Save all of the unzipped Zutilo files somewhere on you computer where you want to keep Zutilo.  Create a text file named zutilo@www.wesailatdawn.com, put the directory path to Zutilo's chrome folder as its only line of text, and save the file in the extensions folder of your Firefox profile folder (this method would probably also work with Zotero Standalone if you could find its extensions folder).  This method is useful if you want to use git to pull in updates to Zutilo from GitHub (though if you use Zutilo in Firefox and install it from the Mozilla Add-ons page Firefox should automatically update Zutilo once updates get approved by Mozilla (a little bit after they are posted to GitHub)).</p>
 
+<h2>Log of Important Zutilo Changes</h2>
+<p>This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.</p>
+
+<ul>
+<li>As of version 1.1.11, the main JavaScript object that Zutilo creates to add functionality to Zotero has been renamed from "Zotero.Zutilo" to "ZutiloChrome.zoteroOverlay".  Any keyboard shortcuts calling methods of this object need to switch names in order to keep working.</li>
+</ul>
+
 <h2>Credits</h2>
 
 <p>I started out by modifying the Zotero HelloWorld plugin.  I think everything else I got by looking through copying the Zotero source code or the examples in the Mozilla Developer Network documentation.</p>

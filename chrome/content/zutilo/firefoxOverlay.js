@@ -35,7 +35,7 @@ ZutiloChrome.firefoxOverlay = {
 	initPostLoad: function() {
 		this.checkZoteroActive();
 		
-		ZutiloChrome.generalOverlay.showUpgradeMessage();
+		ZutiloChrome.showUpgradeMessage();
 	},
 	
 	checkZoteroActive: function() {

@@ -22,10 +22,10 @@
 		<menuitem label="&zutilo.zotero.actions.preferences;"
 			insertafter="zotero-tb-actions-prefs"
 			id="zutilo-zotero-actions-preferences"
-			oncommand="ZutiloChrome.zoteroOverlay.openPreferences()"/>
+			oncommand="ZutiloChrome.openPreferences()"/>
 	</menupopup>
 	
 	<!-- Include the main extension logic -->
-	<script src="chrome://zutilo/content/generalOverlay.js"/>
+	<script src="chrome://zutilo/content/zutiloChrome.js"/>
 	<script src="chrome://zutilo/content/zoteroOverlay.js"/>
 </overlay>
