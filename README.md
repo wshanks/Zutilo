@@ -73,6 +73,12 @@ Feature Requests and Bug Submissions
 
 The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page"). Issues and patches can be submitted there.
 
+Log of Important Zutilo Changes
+-------------------------------
+This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
+
+* As of version 1.1.11, the main JavaScript object that Zutilo creates to add functionality to Zotero has been renamed from "Zotero.Zutilo" to "ZutiloChrome.zoteroOverlay".  Any keyboard shortcuts calling methods of this object need to switch names in order to keep working.
+
 Credits
 -------
 

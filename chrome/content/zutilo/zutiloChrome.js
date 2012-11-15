@@ -33,6 +33,24 @@ ZutiloChrome.showUpgradeMessage = function() {
 		Zutilo.upgradeMessage = '';
 	}
 };
+
+// Open Zutilo preferences window
+ZutiloChrome.openPreferences = function (paneID, action) {
+	var io = {
+		pane: paneID,
+		action: action
+	};
+	// Not sure this instantApply check is important.  Mozilla warns against
+	//using browser.preferences.instantApply, so just leaving dialog=yes on for now.
+	//var featureStr='chrome,titlebar,toolbar=yes,resizable,centerscreen,';
+	//var modalStr = Zotero.Prefs.get('browser.preferences.instantApply', true) 
+	//	? 'dialog=yes' : 'modal';
+	//featureStr=featureStr+modalStr;
+	window.openDialog('chrome://zutilo/content/preferences.xul',
+		'zutilo-prefs',
+		'chrome,titlebar,toolbar=yes,resizable,centerscreen,dialog=yes'
+		,io);
+};
 	
 // Get string from clipboard
 ZutiloChrome.getFromClipboard = function() {

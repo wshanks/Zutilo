@@ -13,6 +13,6 @@
 <overlay id="zutilo-firefox"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	
-	<script src="chrome://zutilo/content/generalOverlay.js"/>
+	<script src="chrome://zutilo/content/zutiloChrome.js"/>
 	<script src="chrome://zutilo/content/firefoxOverlay.js"/>
 </overlay>
