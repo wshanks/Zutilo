@@ -1,7 +1,7 @@
 Zutilo
 ======
 
-Zutilo is a small Firefox extension that serves as a plugin for the Zotero Firefox extension.  Zutilo was designed as a utility to provide several small functionalities that are not present in Zotero.  Its name was chosen by taking the word "utility" and making it sound more like "Zotero."
+Zutilo is a small Firefox extension that serves as a plugin for the [Zotero Firefox extension](http://www.zotero.org/).  Zutilo was designed as a utility to provide several small functionalities that are not present in Zotero.  Its name was chosen by taking the word "utility" and making it sound more like "Zotero."
 
 Current feature list
 --------------------
@@ -73,6 +73,8 @@ Feature Requests and Bug Submissions
 
 The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page"). Issues and patches can be submitted there.
 
+Efforts will be taken to fulfill requests for locales of Zutilo in languages other than English.
+
 Log of Important Zutilo Changes
 -------------------------------
 This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
@@ -82,4 +84,4 @@ This section is not a complete log of changes to Zutilo.  It will include any ma
 Credits
 -------
 
-I started out by modifying the Zotero HelloWorld plugin.  I think everything else I got by looking through copying the Zotero source code or the examples in the Mozilla Developer Network documentation.
+Zutilo is based is modeled on the Firefox extension format suggested in the [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School).  Additionally, examples were taken from the [Mozilla Developer Network](https://developer.mozilla.org/) documentation and the Zotero source code.

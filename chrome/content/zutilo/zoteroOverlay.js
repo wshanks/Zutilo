@@ -3,6 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
  
  /**
@@ -22,9 +23,6 @@ ZutiloChrome.zoteroOverlay = {
 	},
 	
 	initPostLoad: function() {
-		this.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-				.getService(Components.interfaces.nsIWindowMediator);
-		
 		this.itemmenuPrefObserver.register();
 		
 		ZutiloChrome.showUpgradeMessage();
@@ -291,15 +289,11 @@ ZutiloChrome.zoteroOverlay = {
 		},
 		
 		register: function() {
-			var observerService = Components.classes["@mozilla.org/observer-service;1"]
-								  .getService(Components.interfaces.nsIObserverService);
-			observerService.addObserver(this, "zutilo-zoteroitemmenu-update", false);
+			Services.obs.addObserver(this, "zutilo-zoteroitemmenu-update", false);
 		},
 		  
 		unregister: function() {
-			var observerService = Components.classes["@mozilla.org/observer-service;1"]
-									.getService(Components.interfaces.nsIObserverService);
-			observerService.removeObserver(this, "zutilo-zoteroitemmenu-update");
+			Services.obs.removeObserver(this, "zutilo-zoteroitemmenu-update");
 		  }
 	},
 		

@@ -3,10 +3,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
  
-///////////////////////////////////////////
-// Include core modules
-///////////////////////////////////////////
+//////////////////////////////////////////////
+// Include core modules and built-in modules
+//////////////////////////////////////////////
 
+Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
 ///////////////////////////////////////////
@@ -35,21 +36,19 @@ ZutiloChrome.showUpgradeMessage = function() {
 };
 
 // Open Zutilo preferences window
-ZutiloChrome.openPreferences = function (paneID, action) {
-	var io = {
-		pane: paneID,
-		action: action
-	};
-	// Not sure this instantApply check is important.  Mozilla warns against
-	//using browser.preferences.instantApply, so just leaving dialog=yes on for now.
-	//var featureStr='chrome,titlebar,toolbar=yes,resizable,centerscreen,';
-	//var modalStr = Zotero.Prefs.get('browser.preferences.instantApply', true) 
-	//	? 'dialog=yes' : 'modal';
-	//featureStr=featureStr+modalStr;
-	window.openDialog('chrome://zutilo/content/preferences.xul',
-		'zutilo-prefs',
-		'chrome,titlebar,toolbar=yes,resizable,centerscreen,dialog=yes'
-		,io);
+ZutiloChrome.openPreferences = function () {
+	if (null == this._preferencesWindow || this._preferencesWindow.closed) {
+		var featureStr='chrome,titlebar,toolbar=yes,resizable,centerscreen,';
+		var modalStr = Zutilo.Prefs.get('browser.preferences.instantApply', true) 
+			? 'dialog=no' : 'modal';
+		featureStr=featureStr+modalStr;
+		
+		this._preferencesWindow = 
+			window.openDialog('chrome://zutilo/content/preferences.xul',
+			'zutilo-prefs-window',featureStr);
+	}
+	
+	this._preferencesWindow.focus();
 };
 	
 // Get string from clipboard
@@ -62,12 +61,8 @@ ZutiloChrome.getFromClipboard = function() {
 			getInterface(Components.interfaces.nsIWebNavigation));
 	}
 	trans.addDataFlavor("text/unicode");
-
-	var clip = Components.classes["@mozilla.org/widget/clipboard;1"].
-		getService(Components.interfaces.nsIClipboard);
-	if (!clip) return false;
 	
-	clip.getData(trans,clip.kGlobalClipboard);
+	Services.clipboard.getData(trans,Services.clipboard.kGlobalClipboard);
 	
 	var str = new Object();
 	var strLength = new Object();
