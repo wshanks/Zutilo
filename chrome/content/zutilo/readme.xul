@@ -23,6 +23,6 @@
 	<text value="&zutilo.readme.title;" style="font-weight: bold; font-size: x-large; font-family: Roman"/>
 	<groupbox flex="1">
 		
-	<iframe src="chrome://zutilo/content/readme.html" flex="1"></iframe>
+	<iframe src="chrome://zutilo/locale/readme.html" flex="1"></iframe>
 	</groupbox>
 </dialog>
