@@ -8,14 +8,13 @@ var EXPORTED_SYMBOLS = [];
 const Cc = Components.classes;
 const Ci = Components.interfaces;
 
+Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
 Zutilo.Prefs = {
 
 	init: function() {
-		var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-						.getService(Components.interfaces.nsIPrefService);
-		this.prefBranch = prefs.getBranch('extensions.zutilo.');
+		this.prefBranch = Services.prefs.getBranch('extensions.zutilo.');
 		
 		// Register observer to handle pref changes
 		this.register();
@@ -30,25 +29,26 @@ Zutilo.Prefs = {
 		var prefVal;
 		try {
 			if (global) {
-				var service = Components.classes["@mozilla.org/preferences-service;1"]
-					.getService(Components.interfaces.nsIPrefService);
+				var branch = Services.prefs.getBranch("");
 			}
 			else {
-				var service = this.prefBranch;
+				var branch = this.prefBranch;
 			}
 			
-			switch (this.prefBranch.getPrefType(pref)){
-				case this.prefBranch.PREF_BOOL:
-					prefVal = this.prefBranch.getBoolPref(pref);
-				case this.prefBranch.PREF_STRING:
-					prefVal = this.prefBranch.getCharPref(pref);
-				case this.prefBranch.PREF_INT:
-					prefVal = this.prefBranch.getIntPref(pref);
+			switch (branch.getPrefType(pref)){
+				case branch.PREF_BOOL:
+					prefVal = branch.getBoolPref(pref);
+					break;
+				case branch.PREF_STRING:
+					prefVal = branch.getCharPref(pref);
+					break;
+				case branch.PREF_INT:
+					prefVal = branch.getIntPref(pref);
+					break;
 			}
 		}
 		catch (e){
-			//Do nothing because getting preferences always generates an error for some 
-			//reason
+			throw ('Invalid Zutilo pref call for ' + pref);
 		}
 		
 		if (!prefVal) {
@@ -106,7 +106,6 @@ Zutilo.Prefs = {
 	// Methods to register a preferences observer
 	//
 	register: function() {
-		this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch);
 		this.prefBranch.addObserver("", this, false);
 	},
 	
@@ -132,20 +131,19 @@ Zutilo.Prefs = {
 		if (data.indexOf('itemmenu') == 0 ) {
 			var prefParts = data.split('.');
 			if (Zutilo._itemmenuFunctions.indexOf(prefParts[1]) != -1) {
-				Components.classes["@mozilla.org/observer-service;1"]
-          			.getService(Components.interfaces.nsIObserverService)
-          			.notifyObservers(null, "zutilo-zoteroitemmenu-update", null);
+				Services.obs.notifyObservers(null, "zutilo-zoteroitemmenu-update", null);
 			}
 		}
 	}
 };
 
+//This object was used to watch a Zotero pref, but it's not necessary now.  
+//Leaving Zutilo.ZoteroPrefs code here for possible future use
+/*
 Zutilo.ZoteroPrefs = {
 
 	init: function() {
-		var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-						.getService(Components.interfaces.nsIPrefService);
-		this.prefBranch = prefs.getBranch('extensions.zotero.');
+		this.prefBranch = Services.prefs.getBranch('extensions.zotero.');
 		
 		// Register observer to handle pref changes
 		this.register();
@@ -173,14 +171,10 @@ Zutilo.ZoteroPrefs = {
 		// subject is the nsIPrefBranch we're observing (after appropriate QI)
 		// data is the name of the pref that's been changed (relative to subject)
 		switch (data){
-			case "showIn":
-				Components.classes["@mozilla.org/observer-service;1"]
-          			.getService(Components.interfaces.nsIObserverService)
-          			.notifyObservers(null, "zutilo-zoteroitemmenu-update", null);
-				break;
 		}
 	}
 };
+*/
 
 Zutilo.Prefs.init();
-Zutilo.ZoteroPrefs.init();
+//Zutilo.ZoteroPrefs.init();
