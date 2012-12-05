@@ -64,14 +64,14 @@ To get the .xpi file, go to [Zutilo's Mozilla Add-ons page](https://addons.mozil
 
 Once you have the zutilo.xpi file, go to Tools->Add-ons in either Firefox or Zotero Standalone.  Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File." Then select the .xpi file.
 
-If you have trouble with the Mozilla Add-ons page, you can also download Zutilo from [the downloads section of Zutilo's GitHub page](https://github.com/willsALMANJ/Zutilo/downloads "Zutilo's GitHub page").  Click on the "Download as zip" button there.  Then unzip the downloaded file, zip it back again, and change the file extension from "zip" to "xpi" (I don't know why GitHub's version of the zip file can't be used directly, but unzipping and rezipping seems to work).
+If you have trouble with the Mozilla Add-ons page, you can also download Zutilo from [the downloads section of Zutilo's GitHub page](https://github.com/willsALMANJ/Zutilo/downloads "Zutilo's GitHub page").  Click on the "Download as zip" button there.  Then unzip the downloaded file, zip it back again, and change the file extension from "zip" to "xpi" (I don't know why GitHub's version of the zip file can't be used directly, but unzipping and rezipping seems to work).  Note that automatic updates only work for the Mozilla Add-ons version of Zutilo.  If you download the GitHub version, you will have to check for updates yourself.
 
 If you have trouble getting the .xpi file to work with Firefox, there is one other method you can try.  Save all of the unzipped Zutilo files somewhere on you computer where you want to keep Zutilo.  Create a text file named zutilo@www.wesailatdawn.com, put the directory path to Zutilo's chrome folder as its only line of text, and save the file in the extensions folder of your Firefox profile folder (this method would probably also work with Zotero Standalone if you could find its extensions folder).  This method is useful if you want to use git to pull in updates to Zutilo from GitHub (though if you use Zutilo in Firefox and install it from the Mozilla Add-ons page Firefox should automatically update Zutilo once updates get approved by Mozilla (a little bit after they are posted to GitHub)).
 
 Feature Requests and Bug Submissions
 ------------------------------------
 
-The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page"). Issues and patches can be submitted there.
+The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page"). Issues and patches can be submitted there.  You can also check there to see if a bug you experience has already been reported by another user.
 
 Efforts will be taken to fulfill requests for locales of Zutilo in languages other than English.
 

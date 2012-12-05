@@ -47,11 +47,9 @@ if ("undefined" == typeof(Zutilo)) {
 				if (lastVersion != aAddon.version) {
 					prefBranch.setCharPref('lastVersion',aAddon.version);
 					
-					//Prior to 1.1.11, the previous version was not saved.  
-					//Starting with 1.1.11, some function names have changed that the 
-					//user might want to know about.  This warning will also be shown to 
-					//new users -- unfortunately this can't be avoided.
-					if (lastVersion == '') {
+					//lastVersion == '' for new install.  Don't show upgrade message
+					//to new users
+					if (lastVersion != '') {
 						Zutilo.upgradeMessage = Zutilo._bundle.
 							GetStringFromName("zutilo.startup.upgrademessage");
 					}

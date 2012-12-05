@@ -3,6 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+"use strict";
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
  
@@ -137,7 +138,7 @@ ZutiloChrome.zoteroOverlay = {
 		const gClipboardHelper = 
 			Components.classes["@mozilla.org/widget/clipboardhelper;1"]
             .getService(Components.interfaces.nsIClipboardHelper);
-		gClipboardHelper.copyString(clipboardText);
+		gClipboardHelper.copyString(clipboardText,document);
 		
 		return true;
 	},
@@ -168,7 +169,7 @@ ZutiloChrome.zoteroOverlay = {
 		const gClipboardHelper = 
 			Components.classes["@mozilla.org/widget/clipboardhelper;1"]
             .getService(Components.interfaces.nsIClipboardHelper);
-		gClipboardHelper.copyString(clipboardText);
+		gClipboardHelper.copyString(clipboardText,document);
 		
 		return true;
 	},
@@ -181,6 +182,9 @@ ZutiloChrome.zoteroOverlay = {
 		}
 		
 		var clipboardText = ZutiloChrome.getFromClipboard();
+		if (!clipboardText) {
+			return false;
+		}
 		
 		var tagArray = clipboardText.split(/\r\n?|\n/);
 		
@@ -209,7 +213,7 @@ ZutiloChrome.zoteroOverlay = {
 		var pressedOK = prompts.prompt(null,promptTitle,
 			Zutilo._bundle.GetStringFromName("zutilo.attachments.oldPath"),
 			promptText,null,{});
-		oldPath = promptText.value;
+		var oldPath = promptText.value;
 		if (!pressedOK) {
 			return false;
 		}
@@ -218,7 +222,7 @@ ZutiloChrome.zoteroOverlay = {
 		pressedOK = prompts.prompt(null,promptTitle,
 			Zutilo._bundle.GetStringFromName("zutilo.attachments.newPath"),
 			promptText,null,{});
-		newPath = promptText.value;
+		var newPath = promptText.value;
 		if (!pressedOK) {
 			return false;
 		}
@@ -526,6 +530,27 @@ ZutiloChrome.zoteroOverlay = {
 		return checkBool;
 	}
 };
+
+
+ZutiloChrome.zoteroOverlay.warnOldFunctions = function () {
+	var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
+			getService(Components.interfaces.nsIPromptService);
+	prompts.alert(null,Zutilo._bundle.
+		GetStringFromName("zutilo.upgrade.deprecatedfunctiontitle"),
+		Zutilo._bundle.
+		GetStringFromName("zutilo.upgrade.deprecatedfunctionwarning"));
+};
+Zotero.Zutilo = function() {};
+Zotero.Zutilo.copyTags=ZutiloChrome.zoteroOverlay.warnOldFunctions;
+Zotero.Zutilo.copyCreators=ZutiloChrome.zoteroOverlay.warnOldFunctions;
+Zotero.Zutilo.pasteTags=ZutiloChrome.zoteroOverlay.warnOldFunctions;
+Zotero.Zutilo.showAttachments=ZutiloChrome.zoteroOverlay.warnOldFunctions;
+Zotero.Zutilo.modifyAttachments=ZutiloChrome.zoteroOverlay.warnOldFunctions;
+Zotero.Zutilo.relateItems=ZutiloChrome.zoteroOverlay.warnOldFunctions;
+Zotero.Zutilo.editItemInfoGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
+Zotero.Zutilo.addNoteGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
+Zotero.Zutilo.addTagGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
+Zotero.Zutilo.addRelatedGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
 
 // Initialize the utility
 window.addEventListener('load', function(e) {

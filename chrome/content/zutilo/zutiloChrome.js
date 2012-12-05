@@ -3,6 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
  
+"use strict";
 //////////////////////////////////////////////
 // Include core modules and built-in modules
 //////////////////////////////////////////////
@@ -25,9 +26,9 @@ if ("undefined" == typeof(ZutiloChrome)) {
 
 ZutiloChrome.showUpgradeMessage = function() {
 	if (Zutilo.upgradeMessage != '') {
-		upgradeWindow = 
+		var upgradeWindow = 
 			window.openDialog('chrome://zutilo/content/zutiloUpgraded.xul', 
-			'zutilo-startup-upgradewindow', 'chrome',
+			'zutilo-startup-upgradewindow', 'chrome,centerscreen',
 			{upgradeMessage: Zutilo.upgradeMessage});
 			
 		//Clear message so it is not shown again on this run
@@ -67,13 +68,23 @@ ZutiloChrome.getFromClipboard = function() {
 	var str = new Object();
 	var strLength = new Object();
 	
-	trans.getTransferData("text/unicode", str, strLength);
+	try {
+		trans.getTransferData("text/unicode", str, strLength);
+	} catch (err) {
+		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
+			getService(Components.interfaces.nsIPromptService);
+		prompts.alert(null,Zutilo._bundle.
+			GetStringFromName("zutilo.error.pastetitle"),
+			Zutilo._bundle.
+			GetStringFromName("zutilo.error.pastemessage"));
+		return '';
+	}
 	
 	if (str) {
-		pasteText = str.value.
+		var pasteText = str.value.
 			QueryInterface(Components.interfaces.nsISupportsString).data;
 	} else {
-		pasteText='';
+		var pasteText='';
 	}
 	
 	return pasteText;
