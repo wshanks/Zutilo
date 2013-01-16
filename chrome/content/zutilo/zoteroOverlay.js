@@ -234,9 +234,9 @@ ZutiloChrome.zoteroOverlay = {
 		var attachmentPath;
 		for (var index=0; index<attachmentArray.length; index++) {
 			attachmentPath = attachmentArray[index].attachmentPath;
-			if (attachmentPath.search(oldPath) == 0) {
+			if (attachmentPath.substr(0,oldPath.length-1) == oldPath) {
 				attachmentArray[index].attachmentPath = 
-					attachmentPath.replace(oldPath,newPath);
+					newPath + attachmentPath.substr(oldPath.length);
 			}
 		}
 		
