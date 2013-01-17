@@ -209,15 +209,20 @@ ZutiloChrome.zoteroOverlay = {
 		var promptTitle = 
 			Zutilo._bundle.GetStringFromName("zutilo.attachments.modifyTitle");
 		
+		// Prompt for old path
 		var promptText = { value: "" };
+		var checkGlobal = { value: false };
 		var pressedOK = prompts.prompt(null,promptTitle,
 			Zutilo._bundle.GetStringFromName("zutilo.attachments.oldPath"),
-			promptText,null,{});
+			promptText,
+			Zutilo._bundle.GetStringFromName("zutilo.attachments.checkGlobally"),
+			checkGlobal);
 		var oldPath = promptText.value;
-		if (!pressedOK) {
+		if (!pressedOK || (oldPath == "")) {
 			return false;
 		}
-				
+		
+		// Prompt for new path
 		promptText = { value: "" };
 		pressedOK = prompts.prompt(null,promptTitle,
 			Zutilo._bundle.GetStringFromName("zutilo.attachments.newPath"),
@@ -227,16 +232,22 @@ ZutiloChrome.zoteroOverlay = {
 			return false;
 		}
 		
-		if ((oldPath == null) || (newPath == null)) {
-			return false;
-		}
-		
+		// Loop through attachments and replace partial paths
 		var attachmentPath;
 		for (var index=0; index<attachmentArray.length; index++) {
 			attachmentPath = attachmentArray[index].attachmentPath;
-			if (attachmentPath.substr(0,oldPath.length-1) == oldPath) {
-				attachmentArray[index].attachmentPath = 
-					newPath + attachmentPath.substr(oldPath.length);
+			if (checkGlobal.value) {
+				attachmentArray[index].attachmentPath =
+					attachmentPath.replace(
+						RegExp(Zutilo.escapeForRegExp(oldPath),"g"),
+						newPath);
+			} else {
+			// If only check beginning of strings, just do quick compare and 
+			// substitution (I think this might be faster than replace() ).
+				if (attachmentPath.substr(0,oldPath.length) == oldPath) {
+					attachmentArray[index].attachmentPath = 
+						newPath + attachmentPath.substr(oldPath.length);
+				}
 			}
 		}
 		

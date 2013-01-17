@@ -22,7 +22,9 @@ Right click items in the Zotero library and copy their creators to the clipboard
 Display the paths to selected attachment items and to attachments of selected regular items (one by one as separate dialog windows -- you probably don't want to select more than a couple items at a time this way!).  (Function name: "showAttachments").
 
 * __Modify attachment paths:__
-Change the beginning of the path to all eligible selected attachments and to all attachments of selected regular items.  Two prompt windows appear.  The first asks for the old partial path while the second asks for the new partial path.  If you enter "C:/userData/references/" for the first path and "E:/" for the second path, then an attachment file with a path of "C:/userData/references/journals/Nature/2008/coolPaper.pdf" will have its path changed to "E:/journals/Nature/2008/coolPaper.pdf" while an attachment with path "E:/journals/Science/2010/neatPaper.pdf" will be left unchanged. This function is mainly useful for when you change computers or hard drives and break the links to all of your attachments.  (Function name: "modifyAttachments").
+Change the beginning of the path to all eligible selected attachments and to all attachments of selected regular items.  Two prompt windows appear.  The first asks for the old partial path while the second asks for the new partial path.  If you enter "C:/userData/references/" for the first path and "E:/" for the second path, then an attachment file with a path of "C:/userData/references/journals/Nature/2008/coolPaper.pdf" will have its path changed to "E:/journals/Nature/2008/coolPaper.pdf" while an attachment with path "E:/journals/Science/2010/neatPaper.pdf" will be left unchanged. This function is mainly useful for when you change computers or hard drives and break the links to all of your attachments.  
+
+	By default, the old partial path is only compared with the beginning of each attachment path.  Two replace eleemnts of attachment paths not at the beginning, click the "replace all instances" check box in the first prompt window.  This option is useful if you want to rename a subfolder or switch between Windows and Unix style paths (replacing "\" and "/").  (Function name: "modifyAttachments").
 
 * __Relate items:__
 Set all selected items to be related to each other.  (Function name: "relateItems").
@@ -78,6 +80,10 @@ Efforts will be taken to fulfill requests for locales of Zutilo in languages oth
 Log of Important Zutilo Changes
 -------------------------------
 This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
+
+* As of version 1.1.16, modifyAttachments can now replace elements of the path other than the beginning.
+
+* As of version 1.1.15, modifyAttachments should actually work with Windows paths.
 
 * As of version 1.1.11, the main JavaScript object that Zutilo creates to add functionality to Zotero has been renamed from "Zotero.Zutilo" to "ZutiloChrome.zoteroOverlay".  Any keyboard shortcuts calling methods of this object need to switch names in order to keep working.
 
