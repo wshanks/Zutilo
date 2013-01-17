@@ -70,6 +70,12 @@ if ("undefined" == typeof(Zutilo)) {
 		
 		// now, open it!
 		extps.loadURI(uriToOpen, null);
+	},
+	
+	escapeForRegExp: function(str) {
+		// Escape all symbols with special regular expression meanings
+		// Function taken from http://stackoverflow.com/a/6969486
+		return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
 	}
   };
 };

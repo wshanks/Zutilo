@@ -10,19 +10,17 @@
 
 <ul>
 <li><p><strong>Copy tags:</strong>
-Right click items in the Zotero library and copy their tags to the clipboard as a '
-' delimited list.  (Function name: "copyTags").</p></li>
+Right click items in the Zotero library and copy their tags to the clipboard as a '\r\n' delimited list.  (Function name: "copyTags").</p></li>
 <li><p><strong>Paste tags:</strong>
-Right click items in the Zotero library and paste the contents of the clipboard to them.  The contents of the clipboard must be a '
-' or '
-' delimited list (such as the list created by the copy tags function described above).  (Function name: "pasteTags").</p></li>
+Right click items in the Zotero library and paste the contents of the clipboard to them.  The contents of the clipboard must be a '\r\n' or '\n' delimited list (such as the list created by the copy tags function described above).  (Function name: "pasteTags").</p></li>
 <li><p><strong>Copy creators:</strong>
-Right click items in the Zotero library and copy their creators to the clipboard as a '
-' delimited list.  (Function name: "copyCreators").</p></li>
+Right click items in the Zotero library and copy their creators to the clipboard as a '\r\n' delimited list.  (Function name: "copyCreators").</p></li>
 <li><p><strong>View attachment paths:</strong>
 Display the paths to selected attachment items and to attachments of selected regular items (one by one as separate dialog windows -- you probably don't want to select more than a couple items at a time this way!).  (Function name: "showAttachments").</p></li>
 <li><p><strong>Modify attachment paths:</strong>
-Change the beginning of the path to all eligible selected attachments and to all attachments of selected regular items.  Two prompt windows appear.  The first asks for the old partial path while the second asks for the new partial path.  If you enter "C:/userData/references/" for the first path and "E:/" for the second path, then an attachment file with a path of "C:/userData/references/journals/Nature/2008/coolPaper.pdf" will have its path changed to "E:/journals/Nature/2008/coolPaper.pdf" while an attachment with path "E:/journals/Science/2010/neatPaper.pdf" will be left unchanged. This function is mainly useful for when you change computers or hard drives and break the links to all of your attachments.  (Function name: "modifyAttachments").</p></li>
+Change the beginning of the path to all eligible selected attachments and to all attachments of selected regular items.  Two prompt windows appear.  The first asks for the old partial path while the second asks for the new partial path.  If you enter "C:/userData/references/" for the first path and "E:/" for the second path, then an attachment file with a path of "C:/userData/references/journals/Nature/2008/coolPaper.pdf" will have its path changed to "E:/journals/Nature/2008/coolPaper.pdf" while an attachment with path "E:/journals/Science/2010/neatPaper.pdf" will be left unchanged. This function is mainly useful for when you change computers or hard drives and break the links to all of your attachments.  </p>
+
+<p>By default, the old partial path is only compared with the beginning of each attachment path.  Two replace eleemnts of attachment paths not at the beginning, click the "replace all instances" check box in the first prompt window.  This option is useful if you want to rename a subfolder or switch between Windows and Unix style paths (replacing "\" and "/").  (Function name: "modifyAttachments").</p></li>
 <li><p><strong>Relate items:</strong>
 Set all selected items to be related to each other.  (Function name: "relateItems").</p></li>
 </ul>
@@ -82,7 +80,9 @@ Adds an item to the Zotero library from the current webpage (equivalent to click
 <p>This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.</p>
 
 <ul>
-<li>As of version 1.1.11, the main JavaScript object that Zutilo creates to add functionality to Zotero has been renamed from "Zotero.Zutilo" to "ZutiloChrome.zoteroOverlay".  Any keyboard shortcuts calling methods of this object need to switch names in order to keep working.</li>
+<li><p>As of version 1.1.16, modifyAttachments can now replace elements of the path other than the beginning.</p></li>
+<li><p>As of version 1.1.15, modifyAttachments should actually work with Windows paths.</p></li>
+<li><p>As of version 1.1.11, the main JavaScript object that Zutilo creates to add functionality to Zotero has been renamed from "Zotero.Zutilo" to "ZutiloChrome.zoteroOverlay".  Any keyboard shortcuts calling methods of this object need to switch names in order to keep working.</p></li>
 </ul>
 
 <h2>Credits</h2>
