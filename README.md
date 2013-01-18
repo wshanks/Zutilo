@@ -53,7 +53,7 @@ For reference, here are a few other functions in Zotero that I have found it use
 	
 ### Limitations ###
 
-At the moment, all of Zutilo works with Zotero as a Firefox browser pane or separate tab and with Zotero Standalone.  (In the past, some functions have not worked with the separate tab and Standalone versions.  If something does not seem to work with one of these modes, try using Zotero as a browser pane in Firefox and see if it works there.  Then please contact me via the [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Mozilla Add-ons page") or the [GitHub](https://github.com/willsALMANJ/Zutilo "GitHub page")).
+At the moment, all of Zutilo works with Zotero as a Firefox browser pane or separate tab and with Zotero Standalone.  (In the past, some functions have not worked with the separate tab and Standalone versions.  If something does not seem to work with one of these modes, try using Zotero as a browser pane in Firefox and see if it works there.  Then please contact me via the [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Mozilla Add-ons page") or the [GitHub page](https://github.com/willsALMANJ/Zutilo "GitHub page")).
 
 One warning: I (and a number of others now) have been using Zutilo for a while now on my own Zotero collection without issue.  If I am alerted to any bugs, I try to fix them as quickly as possible.  That said, please either back up your data or test out Zutilo's functions on a small number of items to make sure it works the way you expect when you use it for the first time!
 
@@ -73,7 +73,7 @@ If you have trouble getting the .xpi file to work with Firefox, there is one oth
 Feature Requests and Bug Submissions
 ------------------------------------
 
-The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page"). Issues and patches can be submitted there.  You can also check there to see if a bug you experience has already been reported by another user.
+The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page").  Bugs can be reported by clicking on the "New Issue" button under [the Issues section](https://github.com/willsALMANJ/Zutilo/issues "GitHub Issues page") of the GitHub site.  You can also check there to see if a bug you experience has already been reported by another user.  Make sure to check the "closed" tab of the Issues section to see if the bug has already been addressed.  Feature requests may also be submitted by opening a new issue.  Please open a new issue before submitting your code.
 
 Efforts will be taken to fulfill requests for locales of Zutilo in languages other than English.
 
