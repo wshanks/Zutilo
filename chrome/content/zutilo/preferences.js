@@ -6,6 +6,17 @@
 "use strict";
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
+function initializePrefWindow() {
+	if (Zutilo._appName == 'Firefox') {
+		// Hide Zotero Standalone specific preference window elements
+		document.getElementById("general-standalone-label").setAttribute('hidden',true);
+	} else {
+		// Hide Firefox specific preference window elements
+		document.getElementById("general-checkbox-zoteroNotActive").
+			setAttribute('hidden',true);
+	}
+}
+
 function buildItemmenuPrefs() {
 	for (var index=0;index<Zutilo._itemmenuFunctions.length;index++) {
 		addItemmenuPreference(Zutilo._itemmenuFunctions[index]);

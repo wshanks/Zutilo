@@ -24,19 +24,14 @@ Components.utils.import("chrome://zutilo/content/zutilo.jsm");
  * ZutiloChrome namespace.
  */
 if ("undefined" == typeof(ZutiloChrome)) {
-  var ZutiloChrome = {};
+  window.ZutiloChrome = {};
 };
 
 ZutiloChrome.firefoxOverlay = {
 	init: function() {
-		var that = this;
-		window.setTimeout(function() { that.initPostLoad(); }, 500);
-	},
-	
-	initPostLoad: function() {
 		this.checkZoteroActive();
 		
-		ZutiloChrome.showUpgradeMessage();
+		window.setTimeout(function() { ZutiloChrome.showUpgradeMessage(); }, 500);
 	},
 	
 	checkZoteroActive: function() {
@@ -61,7 +56,3 @@ ZutiloChrome.firefoxOverlay = {
 ///////////////////////////////////////////
 // Firefox start up
 ///////////////////////////////////////////
-
-window.addEventListener('load', function(e) {
-		ZutiloChrome.firefoxOverlay.init(); 
-	}, false);

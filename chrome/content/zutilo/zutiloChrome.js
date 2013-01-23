@@ -21,7 +21,7 @@ Components.utils.import("chrome://zutilo/content/zutilo.jsm");
  * ZutiloChrome namespace.
  */
 if ("undefined" == typeof(ZutiloChrome)) {
-  var ZutiloChrome = {};
+  window.ZutiloChrome = {};
 };
 
 ZutiloChrome.showUpgradeMessage = function() {
@@ -30,7 +30,7 @@ ZutiloChrome.showUpgradeMessage = function() {
 			window.openDialog('chrome://zutilo/content/zutiloUpgraded.xul', 
 			'zutilo-startup-upgradewindow', 'chrome,centerscreen',
 			{upgradeMessage: Zutilo.upgradeMessage});
-			
+		
 		//Clear message so it is not shown again on this run
 		Zutilo.upgradeMessage = '';
 	}
