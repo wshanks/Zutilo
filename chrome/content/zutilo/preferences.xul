@@ -11,7 +11,24 @@
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
-<prefwindow id="zutilo-prefs" title="&zutilo.preferences.title;" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<prefwindow id="zutilo-prefs" 
+			title="&zutilo.preferences.title;" 
+			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+			onload="initializePrefWindow();">
+			
+		<prefpane label="&zutilo.preferences.general;" id="zutilo-prefpane-general" flex="1" position="1">
+			<preferences id="zutilo-prefpane-general-preferences">
+				<preference id="pref-warnZoteroNotActive" name="extensions.zutilo.warnZoteroNotActive" type="bool"/>
+			</preferences>
+			
+			<groupbox>
+				<label id="general-standalone-label">
+					&zutilo.preferences.general.standalonemessage;</label>
+				<checkbox id="general-checkbox-zoteroNotActive" 
+					label="&zutilo.preferences.general.zoteronotactive;" 
+					preference="pref-warnZoteroNotActive"/>
+			</groupbox>
+		</prefpane>
         
 		<prefpane label="&zutilo.preferences.userInterface;" id="zutilo-prefpane-ui" onpaneload="buildItemmenuPrefs()" flex="1">
         	<preferences id="zutilo-prefpane-ui-preferences"></preferences>

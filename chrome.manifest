@@ -1,7 +1,3 @@
 content	zutilo				chrome/content/zutilo/
 locale	zutilo	en-US		chrome/locale/en-US/zutilo/
 skin	zutilo	default		chrome/skin/default/zutilo/
-
-overlay	chrome://browser/content/browser.xul	chrome://zutilo/content/firefoxOverlay.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
-overlay	chrome://zotero/content/zoteroPane.xul	chrome://zutilo/content/zoteroOverlay.xul
-overlay chrome://zutilo/content/preferences.xul chrome://zutilo/content/preferences_firefox.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}
