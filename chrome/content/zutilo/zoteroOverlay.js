@@ -324,7 +324,7 @@ ZutiloChrome.zoteroOverlay = {
 					ZutiloChrome.zoteroOverlay.removeXUL();
 					this.unregister();
 					break;
-				case "zutilo-window-close":
+				case "domwindowclosed":
 					if (subject == window) {
 						this.unregister();
 					}
@@ -336,13 +336,13 @@ ZutiloChrome.zoteroOverlay = {
 		register: function() {
 			Services.obs.addObserver(this, "zutilo-zoteroitemmenu-update", false);
 			Services.obs.addObserver(this, "zutilo-shutdown", false);
-			Services.obs.addObserver(this, "zutilo-window-close", false);
+			Services.obs.addObserver(this, "domwindowclosed", false);
 		},
 		  
 		unregister: function() {
 			Services.obs.removeObserver(this, "zutilo-zoteroitemmenu-update");
 			Services.obs.removeObserver(this, "zutilo-shutdown");
-			Services.obs.removeObserver(this, "zutilo-window-close");
+			Services.obs.removeObserver(this, "domwindowclosed");
 		  }
 	},
 		
@@ -598,8 +598,3 @@ Zotero.Zutilo.editItemInfoGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
 Zotero.Zutilo.addNoteGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
 Zotero.Zutilo.addTagGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
 Zotero.Zutilo.addRelatedGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-
-// Initialize the utility
-window.addEventListener('unload', function(e) {
-		Services.obs.notifyObservers(window, "zutilo-window-close", null);; 
-	}, false);
