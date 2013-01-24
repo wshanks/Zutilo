@@ -519,25 +519,3 @@ ZutiloChrome.zoteroOverlay = {
 		return checkBool;
 	}
 };
-
-// For a limited time, warn when deprecated functions are called.  These functions will
-// be removed in a future version of Zutilo.
-ZutiloChrome.zoteroOverlay.warnOldFunctions = function () {
-	var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
-			getService(Components.interfaces.nsIPromptService);
-	prompts.alert(null,Zutilo._bundle.
-		GetStringFromName("zutilo.upgrade.deprecatedfunctiontitle"),
-		Zutilo._bundle.
-		GetStringFromName("zutilo.upgrade.deprecatedfunctionwarning"));
-};
-Zotero.Zutilo = function() {};
-Zotero.Zutilo.copyTags=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-Zotero.Zutilo.copyCreators=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-Zotero.Zutilo.pasteTags=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-Zotero.Zutilo.showAttachments=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-Zotero.Zutilo.modifyAttachments=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-Zotero.Zutilo.relateItems=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-Zotero.Zutilo.editItemInfoGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-Zotero.Zutilo.addNoteGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-Zotero.Zutilo.addTagGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
-Zotero.Zutilo.addRelatedGUI=ZutiloChrome.zoteroOverlay.warnOldFunctions;
