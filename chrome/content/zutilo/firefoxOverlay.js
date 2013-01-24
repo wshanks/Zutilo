@@ -7,49 +7,37 @@
 ///////////////////////////////////////////
 // Include used modules
 ///////////////////////////////////////////
-
 Components.utils.import("resource://gre/modules/AddonManager.jsm");
 
 ///////////////////////////////////////////
 // Include core modules
 ///////////////////////////////////////////
-
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
 ///////////////////////////////////////////
 // Firefox overlay
 ///////////////////////////////////////////
-
-/**
- * ZutiloChrome namespace.
- */
-if ("undefined" == typeof(ZutiloChrome)) {
-  window.ZutiloChrome = {};
-};
-
 ZutiloChrome.firefoxOverlay = {
 	init: function() {
-		this.checkZoteroActive();
+		this.warnZoteroNotActive();
 		
-		window.setTimeout(function() { ZutiloChrome.showUpgradeMessage(); }, 500);
+		window.setTimeout(function() {
+			if (typeof ZutiloChrome != 'undefined') {
+				ZutiloChrome.showUpgradeMessage();
+			}
+		}, 500);
 	},
 	
-	checkZoteroActive: function() {
-
-		AddonManager.getAddonByID(Zutilo.zoteroID,function(aAddon) {
-			if (aAddon) {
-				Zutilo.zoteroActive=aAddon.isActive;
-			} else {
-				Zutilo.zoteroActive=false;
-			}
-			
-			var showWarn = Zutilo.Prefs.get('warnZoteroNotActive');
-			
-			if (!Zutilo.zoteroActive && showWarn) {
-				window.openDialog('chrome://zutilo/content/zoteroNotActive.xul', 
-					'zutilo-zoteroNotActive-window', 'chrome,centerscreen');
-			}
-		});
+	warnedThisSession: false,
+	
+	warnZoteroNotActive: function() {
+		var showWarn = Zutilo.Prefs.get('warnZoteroNotActive');
+		
+		if (Zutilo.zoteroActive==false && showWarn && !this.warnedThisSession) {
+			window.openDialog('chrome://zutilo/content/zoteroNotActive.xul', 
+				'zutilo-zoteroNotActive-window', 'chrome,centerscreen');
+			this.warnedThisSession = true;
+		}
 	}
 };
 

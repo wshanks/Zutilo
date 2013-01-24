@@ -19,12 +19,14 @@ ZutiloChrome.zoteroOverlay = {
 	// Window load handling
 	///////////////////////////////////////////
 	init: function() {
-		this.itemmenuPrefObserver.register();
-		
 		this.staticOverlay();
 		this.zoteroItemPopup();
 		
-		window.setTimeout(function() { ZutiloChrome.showUpgradeMessage(); }, 500);
+		window.setTimeout(function() {
+			if (typeof ZutiloChrome != 'undefined') {
+				ZutiloChrome.showUpgradeMessage();
+			}
+		}, 500);
 	},
 	
 	///////////////////////////////////////////
@@ -303,55 +305,16 @@ ZutiloChrome.zoteroOverlay = {
 		zoteroActionMenu.insertBefore(zutiloMenuItem, zoteroPrefsItem.nextSibling);
 	},
 	
-	removeXUL: function() {
-		this.removeZoteroItemPopup();
-		var zutiloPrefMenuItem=
-			document.getElementById("zutilo-zotero-actions-preferences");
-		zutiloPrefMenuItem.parentNode.removeChild(zutiloPrefMenuItem);
-	},
-	
 	///////////////////////////////////////////
 	//Item menu functions
 	///////////////////////////////////////////
-	
-	itemmenuPrefObserver: {
-		observe: function(subject, topic, data) {
-			switch (topic) {
-				case "zutilo-zoteroitemmenu-update":
-					ZutiloChrome.zoteroOverlay.refreshZoteroItemPopup();
-					break;
-				case "zutilo-shutdown":
-					ZutiloChrome.zoteroOverlay.removeXUL();
-					this.unregister();
-					break;
-				case "domwindowclosed":
-					if (subject == window) {
-						this.unregister();
-					}
-					break;
-				default:
-			}
-		},
-		
-		register: function() {
-			Services.obs.addObserver(this, "zutilo-zoteroitemmenu-update", false);
-			Services.obs.addObserver(this, "zutilo-shutdown", false);
-			Services.obs.addObserver(this, "domwindowclosed", false);
-		},
-		  
-		unregister: function() {
-			Services.obs.removeObserver(this, "zutilo-zoteroitemmenu-update");
-			Services.obs.removeObserver(this, "zutilo-shutdown");
-			Services.obs.removeObserver(this, "domwindowclosed");
-		  }
-	},
-		
 	zoteroItemPopup: function() {
 		var zoteroItemmenu = document.getElementById("zotero-itemmenu");
 		
 		var appSettings = new Array(Zutilo._itemmenuFunctions.length);
 		for (var index=0;index<appSettings.length;index++) {
-			appSettings[index] = Zutilo.Prefs.get('itemmenu.'+Zutilo._itemmenuFunctions[index]);
+			appSettings[index] = 
+				Zutilo.Prefs.get('itemmenu.'+Zutilo._itemmenuFunctions[index]);
 		}
 		
 		if ((appSettings.indexOf('Zotero') != -1) || 
@@ -384,7 +347,7 @@ ZutiloChrome.zoteroOverlay = {
 	
 	removeZoteroItemPopup: function() {
 		var zoteroItemmenu = document.getElementById("zotero-itemmenu");
-		this._removeLabeledChildren(zoteroItemmenu,'zutilo-itemmenu-');
+		Zutilo.removeLabeledChildren(zoteroItemmenu,'zutilo-itemmenu-');
 	},
 		
 	refreshZoteroItemPopup: function() {
@@ -413,28 +376,7 @@ ZutiloChrome.zoteroOverlay = {
 			},false);
 		return menuFunc;
 	},
-		
-	//Remove labeled children and all of their descendants.
-	_removeLabeledChildren: function(parentElem,childLabel) {
-		var elemChildren = parentElem.childNodes;
 	
-		for (var index=0;index<elemChildren.length;) {
-			if (elemChildren[index].id.indexOf(childLabel) == 0) {
-				this._removeAllDescendants(elemChildren[index]);
-				parentElem.removeChild(elemChildren[index]);
-			} else {
-				index++;
-			}
-		}
-	},
-		
-	_removeAllDescendants: function(parentElem) {
-		var childList = parentElem.childNodes;
-		for (var index=0;index<childList.length;index++) {
-			this._removeAllDescendants(childList[index]);
-			parentElem.removeChild(childList[index]);
-		}
-	},
 	
 	///////////////////////////////////////////
 	// Zotero item selection and sorting
@@ -578,7 +520,8 @@ ZutiloChrome.zoteroOverlay = {
 	}
 };
 
-
+// For a limited time, warn when deprecated functions are called.  These functions will
+// be removed in a future version of Zutilo.
 ZutiloChrome.zoteroOverlay.warnOldFunctions = function () {
 	var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
 			getService(Components.interfaces.nsIPromptService);

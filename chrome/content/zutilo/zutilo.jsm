@@ -5,51 +5,17 @@
 
 var EXPORTED_SYMBOLS = [ "Zutilo" ];
 
-const Cc = Components.classes;
-const Ci = Components.interfaces;
-
-Components.utils.import("resource://gre/modules/AddonManager.jsm");
-Components.utils.import("resource://gre/modules/Services.jsm");
-
-var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
-                        .getService(Components.interfaces.nsIXULAppInfo);
-switch (appInfo.ID) {
-	case "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}":
-	// Firefox
-		var appName = 'Firefox';
-		break;
-	case "zotero@chnm.gmu.edu":
-	// Zotero Standalone
-		var appName = 'Zotero';
-		break;
-	default:
-	// Unknown app
-		var appName = 'Unknown';
-}
-
-var windowListener = {
-    onOpenWindow: function(xulWindow) {
-        var domWindow = xulWindow
-            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-            .getInterface(Components.interfaces.nsIDOMWindowInternal);
-
-        domWindow.addEventListener('load', function listener() {
-            domWindow.removeEventListener('load',listener,false);
-
-            if (domWindow.document.documentElement.getAttribute('windowtype') == 'navigator:browser')
-                Zutilo.loadWindowScripts(domWindow);
-        },false);
-    },
-
-    onCloseWindow: function(xulWindow) {},
-
-    onWindowTitleChange: function(xulWindow, newTitle) {}
-};
+const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
+Cu.import("resource://gre/modules/AddonManager.jsm");
+Cu.import("resource://gre/modules/Services.jsm");
 
 /**
  * Zutilo namespace.
  */
 var Zutilo = {
+	//////////////////////////////////////////////
+	// Basic information
+	//////////////////////////////////////////////
   	id: 'zutilo@www.wesailatdawn.com',
   	zoteroID: 'zotero@chnm.gmu.edu',
   	//All strings here should be the exact name of Zutilo functions that take no
@@ -61,22 +27,95 @@ var Zutilo = {
 		getService(Components.interfaces.nsIStringBundleService).
 		createBundle("chrome://zutilo/locale/zutilo.properties"),
 		
-	_appName: appName,
+	appName: '',
 	
-	zoteroActive: true,
+	zoteroActive: undefined,
 	upgradeMessage: '',
 	
+	//////////////////////////////////////////////
+	// Zutilo setup functions
+	//////////////////////////////////////////////
 	init: function() {
+		this.setRuntimeProperties();
+		this.observers.register();
+		
 		Zutilo.Prefs.init();
+		
 		//Zutilo.ZoteroPrefs.init();
 		this.checkIfUpgraded();
+		this.prepareWindows();
+	},
+	
+	setRuntimeProperties: function() {
+	// Set properties that should be constant for the session but are unknown before 
+	// runtime
+		this.appName = this.getAppName();
+		this.setZoteroActive();
+	},
+	
+	getAppName: function() {
+		var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+		switch (appInfo.ID) {
+			case "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}":
+			// Firefox
+				var appName = 'Firefox';
+				break;
+			case "zotero@chnm.gmu.edu":
+			// Zotero Standalone
+				var appName = 'Zotero';
+				break;
+			default:
+			// Unknown app -- assume it is a Firefox variant...
+				var appName = 'Firefox';
+		}
 		
+		return appName
+	},
+	
+	setZoteroActive: function() {
+		var zActive;
+		if (this.appName == 'Zotero') {
+			Zutilo.zoteroActive = true;
+		} else {
+			AddonManager.getAddonByID(Zutilo.zoteroID,function(aAddon) {
+				if (aAddon) {
+					Zutilo.zoteroActive=aAddon.isActive;
+				} else {
+					Zutilo.zoteroActive=false;
+				}
+			});
+		}
+	},
+	
+	prepareWindows: function() {
+		// Load scripts for previously opened windows
 		var windows = Services.wm.getEnumerator('navigator:browser');
 		while (windows.hasMoreElements()) {
 			this.loadWindowScripts(windows.getNext());
 		}
-			
-		Services.wm.addListener(windowListener);
+		
+		// Add listener to load scripts in windows opened in the future
+		Services.wm.addListener(this.windowListener);
+	},
+	
+	windowListener: {
+		onOpenWindow: function(xulWindow) {
+			var domWindow = xulWindow
+				.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+				.getInterface(Components.interfaces.nsIDOMWindowInternal);
+	
+			domWindow.addEventListener('load', function listener() {
+				domWindow.removeEventListener('load',listener,false);
+	
+				if (domWindow.document.documentElement.getAttribute('windowtype') 
+						== 'navigator:browser')
+					Zutilo.loadWindowScripts(domWindow);
+			},false);
+		},
+	
+		onCloseWindow: function(xulWindow) {},
+	
+		onWindowTitleChange: function(xulWindow, newTitle) {}
 	},
 	
 	loadWindowScripts: function(scope) {
@@ -85,33 +124,51 @@ var Zutilo = {
 		Services.scriptloader.loadSubScript(
 				'chrome://zutilo/content/zutiloChrome.js', scope);
 				
-		if (Zutilo._appName == 'Firefox') {
-			// Firefox specific setup
+		// Firefox specific setup
+		if (Zutilo.appName == 'Firefox') {
 			Services.scriptloader.loadSubScript(
 				'chrome://zutilo/content/firefoxOverlay.js', scope);
 			scope.ZutiloChrome.firefoxOverlay.init();
 		}
 		
-		if (Zutilo.zoteroActive) {
-			// Zotero specific setup
+		// Zotero specific setup -- only should be run if Zotero is active
+		if ((typeof scope.Zotero != 'undefined') || (this.zoteroActive == true)) {
+		//"if (Zutilo.zoteroActive)" alone doesn't work when this addon is
+		//enabled after startup. In that case, this function is called immediately on 
+		//all previously loaded windows.  Zutilo.zoteroActive is set by 
+		//AddonManager.getAddonByID() which runs asynchronously.  When this function is
+		//called immediately, that asynchronous call hasn't completed.
 			Services.scriptloader.loadSubScript(
 				'chrome://zutilo/content/zoteroOverlay.js', scope);
 			scope.ZutiloChrome.zoteroOverlay.init();
 		}
 	},
 	
-	shutdown: function() {
-		Services.obs.notifyObservers(null, "zutilo-shutdown", null);
-	
-		var windows = Services.wm.getEnumerator('navigator:browser');
-		while (windows.hasMoreElements()) {
-			var tempWin = windows.getNext();
-			delete tempWin.ZutiloChrome;
-			delete tempWin.Zutilo;
-		}
+	observers: {
+		observe: function(subject, topic, data) {
+			var windows = Services.wm.getEnumerator('navigator:browser');
+			
+			switch (topic) {	
+				case "zutilo-zoteroitemmenu-update":
+					while (windows.hasMoreElements()) {
+						var tmpWin=windows.getNext();
+						if ("undefined" != typeof(tmpWin.ZutiloChrome.zoteroOverlay)) {
+							tmpWin.ZutiloChrome.zoteroOverlay.refreshZoteroItemPopup();
+						}
+					}
+					break;
+				
+				default:
+			}
+		},
 		
-		Cc["@mozilla.org/intl/stringbundle;1"].
-			getService(Components.interfaces.nsIStringBundleService).flushBundles();
+		register: function() {
+			Services.obs.addObserver(this, "zutilo-zoteroitemmenu-update", false);
+		},
+		  
+		unregister: function() {
+			Services.obs.removeObserver(this, "zutilo-zoteroitemmenu-update");
+		}
 	},
 	
 	checkIfUpgraded: function() {
@@ -132,16 +189,18 @@ var Zutilo = {
 			});
 	},
 	
+	//////////////////////////////////////////////
+	// General use utility functions
+	//////////////////////////////////////////////
 	openLink: function(url) {
 		// first construct an nsIURI object using the ioservice
-		var ioservice = Components.classes["@mozilla.org/network/io-service;1"]
-			.getService(Components.interfaces.nsIIOService);
+		var ioservice = Cc["@mozilla.org/network/io-service;1"]
+			.getService(Ci.nsIIOService);
 		
 		var uriToOpen = ioservice.newURI(url, null, null);
 		
-		var extps = Components.
-			classes["@mozilla.org/uriloader/external-protocol-service;1"]
-			.getService(Components.interfaces.nsIExternalProtocolService);
+		var extps = Cc["@mozilla.org/uriloader/external-protocol-service;1"]
+			.getService(Ci.nsIExternalProtocolService);
 		
 		// now, open it!
 		extps.loadURI(uriToOpen, null);
@@ -151,6 +210,32 @@ var Zutilo = {
 		// Escape all symbols with special regular expression meanings
 		// Function taken from http://stackoverflow.com/a/6969486
 		return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+	},
+	
+	//////////////////////////////////////////////
+	// XUL related functions
+	//////////////////////////////////////////////
+	//Remove all XUL added to target by Zutilo
+	//  All XUL elements added by Zutilo have id's starting with "zutilo-" and no other
+	// elements should have id's starting with this string.
+	removeXUL: function(target) {
+		this.removeLabeledChildren(target, 'zutilo-');
+	},
+	
+	//Remove labeled children and all of their descendants.
+	//Remove all descendants of parentElem whose ids begin with childLabel
+	removeLabeledChildren: function(parentElem,childLabel) {
+		var elemChildren = parentElem.childNodes;
+	
+		for (var index=0;index<elemChildren.length;) {
+			if ("string" == typeof(elemChildren[index].id) && 
+					elemChildren[index].id.indexOf(childLabel) == 0) {
+				parentElem.removeChild(elemChildren[index]);
+			} else {
+				this.removeLabeledChildren(elemChildren[index],childLabel);
+				index++;
+			}
+		}
 	}
 };
 

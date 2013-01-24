@@ -7,7 +7,7 @@
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
 function initializePrefWindow() {
-	if (Zutilo._appName == 'Firefox') {
+	if (Zutilo.appName == 'Firefox') {
 		// Hide Zotero Standalone specific preference window elements
 		document.getElementById("general-standalone-label").setAttribute('hidden',true);
 	} else {

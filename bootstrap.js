@@ -4,8 +4,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 "use strict";
+const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 
-Components.utils.import("resource://gre/modules/Services.jsm");
+Cu.import("resource://gre/modules/Services.jsm");
 
 const BOOTSTRAP_REASONS = [
     "", // the bootstrap reason is 1 based
@@ -24,7 +25,7 @@ function install(data, reason) {
 }
 
 function startup(data, reason) {
-	Components.utils.import("chrome://zutilo/content/zutilo.jsm");
+	Cu.import("chrome://zutilo/content/zutilo.jsm");
 	Zutilo.init();
 }
 
@@ -33,8 +34,22 @@ function shutdown(data, reason) {
 		return;
 	}
 	
-	Zutilo.shutdown();
-	Components.utils.unload("chrome://zutilo/content/zutilo.jsm");
+	var windows = Services.wm.getEnumerator('navigator:browser');
+	while (windows.hasMoreElements()) {
+		var tmpWin=windows.getNext();
+		
+		Zutilo.removeXUL(tmpWin.document);
+		delete tmpWin.ZutiloChrome;
+		delete tmpWin.Zutilo;
+	}
+	
+	Zutilo.observers.unregister();
+	Services.wm.removeListener(Zutilo.windowListener);
+	
+	Cc["@mozilla.org/intl/stringbundle;1"].
+		getService(Components.interfaces.nsIStringBundleService).flushBundles();
+	
+	Cu.unload("chrome://zutilo/content/zutilo.jsm");
 }
 
 function uninstall(data, reason) {

@@ -7,7 +7,6 @@
 //////////////////////////////////////////////
 // Include core modules and built-in modules
 //////////////////////////////////////////////
-
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
