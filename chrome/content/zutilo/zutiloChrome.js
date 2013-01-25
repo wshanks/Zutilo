@@ -7,24 +7,41 @@
 //////////////////////////////////////////////
 // Include core modules and built-in modules
 //////////////////////////////////////////////
+Components.utils.import("resource://gre/modules/AddonManager.jsm");
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
 ///////////////////////////////////////////
 // General overlay
 ///////////////////////////////////////////
+ZutiloChrome.init = function () {
+	window.setTimeout(function() {
+			if (typeof ZutiloChrome != 'undefined') {
+				ZutiloChrome.showUpgradeMessage();
+			}
+		}, 500);
+};
 
 // General functions needed by Firefox and Zotero overlays
 ZutiloChrome.showUpgradeMessage = function() {
-	if (Zutilo.upgradeMessage != '') {
-		var upgradeWindow = 
-			window.openDialog('chrome://zutilo/content/zutiloUpgraded.xul', 
-			'zutilo-startup-upgradewindow', 'chrome,centerscreen',
-			{upgradeMessage: Zutilo.upgradeMessage});
-		
-		//Clear message so it is not shown again on this run
-		Zutilo.upgradeMessage = '';
-	}
+	var lastVersion = Zutilo.Prefs.get('lastVersion');
+	
+	AddonManager.getAddonByID(Zutilo.id,
+		function(aAddon) {
+			if (lastVersion != aAddon.version) {
+				Zutilo.Prefs.set('lastVersion',aAddon.version);
+				
+				//lastVersion == '' for new install.  Don't show upgrade message
+				//to new users
+				if (lastVersion != '') {
+					window.openDialog('chrome://zutilo/content/zutiloUpgraded.xul', 
+						'zutilo-startup-upgradewindow', 'chrome,centerscreen',
+						{upgradeMessage: Zutilo._bundle.
+							GetStringFromName("zutilo.startup.upgrademessage")});
+				}
+			}
+		}
+	);
 };
 
 // Open Zutilo preferences window

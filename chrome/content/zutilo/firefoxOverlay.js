@@ -5,11 +5,6 @@
 
 "use strict";
 ///////////////////////////////////////////
-// Include used modules
-///////////////////////////////////////////
-Components.utils.import("resource://gre/modules/AddonManager.jsm");
-
-///////////////////////////////////////////
 // Include core modules
 ///////////////////////////////////////////
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
@@ -19,11 +14,10 @@ Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 ///////////////////////////////////////////
 ZutiloChrome.firefoxOverlay = {
 	init: function() {
-		Zutilo.checkZoteroActiveAndCallIf(false,this,this.warnZoteroNotActive);
-		
 		window.setTimeout(function() {
 			if (typeof ZutiloChrome != 'undefined') {
-				ZutiloChrome.showUpgradeMessage();
+				Zutilo.checkZoteroActiveAndCallIf(false,ZutiloChrome.firefoxOverlay,
+					ZutiloChrome.firefoxOverlay.warnZoteroNotActive);
 			}
 		}, 500);
 	},
