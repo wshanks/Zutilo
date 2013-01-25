@@ -50,7 +50,6 @@ var Zutilo = {
 	// Set properties that should be constant for the session but are unknown before 
 	// runtime
 		this.appName = this.getAppName();
-		this.setZoteroActive();
 	},
 	
 	getAppName: function() {
@@ -72,26 +71,11 @@ var Zutilo = {
 		return appName
 	},
 	
-	setZoteroActive: function() {
-		var zActive;
-		if (this.appName == 'Zotero') {
-			Zutilo.zoteroActive = true;
-		} else {
-			AddonManager.getAddonByID(Zutilo.zoteroID,function(aAddon) {
-				if (aAddon) {
-					Zutilo.zoteroActive=aAddon.isActive;
-				} else {
-					Zutilo.zoteroActive=false;
-				}
-			});
-		}
-	},
-	
 	prepareWindows: function() {
 		// Load scripts for previously opened windows
 		var windows = Services.wm.getEnumerator('navigator:browser');
 		while (windows.hasMoreElements()) {
-			this.loadWindowScripts(windows.getNext());
+			this.loadWindowChrome(windows.getNext());
 		}
 		
 		// Add listener to load scripts in windows opened in the future
@@ -109,7 +93,7 @@ var Zutilo = {
 	
 				if (domWindow.document.documentElement.getAttribute('windowtype') 
 						== 'navigator:browser')
-					Zutilo.loadWindowScripts(domWindow);
+					Zutilo.loadWindowChrome(domWindow);
 			},false);
 		},
 	
@@ -118,9 +102,10 @@ var Zutilo = {
 		onWindowTitleChange: function(xulWindow, newTitle) {}
 	},
 	
-	loadWindowScripts: function(scope) {
-	// initBool: if true, run scripts' init() functions since the windows are already 
-	// 		loaded and the load event listener won't fire.
+	loadWindowChrome: function(scope) {
+		// Define ZutiloChrome as window property so it can be deleted on shutdown
+		scope.ZutiloChrome = {};
+		
 		Services.scriptloader.loadSubScript(
 				'chrome://zutilo/content/zutiloChrome.js', scope);
 				
@@ -131,16 +116,18 @@ var Zutilo = {
 			scope.ZutiloChrome.firefoxOverlay.init();
 		}
 		
-		// Zotero specific setup -- only should be run if Zotero is active
-		if ((typeof scope.Zotero != 'undefined') || (this.zoteroActive == true)) {
-		//"if (Zutilo.zoteroActive)" alone doesn't work when this addon is
-		//enabled after startup. In that case, this function is called immediately on 
-		//all previously loaded windows.  Zutilo.zoteroActive is set by 
-		//AddonManager.getAddonByID() which runs asynchronously.  When this function is
-		//called immediately, that asynchronous call hasn't completed.
+		var doZoteroOverlay = function () {
 			Services.scriptloader.loadSubScript(
-				'chrome://zutilo/content/zoteroOverlay.js', scope);
+					'chrome://zutilo/content/zoteroOverlay.js', scope);
 			scope.ZutiloChrome.zoteroOverlay.init();
+		};
+		
+		// Zotero specific setup (only run if Zotero is active)
+		if (Zutilo.appName == 'Zotero') {
+			doZoteroOverlay();		
+		} else {
+			// Only overlay Zotero in Firefox if it is installed and active
+			this.checkZoteroActiveAndCallIf(true,this,doZoteroOverlay);
 		}
 	},
 	
@@ -171,6 +158,9 @@ var Zutilo = {
 		}
 	},
 	
+	//////////////////////////////////////////////
+	// General use utility functions
+	//////////////////////////////////////////////
 	checkIfUpgraded: function() {
 		var lastVersion = Zutilo.Prefs.get('lastVersion');
 
@@ -189,9 +179,24 @@ var Zutilo = {
 			});
 	},
 	
-	//////////////////////////////////////////////
-	// General use utility functions
-	//////////////////////////////////////////////
+	checkZoteroActiveAndCallIf: function (stateBool, scope, func) {
+		// stateBool: func is called if Zotero's isActive bool matches stateBool
+		// scope: scope that func is called in
+		// func: function to be called if Zotero is active
+		// Additional arguments of doIfZoteroActive are passed to func
+	
+		var args = [];	
+		for (var i=3, len = arguments.length; i < len; ++i) {
+			args.push(arguments[i]);
+		};
+		
+		AddonManager.getAddonByID(Zutilo.zoteroID,function(aAddon) {
+			if (aAddon && (aAddon.isActive == stateBool)) {
+				func.apply(scope, args);
+			}
+		});
+	},
+	
 	openLink: function(url) {
 		// first construct an nsIURI object using the ioservice
 		var ioservice = Cc["@mozilla.org/network/io-service;1"]

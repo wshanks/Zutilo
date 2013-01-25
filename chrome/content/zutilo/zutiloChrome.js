@@ -15,14 +15,6 @@ Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 ///////////////////////////////////////////
 
 // General functions needed by Firefox and Zotero overlays
-
-/**
- * ZutiloChrome namespace.
- */
-if ("undefined" == typeof(ZutiloChrome)) {
-  window.ZutiloChrome = {};
-};
-
 ZutiloChrome.showUpgradeMessage = function() {
 	if (Zutilo.upgradeMessage != '') {
 		var upgradeWindow = 

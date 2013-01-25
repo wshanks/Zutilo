@@ -6,13 +6,6 @@
 "use strict";
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
- 
- /**
- * ZutiloChrome namespace.
- */
-if ("undefined" == typeof(ZutiloChrome)) {
-  window.ZutiloChrome = {};
-};
 
 ZutiloChrome.zoteroOverlay = {
 	///////////////////////////////////////////
