@@ -27,28 +27,7 @@ var Zutilo = {
 		getService(Components.interfaces.nsIStringBundleService).
 		createBundle("chrome://zutilo/locale/zutilo.properties"),
 		
-	appName: '',
-	
-	//////////////////////////////////////////////
-	// Zutilo setup functions
-	//////////////////////////////////////////////
-	init: function() {
-		this.setRuntimeProperties();
-		this.observers.register();
-		
-		Zutilo.Prefs.init();
-		//Zutilo.ZoteroPrefs.init();
-		
-		this.prepareWindows();
-	},
-	
-	setRuntimeProperties: function() {
-	// Set properties that should be constant for the session but are unknown before 
-	// runtime
-		this.appName = this.getAppName();
-	},
-	
-	getAppName: function() {
+	appName: function() {
 		var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 		switch (appInfo.ID) {
 			case "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}":
@@ -65,6 +44,18 @@ var Zutilo = {
 		}
 		
 		return appName
+	}(),
+	
+	//////////////////////////////////////////////
+	// Zutilo setup functions
+	//////////////////////////////////////////////
+	init: function() {
+		this.observers.register();
+		
+		Zutilo.Prefs.init();
+		//Zutilo.ZoteroPrefs.init();
+		
+		this.prepareWindows();
 	},
 	
 	prepareWindows: function() {

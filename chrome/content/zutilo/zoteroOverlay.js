@@ -12,8 +12,7 @@ ZutiloChrome.zoteroOverlay = {
 	// Window load handling
 	///////////////////////////////////////////
 	init: function() {
-		this.staticOverlay();
-		this.zoteroItemPopup();
+		this.fullOverlay();
 	},
 	
 	///////////////////////////////////////////
@@ -278,8 +277,13 @@ ZutiloChrome.zoteroOverlay = {
 	///////////////////////////////////////////
 	//XUL overlay functions
 	///////////////////////////////////////////
+	fullOverlay: function() {
+		// Add all Zutilo overlay elements to the window
+		this.staticOverlay();
+		this.zoteroItemPopup();
+	},
+	
 	staticOverlay: function() {
-		
 		// Add Zutilo preferences item to Zotero actions menu
 		var zutiloMenuItem = document.createElement("menuitem");
 		zutiloMenuItem.setAttribute("id","zutilo-zotero-actions-preferences");
