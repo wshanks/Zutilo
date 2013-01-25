@@ -19,7 +19,7 @@ Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 ///////////////////////////////////////////
 ZutiloChrome.firefoxOverlay = {
 	init: function() {
-		this.warnZoteroNotActive();
+		Zutilo.checkZoteroActiveAndCallIf(false,this,this.warnZoteroNotActive);
 		
 		window.setTimeout(function() {
 			if (typeof ZutiloChrome != 'undefined') {
@@ -33,7 +33,7 @@ ZutiloChrome.firefoxOverlay = {
 	warnZoteroNotActive: function() {
 		var showWarn = Zutilo.Prefs.get('warnZoteroNotActive');
 		
-		if (Zutilo.zoteroActive==false && showWarn && !this.warnedThisSession) {
+		if (showWarn && !this.warnedThisSession) {
 			window.openDialog('chrome://zutilo/content/zoteroNotActive.xul', 
 				'zutilo-zoteroNotActive-window', 'chrome,centerscreen');
 			this.warnedThisSession = true;
