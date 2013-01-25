@@ -14,12 +14,6 @@ ZutiloChrome.zoteroOverlay = {
 	init: function() {
 		this.staticOverlay();
 		this.zoteroItemPopup();
-		
-		window.setTimeout(function() {
-			if (typeof ZutiloChrome != 'undefined') {
-				ZutiloChrome.showUpgradeMessage();
-			}
-		}, 500);
 	},
 	
 	///////////////////////////////////////////

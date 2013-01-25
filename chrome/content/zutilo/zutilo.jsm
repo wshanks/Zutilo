@@ -29,9 +29,6 @@ var Zutilo = {
 		
 	appName: '',
 	
-	zoteroActive: undefined,
-	upgradeMessage: '',
-	
 	//////////////////////////////////////////////
 	// Zutilo setup functions
 	//////////////////////////////////////////////
@@ -40,9 +37,8 @@ var Zutilo = {
 		this.observers.register();
 		
 		Zutilo.Prefs.init();
-		
 		//Zutilo.ZoteroPrefs.init();
-		this.checkIfUpgraded();
+		
 		this.prepareWindows();
 	},
 	
@@ -108,6 +104,7 @@ var Zutilo = {
 		
 		Services.scriptloader.loadSubScript(
 				'chrome://zutilo/content/zutiloChrome.js', scope);
+		scope.ZutiloChrome.init();
 				
 		// Firefox specific setup
 		if (Zutilo.appName == 'Firefox') {
@@ -161,24 +158,6 @@ var Zutilo = {
 	//////////////////////////////////////////////
 	// General use utility functions
 	//////////////////////////////////////////////
-	checkIfUpgraded: function() {
-		var lastVersion = Zutilo.Prefs.get('lastVersion');
-
-		AddonManager.getAddonByID(Zutilo.id,
-			function(aAddon) {
-				if (lastVersion != aAddon.version) {
-					Zutilo.Prefs.set('lastVersion',aAddon.version);
-					
-					//lastVersion == '' for new install.  Don't show upgrade message
-					//to new users
-					if (lastVersion != '') {
-						Zutilo.upgradeMessage = Zutilo._bundle.
-							GetStringFromName("zutilo.startup.upgrademessage");
-					}
-				}
-			});
-	},
-	
 	checkZoteroActiveAndCallIf: function (stateBool, scope, func) {
 		// stateBool: func is called if Zotero's isActive bool matches stateBool
 		// scope: scope that func is called in
