@@ -29,9 +29,9 @@ Change the beginning of the path to all eligible selected attachments and to all
 * __Relate items:__
 Set all selected items to be related to each other.  (Function name: "relateItems").
 
-### Item editing functions ###
+### Item editing functions and keyboard shortcuts ###
 
-Zutilo currently implements several functions that are useful for working with the keyboard.  These functions can not be called from any graphical element.  They were created to be called by another plugin such as Keyconfig, which can assign a keyboard shortcut to any function.  To use them, assign a keyboard shortcut to ZutiloChrome.zoteroOverlay.functionName() where "functionName" is replaced by one of the function names below (You can also use the function names of the functions described in the "Item menu functions" section above which are given in parentheses at the end of each function description).  The following functions work when only a single Zotero item is selected:
+Zutilo currently implements several functions that are useful for working with the keyboard.  These functions can not be called from any graphical element.  They were created to be called by another plugin such as Keyconfig or Pentadactyl, which can assign a keyboard shortcut to any function.  To use them, assign a keyboard shortcut to ZutiloChrome.zoteroOverlay.functionName() where "functionName" is replaced by one of the function names below (You can also use the function names of the functions described in the "Item menu functions" section above which are given in parentheses at the end of each function description).  The following functions work when only a single Zotero item is selected:
 
 * __editItemInfoGUI:__
 	Select the "Info" tab in the item pane.  Set the focus to the first editable field of the item's info.
@@ -42,7 +42,7 @@ Zutilo currently implements several functions that are useful for working with t
 * __addRelatedGUI:__
 	Select the "Related" tab of the item pane.  Open the dialog for adding related items.
 	
-For reference, here are a few other functions in Zotero that I have found it useful to map keyboard shortcuts for.  For these functions, you don't need any prefix (like "Zotero.Zutilo." above):
+For reference, here are a few other functions in Zotero that I have found it useful to map keyboard shortcuts for.  For these functions, you don't need any prefix (i.e. they don't need to be prefixed with "ZutiloChrome.zoteroOverlay." like the functions listed above):
 
 * __ZoteroOverlay.toggleDisplay():__
 	Shows/hides the Zotero pane in Firefox.
@@ -66,7 +66,7 @@ To get the .xpi file, go to [Zutilo's Mozilla Add-ons page](https://addons.mozil
 
 Once you have the zutilo.xpi file, go to Tools->Add-ons in either Firefox or Zotero Standalone.  Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File." Then select the .xpi file.
 
-If you have trouble with the Mozilla Add-ons page, you can also download Zutilo from [the downloads section of Zutilo's GitHub page](https://github.com/willsALMANJ/Zutilo/downloads "Zutilo's GitHub page").  Click on the "Download as zip" button there.  Then unzip the downloaded file, zip it back again, and change the file extension from "zip" to "xpi" (I don't know why GitHub's version of the zip file can't be used directly, but unzipping and rezipping seems to work).  Note that automatic updates only work for the Mozilla Add-ons version of Zutilo.  If you download the GitHub version, you will have to check for updates yourself.
+If you have trouble with the Mozilla Add-ons page, you can also download Zutilo from [the downloads section of Zutilo's GitHub page](https://github.com/willsALMANJ/Zutilo/downloads "Zutilo's GitHub page").  Click on the "Download as zip" button there.  Then unzip the downloaded file, zip it back again, and change the file extension from "zip" to "xpi" (I don't know why GitHub's version of the zip file can't be used directly, but unzipping and rezipping seems to work).
 
 If you have trouble getting the .xpi file to work with Firefox, there is one other method you can try.  Save all of the unzipped Zutilo files somewhere on you computer where you want to keep Zutilo.  Create a text file named zutilo@www.wesailatdawn.com, put the directory path to Zutilo's chrome folder as its only line of text, and save the file in the extensions folder of your Firefox profile folder (this method would probably also work with Zotero Standalone if you could find its extensions folder).  This method is useful if you want to use git to pull in updates to Zutilo from GitHub (though if you use Zutilo in Firefox and install it from the Mozilla Add-ons page Firefox should automatically update Zutilo once updates get approved by Mozilla (a little bit after they are posted to GitHub)).
 
@@ -80,6 +80,8 @@ Efforts will be taken to fulfill requests for locales of Zutilo in languages oth
 Log of Important Zutilo Changes
 -------------------------------
 This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
+
+* As of version 1.2.1, Zutilo can be installed and uninstalled without restarting Firefox.
 
 * As of version 1.1.16, modifyAttachments can now replace elements of the path other than the beginning.
 
