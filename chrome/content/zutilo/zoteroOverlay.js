@@ -249,6 +249,11 @@ ZutiloChrome.zoteroOverlay = {
 						newPath + attachmentPath.substr(oldPath.length);
 				}
 			}
+			// attachmentPath stores the unmodified path
+			// only save to database if path was actually modified
+			if (attachmentArray[index].attachmentPath != attachmentPath) {
+				attachmentArray[index].save();
+			}
 		}
 		
 		return true;
