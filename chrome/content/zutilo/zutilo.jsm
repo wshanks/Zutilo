@@ -190,6 +190,8 @@ var Zutilo = {
 	//////////////////////////////////////////////
 	// XUL related functions
 	//////////////////////////////////////////////
+	/* These functions have been replaced by zutiloChrome.removeXUL() for now
+	
 	//Remove all XUL added to target by Zutilo
 	//  All XUL elements added by Zutilo have id's starting with "zutilo-" and no other
 	// elements should have id's starting with this string.
@@ -212,6 +214,7 @@ var Zutilo = {
 			}
 		}
 	}
+	*/
 };
 
 Zutilo.Prefs = {

@@ -284,86 +284,122 @@ ZutiloChrome.zoteroOverlay = {
 	///////////////////////////////////////////
 	fullOverlay: function() {
 		// Add all Zutilo overlay elements to the window
-		this.staticOverlay();
+		this.zoteroActionsMenu();
 		this.zoteroItemPopup();
 	},
 	
-	staticOverlay: function() {
+	zoteroActionsMenu: function() {
 		// Add Zutilo preferences item to Zotero actions menu
 		var zutiloMenuItem = document.createElement("menuitem");
-		zutiloMenuItem.setAttribute("id","zutilo-zotero-actions-preferences");
+		var zutiloMenuItemID="zutilo-zotero-actions-preferences";
+		zutiloMenuItem.setAttribute("id",zutiloMenuItemID);
 		zutiloMenuItem.setAttribute("label",
 			Zutilo._bundle.GetStringFromName("zutilo.zotero.actions.preferences"));
-		zutiloMenuItem.setAttribute("oncommand","ZutiloChrome.openPreferences()");
+		zutiloMenuItem.addEventListener('command', 
+			function() {
+				ZutiloChrome.openPreferences();
+			},false);
 		var zoteroActionMenu=document.getElementById("zotero-tb-actions-popup");
 		var zoteroPrefsItem = 
 			document.getElementById("zotero-tb-actions-prefs");
 		zoteroActionMenu.insertBefore(zutiloMenuItem, zoteroPrefsItem.nextSibling);
+		
+		ZutiloChrome.XULRootElements.push(zutiloMenuItemID);
 	},
 	
 	///////////////////////////////////////////
 	//Item menu functions
 	///////////////////////////////////////////
+	// Create XUL for Zotero item menu elements
 	zoteroItemPopup: function() {
 		var zoteroItemmenu = document.getElementById("zotero-itemmenu");
 		
-		var appSettings = new Array(Zutilo._itemmenuFunctions.length);
-		for (var index=0;index<appSettings.length;index++) {
-			appSettings[index] = 
-				Zutilo.Prefs.get('itemmenu.'+Zutilo._itemmenuFunctions[index]);
+		var zutiloSeparator = document.createElement("menuseparator");
+		var zutiloSeparatorID = 'zutilo-itemmenu-separator';
+		zutiloSeparator.setAttribute('id',zutiloSeparatorID);
+		zoteroItemmenu.appendChild(zutiloSeparator);
+		ZutiloChrome.XULRootElements.push(zutiloSeparatorID);
+		
+		this.createItemmenuItems(zoteroItemmenu,'zutilo-zoteroitemmenu-',true);
+		
+		// Zutilo submenu
+		var zutiloSubmenu = document.createElement("menu");
+		var zutiloSubmenuID = "zutilo-itemmenu-submenu";
+		zutiloSubmenu.setAttribute("id",zutiloSubmenuID);
+		zutiloSubmenu.setAttribute("label",
+			Zutilo._bundle.GetStringFromName("zutilo.itemmenu.zutilo"));
+		zoteroItemmenu.appendChild(zutiloSubmenu);
+		ZutiloChrome.XULRootElements.push(zutiloSubmenuID);
+		// Zutilo submenu popup
+		var zutiloSubmenuPopup = document.createElement("menupopup");
+		zutiloSubmenuPopup.setAttribute("id","zutilo-itemmenu-submenupopup");
+		zutiloSubmenu.appendChild(zutiloSubmenuPopup);
+		
+		this.createItemmenuItems(zutiloSubmenuPopup,'zutilo-zutiloitemmenu-',false);
+		
+		this.refreshZoteroItemPopup();
+	},
+	
+	// Update hidden state of Zotero item menu elements
+	refreshZoteroItemPopup: function() {
+		var showMenuSeparator = false;
+		var showSubmenu = false;
+		
+		for (var index=0; index<Zutilo._itemmenuFunctions.length; index++) {
+			var prefVal = Zutilo.Prefs.get('itemmenu.'+Zutilo._itemmenuFunctions[index]);
+			
+			var zutiloMenuItem = document.getElementById(
+				'zutilo-zutiloitemmenu-' + Zutilo._itemmenuFunctions[index]);
+			var zoteroMenuItem = document.getElementById(
+				'zutilo-zoteroitemmenu-' + Zutilo._itemmenuFunctions[index]);
+			
+			if (prefVal == 'Zotero') {
+				showMenuSeparator = true;
+				zutiloMenuItem.hidden = true;
+				zoteroMenuItem.hidden = false;
+			} else if (prefVal == 'Zutilo') {
+				showMenuSeparator = true;
+				showSubmenu = true;
+				zutiloMenuItem.hidden = false;
+				zoteroMenuItem.hidden = true;
+			} else {
+				zutiloMenuItem.hidden = true;
+				zoteroMenuItem.hidden = true;
+			}
 		}
 		
-		if ((appSettings.indexOf('Zotero') != -1) || 
-			(appSettings.indexOf('Zutilo') != -1)) {
-			var zutiloSeparator = document.createElement("menuseparator");
-			zutiloSeparator.setAttribute('id','zutilo-itemmenu-separator');
-			zoteroItemmenu.appendChild(zutiloSeparator);
+		var menuSeparator = document.getElementById('zutilo-itemmenu-separator');
+		if (showMenuSeparator) {
+			menuSeparator.hidden = false;
 		} else {
-			return;
-		}
-			
-		if (appSettings.indexOf('Zotero') != -1) {
-			this._addPopupItems(zoteroItemmenu,appSettings,'Zotero');
+			menuSeparator.hidden = true;
 		}
 		
-		if (appSettings.indexOf('Zutilo') != -1) {
-			var zutiloSubmenu = document.createElement("menu");
-			zutiloSubmenu.setAttribute("id","zutilo-itemmenu-submenu");
-			zutiloSubmenu.setAttribute("label",
-				Zutilo._bundle.GetStringFromName("zutilo.itemmenu.zutilo"));
-			zoteroItemmenu.appendChild(zutiloSubmenu);
-			
-			var zutiloSubmenuPopup = document.createElement("menupopup");
-			zutiloSubmenuPopup.setAttribute("id","zutilo-itemmenu-submenupopup");
-			zutiloSubmenu.appendChild(zutiloSubmenuPopup);
-			
-			this._addPopupItems(zutiloSubmenuPopup,appSettings,'Zutilo');
+		var submenu = document.getElementById('zutilo-itemmenu-submenu');
+		if (showSubmenu) {
+			submenu.hidden = false;
+		} else {
+			submenu.hidden = true;
 		}
 	},
 	
-	removeZoteroItemPopup: function() {
-		var zoteroItemmenu = document.getElementById("zotero-itemmenu");
-		Zutilo.removeLabeledChildren(zoteroItemmenu,'zutilo-itemmenu-');
-	},
-		
-	refreshZoteroItemPopup: function() {
-		this.removeZoteroItemPopup();
-		this.zoteroItemPopup();
-	},
-		
-	_addPopupItems: function(menuPopup,appearanceSettings,targetSetting) {
+	// Create Zotero item menu items as children of menuPopup
+	createItemmenuItems: function(menuPopup,IDPrefix,elementsAreRoot) {
 		var menuFunc;
 		for (var index=0;index<Zutilo._itemmenuFunctions.length;index++) {
-			if (appearanceSettings[index] === targetSetting) {
-				menuFunc = this._zoteroMenuItem(Zutilo._itemmenuFunctions[index]);
-				menuPopup.appendChild(menuFunc);
+			menuFunc = this.zoteroItemmenuItem(
+				Zutilo._itemmenuFunctions[index],IDPrefix);
+			menuPopup.appendChild(menuFunc);
+			if (elementsAreRoot) {
+				ZutiloChrome.XULRootElements.push(menuFunc.id);
 			}
 		}
 	},
-		
-	_zoteroMenuItem: function(functionName) {
+	
+	// Create Zotero item menu item
+	zoteroItemmenuItem: function(functionName,IDPrefix) {
 		var menuFunc = document.createElement("menuitem");
-		menuFunc.setAttribute("id","zutilo-itemmenu-" + functionName);
+		menuFunc.setAttribute("id",IDPrefix + functionName);
 		menuFunc.setAttribute("label",
 			Zutilo._bundle.GetStringFromName("zutilo.itemmenu."+functionName));
 		menuFunc.addEventListener('command', 
@@ -372,7 +408,6 @@ ZutiloChrome.zoteroOverlay = {
 			},false);
 		return menuFunc;
 	},
-	
 	
 	///////////////////////////////////////////
 	// Zotero item selection and sorting

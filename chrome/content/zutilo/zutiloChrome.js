@@ -12,8 +12,11 @@ Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
 ///////////////////////////////////////////
-// General overlay
+// Initialization
 ///////////////////////////////////////////
+// Array holding all root XUL elements (those whose parents are not Zutilo elements).
+ZutiloChrome.XULRootElements = [];
+
 ZutiloChrome.init = function () {
 	window.setTimeout(function() {
 			if (typeof ZutiloChrome != 'undefined') {
@@ -22,7 +25,6 @@ ZutiloChrome.init = function () {
 		}, 500);
 };
 
-// General functions needed by Firefox and Zotero overlays
 ZutiloChrome.showUpgradeMessage = function() {
 	var lastVersion = Zutilo.Prefs.get('lastVersion');
 	
@@ -44,11 +46,15 @@ ZutiloChrome.showUpgradeMessage = function() {
 	);
 };
 
+///////////////////////////////////////////
+// UI functions
+///////////////////////////////////////////
+
 // Open Zutilo preferences window
 ZutiloChrome.openPreferences = function () {
 	if (null == this._preferencesWindow || this._preferencesWindow.closed) {
 		var featureStr='chrome,titlebar,toolbar=yes,resizable,centerscreen,';
-		var modalStr = Zutilo.Prefs.get('browser.preferences.instantApply', true) 
+		var modalStr = Services.prefs.getBoolPref('browser.preferences.instantApply') 
 			? 'dialog=no' : 'modal';
 		featureStr=featureStr+modalStr;
 		
@@ -59,7 +65,20 @@ ZutiloChrome.openPreferences = function () {
 	
 	this._preferencesWindow.focus();
 };
+
+// Remove all root XUL elements in this.XULRootElements array
+ZutiloChrome.removeXUL = function() {
+	while (this.XULRootElements.length > 0) {
+		var elem = document.getElementById(this.XULRootElements.pop());
+		
+		elem.parentNode.removeChild(elem);
+	}
+};
 	
+///////////////////////////////////////////
+// Utility functions
+///////////////////////////////////////////
+
 // Get string from clipboard
 ZutiloChrome.getFromClipboard = function() {
 
