@@ -38,7 +38,7 @@ function shutdown(data, reason) {
 	while (windows.hasMoreElements()) {
 		var tmpWin=windows.getNext();
 		
-		Zutilo.removeXUL(tmpWin.document);
+		tmpWin.ZutiloChrome.removeXUL();
 		delete tmpWin.ZutiloChrome;
 		delete tmpWin.Zutilo;
 	}

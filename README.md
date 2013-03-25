@@ -73,7 +73,9 @@ If you have trouble getting the .xpi file to work with Firefox, there is one oth
 Feature Requests and Bug Submissions
 ------------------------------------
 
-The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page").  Bugs can be reported by clicking on the "New Issue" button under [the Issues section](https://github.com/willsALMANJ/Zutilo/issues "GitHub Issues page") of the GitHub site.  You can also check there to see if a bug you experience has already been reported by another user.  Make sure to check the "closed" tab of the Issues section to see if the bug has already been addressed.  Feature requests may also be submitted by opening a new issue.  Please open a new issue before submitting your code.
+The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page").  Bugs can be reported by clicking on the "New Issue" button under [the Issues section](https://github.com/willsALMANJ/Zutilo/issues "GitHub Issues page") of the GitHub site.  You can also check there to see if a bug you experience has already been reported by another user.  Make sure to check the "closed" tab of the Issues section to see if the bug has already been addressed.
+
+Feature requests may also be submitted by opening a new issue.  Please open a new issue before submitting your code.  A description of the kinds of features that are appropriate for Zutilo can be found on [the Zutilo wiki page](https://github.com/willsALMANJ/Zutilo/wiki).  A roadmap of planned features is also available on the wiki.
 
 Efforts will be taken to fulfill requests for locales of Zutilo in languages other than English.
 
@@ -82,6 +84,8 @@ Log of Important Zutilo Changes
 This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
 
 * As of version 1.2.1, Zutilo can be installed and uninstalled without restarting Firefox.
+
+* As of version 1.1.17, changes made with modifyAttachments should always persist after restarting Firefox.
 
 * As of version 1.1.16, modifyAttachments can now replace elements of the path other than the beginning.
 
