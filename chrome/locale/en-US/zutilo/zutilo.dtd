@@ -18,6 +18,10 @@
 <!ENTITY zutilo.preferences.general.zoteronotactive "Warn on startup when Zotero is not enabled or not installed.">
 
 <!ENTITY zutilo.preferences.userInterface "User Interface">
+<!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero item menu">
+<!ENTITY zutilo.preferences.ui.browserLabel "Browser context menus">
+<!ENTITY zutilo.preferences.ui.statuspopup.label "Status bar icon">
+<!ENTITY zutilo.preferences.ui.statuspopup.checkbox "Show items for translating with(out) attachments">
 
 <!ENTITY zutilo.preferences.about "About">
 <!ENTITY zutilo.preferences.readme.caption "About Zutilo">
@@ -25,9 +29,3 @@
 <!ENTITY zutilo.readme.title "About Zutilo...">
 <!ENTITY zutilo.about.openaddon "Open Add-on page">
 <!ENTITY zutilo.about.opengithub "Open GitHub page">
-
-<!ENTITY zutilo.preferences.attachments "Attachments">
-<!ENTITY zutilo.preferences.attachmentDirectory "Attachment directory">
-<!ENTITY zutilo.preferences.useBasePath "Use Zotero base path">
-<!ENTITY zutilo.preferences.custom "Custom">
-<!ENTITY zutilo.preferences.choose "Choose...">

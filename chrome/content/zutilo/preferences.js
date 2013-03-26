@@ -14,6 +14,8 @@ function initializePrefWindow() {
 		// Hide Firefox specific preference window elements
 		document.getElementById("general-checkbox-zoteroNotActive").
 			setAttribute('hidden',true);
+		document.getElementById('zutilo-prefpane-ui-browser-menus').
+			setAttribute('hidden',true);
 	}
 }
 
