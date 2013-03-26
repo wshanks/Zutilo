@@ -35,11 +35,12 @@ ZutiloChrome.showUpgradeMessage = function() {
 				
 				//lastVersion == '' for new install.  Don't show upgrade message
 				//to new users
-				if (lastVersion != '') {
+				var upgradeMessageStr = Zutilo._bundle.
+							GetStringFromName("zutilo.startup.upgrademessage");
+				if (lastVersion != '' && upgradeMessageStr != '') {
 					window.openDialog('chrome://zutilo/content/zutiloUpgraded.xul', 
 						'zutilo-startup-upgradewindow', 'chrome,centerscreen',
-						{upgradeMessage: Zutilo._bundle.
-							GetStringFromName("zutilo.startup.upgrademessage")});
+						{upgradeMessage: upgradeMessageStr});
 				}
 			}
 		}
