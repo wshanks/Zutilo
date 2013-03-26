@@ -46,6 +46,8 @@ var Zutilo = {
 		return appName
 	}(),
 	
+	freezeDownloadPref: false,
+	
 	//////////////////////////////////////////////
 	// Zutilo setup functions
 	//////////////////////////////////////////////
@@ -190,11 +192,17 @@ var Zutilo = {
 	//////////////////////////////////////////////
 	// XUL related functions
 	//////////////////////////////////////////////
-	/* These functions have been replaced by zutiloChrome.removeXUL() for now
+	/* Remove all XUL added to target by Zutilo
+	  All XUL elements added by Zutilo have id's starting with "zutilo-" and no other
+	 elements should have id's starting with this string.
 	
-	//Remove all XUL added to target by Zutilo
-	//  All XUL elements added by Zutilo have id's starting with "zutilo-" and no other
-	// elements should have id's starting with this string.
+	 Most XUL is registered in ZutiloChrome and then removed with 
+	 ZutiloChrome.removeXUL().  However, it is not possible to register some XUL 
+	 because it is added onto elements whose children are periodically removed en masse
+	 and then repopulated (by Zotero_Browser.onStatusPopupShowing() for example), so it 
+	 is cleaner to remove those elements this way than to try to keep track of them as 
+	 removed by Zotero and then recreated.
+	*/
 	removeXUL: function(target) {
 		this.removeLabeledChildren(target, 'zutilo-');
 	},
@@ -214,7 +222,6 @@ var Zutilo = {
 			}
 		}
 	}
-	*/
 };
 
 Zutilo.Prefs = {
@@ -235,8 +242,9 @@ Zutilo.Prefs = {
 			defaults.setCharPref('itemmenu.'+Zutilo._itemmenuFunctions[index],'Zutilo');
 		}
 		//Other preferences
-		defaults.setBoolPref("warnZoteroNotActive",true);
 		defaults.setCharPref("lastVersion",'');
+		defaults.setBoolPref('showStatusPopupItems',false);
+		defaults.setBoolPref("warnZoteroNotActive",true);
 		
 		//Not active yet
 		//defaults.setCharPref("customAttachmentPath", '');

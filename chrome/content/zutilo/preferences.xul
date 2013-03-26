@@ -31,8 +31,12 @@
 		</prefpane>
         
 		<prefpane label="&zutilo.preferences.userInterface;" id="zutilo-prefpane-ui" onpaneload="buildItemmenuPrefs()" flex="1">
-        	<preferences id="zutilo-prefpane-ui-preferences"></preferences>
+        	<preferences id="zutilo-prefpane-ui-preferences">
+        		<preference id="pref-showStatusPopupItems" 
+        			name="extensions.zutilo.showStatusPopupItems" type="bool"/>
+        	</preferences>
         	<groupbox>
+        		<caption label='&zutilo.preferences.ui.itemmenuLabel;'/>
 				<grid>
 					<columns>
 						<column/>
@@ -41,6 +45,27 @@
 				
 					<rows id="zutilo-prefpane-ui-rows">
 						<!-- rows added dynamically by buildItemmenuPrefs() -->
+					</rows>
+				</grid>
+			</groupbox>
+			
+			<groupbox id='zutilo-prefpane-ui-browser-menus'>
+        		<caption label='&zutilo.preferences.ui.browserLabel;'/>
+				<grid>
+					<columns>
+						<column/>
+						<column flex="1"/>
+					</columns>
+				
+					<rows>
+						<row>
+							<hbox align="center">
+								<label value="&zutilo.preferences.ui.statuspopup.label;"/>
+							</hbox>
+							<checkbox id="zutilo-prefpane-ui-statuspopup-checkbox" 
+								label="&zutilo.preferences.ui.statuspopup.checkbox;" 
+								preference="pref-showStatusPopupItems"/>
+						</row>
 					</rows>
 				</grid>
 			</groupbox>
