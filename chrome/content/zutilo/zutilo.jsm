@@ -22,6 +22,11 @@ var Zutilo = {
 	//argument and that should be able to be called from the Zotero item menu
   	_itemmenuFunctions: ["copyTags","pasteTags","relateItems","showAttachments",
 		"modifyAttachments","copyCreators"],
+	ffcacmFunctions: [
+		{name: 'attachPage',
+			condition: ''},
+		{name: 'attachLink',
+			condition: 'onLink'}],
 	
 	_bundle: Cc["@mozilla.org/intl/stringbundle;1"].
 		getService(Components.interfaces.nsIStringBundleService).
@@ -45,8 +50,6 @@ var Zutilo = {
 		
 		return appName
 	}(),
-	
-	freezeDownloadPref: false,
 	
 	//////////////////////////////////////////////
 	// Zutilo setup functions
@@ -129,8 +132,12 @@ var Zutilo = {
 				case "zutilo-zoteroitemmenu-update":
 					while (windows.hasMoreElements()) {
 						var tmpWin=windows.getNext();
-						if ("undefined" != typeof(tmpWin.ZutiloChrome.zoteroOverlay)) {
-							tmpWin.ZutiloChrome.zoteroOverlay.refreshZoteroItemPopup();
+						if ("undefined" != typeof(tmpWin.ZutiloChrome)) {
+							if ("undefined" != 
+								typeof(tmpWin.ZutiloChrome.zoteroOverlay)) {
+								tmpWin.ZutiloChrome.zoteroOverlay.
+									refreshZoteroItemPopup();
+							}
 						}
 					}
 					break;
@@ -187,40 +194,6 @@ var Zutilo = {
 		// Escape all symbols with special regular expression meanings
 		// Function taken from http://stackoverflow.com/a/6969486
 		return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
-	},
-	
-	//////////////////////////////////////////////
-	// XUL related functions
-	//////////////////////////////////////////////
-	/* Remove all XUL added to target by Zutilo
-	  All XUL elements added by Zutilo have id's starting with "zutilo-" and no other
-	 elements should have id's starting with this string.
-	
-	 Most XUL is registered in ZutiloChrome and then removed with 
-	 ZutiloChrome.removeXUL().  However, it is not possible to register some XUL 
-	 because it is added onto elements whose children are periodically removed en masse
-	 and then repopulated (by Zotero_Browser.onStatusPopupShowing() for example), so it 
-	 is cleaner to remove those elements this way than to try to keep track of them as 
-	 removed by Zotero and then recreated.
-	*/
-	removeXUL: function(target) {
-		this.removeLabeledChildren(target, 'zutilo-');
-	},
-	
-	//Remove labeled children and all of their descendants.
-	//Remove all descendants of parentElem whose ids begin with childLabel
-	removeLabeledChildren: function(parentElem,childLabel) {
-		var elemChildren = parentElem.childNodes;
-	
-		for (var index=0;index<elemChildren.length;) {
-			if ("string" == typeof(elemChildren[index].id) && 
-					elemChildren[index].id.indexOf(childLabel) == 0) {
-				parentElem.removeChild(elemChildren[index]);
-			} else {
-				this.removeLabeledChildren(elemChildren[index],childLabel);
-				index++;
-			}
-		}
 	}
 };
 
@@ -242,8 +215,11 @@ Zutilo.Prefs = {
 			defaults.setCharPref('itemmenu.'+Zutilo._itemmenuFunctions[index],'Zutilo');
 		}
 		//Other preferences
+		defaults.setCharPref('attachLinkAppearance','Zotero');
+		defaults.setCharPref('attachmentImportProcessType','Zotero');
+		defaults.setCharPref('attachPageAppearance','Zotero');
 		defaults.setCharPref("lastVersion",'');
-		defaults.setBoolPref('showStatusPopupItems',false);
+		defaults.setBoolPref('showStatusPopupItems',true);
 		defaults.setBoolPref("warnZoteroNotActive",true);
 		
 		//Not active yet
@@ -323,12 +299,6 @@ Zutilo.Prefs = {
 	observe: function(subject, topic, data) {
 		if(topic!="nsPref:changed"){
 			return;
-		}
-		// subject is the nsIPrefBranch we're observing (after appropriate QI)
-		// data is the name of the pref that's been changed (relative to subject)
-		switch (data){
-			case "customAttachmentPath":
-				break;
 		}
 		
 		//Check for itemmenu preference change.  Refresh item menu if there is a change

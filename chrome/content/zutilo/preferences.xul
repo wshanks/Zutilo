@@ -34,6 +34,12 @@
         	<preferences id="zutilo-prefpane-ui-preferences">
         		<preference id="pref-showStatusPopupItems" 
         			name="extensions.zutilo.showStatusPopupItems" type="bool"/>
+        		<preference id="pref-attachmentProcessType" 
+        			name="extensions.zutilo.attachmentImportProcessType" type="string"/>
+        		<preference id="pref-attachPageApperance" 
+        			name="extensions.zutilo.attachPageAppearance" type="string"/>
+        		<preference id="pref-attachLinkApperance" 
+        			name="extensions.zutilo.attachLinkAppearance" type="string"/>
         	</preferences>
         	<groupbox>
         		<caption label='&zutilo.preferences.ui.itemmenuLabel;'/>
@@ -51,6 +57,9 @@
 			
 			<groupbox id='zutilo-prefpane-ui-browser-menus'>
         		<caption label='&zutilo.preferences.ui.browserLabel;'/>
+        		
+        		<groupbox id='zutilo-prefpane-ui-browser-statusbar'>
+        		<caption label='&zutilo.preferences.ui.statusbar.label;'/>
 				<grid>
 					<columns>
 						<column/>
@@ -58,16 +67,78 @@
 					</columns>
 				
 					<rows>
-						<row>
-							<hbox align="center">
-								<label value="&zutilo.preferences.ui.statuspopup.label;"/>
-							</hbox>
-							<checkbox id="zutilo-prefpane-ui-statuspopup-checkbox" 
-								label="&zutilo.preferences.ui.statuspopup.checkbox;" 
-								preference="pref-showStatusPopupItems"/>
-						</row>
+					<row>
+						<hbox align="center">
+							<label value="&zutilo.preferences.ui.statuspopup.label;"/>
+						</hbox>
+						<checkbox id="zutilo-prefpane-ui-statuspopup-checkbox" 
+							label="&zutilo.preferences.ui.statuspopup.checkbox;" 
+							preference="pref-showStatusPopupItems"/>
+					</row>
 					</rows>
-				</grid>
+				</grid></groupbox>
+						
+				<groupbox id='zutilo-prefpane-ui-browser-ffcacm'>
+				<caption label='&zutilo.preferences.ui.ffcacm.label;'/>
+				<grid>
+					<columns>
+						<column/>
+						<column flex="1"/>
+					</columns>
+				
+					<rows>
+					<row>
+						<hbox align="center">
+							<label value="&zutilo.preferences.ui.ffcacm.attachmentProcessType.label;"/>
+						</hbox>
+						<radiogroup id="zutilo-prefpane-ui-ffcacm-attachmentType-radiogroup" 
+							orient="horizontal"
+							align="center"
+							preference="pref-attachmentProcessType">
+							<radio value="Zotero" 
+								label="&zutilo.preferences.ui.ffcacm.attachmentProcessType.Zotero;"/>
+							<radio value="prompt" 
+								label="&zutilo.preferences.ui.ffcacm.attachmentProcessType.prompt;"/>
+							<radio value="promptAfterOne" 
+								label="&zutilo.preferences.ui.ffcacm.attachmentProcessType.promptAfterOne;"/>
+						</radiogroup>	
+					</row>
+					
+					<row>
+						<hbox align="center">
+							<label value="&zutilo.preferences.ui.attachPage.label;"/>
+						</hbox>
+						<radiogroup id="zutilo-prefpane-ui-ffcacm-attachPage-radiogroup" 
+							orient="horizontal"
+							align="center"
+							preference="pref-attachPageApperance">
+							<radio value="Firefox" 
+								label="&zutilo.preferences.ui.ffcacm.Firefox;"/>
+							<radio value="Zotero"
+								label="&zutilo.preferences.ui.ffcacm.Zotero;"/>
+							<radio value="Hide"
+								label="&zutilo.preferences.ui.ffcacm.hide;"/>
+						</radiogroup>
+					</row>
+					
+					<row>
+						<hbox align="center">
+							<label value="&zutilo.preferences.ui.attachLink.label;"/>
+						</hbox>
+						<radiogroup id="zutilo-prefpane-ui-ffcacm-attachLink-radiogroup" 
+							orient="horizontal"
+							align="center"
+							preference="pref-attachLinkApperance">
+							<radio value="Firefox" 
+								label="&zutilo.preferences.ui.ffcacm.Firefox;"/>
+							<radio value="Zotero"
+								label="&zutilo.preferences.ui.ffcacm.Zotero;"/>
+							<radio value="Hide"
+								label="&zutilo.preferences.ui.ffcacm.hide;"/>
+						</radiogroup>
+					</row>
+					</rows>
+				</grid></groupbox>
 			</groupbox>
 		</prefpane>
 			
@@ -78,9 +149,13 @@
 				<caption label="&zutilo.preferences.readme.caption;"/>
 				
 				<hbox align="center">
-					<button id="zutilo-readme-launch" label="&zutilo.preferences.readme.button;" oncommand="showReadme();"/>
-					<button label="&zutilo.about.openaddon;" oncommand="Zutilo.openLink('https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/');"/>
-					<button label="&zutilo.about.opengithub;" oncommand="Zutilo.openLink('https://github.com/willsALMANJ/Zutilo');"/>
+					<button id="zutilo-readme-launch" 
+						label="&zutilo.preferences.readme.button;" 
+						oncommand="showReadme();"/>
+					<button label="&zutilo.about.openaddon;" 
+						oncommand="Zutilo.openLink('https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/');"/>
+					<button label="&zutilo.about.opengithub;" 
+						oncommand="Zutilo.openLink('https://github.com/willsALMANJ/Zutilo');"/>
 					
 					<!-- If openLink() ever breaks with an update to Gecko, this code can 
 					be used instead (does not open links in default browser).

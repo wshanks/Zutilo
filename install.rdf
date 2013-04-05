@@ -5,7 +5,7 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>zutilo@www.wesailatdawn.com</em:id>
 		<em:name>Zutilo Utility for Zotero</em:name>
-		<em:version>1.2.2</em:version>
+		<em:version>1.2.3</em:version>
 		<em:description>A utility adding assorted macros for Zotero</em:description>
 		<em:creator>Will Shanks</em:creator>
 		<em:optionsURL>chrome://zutilo/content/preferences.xul</em:optionsURL>
