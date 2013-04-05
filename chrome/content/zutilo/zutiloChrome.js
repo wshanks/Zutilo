@@ -67,12 +67,40 @@ ZutiloChrome.openPreferences = function () {
 	this._preferencesWindow.focus();
 };
 
+//////////////////////////////////////////////
+// XUL related functions
+//////////////////////////////////////////////
+
 // Remove all root XUL elements in this.XULRootElements array
 ZutiloChrome.removeXUL = function() {
 	while (this.XULRootElements.length > 0) {
 		var elem = document.getElementById(this.XULRootElements.pop());
 		
-		elem.parentNode.removeChild(elem);
+		if (elem) {
+			elem.parentNode.removeChild(elem);
+		}
+	}
+};
+
+/* Remove all descendants of parentElem whose ids begin with childLabel
+   This function is useful for removing XUL that is added to elements (like menu popups) 
+   that periodically stripped of their children and recreated.  This repopulating  
+   (outside of Zutilo) makes it difficult to keep the XULRootElements updated with 
+   the current set of children that Zutilo has added to the element.  Rather than trying 
+   to search XULRootElements each time a Zutilo function repopulates such an element to 
+   weed out removed elements and add new ones, we just search the parent for children 
+   partial id's that should be unique to Zutilo and remove those. */
+ZutiloChrome.removeLabeledChildren = function(parentElem,childLabel) {
+	var elemChildren = parentElem.childNodes;
+
+	for (var index=0;index<elemChildren.length;) {
+		if ("string" == typeof(elemChildren[index].id) && 
+				elemChildren[index].id.indexOf(childLabel) == 0) {
+			parentElem.removeChild(elemChildren[index]);
+		} else {
+			this.removeLabeledChildren(elemChildren[index],childLabel);
+			index++;
+		}
 	}
 };
 	

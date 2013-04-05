@@ -20,8 +20,21 @@
 <!ENTITY zutilo.preferences.userInterface "User Interface">
 <!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero item menu">
 <!ENTITY zutilo.preferences.ui.browserLabel "Browser context menus">
-<!ENTITY zutilo.preferences.ui.statuspopup.label "Status bar icon">
-<!ENTITY zutilo.preferences.ui.statuspopup.checkbox "Show items for translating with(out) attachments">
+
+<!ENTITY zutilo.preferences.ui.statusbar.label "Status bar">
+<!ENTITY zutilo.preferences.ui.statuspopup.label "Status bar icon menu">
+<!ENTITY zutilo.preferences.ui.statuspopup.checkbox "Show menu items for translating with(out) attachments">
+
+<!ENTITY zutilo.preferences.ui.ffcacm.label "Firefox content area context menu">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.label "Method for creating attachments:">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.Zotero "Import">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.prompt "Prompt for linked file">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.promptAfterOne "Prompt after first">
+<!ENTITY zutilo.preferences.ui.attachPage.label "Show attach page menu item in:">
+<!ENTITY zutilo.preferences.ui.attachLink.label "Show attach link menu item in:">
+<!ENTITY zutilo.preferences.ui.ffcacm.Firefox "Firefox context menu">
+<!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Zotero submenu">
+<!ENTITY zutilo.preferences.ui.ffcacm.hide "Do not show">
 
 <!ENTITY zutilo.preferences.about "About">
 <!ENTITY zutilo.preferences.readme.caption "About Zutilo">
