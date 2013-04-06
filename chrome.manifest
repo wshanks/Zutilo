@@ -1,3 +1,6 @@
 content	zutilo				chrome/content/zutilo/
-locale	zutilo	en-US		chrome/locale/en-US/zutilo/
 skin	zutilo	default		chrome/skin/default/zutilo/
+locale	zutilo	en-US		chrome/locale/en-US/zutilo/
+locale	zutilo	de			chrome/locale/de/zutilo/
+locale	zutilo	es			chrome/locale/es/zutilo/
+locale	zutilo	fr			chrome/locale/fr/zutilo/
