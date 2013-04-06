@@ -1,0 +1,25 @@
+<!ENTITY zutilo.name "Zutilo">
+<!ENTITY zutilo.zotero.actions.preferences "Zutilo Einstellugen...">
+<!ENTITY zutilo.startup.upgradetitle "Zutilo: Upgrademeldung">
+<!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero nicht activ!">
+<!ENTITY zutilo.zoteronotactive.infomessage "Zutilo ist ein Plug-in für die Zotero Firefox Erweiterung, die derzeit entweder deaktiviert oder nicht installiert ist.  Zotero kann aus der Zotero Homepage heruntergeladen werden. Zutilo kann aus dem Add-ons-Manager deinstalliert werden.">
+<!ENTITY zutilo.zoteronotactive.actionmessage "Wenn die Schaltfläche unten gedrückt wird, schließen Sie das Fenster und nehmen Sie die folgende zusätzliche Maßnahmen:">
+<!ENTITY zutilo.zoteronotactive.zoteropage "Zotero Homepage öffnen">
+<!ENTITY zutilo.zoteronotactive.addonmanager "Add-ons Manager öffnen">
+<!ENTITY zutilo.zoteronotactive.dontshow "In die Zukunft diese Fenster ünterdrücken">
+<!ENTITY zutilo.preferences.title "Zutilo Einstellungen">
+<!ENTITY zutilo.preferences.general "Allgemein">
+<!ENTITY zutilo.preferences.general.standalonemessage "Derzeit gibt es keine allgemeinen Einstellungen für Zotero Standalone.&quot;">
+<!ENTITY zutilo.preferences.general.zoteronotactive "Beim Start Warnen, wenn Zotero nicht aktiviert oder nicht installiert ist.">
+<!ENTITY zutilo.preferences.userInterface "Benutzerschnittstelle">
+<!ENTITY zutilo.preferences.about "Über">
+<!ENTITY zutilo.preferences.readme.caption "Über Zutilo">
+<!ENTITY zutilo.preferences.readme.button "Liesmichdokument zeigen">
+<!ENTITY zutilo.readme.title "Über Zutilo...">
+<!ENTITY zutilo.about.openaddon "Add-on Seite öffnen">
+<!ENTITY zutilo.about.opengithub "GitHub Seite öffnen">
+<!ENTITY zutilo.preferences.attachments "Anhänge">
+<!ENTITY zutilo.preferences.attachmentDirectory "Old">
+<!ENTITY zutilo.preferences.useBasePath "Old">
+<!ENTITY zutilo.preferences.custom "Old">
+<!ENTITY zutilo.preferences.choose "Old">
