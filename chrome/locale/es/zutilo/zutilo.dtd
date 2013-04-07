@@ -12,14 +12,24 @@
 <!ENTITY zutilo.preferences.general.standalonemessage "En la actualidad no hay preferencias generales de Zotero Standalone.">
 <!ENTITY zutilo.preferences.general.zoteronotactive "Avisar al inicio cuando Zotero no está habilitada o no está instalada.">
 <!ENTITY zutilo.preferences.userInterface "Interfaz de Usuario">
+<!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero ítem menú">
+<!ENTITY zutilo.preferences.ui.browserLabel "Menús contextuales de navegador">
+<!ENTITY zutilo.preferences.ui.statusbar.label "Barra de direcciones">
+<!ENTITY zutilo.preferences.ui.statuspopup.label "Barra de direcciones icono menú">
+<!ENTITY zutilo.preferences.ui.statuspopup.checkbox "Mostrar elementos de menú para traducir ítems con/sín adjuntos">
+<!ENTITY zutilo.preferences.ui.ffcacm.label "Firefox área de contenido menú contextual">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.label "Método de creación de adjuntos:">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.Zotero "Importar">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.prompt "Preguntar por adjunto enlazado">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.promptAfterOne "Preguntar después del primero">
+<!ENTITY zutilo.preferences.ui.attachPage.label "Mostrar adjuntar página menú ítem en:">
+<!ENTITY zutilo.preferences.ui.attachLink.label "Mostrar adjuntar enlace menú ítem en:">
+<!ENTITY zutilo.preferences.ui.ffcacm.Firefox "Firefox menú contextual">
+<!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Zotero submenú">
+<!ENTITY zutilo.preferences.ui.ffcacm.hide "No mostrar">
 <!ENTITY zutilo.preferences.about "Acerca">
 <!ENTITY zutilo.preferences.readme.caption "Acerca de Zutilo">
 <!ENTITY zutilo.preferences.readme.button "Mostrar léame documento">
-<!ENTITY zutilo.readme.title "Acercar de Zutilo...">
+<!ENTITY zutilo.readme.title "Acerca de Zutilo...">
 <!ENTITY zutilo.about.openaddon "Abrir la Add-on página">
 <!ENTITY zutilo.about.opengithub "Abrir la GitHub página">
-<!ENTITY zutilo.preferences.attachments "Adjuntos">
-<!ENTITY zutilo.preferences.attachmentDirectory "Adjunto directoria">
-<!ENTITY zutilo.preferences.useBasePath "Usar Zotero base path">
-<!ENTITY zutilo.preferences.custom "Custom">
-<!ENTITY zutilo.preferences.choose "Choose...">

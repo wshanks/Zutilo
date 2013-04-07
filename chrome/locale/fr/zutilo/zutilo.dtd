@@ -18,8 +18,3 @@
 <!ENTITY zutilo.readme.title "À propos de Zutilo…">
 <!ENTITY zutilo.about.openaddon "Ouvrir la page de l'extension">
 <!ENTITY zutilo.about.opengithub "Ouvrir la page du GitHub">
-<!ENTITY zutilo.preferences.attachments "Pièces jointes">
-<!ENTITY zutilo.preferences.attachmentDirectory "Répertoire des pièces jointes">
-<!ENTITY zutilo.preferences.useBasePath "Utiliser le répertoire de Zotero">
-<!ENTITY zutilo.preferences.custom "Personnaliser">
-<!ENTITY zutilo.preferences.choose "Choisir…">
