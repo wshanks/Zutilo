@@ -57,7 +57,7 @@
 			<Description>
 				<em:locale>fr</em:locale>
 				<em:name>Zutilo Outil pour Zotero</em:name>
-				<em:description>Un outil qui fournit certaines fonctionnalités à Zotero</em:description>
+				<em:description>Un outil qui ajoute certaines fonctionnalités à Zotero</em:description>
 			</Description>
 		</em:localized>
 	</Description>
