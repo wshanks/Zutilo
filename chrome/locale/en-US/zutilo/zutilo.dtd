@@ -36,6 +36,12 @@
 <!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Zotero submenu">
 <!ENTITY zutilo.preferences.ui.ffcacm.hide "Do not show">
 
+<!ENTITY zutilo.preferences.shortcuts "Shortcuts">
+<!ENTITY zutilo.preferences.shortcuts.labels "Name">
+<!ENTITY zutilo.preferences.shortcuts.keys "Shortcut">
+<!ENTITY zutilo.preferences.shortcuts.apply "Apply">
+<!ENTITY zutilo.preferences.shortcuts.disable "Disable">
+
 <!ENTITY zutilo.preferences.about "About">
 <!ENTITY zutilo.preferences.readme.caption "About Zutilo">
 <!ENTITY zutilo.preferences.readme.button "Show readme document">

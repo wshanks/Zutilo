@@ -286,6 +286,7 @@ ZutiloChrome.zoteroOverlay = {
 		// Add all Zutilo overlay elements to the window
 		this.zoteroActionsMenu();
 		this.zoteroItemPopup();
+		this.initKeys();
 	},
 	
 	zoteroActionsMenu: function() {
@@ -407,6 +408,75 @@ ZutiloChrome.zoteroOverlay = {
 				ZutiloChrome.zoteroOverlay[functionName]();
 			},false);
 		return menuFunc;
+	},
+	
+	///////////////////////////////////////////
+	// Keyboard shortcut functions
+	///////////////////////////////////////////
+	initKeys: function() {
+		var keyset = document.createElement('keyset');
+		this.keyset = keyset;
+		this.keyset.setAttribute('id', 'zutilo-keyset');
+		document.getElementById('mainKeyset').parentNode.appendChild(this.keyset);
+		ZutiloChrome.XULRootElements.push(this.keyset.id);
+		
+		for (var keyLabel in Zutilo.keys.shortcuts) {
+			this.createKey(keyLabel);
+		}
+	},
+	
+	createKey: function(keyLabel) {
+		var key = document.createElement('key');
+		key.setAttribute('id', Zutilo.keys.keyID(keyLabel));
+		this.keyset.appendChild(key);
+		// Set label attribute so that keys show up nicely in keyconfig extension
+		key.setAttribute('label', 'Zutilo: ' + Zutilo.keys.keyName(keyLabel));
+		//key.setAttribute('command', 'zutilo-keyset-command');
+		key.setAttribute('oncommand', '//');
+		key.addEventListener('command', 
+			function() {
+				Zutilo.keys.shortcuts[keyLabel](window)
+			});
+		
+		var keyObj = Zutilo.keys.getKey(keyLabel);
+		
+		if (keyObj.modifiers) {
+			key.setAttribute('modifiers', keyObj.modifiers);
+		}
+		if (keyObj.key) {
+			key.setAttribute('key', keyObj.key);
+		} else if (keyObj.keycode) {
+			key.setAttribute('key', keyObj.key);
+		} else {
+			// No key or keycode.  Set to empty string to disable.
+			key.setAttribute('key', '');
+		}
+	},
+	
+	updateKey: function(keyLabel) {
+		var key = document.getElementById(Zutilo.keys.keyID(keyLabel));
+		
+		key.removeAttribute('modifiers');
+		key.removeAttribute('key');
+		key.removeAttribute('keycode');
+		
+		var keyObj = Zutilo.keys.getKey(keyLabel);
+		
+		if (keyObj.modifiers) {
+			key.setAttribute('modifiers', keyObj.modifiers);
+		}
+		if (keyObj.key) {
+			key.setAttribute('key', keyObj.key);
+		} else if (keyObj.keycode) {
+			key.setAttribute('key', keyObj.key);
+		} else {
+			// No key or keycode.  Set to empty string to disable.
+			key.setAttribute('key', '');
+		}
+		
+		// Regenerate keys
+		var keyset = this.keyset;
+		keyset.parentNode.insertBefore(keyset, keyset.nextSibling);
 	},
 	
 	///////////////////////////////////////////

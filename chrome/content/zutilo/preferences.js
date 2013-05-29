@@ -17,6 +17,8 @@ function initializePrefWindow() {
 		document.getElementById('zutilo-prefpane-ui-browser-menus').
 			setAttribute('hidden',true);
 	}
+	
+	keyconfig_onLoad();
 }
 
 function buildItemmenuPrefs() {

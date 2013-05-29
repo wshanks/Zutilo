@@ -57,6 +57,8 @@ var Zutilo = {
 	init: function() {
 		this.observers.register();
 		
+		Services.scriptloader.loadSubScript('chrome://zutilo/content/keys.js', this);
+		
 		Zutilo.Prefs.init();
 		//Zutilo.ZoteroPrefs.init();
 		
@@ -141,6 +143,18 @@ var Zutilo = {
 						}
 					}
 					break;
+					
+				case "zutilo-shortcut-update":
+					while (windows.hasMoreElements()) {
+						var tmpWin=windows.getNext();
+						if ("undefined" != typeof(tmpWin.ZutiloChrome)) {
+							if ("undefined" != 
+								typeof(tmpWin.ZutiloChrome.zoteroOverlay)) {
+								tmpWin.ZutiloChrome.zoteroOverlay.updateKey(data);
+							}
+						}
+					}
+					break;
 				
 				default:
 			}
@@ -148,10 +162,12 @@ var Zutilo = {
 		
 		register: function() {
 			Services.obs.addObserver(this, "zutilo-zoteroitemmenu-update", false);
+			Services.obs.addObserver(this, "zutilo-shortcut-update", false);
 		},
 		  
 		unregister: function() {
 			Services.obs.removeObserver(this, "zutilo-zoteroitemmenu-update");
+			Services.obs.removeObserver(this, "zutilo-shortcut-update");
 		}
 	},
 	
@@ -214,6 +230,12 @@ Zutilo.Prefs = {
 		for (var index=0;index<Zutilo._itemmenuFunctions.length;index++) {
 			defaults.setCharPref('itemmenu.'+Zutilo._itemmenuFunctions[index],'Zutilo');
 		}
+		//Preferences for _shortcuts
+		//switch to loading shortcuts script and looping on shortcuts object
+		for (var keyLabel in Zutilo.keys.shortcuts) {
+			defaults.setCharPref('shortcut.'+keyLabel,
+				JSON.stringify({modifiers: '', key: '', keycode: ''}));
+		}
 		//Other preferences
 		defaults.setCharPref('attachLinkAppearance','Zotero');
 		defaults.setCharPref('attachmentImportProcessType','Zotero');
@@ -221,9 +243,6 @@ Zutilo.Prefs = {
 		defaults.setCharPref("lastVersion",'');
 		defaults.setBoolPref('showStatusPopupItems',true);
 		defaults.setBoolPref("warnZoteroNotActive",true);
-		
-		//Not active yet
-		//defaults.setCharPref("customAttachmentPath", '');
 	},
 	
 	get: function(pref, global) {
@@ -306,6 +325,14 @@ Zutilo.Prefs = {
 			var prefParts = data.split('.');
 			if (Zutilo._itemmenuFunctions.indexOf(prefParts[1]) != -1) {
 				Services.obs.notifyObservers(null, "zutilo-zoteroitemmenu-update", null);
+			}
+		}
+		
+		if (data.indexOf('shortcut') == 0 ) {
+			var prefParts = data.split('.');
+			if (prefParts[1] in Zutilo.keys.shortcuts) {
+				Services.obs.notifyObservers(null, 
+					"zutilo-shortcut-update", prefParts[1]);
 			}
 		}
 	}
