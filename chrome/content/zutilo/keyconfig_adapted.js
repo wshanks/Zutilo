@@ -4,6 +4,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
  
  //Note: this code has been adapted from dorando's Keyconfig extension.
+ "use strict";
+ Components.utils.import("resource://gre/modules/Services.jsm");
 
 var gPrefService = Components.classes['@mozilla.org/preferences-service;1']
                    .getService(Components.interfaces.nsIPrefService).getBranch("");
@@ -14,6 +16,21 @@ var gKeys = [];
 var gLocaleKeys;
 var gPlatformKeys = new Object();
 var gVKNames = [];
+
+var gKeynames = {
+  "BrowserReload();": "key_reload",
+  goBackKb2: "goBackKb",
+  goForwardKb2: "goForwardKb"
+}
+gKeynames["BrowserReloadSkipCache();"] = 
+	gKeynames["Browser:ReloadSkipCache"] = 
+	Zutilo._bundle.GetStringFromName("zutilo.shortcuts.reloadSkipCache");
+if (gPrefService.getPrefType("browser.backspace_action")) {
+	if (gPrefService.getIntPref("browser.backspace_action") == 0) {
+		gKeynames["cmd_handleBackspace"] = "goBackKb";
+		gKeynames["cmd_handleShiftBackspace"] = "goForwardKb";
+	}
+}
 
 function keyconfig_onLoad() {
 	keyTree = document.getElementById("key-tree");
@@ -154,7 +171,7 @@ function Apply() {
 
 	keyTree.focus();
 
-	if (!Zutilo.keys.keysEqual(key, gEdit.key)) {
+	if (!Zutilo.keys.keysEqual(key, gEdit.key) && noConflictingKeys(gEdit.key)) {
 		Zutilo.keys.setKey(gKeys[keyTree.currentIndex], gEdit.key);
 		keyTree.treeBoxObject.invalidate();
 	}
@@ -164,6 +181,165 @@ function Disable() {
 	gEdit.value = Zutilo._bundle.GetStringFromName('zutilo.shortcuts.disabled');
 	gEdit.key = {modifiers: '', key: '', keycode: ''};
 	Apply();
+}
+
+function noConflictingKeys(checkKey) {
+	// Use object properties to store key names so there are no duplicates
+	var conflicts = new Object();
+	var keyLists, win;
+	
+	// Loop through all browsers looking for keys, though they probably all have the 
+	// same ones....
+	var windows = Services.wm.getEnumerator('navigator:browser');
+	while (windows.hasMoreElements()) {
+		win = windows.getNext();
+		
+		// Get all key elements that match key/keycode
+		keyLists=[];
+		if (checkKey.key) {
+			keyLists.push(win.document.getElementsByAttribute('key', 
+				checkKey.key.toLowerCase()));
+			keyLists.push(win.document.getElementsByAttribute('key', 
+				checkKey.key.toUpperCase()));
+		} else if (checkKey.keycode) {
+			keyLists.push(win.document.getElementsByAttribute('keycode', 
+				checkKey.keycode));
+		}
+	
+		// Get name of each key with matching modifiers and key/keycode
+		for (var listIdx=0; listIdx<keyLists.length; listIdx++) {
+			for (var keyIdx=0; keyIdx<keyLists[listIdx].length; keyIdx++) {
+				if (modifiersMatch(checkKey, keyLists[listIdx].item(keyIdx))) {
+					conflicts[getNameForKey(win, keyLists[listIdx].item(keyIdx))]=true;
+				}
+			}
+		}
+	}
+	
+	var nameList=[];
+	for (var name in conflicts) {
+		nameList.push(name);
+	}
+	
+	var noConflict = true;
+	if (nameList.length>0) {
+		// OK = no conflict; cancel = conflict
+		noConflict=Services.prompt.confirm(window, 
+			Zutilo._bundle.GetStringFromName("zutilo.shortcuts.conflicts.promptTitle"),
+			Zutilo._bundle.GetStringFromName("zutilo.shortcuts.conflicts.promptText")
+			+ nameList.join('\n'));
+	}
+	
+	return noConflict
+}
+
+function modifiersMatch(keyElem, keyNode) {
+	var modifiers1=keyElem.modifiers
+						.replace("alt",gPlatformKeys.alt)
+  						.replace("shift",gPlatformKeys.shift)
+  						.replace("control",gPlatformKeys.ctrl)
+  						.replace("meta",gPlatformKeys.meta)
+  						.replace("accel",gPlatformKeys.accel)
+						.split(/[\s,]+/);
+	var modifiers2=keyNode.getAttribute('modifiers')
+						.replace("alt",gPlatformKeys.alt)
+  						.replace("shift",gPlatformKeys.shift)
+  						.replace("control",gPlatformKeys.ctrl)
+  						.replace("meta",gPlatformKeys.meta)
+  						.replace("accel",gPlatformKeys.accel)
+						.split(/[\s,]+/);
+	
+	var match=true;
+	if (modifiers1.length==modifiers2.length) {
+		for (var idx=0; idx<modifiers1.length; idx++) {
+			if (modifiers2.indexOf(modifiers1[idx])==-1) {
+				match=false;
+				break
+			}
+		}
+	} else {
+		match=false;
+	}
+	
+	return match
+}
+
+function getNameForKey(win, keyNode) {
+	var val;
+
+	if (keyNode.hasAttribute("label")) {
+		return keyNode.getAttribute("label")
+	}
+
+	if (keyNode.hasAttribute("command") || keyNode.hasAttribute("observes")) {
+		var command = keyNode.getAttribute("command") || keyNode.getAttribute("observes");
+		var node = win.document.getElementById(command);
+		if (node && node.hasAttribute("label")) {
+			return node.getAttribute("label")
+		}
+		val = getLabel(win, "command", command);
+		if (!val) {
+			val = getLabel(win, "observes", command)
+		}
+	}
+
+	var id = keyNode.getAttribute('id');
+	if (!val) {
+		val = getLabel(win, "key", id);
+	}
+
+	// Code below copied from Keyconfig -- kept for compatibility with Keyconfig shortcuts
+	if (!val) {
+		var val = id.replace(/xxx_key.+?_/,"");
+		try {
+			var converter = 
+				Components.classes['@mozilla.org/intl/scriptableunicodeconverter']
+                .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+            converter.charset = "UTF-8";
+			val = converter.ConvertToUnicode(val);
+		} catch(err) {
+			converter.charset = "UTF-8"; 
+		}
+
+		if (gKeynames[val]) {
+			var key = win.document.getElementById(gKeynames[val]);
+			if (key) {
+				val = getNameForKey(win, key);
+			} else {
+				val = gKeynames[val];
+			}
+		}
+	}
+	
+	if (!val) {
+		val = Zutilo._bundle.GetStringFromName('zutilo.shortcuts.unlabeled');
+	}
+
+	return val
+}
+
+function getLabel(win, attr, value) {
+	var Users = win.document.getElementsByAttribute(attr,value);
+	var User;
+
+	for (var i = 0, l = Users.length; i < l; i++) {
+		if (Users[i].hasAttribute("label") && (!User || User.localName == "menuitem")) {
+			User = Users[i];
+		}
+	}
+
+	var label;
+	if (!User) {
+		label = null;
+	} else if (User.localName == "menuitem" && 
+		User.parentNode.parentNode.parentNode.localName == "menupopup") {
+		label = User.getAttribute("label") + 
+			" [" + User.parentNode.parentNode.getAttribute("label") + "]";
+	} else {
+		label = User.getAttribute("label");
+	}
+	
+	return label
 }
 
 var sorter = new Object();
