@@ -18,17 +18,19 @@ var gPlatformKeys = new Object();
 var gVKNames = [];
 
 var gKeynames = {
-  "BrowserReload();": "key_reload",
-  goBackKb2: "goBackKb",
-  goForwardKb2: "goForwardKb"
+	"BrowserReload();": Zutilo._bundle.GetStringFromName("zutilo.shortcuts.reload"),
+	goBackKb2: Zutilo._bundle.GetStringFromName("zutilo.shortcuts.goBack"),
+	goForwardKb2: Zutilo._bundle.GetStringFromName("zutilo.shortcuts.goForward")
 }
 gKeynames["BrowserReloadSkipCache();"] = 
 	gKeynames["Browser:ReloadSkipCache"] = 
 	Zutilo._bundle.GetStringFromName("zutilo.shortcuts.reloadSkipCache");
 if (gPrefService.getPrefType("browser.backspace_action")) {
 	if (gPrefService.getIntPref("browser.backspace_action") == 0) {
-		gKeynames["cmd_handleBackspace"] = "goBackKb";
-		gKeynames["cmd_handleShiftBackspace"] = "goForwardKb";
+		gKeynames["cmd_handleBackspace"] = 
+			Zutilo._bundle.GetStringFromName("zutilo.shortcuts.goBack");
+		gKeynames["cmd_handleShiftBackspace"] = 
+			Zutilo._bundle.GetStringFromName("zutilo.shortcuts.goForward");
 	}
 }
 
@@ -284,13 +286,14 @@ function getNameForKey(win, keyNode) {
 	}
 
 	var id = keyNode.getAttribute('id');
-	if (!val) {
-		val = getLabel(win, "key", id);
+	if (!val && id) {
+		val = getLabel(win, "id", id);
 	}
 
 	// Code below copied from Keyconfig -- kept for compatibility with Keyconfig shortcuts
 	if (!val) {
 		var val = id.replace(/xxx_key.+?_/,"");
+		
 		try {
 			var converter = 
 				Components.classes['@mozilla.org/intl/scriptableunicodeconverter']
@@ -299,6 +302,10 @@ function getNameForKey(win, keyNode) {
 			val = converter.ConvertToUnicode(val);
 		} catch(err) {
 			converter.charset = "UTF-8"; 
+		}
+		
+		if (!val && command) {
+			val = command;
 		}
 
 		if (gKeynames[val]) {
