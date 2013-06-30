@@ -1,0 +1,35 @@
+<!ENTITY zutilo.name "Zutilo">
+<!ENTITY zutilo.zotero.actions.preferences "Preferencias de Zutilo…">
+<!ENTITY zutilo.startup.upgradetitle "Zutilo: Mensaje de actualización">
+<!ENTITY zutilo.zoteronotactive.title "Zutilo: ¡Zotero inactivo!">
+<!ENTITY zutilo.zoteronotactive.infomessage "Zutilo es un plugin para la extensión Zotero de Firefox, que está deshabilitada o no instalada. Puede descargarse Zotero desde su página web. Zutilo puede desinstalarse desde el Administrador de complementos.">
+<!ENTITY zutilo.zoteronotactive.actionmessage "Tras pulsar el botón inferior, cerrar la ventana y realizar las siguientes acciones:">
+<!ENTITY zutilo.zoteronotactive.zoteropage "Abrir la página principal de Zotero">
+<!ENTITY zutilo.zoteronotactive.addonmanager "Abrir el Administrador de complementos">
+<!ENTITY zutilo.zoteronotactive.dontshow "Suprimir esta ventana en el futuro">
+<!ENTITY zutilo.preferences.title "Preferencias de Zutilo">
+<!ENTITY zutilo.preferences.general "General">
+<!ENTITY zutilo.preferences.general.standalonemessage "Actualmente no hay preferencias generales para Zotero Standalone.">
+<!ENTITY zutilo.preferences.general.zoteronotactive "Avisar al inicio cuando Zotero no está habilitada o instalada.">
+<!ENTITY zutilo.preferences.userInterface "Interfaz de usuario">
+<!ENTITY zutilo.preferences.ui.itemmenuLabel "Menú de elementos de Zotero">
+<!ENTITY zutilo.preferences.ui.browserLabel "Menús contextuales de navegador">
+<!ENTITY zutilo.preferences.ui.statusbar.label "Barra de direcciones">
+<!ENTITY zutilo.preferences.ui.statuspopup.label "Icono de menú de barra de direcciones">
+<!ENTITY zutilo.preferences.ui.statuspopup.checkbox "Mostrar elementos de menú para traducir con/sin adjuntos">
+<!ENTITY zutilo.preferences.ui.ffcacm.label "Menú contextual del área de contenido de Firefox">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.label "Cómo crear adjuntos:">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.Zotero "Importar">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.prompt "Preguntar por archivo enlazado">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.promptAfterOne "Preguntar tras el primero">
+<!ENTITY zutilo.preferences.ui.attachPage.label "Mostrar elemento de menú de adjuntar página en:">
+<!ENTITY zutilo.preferences.ui.attachLink.label "Mostrar elemento de menú de adjuntar enlace en:">
+<!ENTITY zutilo.preferences.ui.ffcacm.Firefox "Menú contextual de Firefox">
+<!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Submenú de Zotero">
+<!ENTITY zutilo.preferences.ui.ffcacm.hide "No mostrar">
+<!ENTITY zutilo.preferences.about "Acerca de">
+<!ENTITY zutilo.preferences.readme.caption "Acerca de Zutilo">
+<!ENTITY zutilo.preferences.readme.button "Mostrar &quot;Léame&quot;">
+<!ENTITY zutilo.readme.title "Acerca de Zutilo…">
+<!ENTITY zutilo.about.openaddon "Abrir página del complemento">
+<!ENTITY zutilo.about.opengithub "Abrir página de GitHub">

@@ -1,0 +1,35 @@
+<!ENTITY zutilo.name "Zutilo">
+<!ENTITY zutilo.zotero.actions.preferences "Préférences de l'extension Zutilo">
+<!ENTITY zutilo.startup.upgradetitle "Zutilo : message de mise à jour">
+<!ENTITY zutilo.zoteronotactive.title "Zutilo : Zotero n'est pas activé">
+<!ENTITY zutilo.zoteronotactive.infomessage "Zutilo est un module pour l'extension Zotero">
+<!ENTITY zutilo.zoteronotactive.actionmessage "Quand vous avez cliqué sur le bouton ci-dessous, fermez la fenêtre et effectuez les actions suivantes :">
+<!ENTITY zutilo.zoteronotactive.zoteropage "Ouvrir la page d'accueil de Zotero">
+<!ENTITY zutilo.zoteronotactive.addonmanager "ouvrir le gestionnaire de modules complémentaires">
+<!ENTITY zutilo.zoteronotactive.dontshow "Supprimer la fenêtre à l'avenir">
+<!ENTITY zutilo.preferences.title "Préférences de l'extension Zutilo">
+<!ENTITY zutilo.preferences.general "Générales">
+<!ENTITY zutilo.preferences.general.standalonemessage "Pour l'instant il n'existe pas de préférences générales pour Zutilo">
+<!ENTITY zutilo.preferences.general.zoteronotactive "Avertir au démarrage si Zotero est inactif ou non installé.">
+<!ENTITY zutilo.preferences.userInterface "Interface utilisateur">
+<!ENTITY zutilo.preferences.ui.itemmenuLabel "Entrée de menu de Zotero">
+<!ENTITY zutilo.preferences.ui.browserLabel "Menus contextuels du navigateur">
+<!ENTITY zutilo.preferences.ui.statusbar.label "La barre d’adresse">
+<!ENTITY zutilo.preferences.ui.statuspopup.label "Menu de l'icône de barre d'adresse">
+<!ENTITY zutilo.preferences.ui.statuspopup.checkbox "afficher les entrées de menu pour traduire ou non les pièces jointes">
+<!ENTITY zutilo.preferences.ui.ffcacm.label "Menu contextuel de Firefox pour du contenu">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.label "Méthode">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.Zotero "Importer">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.prompt "Demander pour un fichier lié">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.promptAfterOne "Demander après le premier">
+<!ENTITY zutilo.preferences.ui.attachPage.label "Afficher l'entrée de menu Attacher la page dans :">
+<!ENTITY zutilo.preferences.ui.attachLink.label "Afficher l'entrée de menu Attacher le lien dans :">
+<!ENTITY zutilo.preferences.ui.ffcacm.Firefox "Menu contextuel de Firefox">
+<!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Sous-menu de Zotero">
+<!ENTITY zutilo.preferences.ui.ffcacm.hide "Ne pas afficher">
+<!ENTITY zutilo.preferences.about "À propos">
+<!ENTITY zutilo.preferences.readme.caption "À propos de Zutilo">
+<!ENTITY zutilo.preferences.readme.button "Afficher le lisez-moi">
+<!ENTITY zutilo.readme.title "À propos de Zutilo…">
+<!ENTITY zutilo.about.openaddon "Ouvrir la page de l'extension">
+<!ENTITY zutilo.about.opengithub "Ouvrir la page du GitHub">
