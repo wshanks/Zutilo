@@ -124,6 +124,8 @@ Log of Important Zutilo Changes
 -------------------------------
 This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
 
+* In version 1.2.4, fr, es, and de locales were added (please report any translation errors!).
+
 * In version 1.2.3, functions were added to attach pages and links in Firefox to the currently selected Zotero item and to save the current page to Zotero with attachments if the default setting is to save without attachments (or to save without attachments if the default setting is to save with them).
 
 * As of version 1.2.1, Zutilo can be installed and uninstalled without restarting Firefox.
@@ -139,4 +141,4 @@ This section is not a complete log of changes to Zutilo.  It will include any ma
 Credits
 -------
 
-Zutilo is based is modeled on the Firefox extension format suggested in the [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School).  Additionally, examples were taken from the [Mozilla Developer Network](https://developer.mozilla.org/) documentation and the Zotero source code.
+Zutilo is based is modeled on the Firefox extension format suggested in the [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School).  Additionally, examples were taken from the [Mozilla Developer Network](https://developer.mozilla.org/) documentation and the Zotero source code.  Translation support was provided by Armin Stroß-Radschinski, Goofy, and Urko on BabelZilla.
