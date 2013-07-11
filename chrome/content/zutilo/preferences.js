@@ -54,8 +54,7 @@ function addItemmenuRadiogroup(itemmenuFunction) {
 	newRadiogroup.setAttribute("align","center");
 	newRadiogroup.setAttribute("preference","pref-itemmenu-"+itemmenuFunction);
 	
-	var labelList = ['Zotero','Zutilo',Zutilo._bundle.GetStringFromName(
-		"zutilo.preferences.itemmenu.Hide")];
+	var labelList = ['Zotero','Zutilo','Hide'];
 	var newRadio;
 	for (var index=0;index<labelList.length;index++) {
 		newRadio = document.createElement("radio");

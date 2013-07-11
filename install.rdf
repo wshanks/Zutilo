@@ -5,8 +5,16 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>zutilo@www.wesailatdawn.com</em:id>
 		<em:name>Zutilo Utility for Zotero</em:name>
-		<em:version>1.2.3</em:version>
-		<em:description>A utility adding assorted macros for Zotero</em:description>
+		<em:version>1.2.4</em:version>
+		
+		<em:localized>
+			<Description>
+				<em:locale>en-US</em:locale>
+				<em:name>Zutilo Utility for Zotero</em:name>
+				<em:description>A utility adding assorted macros for Zotero</em:description>
+			</Description>
+		</em:localized>
+		
 		<em:creator>Will Shanks</em:creator>
 		<em:optionsURL>chrome://zutilo/content/preferences.xul</em:optionsURL>
 		<em:type>2</em:type> <!-- type=extension -->
@@ -19,7 +27,7 @@
 			<Description>
 				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 				<em:minVersion>16.0a1</em:minVersion>
-				<em:maxVersion>20.*</em:maxVersion>
+				<em:maxVersion>22.*</em:maxVersion>
 			</Description>
 		</em:targetApplication>
 		
@@ -31,5 +39,27 @@
 				<em:maxVersion>*</em:maxVersion>
 			</Description>
 		</em:targetApplication> 
+		
+		<em:localized>
+			<Description>
+				<em:locale>de</em:locale>
+				<em:name>Zutilo Dienstprogramm für Zotero</em:name>
+				<em:description>Ein Dienstprogramm, das verschiedene Makros zu Zotero fügt</em:description>
+			</Description>
+		</em:localized>
+		<em:localized>
+			<Description>
+				<em:locale>es</em:locale>
+				<em:name>Utilidad Zutilo para Zotero</em:name>
+				<em:description>Una utilidad que ofrece diversas macros a Zotero</em:description>
+			</Description>
+		</em:localized>
+		<em:localized>
+			<Description>
+				<em:locale>fr</em:locale>
+				<em:name>Zutilo Outil pour Zotero</em:name>
+				<em:description>Un outil qui ajoute certaines fonctionnalités à Zotero</em:description>
+			</Description>
+		</em:localized>
 	</Description>
 </RDF>

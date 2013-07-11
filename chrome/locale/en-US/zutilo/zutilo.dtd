@@ -21,8 +21,8 @@
 <!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero item menu">
 <!ENTITY zutilo.preferences.ui.browserLabel "Browser context menus">
 
-<!ENTITY zutilo.preferences.ui.statusbar.label "Status bar">
-<!ENTITY zutilo.preferences.ui.statuspopup.label "Status bar icon menu">
+<!ENTITY zutilo.preferences.ui.statusbar.label "Address bar">
+<!ENTITY zutilo.preferences.ui.statuspopup.label "Address bar icon menu">
 <!ENTITY zutilo.preferences.ui.statuspopup.checkbox "Show menu items for translating with(out) attachments">
 
 <!ENTITY zutilo.preferences.ui.ffcacm.label "Firefox content area context menu">
