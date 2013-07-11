@@ -7,7 +7,11 @@ Current feature list
 --------------------
 
 ### Keyboard shortcuts ###
-Most of Zutilo's features can be accessed through context menus that appear when right-clicking on relevant elements in Zotero or Firefox.  It can be useful to call many of Zutilo's functions directly from the keyboard rather than using context menus.  Zutilo does not currently provide keyboard shortcuts natively (native keyboard shortcuts are a possible future improvement).  However, Zutilo's functions can be mapped to keyboard shortcuts by using another Firefox plugin such as [Keyconfig](http://forums.mozillazine.org/viewtopic.php?t=72994), which provides a simple interface for mapping keyboard shortcuts to Javascript commands and works with both Firefox and Zotero Standalone, or [Pentadactyl](http://5digits.org/pentadactyl/index) or [Vimperator](http://www.vimperator.org/vimperator), which both provide a more advanced command line interface for Firefox (Pentadactyl users might be interested in [Zoterodactyl](https://github.com/willsALMANJ/Zoterodactyl), a set of Pentadactyl plugins providing key mappings for Zotero and Zutilo).  In the descriptions of features below, the corresponding function names are given.  These are the function names that should be mapped to call these functions without using context menus.
+Most of Zutilo's features can be accessed through context menus that appear when right-clicking on relevant elements in Zotero or Firefox.  It can be useful to call many of Zutilo's functions directly from the keyboard rather than using context menus.  Shortcuts for many of Zutilo's functions (and some base Zotero functions) can be set in the Zutilo preferences window (accessible from the Add-ons Manager or the Zotero actions menu (the "gear" icon).
+
+If you prefer, you may also use the [Customizable Shortcuts](https://addons.mozilla.org/en-US/firefox/addon/customizable-shortcuts/) extension to set Zutilo's shortcuts.  Settings made with this extension will override any settings made in Zutilo's preference window.  Setting Zutilo's shortcuts with the [Keyconfig extension](http://forums.mozillazine.org/viewtopic.php?t=72994) is not recommended (the settings will work for one session but will be overwritten by Zutilo when Firefox is restarted).
+
+Zutilo's functions can be mapped to keyboard shortcuts by using another Firefox plugin such as [Keyconfig](http://forums.mozillazine.org/viewtopic.php?t=72994), which provides a simple interface for mapping keyboard shortcuts to Javascript commands and works with both Firefox and Zotero Standalone, or [Pentadactyl](http://5digits.org/pentadactyl/index) or [Vimperator](http://www.vimperator.org/vimperator), which both provide a more advanced command line interface for Firefox (Pentadactyl users might be interested in [Zoterodactyl](https://github.com/willsALMANJ/Zoterodactyl), a set of Pentadactyl plugins providing key mappings for Zotero and Zutilo).  In the descriptions of features below, the corresponding function names are given.  These are the  Javascript function names that should be mapped to call these functions.
 
 ### Item menu functions ###
 Each of the functions below can be called from the Zotero item menu (accessed by right-clicking in the items pane in the middle of Zotero where all of a collection's items are listed).  In the Zutilo preferences (accessed from the same menu as Zotero's preferences), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
@@ -123,6 +127,8 @@ Zutilo is currently uploaded to [BabelZilla](www.babelzilla.org)'s Web Translati
 Log of Important Zutilo Changes
 -------------------------------
 This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
+
+* In version , keyboard shortcuts were added to Zutilo.
 
 * In version 1.2.4, fr, es, and de locales were added (please report any translation errors!).
 
