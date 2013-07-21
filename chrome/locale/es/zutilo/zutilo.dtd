@@ -27,6 +27,11 @@
 <!ENTITY zutilo.preferences.ui.ffcacm.Firefox "Menú contextual de Firefox">
 <!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Submenú de Zotero">
 <!ENTITY zutilo.preferences.ui.ffcacm.hide "No mostrar">
+<!ENTITY zutilo.preferences.shortcuts "Combinacíones">
+<!ENTITY zutilo.preferences.shortcuts.labels "Nombre">
+<!ENTITY zutilo.preferences.shortcuts.keys "Combinacíon">
+<!ENTITY zutilo.preferences.shortcuts.apply "Aplicar">
+<!ENTITY zutilo.preferences.shortcuts.disable "Deshabilitar">
 <!ENTITY zutilo.preferences.about "Acerca de">
 <!ENTITY zutilo.preferences.readme.caption "Acerca de Zutilo">
 <!ENTITY zutilo.preferences.readme.button "Mostrar &quot;Léame&quot;">
