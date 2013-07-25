@@ -75,6 +75,9 @@ keys.shortcuts["showAttachments"] = function(win) {
 keys.shortcuts["modifyAttachments"] = function(win) {
 	win.ZutiloChrome.zoteroOverlay.modifyAttachments();
 };
+keys.shortcuts["copyItems"] = function(win) {
+	win.ZutiloChrome.zoteroOverlay.copyItems();
+};
 	
 ///////////////////////////////////////////////////////////
 // Zutilo's Zotero item pane editing functions
