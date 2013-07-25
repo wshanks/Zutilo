@@ -39,7 +39,12 @@ function shutdown(data, reason) {
 		var tmpWin=windows.getNext();
 		
 		tmpWin.ZutiloChrome.removeXUL();
-		tmpWin.ZutiloChrome.firefoxOverlay.unload();
+		if (typeof tmpWin.ZutiloChrome.firefoxOverlay != 'undefined') {
+			tmpWin.ZutiloChrome.firefoxOverlay.unload();
+		}
+		if (typeof tmpWin.ZutiloChrome.zoteroOverlay != 'undefined') {
+			tmpWin.ZutiloChrome.zoteroOverlay.unload();
+		}
 		delete tmpWin.ZutiloChrome;
 		delete tmpWin.Zutilo;
 	}

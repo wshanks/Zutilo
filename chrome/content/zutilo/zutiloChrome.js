@@ -71,13 +71,65 @@ ZutiloChrome.openPreferences = function () {
 // XUL related functions
 //////////////////////////////////////////////
 
-// Remove all root XUL elements in this.XULRootElements array
+// Track XUL elements with ids elementIDs that were added to document doc, so that 
+// they may be removed on shutdown
+ZutiloChrome.registerXUL = function(elementIDs, doc) {
+	if (typeof doc.ZutiloXULRootElements == 'undefined') {
+		doc.ZutiloXULRootElements=[];
+	}
+
+	var xulRootElements;
+	if (doc == document) {
+		xulRootElements = ZutiloChrome.XULRootElements;
+	} else {
+		xulRootElements = doc.ZutiloXULRootElements;
+	}
+	
+	xulRootElements.push(elementIDs);
+};
+
+// Remove all root XUL elements from main document and any Zotero tab documents
 ZutiloChrome.removeXUL = function() {
-	while (this.XULRootElements.length > 0) {
-		var elem = document.getElementById(this.XULRootElements.pop());
+	this.removeDocumentXUL(document, this.XULRootElements);
+	
+	if (Zutilo.appName == 'Firefox') {
+		for (let ii=0; ii<gBrowser.browsers.length; ii++) {
+			let tmpBrowser = gBrowser.getBrowserAtIndex(ii);
+			
+			if (tmpBrowser.contentDocument.location == Zutilo.zoteroTabURL
+					&& typeof tmpBrowser.contentDocument.ZutiloXULRootElements 
+					!= 'undefined') {
+				this.removeDocumentXUL(tmpBrowser.contentDocument, 
+					tmpBrowser.contentDocument.ZutiloXULRootElements);
+				delete tmpBrowser.contentDocument.ZutiloXULRootElements;
+			}
+		}
+	}
+};
+
+ZutiloChrome.removeDocumentXUL = function(doc, XULRootElementIDs) {
+	while (XULRootElementIDs.length > 0) {
+		var elem = doc.getElementById(XULRootElementIDs.pop());
 		
 		if (elem) {
 			elem.parentNode.removeChild(elem);
+		}
+	}
+};
+
+// documentFunction is a function that takes a DOM document as its argument.  Call that 
+// function for window.document and for any Zotero tab contentDocument that is 
+// currently loaded.
+ZutiloChrome.actOnAllDocuments = function(documentFunction) {
+	documentFunction(document);
+	
+	if (Zutilo.appName == 'Firefox') {
+		for (let ii=0; ii<gBrowser.browsers.length; ii++) {
+			let tmpBrowser = gBrowser.getBrowserAtIndex(ii);
+			
+			if (tmpBrowser.contentDocument.location == Zutilo.zoteroTabURL) {
+				documentFunction(tmpBrowser.contentDocument);
+			}
 		}
 	}
 };

@@ -18,6 +18,7 @@ var Zutilo = {
 	//////////////////////////////////////////////
   	id: 'zutilo@www.wesailatdawn.com',
   	zoteroID: 'zotero@chnm.gmu.edu',
+  	zoteroTabURL: 'chrome://zotero/content/tab.xul',
   	//All strings here should be the exact name of Zutilo functions that take no
 	//argument and that should be able to be called from the Zotero item menu
   	_itemmenuFunctions: ["copyTags","pasteTags","relateItems","showAttachments",
@@ -134,12 +135,13 @@ var Zutilo = {
 				case "zutilo-zoteroitemmenu-update":
 					while (windows.hasMoreElements()) {
 						var tmpWin=windows.getNext();
-						if ("undefined" != typeof(tmpWin.ZutiloChrome)) {
-							if ("undefined" != 
+						if ("undefined" != typeof(tmpWin.ZutiloChrome) &&
+								"undefined" != 
 								typeof(tmpWin.ZutiloChrome.zoteroOverlay)) {
+							
+							tmpWin.ZutiloChrome.actOnAllDocuments(
 								tmpWin.ZutiloChrome.zoteroOverlay.
-									refreshZoteroItemPopup();
-							}
+								refreshZoteroItemPopup);
 						}
 					}
 					break;
