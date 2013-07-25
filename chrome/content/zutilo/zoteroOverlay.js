@@ -291,6 +291,11 @@ ZutiloChrome.zoteroOverlay = {
 		return true;
 	},
 	
+	copyItems: function() {
+		ZoteroPane.copySelectedItemsToClipboard(false);
+		return true;
+	},
+	
 	///////////////////////////////////////////
 	//XUL overlay functions
 	///////////////////////////////////////////
@@ -306,7 +311,6 @@ ZutiloChrome.zoteroOverlay = {
 	},
 	
 	pageloadListener: function(event) {
-		Zutilo.test=1;
 		if (event.originalTarget.location == Zutilo.zoteroTabURL) {
 			ZutiloChrome.zoteroOverlay.overlayZoteroPane(event.originalTarget);
 		}
