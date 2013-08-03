@@ -128,9 +128,9 @@ Log of Important Zutilo Changes
 -------------------------------
 This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
 
-* In version , keyboard shortcuts were added to Zutilo.
+* In version 1.2.*, keyboard shortcuts were added to Zutilo and a QuickCopy menu item was added.  Also, a bug that prevented Zutilo from loading into Zotero's Firefox tab was fixed.
 
-* In version 1.2.4, fr, es, and de locales were added (please report any translation errors!).
+* In version 1.2.4, fr, es, and de locales were added (please report any translation errors (along with better translations)!).
 
 * In version 1.2.3, functions were added to attach pages and links in Firefox to the currently selected Zotero item and to save the current page to Zotero with attachments if the default setting is to save without attachments (or to save without attachments if the default setting is to save with them).
 
