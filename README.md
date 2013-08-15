@@ -128,7 +128,11 @@ Log of Important Zutilo Changes
 -------------------------------
 This section is not a complete log of changes to Zutilo.  It will include any major changes to Zutilo's functionality or added features.  If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
 
-* In version 1.2.*, keyboard shortcuts were added to Zutilo and a QuickCopy menu item was added.  Also, a bug that prevented Zutilo from loading into Zotero's Firefox tab was fixed.
+* In version 1.2.5: 
+
+	1. keyboard shortcuts were added to Zutilo and a QuickCopy menu item was added.  
+	2. A bug that prevented Zutilo from loading into Zotero's Firefox tab was fixed.  
+	3. A partial zh-CN locale was added.
 
 * In version 1.2.4, fr, es, and de locales were added (please report any translation errors (along with better translations)!).
 
@@ -147,4 +151,4 @@ This section is not a complete log of changes to Zutilo.  It will include any ma
 Credits
 -------
 
-Zutilo is based is modeled on the Firefox extension format suggested in the [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School).  Additionally, examples were taken from the [Mozilla Developer Network](https://developer.mozilla.org/) documentation and the Zotero source code.  Translation support was provided by Armin Stroß-Radschinski, Goofy, and Urko on BabelZilla.
+Zutilo is based is modeled on the Firefox extension format suggested in the [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School).  Additionally, examples were taken from the [Mozilla Developer Network](https://developer.mozilla.org/) documentation and the Zotero source code.  It's shortcut features were modeled on those implemented by [Keyconfig extension](http://forums.mozillazine.org/viewtopic.php?t=72994).  Translation support was provided by Armin Stroß-Radschinski, Goofy, Urko, and Wang H. K. on BabelZilla.
