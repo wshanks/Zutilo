@@ -66,6 +66,12 @@ var Zutilo = {
 		this.prepareWindows();
 	},
 	
+	cleanup: function() {
+		Zutilo.Prefs.unregister();
+		Zutilo.observers.unregister();
+		Services.wm.removeListener(Zutilo.windowListener);
+	},
+	
 	prepareWindows: function() {
 		// Load scripts for previously opened windows
 		var windows = Services.wm.getEnumerator('navigator:browser');

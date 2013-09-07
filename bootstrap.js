@@ -49,8 +49,7 @@ function shutdown(data, reason) {
 		delete tmpWin.Zutilo;
 	}
 	
-	Zutilo.observers.unregister();
-	Services.wm.removeListener(Zutilo.windowListener);
+	Zutilo.cleanup();
 	
 	Cc["@mozilla.org/intl/stringbundle;1"].
 		getService(Components.interfaces.nsIStringBundleService).flushBundles();
