@@ -151,4 +151,4 @@ This section is not a complete log of changes to Zutilo.  It will include any ma
 Credits
 -------
 
-Zutilo is based is modeled on the Firefox extension format suggested in the [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School).  Additionally, examples were taken from the [Mozilla Developer Network](https://developer.mozilla.org/) documentation and the Zotero source code.  It's shortcut features were modeled on those implemented by [Keyconfig extension](http://forums.mozillazine.org/viewtopic.php?t=72994).  Translation support was provided by Armin Stroß-Radschinski, Goofy, Urko, and Wang H. K. on BabelZilla.
+Zutilo is modeled on the Firefox extension format suggested in the [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School).  Additionally, examples were taken from the [Mozilla Developer Network](https://developer.mozilla.org/) documentation and the Zotero source code.  It's shortcut features were modeled on those implemented by [Keyconfig extension](http://forums.mozillazine.org/viewtopic.php?t=72994).  Translation support was provided by Armin Stroß-Radschinski, Goofy, Urko, and Wang H. K. on BabelZilla.
