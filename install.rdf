@@ -21,6 +21,11 @@
 		<em:iconURL>chrome://zutilo/skin/zutilo.png</em:iconURL>
 		<em:icon64URL>chrome://zutilo/skin/zutilo64.png</em:icon64URL>
 		<em:bootstrap>true</em:bootstrap>
+		
+		<em:translator>de: Will Shanks and Armin Stroß-Radschinski</em:translator>
+		<em:translator>fr: Goofy</em:translator>
+		<em:translator>es: Will Shanks and Urko</em:translator>
+		<em:translator>zh-CN: Wang H. K.</em:translator>
     
 		<!-- Requires Firefox -->
 		<em:targetApplication>
