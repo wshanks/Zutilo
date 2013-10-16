@@ -101,6 +101,14 @@ keys.shortcuts["relateDialog"] = function(win) {
 keys.shortcuts["newItemMenu"] = function(win) {
 	win.document.getElementById("zotero-tb-add").firstChild.showPopup()
 };
+keys.shortcuts["attachLinkFile"] = function(win) {
+	var zitems = win.ZutiloChrome.zoteroOverlay.getSelectedItems('regular');
+	if (!win.ZutiloChrome.zoteroOverlay.checkItemNumber(zitems,'regularSingle')) {
+		return false;
+	}
+	
+	win.ZoteroPane.addAttachmentFromDialog(true, zitems[0].id);
+};
 
 ///////////////////////////////////////////////////////////
 // Firefox only shortcuts
