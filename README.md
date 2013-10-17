@@ -105,15 +105,38 @@ One warning: I (and a number of others now) have been using Zutilo for a while n
 How to install
 --------------
 
+### 1. via addons.mozilla.org (the easy way)
+
 The easiest way to install Zutilo for Zotero as a Firefox extension is via [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page").  Just navigate there in Firefox and click on the "Add to Firefox" button.  For Zotero Standalone, you will have to download the .xpi file and install it manually (see below).
 
 To get the .xpi file, go to [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page").  If you are using Firefox, instead of clicking on the "Add to Firefox" button, right-click on the button and choose "Save Link As...."  You will then get a dialog that lets you save the .xpi file.  If you are using a web browser other than Firefox, the "Add to Firefox" button should instead be a "Download Now" button.  You can click on it to download the .xpi file.
 
-Once you have the zutilo.xpi file, go to Tools->Add-ons in either Firefox or Zotero Standalone.  Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File." Then select the .xpi file.
+Once you have the Zutilo xpi file, go to Tools->Add-ons in either Firefox or Zotero Standalone.  Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File." Then select the .xpi file.
 
-If you have trouble with the Mozilla Add-ons page, you can also download Zutilo from [Zutilo's GitHub page](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page").  Click on the "Download as zip" button there.  Then unzip the downloaded file, zip it back again, and change the file extension from "zip" to "xpi" (I don't know why GitHub's version of the zip file can't be used directly, but unzipping and rezipping seems to work).
+### 2. via GitHub
 
-If you have trouble getting the .xpi file to work with Firefox, there is one other method you can try.  Save all of the unzipped Zutilo files somewhere on you computer where you want to keep Zutilo.  Create a text file named zutilo@www.wesailatdawn.com, put the directory path to Zutilo's chrome folder as its only line of text, and save the file in the extensions folder of your Firefox profile folder (this method does not seem to work with Zotero Standalone).  This method is useful if you want to use git to pull in updates to Zutilo from GitHub (though if you use Zutilo in Firefox and install it from the Mozilla Add-ons page Firefox should automatically update Zutilo once updates get approved by Mozilla (a little bit after they are posted to GitHub)).  Alternatively, you can rename the Zutilo folder to "zutilo@www.wesailatdawn.com" and move the folder to extensions folder (this method does work with Zotero Standalone).
+#### Method 1: Create the (zipped) xpi file
+
+If you have trouble with the Mozilla Add-ons page, you can also download Zutilo from [Zutilo's GitHub page](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page").  
+
+1. Click on the "Download zip" button on GitHub.  
+2. Unzip the downloaded file.
+3. Zip the contents of the downloaded file.  Make sure that you zip `install.rdf` and all other files and folders on the same directory level as it as the top level of the zip file (i.e. do not zip the folder containing these files). 
+4. Change the zip file's extension from "zip" to "xpi".
+5. Go to Tools->Add-ons in either Firefox or Zotero Standalone.
+6. Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File." 
+7. Select the .xpi file.
+
+#### Method 2: Install the unzipped source
+
+If you have trouble getting the .xpi file to work with Firefox, there is one other method you can try.
+
+1. Save all of the unzipped Zutilo files somewhere on you computer where you want to keep Zutilo.
+2. Create a text file named `zutilo@www.wesailatdawn.com`.
+3. Put the directory path to Zutilo's chrome folder as its only line of text
+4. Save the file in the extensions folder of your Firefox profile folder (this method does not seem to work with Zotero Standalone).
+
+This method is useful if you want to use git to pull in updates to Zutilo from GitHub (though if you use Zutilo in Firefox and install it from the Mozilla Add-ons page Firefox should automatically update Zutilo once updates get approved by Mozilla (a little bit after they are posted to GitHub)).  Alternatively, you can rename the Zutilo folder to "zutilo@www.wesailatdawn.com" and move the folder to extensions folder (this method does work with Zotero Standalone).
 
 Feature Requests and Bug Submissions
 ------------------------------------
