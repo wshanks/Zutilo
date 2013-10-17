@@ -136,7 +136,7 @@ If you have trouble getting the .xpi file to work with Firefox, there is one oth
 3. Put the directory path to Zutilo's chrome folder as its only line of text
 4. Save the file in the extensions folder of your Firefox profile folder (this method does not seem to work with Zotero Standalone).
 
-This method is useful if you want to use git to pull in updates to Zutilo from GitHub (though if you use Zutilo in Firefox and install it from the Mozilla Add-ons page Firefox should automatically update Zutilo once updates get approved by Mozilla (a little bit after they are posted to GitHub)).  Alternatively, you can rename the Zutilo folder to "zutilo@www.wesailatdawn.com" and move the folder to extensions folder (this method does work with Zotero Standalone).
+This method is useful if you want to use git to pull in updates to Zutilo from GitHub (though if you use Zutilo in Firefox and install it from the Mozilla Add-ons page Firefox should automatically update Zutilo once updates get approved by Mozilla (a little bit after they are posted to GitHub)).  Alternatively, you can rename the Zutilo folder to `zutilo@www.wesailatdawn.com` and move the folder to extensions folder (this method does work with Zotero Standalone).
 
 Feature Requests and Bug Submissions
 ------------------------------------
