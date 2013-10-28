@@ -136,9 +136,9 @@ ZutiloChrome.zoteroOverlay = {
 	},
 		
 	copyTags: function() {
-		var zitems = this.getSelectedItems('regular');
+		var zitems = this.getSelectedItems(['regular','note']);
 		
-		if (!this.checkItemNumber(zitems,'regular1')) {
+		if (!this.checkItemNumber(zitems,'regularOrNote1')) {
 			return false;
 		}
 		
@@ -167,9 +167,9 @@ ZutiloChrome.zoteroOverlay = {
 	},
 		
 	pasteTags: function() {
-		var zitems = this.getSelectedItems('regular');
+		var zitems = this.getSelectedItems(['regular','note']);
 		
-		if (!this.checkItemNumber(zitems,'regular1')) {
+		if (!this.checkItemNumber(zitems,'regularOrNote1')) {
 			return false;
 		}
 		
@@ -552,8 +552,8 @@ ZutiloChrome.zoteroOverlay = {
 		return this.removeDuplicateItems(attachmentItems);
 	},
 		
-	//Return array with the selected item objects.  If itemTypeID is passed, return
-	//only items of that type
+	//Return array with the selected item objects.  If itemType is passed, return
+	//only items of that type (or types if itemType is an array)
 	getSelectedItems: function(itemType) {
 		var zitems = window.ZoteroPane.getSelectedItems();
 		if (!zitems.length) {
@@ -561,6 +561,9 @@ ZutiloChrome.zoteroOverlay = {
 		}
 		
 		if (itemType) {
+			if (!Array.isArray(itemType)) {
+				itemType = [itemType];
+			}
 			var siftedItems=this.siftItems(zitems,itemType);
 			return siftedItems.matched;
 		} else {
@@ -568,18 +571,31 @@ ZutiloChrome.zoteroOverlay = {
 		}
 	},
 	
-	checkItemType: function(itemObj,itemType) {
-		switch (itemType) {
-			case "attachment":
-				return itemObj.isAttachment();
-			case "note":
-				return itemObj.isNote();
-			case "regular":
-				return itemObj.isRegularItem();
+	checkItemType: function(itemObj,itemTypeArray) {
+		var matchBool = false;
+		
+		for (var idx=0; idx<itemTypeArray.length; idx++) {
+			switch (itemTypeArray[idx]) {
+				case "attachment":
+					matchBool = itemObj.isAttachment();
+					break;
+				case "note":
+					matchBool = itemObj.isNote();
+					break;
+				case "regular":
+					matchBool = itemObj.isRegularItem();
+					break;
+				default:
+					matchBool = Zotero.ItemTypes.getName(itemObj.itemTypeID) ==
+						itemTypeArray[idx]
+			}
+			
+			if (matchBool) {
 				break;
-			default:
+			}
 		}
-		return Zotero.ItemTypes.getName(itemObj.itemTypeID) == itemType;
+		
+		return matchBool
 	},
 		
 	//Remove duplicate Zotero item objects from itemArray
@@ -602,11 +618,11 @@ ZutiloChrome.zoteroOverlay = {
 		
 	//Separate itemArray into an array of items with type itemType and an array with those 
 	//with different item types
-	siftItems: function(itemArray, itemType) {
+	siftItems: function(itemArray, itemTypeArray) {
 		var matchedItems=[], unmatchedItems=[];
 		var numItems=itemArray.length;
 		while (itemArray.length>0) {
-			if (this.checkItemType(itemArray[0],itemType)) {
+			if (this.checkItemType(itemArray[0],itemTypeArray)) {
 				matchedItems.push(itemArray.shift());
 			} else {
 				unmatchedItems.push(itemArray.shift());
@@ -628,9 +644,10 @@ ZutiloChrome.zoteroOverlay = {
 		var errorTitle = Zutilo._bundle.GetStringFromName("zutilo.checkItems.errorTitle");
 		switch (checkType) {
 			case 'regular1':
+			case 'regularOrNote1':
 				if (!itemArray.length) {
 					prompts.alert(null,errorTitle,Zutilo._bundle.
-						GetStringFromName("zutilo.checkItems.regular1"));
+						GetStringFromName("zutilo.checkItems."+checkType));
 					checkBool = false;
 				}
 				break;
