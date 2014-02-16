@@ -154,6 +154,10 @@ if (Zutilo.appName == 'Firefox') {
 		win.Zotero_Browser.scrapeThisPage()
 	};
 	
+	keys.shortcuts["duplicateItem"] = function(win) {
+		win.ZoteroPane.duplicateSelectedItem()
+	};
+	
 	keys.shortcuts["websiteItem"] = function(win) {
 		win.ZoteroPane.addItemFromPage()
 	};
