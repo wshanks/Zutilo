@@ -270,9 +270,9 @@ ZutiloChrome.zoteroOverlay = {
 	},
     
 	relateItems: function() {
-		var zitems = this.getSelectedItems('regular');
+		var zitems = this.getSelectedItems(['regular','note']);
 		
-		if (!this.checkItemNumber(zitems,'regular2')) {
+		if (!this.checkItemNumber(zitems,'regularOrNote1')) {
 			return false;
 		}
 		
