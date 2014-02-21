@@ -272,7 +272,7 @@ ZutiloChrome.zoteroOverlay = {
 	relateItems: function() {
 		var zitems = this.getSelectedItems(['regular','note']);
 		
-		if (!this.checkItemNumber(zitems,'regularOrNote1')) {
+		if (!this.checkItemNumber(zitems,'regularOrNote2')) {
 			return false;
 		}
 		
@@ -659,9 +659,10 @@ ZutiloChrome.zoteroOverlay = {
 				}
 				break;
 			case 'regular2':
+			case 'regularOrNote2':
 				if ((!itemArray.length) || (itemArray.length<2)) {
 					prompts.alert(null,errorTitle,Zutilo._bundle.
-						GetStringFromName("zutilo.checkItems.regular2"));
+						GetStringFromName("zutilo.checkItems."+checkType));
 					checkBool = false;
 				}
 				break;
