@@ -60,14 +60,14 @@ Wählen Sie den "Zugehörig" Tab  im Eintragsbereich rechts. Öffnen Sie den Dia
 <li><strong>einen Zotero Eintrag aus einer aktuellen Webseite mit / ohne Anhänge erstellt:</strong>
 <p>Zutilo fügt zusätzliche Menüpunkte im Kontextmenü des Zotero Symbols der Addressleiste hinzu, die ein Zitat aus der aktuellen Seite mit oder ohne zugehörigen PDF-und anderen Dateien zu extrahiert. Das heißt, wenn die Option "Automatisch PDFs und andere Dateien anhängen" Einstellung in Zotero ausgewählt ist, fügt Zutilo Menüpunkte zur Erstellung eines neuen Zotero Eintrag ohne Anhänge hinzu (ein Element für jede Methode, die auf der aktuellen Seite "in Zotero speichern" gilt) . Wenn die Einstellung nicht ausgewählt ist, fügt Zutilo Menüpunkte hinzu, um einen neuen Zotero Eintrag mit den Anhängen zu speichern.</p>
 
-<p>Diese Funktion funktioniert, indem sie erst die zugehörige Einstellung Zoteros ändert, dann den Eintrag speichert, und anschließend die Einstellung wieder zurück in ihrem ursprünglichen Zustand versetzt. Da Zotero Seiten asynchron übersetzt (und damit gleichzeitig), sollten Übersetzungen mit dieser Funktion fertig sein, bevor die normalen Seiten Übersetzungen von Zotero benutzt werden (da sonst der Zustand der "Automatisch PDFs und andere Dateien anhängen" Einstellung vom Timing der Simultanübersetzung abhängt).</p>
+<p>Diese Funktion setzt die Funtionalität um, indem sie erst die zugehörige Einstellung Zoteros ändert, dann den Eintrag speichert, und anschließend die Einstellung wieder zurück in ihrem ursprünglichen Zustand versetzt. Da Zotero Seiten asynchron übersetzt (und damit gleichzeitig), sollten Übersetzungen mit dieser Funktion fertig sein, bevor die normalen Seiten Übersetzungen von Zotero benutzt werden (da sonst der Zustand der "Automatisch PDFs und andere Dateien anhängen" Einstellung vom Timing der Simultanübersetzung abhängt).</p>
 
 <p>Die Funktion, auf der diese Funktionen beruhen, ist <code>ZutiloChrome.firefoxOverlay.scrapeThisPage(translate, filesBool)</code>. Wenn <code>translate</code> (ein Zotero translate Objekt) falsch oder nicht gesetzt ist, wird der Standard-Übersetzer für die Seite verwendet. Wenn fileBool true ist, wird der Eintrag mit den dazugehörigen Anhang-Dateien erstellt. Wenn es false ist, wird das Element ohne die dazugehörigen Dateien erstellt. Wenn filesBool nicht angegeben ist, dann wird das Gegenteil von Zoteros "Automatisch PDFs und andere Dateien anhängen" Einstellung verwendet. Also, wenn in Zotero-Einstellungen die Option "Automatisch PDFs und andere Dateien anhängen"-Option ausgewählt ist, wird <code>ZutiloChrome.firefoxOverlay.scrapeThisPage(false)</code> einen Eintrag mit den Default-Seite Übersetzern ohne Anhänge erstellen.</p></li>
 </ul>
 
 <h3>Reine Zotero-Funktionen</h3>
 
-<p>Als Referenz, sind hier ein paar andere Funktionen Zoteros augeführt, für die es der Verfasser nützlich findet, Tastenkombinationen zu erstellen:</p>
+<p>Als Referenz, sind hier ein paar andere Funktionen Zoteros aufgeführt, für die es der Verfasser nützlich findet, Tastenkombinationen zu erstellen:</p>
 
 <ul>
 <li><strong>Zotero öffnen / schließen:</strong>
