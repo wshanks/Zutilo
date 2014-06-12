@@ -62,7 +62,7 @@ In den Zutilo Einstellungen (zugänglich im gleichen Menü wie die Zotero-Einste
 
 -   **Zugehörige Einträge verbinden:**
 
-    Sogt dafür, dass alle ausgewählten Elemente als miteinander zugehörig verbunden werden. 
+    Sorgt dafür, dass alle ausgewählten Elemente als miteinander zugehörig verbunden werden. 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.relateItems()`).
 
 ### Editierfunktionen für die Einträge
