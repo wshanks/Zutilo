@@ -235,7 +235,7 @@ Speichern Sie alle entpackten Zutilo Dateien irgendwo an der Stelle auf Ihrem Co
 Erstellen Sie eine Textdatei mit dem Namen zutilo@www.wesailatdawn.com, tragen Sie den Verzeichnispfad zum Speicherort des Ordners Zutilos als einzige Textzeile ein, und speichern Sie die Datei in Ihrem Firefox-Profil-Ordner ab (diese Methode wird wahrscheinlich auch mit Zotero Standalone arbeiten, wenn Sie dessen Erweiterungen Ordner finden können). 
 Diese Methode ist nützlich, wenn Sie git verwenden, um ein aktuelles Zutilo aus GitHub zu ziehen (wenn Sie Zutilo von der Mozilla Add-ons-Seite verwenden, sollte Firefox (oder Zotero Standalone) automatisch Zutilo aktualisieren, nachdem die Updates von Mozilla genehmigt wurden ( der Ablauf benötigt immer ein wenig Zeit, nachdem eine Release von Änderungen auf GitHub eingecheckt wurde)).
 
-Leistungsmerkmalanforderungen und Bugeingabes
+Leistungsmerkmale vorschlagen und Bugs melden
 ---------------------------------------------
 
 Die neuesten Quellcode für Zutilo finden Sie auf [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page"). 
