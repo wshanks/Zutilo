@@ -133,7 +133,7 @@ For reference, here are a few other functions in Zotero that I have found it use
     Adds an item to the Zotero library based on the reference content of the current webpage (equivalent to clicking on the little page/book icon in the Firefox address bar).
     (Function name: `Zotero_Browser.scrapeThisPage()`).
 
-### A note about attachments ###
+### A note about Zotero attachments ###
 
 Zutilo provides a few functions that give greater control over the management of attachments in Zotero.
 Here some possible usages of Zotero attachments are reviewed in order to point out a few possible usages of Zutilo.

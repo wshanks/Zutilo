@@ -133,7 +133,7 @@ For reference, here are a few other functions in Zotero that I have found it use
     Adds an item to the Zotero library based on the reference content of the current webpage (equivalent to clicking on the little page/book icon in the Firefox address bar).
     (Function name: `Zotero_Browser.scrapeThisPage()`).
 
-### A note about attachments ###
+### A note about Zotero attachments ###
 
 Zutilo provides a few functions that give greater control over the management of attachments in Zotero.
 Here some possible usages of Zotero attachments are reviewed in order to point out a few possible usages of Zutilo.
@@ -243,12 +243,14 @@ You can also check there to see if a bug you experience has already been reporte
 Make sure to check the "closed" tab of the Issues section to see if the bug has already been addressed.
 
 Feature requests may also be submitted by opening a new issue.
-Please open a new issue before submitting your code.
+If you would like to contribute a patch, please open a new issue before submitting your code.
 A description of the kinds of features that are appropriate for Zutilo can be found on [the Zutilo wiki page](https://github.com/willsALMANJ/Zutilo/wiki).
 A roadmap of planned features is also available on the wiki.
 
 Zutilo is currently uploaded to [BabelZilla](www.babelzilla.org)'s Web Translation System.
 When any locales other than English are completed, they will be added to Zutilo.
+Translations can also be submitted as pull requests on GitHub.
+Please see `Extra/docs/README_translation.md` if you are interested in helping with translating Zutilo.
 
 Log of Important Zutilo Changes
 -------------------------------

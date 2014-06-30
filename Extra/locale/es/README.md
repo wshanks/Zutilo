@@ -134,7 +134,7 @@ Para referencia, aquí hay algunas funciones otras de Zotero que he encontrado q
     Agrega un ítem a la biblioteca Zotero basado en el contenido de referencia de la página web actual (equivalente a hacer clic en el pequeño página / libro icono en la barra de direcciones de Firefox).
     (Nombre de la función: `Zotero_Browser.scrapeThisPage()`).
 
-### Una nota sobre los archivos adjuntos ###
+### Una nota sobre los archivos adjuntos de Zotero ###
 
 Zutilo ofrece algunas funciones que proporcionan un mayor control sobre la gestión de los adjuntos en Zotero.
 Aquí algunos usos posibles de los accesorios Zotero son revisados con el fin de señalar a unas pocas usos posibles de Zutilo.
