@@ -9,47 +9,42 @@ Die UI Elemente von Zutilo (Menü, Kontextmenü) können einzeln auf verschieden
 Aktuelle Feature-Liste
 ----------------------
 
-### Tastenkombinationen
-
+### Tastenkombinationen ###
 Die meisten Zutilo-Funktionen können über das Kontextmenü (welches mit der rechten Maustaste auf relevanten Elementen in Zotero oder Firefox erscheint) erreicht werden. 
 Es kann effektiver sein, viele der Funktionen von Zutilo direkt über die Tastatur, anstatt über Kontextmenüs zu aktivieren. 
 Shortcuts für viele Funktionen Zutilos (und einige Funktionen des reinen Zoteros), können im Zutilo Einstellungen-Fenster (erreichbar vom Add-ons-Manager oder dem Zotero Aktionen Menü (das "Zahnrad"-Symbol im Zotero Interface) eingestellt werden.
 
-Wenn Sie möchten, können Sie auch die Verknüpfungen Zutilos mit dem [Customizable Shortcuts Firefox-Plugin](https://addons.mozilla.org/en-US/firefox/addon/customizable-shortcuts/) setzen. Einstellungen mit dieser Erweiterung überschreiben alle Einstellungen im Zutilo Einstellungen Fenster. 
+Wenn Sie möchten, können Sie auch die Verknüpfungen Zutilos mit dem [Customizable Shortcuts Firefox-Plugin](https://addons.mozilla.org/en-US/firefox/addon/customizable-shortcuts/) setzen.
+Einstellungen mit dieser Erweiterung überschreiben alle Einstellungen im Zutilo Einstellungen Fenster. 
 Das Einstellen der Verknüpfungen Zutilos mit dem [KeyConfig Erweiterung](http://forums.mozillazine.org/viewtopic.php?t=72994) wird nicht empfohlen (die Einstellungen gelten nur für eine Sitzung und werden durch Zutilo überschrieben, wenn Firefox neu gestartet wird).
 
 Die Funktionen Zutilos können auch weiteren Tastenkombinationen mithilfe anderer Firefox-Plugin zugeordnet werden, wie z.B. [KeyConfig](http://forums.mozillazine.org/viewtopic.php?t=72994), welches eine einfache Schnittstelle für die Zuordnung von Tastenkombinationen zu Javascript-Befehlen bietet und sowohl mit Firefox und Zotero Standalone funktioniert, oder [Pentadactyl](http://5digits.org/pentadactyl/index) oder [Vimperator](http://www.vimperator.org/vimperator), die beide eine erweiterte Kommandozeilen-Schnittstelle für Firefox bieten (Pentadactyl Benutzer könnten an [Zoterodactyl](https://github.com/willsALMANJ/Zoterodactyl) interessiert sein, eine Gruppe Pentadactyl Plugins, die viele Tastenkombinationen zu Pentadactyl hinzufügt). 
 In den Beschreibungen der Funktionen unten sind die entsprechende Funktions Namen angegeben. 
 Dies sind die Namen der Funktionen, die zugewiesen werden müssen, um diese Funktionen ohne Kontextmenüs aufzurufen.
 
-### Kontextmenü Funktionen
-
+### Kontextmenü Funktionen ###
 Jede der folgenden Funktionen können aus dem Zotero Kontextmenü aufgerufen werden (zugänglich mit der rechten Maustaste in der zentralen Eintrags-Liste von Zotero, wo alle Einträge einer Sammlung aufgeführt sind). 
 In den Zutilo Einstellungen (zugänglich im gleichen Menü wie die Zotero-Einstellungen), kann jede dieser Funktionen so eingestellt werden, dass diese im Zotero Kontextmenü, in einem Zutilo Untermenü des Zotero Kontextmenü oder überhaupt nicht angezeigt werden.
 
--   **Kopieren Tags:**
-
-    Machen sie einen Rechtsklick auf einen oder mehrere markierte Einträge in der Zotero-Bibliothek und kopieren ihre Tags in die Zwischenablage als eine '\\r\\n' getrennte Liste. 
+* __Kopieren Tags:__
+    Machen sie einen Rechtsklick auf einen oder mehrere markierte Einträge in der Zotero-Bibliothek und kopieren ihre Tags in die Zwischenablage als eine '\r\n' getrennte Liste. 
     Ab Zotero 4.0 kann eine solche Liste von Tags aus der Zwischenablage in einem neuen tag Feld eingefügt werden, um alle Tags zu einem Element gleichzeitig hinzuzufügen. 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.copyTags()`).
 
--   **Einfügen Tags:**
-
-    Machen sie einen Rechtsklick auf einen oder mehrere markierte Einträge von Elementen in der Zotero-Bibliothek und fügen Sie den Inhalt der Zwischenablage in diesen als Tags ein. Der Inhalt der Zwischenablage muss eine '\\r\\n' oder '\\n' getrennte Liste sein (wie die durch die oben beschriebene "Tags Kopieren" Funktion erstellte Liste). 
+* __Einfügen Tags:__
+    Machen sie einen Rechtsklick auf einen oder mehrere markierte Einträge von Elementen in der Zotero-Bibliothek und fügen Sie den Inhalt der Zwischenablage in diesen als Tags ein.
+    Der Inhalt der Zwischenablage muss eine '\r\n' oder '\n' getrennte Liste sein (wie die durch die oben beschriebene "Tags Kopieren" Funktion erstellte Liste). 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.pasteTags()`).
 
--   **Autor Kopieren:**
-
-    Machen sie einen Rechtsklick auf einen oder mehrere markierte Einträge von Elementen in der Zotero-Bibliothek und kopieren Sie die Autoren Einträge als eine '\\r\\n' getrennte Liste in die Zwischenablage . 
+* __Autor Kopieren:__
+    Machen sie einen Rechtsklick auf einen oder mehrere markierte Einträge von Elementen in der Zotero-Bibliothek und kopieren Sie die Autoren Einträge als eine '\r\n' getrennte Liste in die Zwischenablage . 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.copyCreators()`).
 
--   **Anhangpfade zeigen:**
-
+* __Anhangpfade zeigen:__
     Zeigen Sie die Pfade zu ausgewählten Anhängen und die Anhänge der ausgewählten regulären Einträge (nacheinander als separate Dialogfenster - Sie wollen wahrscheinlich nicht mehr als ein paar Artikel zu einem Zeitpunkt auf diese Weise auswählen). 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.showAttachments()`).
 
--   **Anhangpfade ändern:**
-
+* __Anhangpfade ändern:__
     Ändern Sie den Anfang der Pfade für alle zugelassenen ausgewählten Anhänge und aller Anhänge der ausgewählten regulären Einträge. 
     Zwei Prompt Fenster werden angezeigt. 
     Das erste fragt nach dem alten Teilpfad, während das zweite nach dem neuen Teilpfad fragt. 
@@ -57,52 +52,45 @@ In den Zutilo Einstellungen (zugänglich im gleichen Menü wie die Zotero-Einste
     Diese Funktion ist vor allem nützlich, wenn Sie verschiedene Computer oder Festplatten nutzen und die Links zu allen Ihren Anhängen erhalten bleiben sollen.
 
     Standardmäßig wird der alte Teilpfad nur mit dem Beginn eines jeden Anhangpfads verglichen. 
-    Um Teile der verlinkten Pfade nicht am Anfang zu ändern, klicken Sie auf das "Alle Instanzen der Teilpfad Zeichenkette ersetzen" Kontrollkästchen in der ersten Eingabeaufforderung. Diese Option ist nützlich, wenn Sie einen Unterordner oder zwischen Windows-und Unix-Pfaden ("\\" und "/" ersetzen) umbenennen möchten. 
+    Um Teile der verlinkten Pfade nicht am Anfang zu ändern, klicken Sie auf das "Alle Instanzen der Teilpfad Zeichenkette ersetzen" Kontrollkästchen in der ersten Eingabeaufforderung.
+    Diese Option ist nützlich, wenn Sie einen Unterordner oder zwischen Windows-und Unix-Pfaden (`\` und `/` ersetzen) umbenennen möchten. 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.modifyAttachments()`).
 
--   **Zugehörige Einträge verbinden:**
-
+* __Zugehörige Einträge verbinden:__
     Sorgt dafür, dass alle ausgewählten Elemente als miteinander zugehörig verbunden werden. 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.relateItems()`).
 
-### Editierfunktionen für die Einträge
+### Editierfunktionen für die Einträge ###
 
 Zutilo implementiert derzeit mehrere Funktionen, die für die Bearbeitung von Zotero Einträge mit der Tastatur nützlich sind. 
 Diese Funktionen können nicht von jedem UI Element aus aufgerufen werden (sie können aber, wie oben beschrieben, auf eine Tastenkombination zugewiesen werden). 
 Die folgenden Funktionen arbeiten nur, wenn ein einziger Zotero Eintrag ausgewählt ist:
 
--   **Eintraginfo bearbeiten:** 
-
+* __Eintraginfo bearbeiten:__
     Wählen Sie den Tab "Infos" im Eintragsbereich rechts. 
     Setzen Sie den Fokus auf das erste editierbare Feld der Eintraginfo. 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.editItemInfoGUI()`).
-
--   **Notizen hinzufügen:** 
-
+* __Notizen hinzufügen:__
     Wählen Sie den Tab "Notizen" im Eintragsbereich rechts. 
     Erstellen Sie eine neue Notiz. 
     Der Vollständigkeit halber: Zotero hat bereits eine Tastenkombination, die das tut. 
     Diese kann in den Zotero-Einstellungen festgelegt werden. 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.addNoteGUI()`).
-
--   **Tag hinzufügen:** 
-
+* __Tag hinzufügen:__
     Wählen Sie den Tab "Tags" im Eintragsbereich rechts. 
     Es öffnet sich ein neues Textfeld, um einen neuen Tag einzugeben. 
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.addTagGUI()`).
-
--   **Einträge zugehörigen:** 
-
+* __Einträge zugehörigen:__
     Wählen Sie den "Zugehörig" Tab im Eintragsbereich rechts. 
-    Öffnen Sie den Dialog, um zugehörige Einträge zu verbinden. (Name der Funktion: `ZutiloChrome.zoteroOverlay.addRelatedGUI()`).
+    Öffnen Sie den Dialog, um zugehörige Einträge zu verbinden.
+    (Name der Funktion: `ZutiloChrome.zoteroOverlay.addRelatedGUI()`).
 
-### Firefox Browser-Funktionen
+### Firefox Browser-Funktionen ###
 
 Zutilo verfügt ein paar Funktionen, um in Firefox leichter mit den Anhängen von Dokumenten an Zotero Einträgen aus Seiten zu arbeiten. 
 Auf diese Funktionen wird vom Firefox-Browser aus zugegriffen, wenn sie nicht mit Zotero Standalone arbeiten.
 
--   **Webseiten und Links an Zotero Eintrag anhängen:**
-
+* __Webseiten und Links an Zotero Eintrag anhängen:__
     Zutilo fügt dem Kontextmenü von Firefox Einträge hinzu, um für den aktuell ausgewählte Zotero Eintrag das Anhängen der aktuellen Seite oder des aktuellen Link-Ziels (wenn ein Link ausgewählt wird) zu ermöglichen. 
     Wie die Anlage verarbeitet wird hängt von der in den Zutilo Einstellungen eingestellten Methode zum Anhängen ab. 
     Wenn die Methode 'Import' gewählt ist, wird ein importierter Anhang von der Seite / dem Link erstellt. 
@@ -117,8 +105,7 @@ Auf diese Funktionen wird vom Firefox-Browser aus zugegriffen, wenn sie nicht mi
     Der allgemeine Funktions Anruf ist `ZutiloChrome.firefoxOverlay.attachURLToCurrentItem(url, ProcessType)` wobei `url` ein String mit der Download URL ist und ProcessType "Zotero", 'prompt' oder 'promptAfterOne' sein könnte. 
     Wenn ProcessType nicht angegeben oder auf etwas anderes gesetzt ist, wird die Anlage-Methode in den Zutilo Einstellungen benutzt.
 
--   **einen Zotero Eintrag aus einer aktuellen Webseite mit / ohne Anhänge erstellen:**
-
+* __einen Zotero Eintrag aus einer aktuellen Webseite mit / ohne Anhänge erstellen:__
     Zutilo fügt zusätzliche Menüpunkte im Kontextmenü des Zotero Symbols der Addressleiste hinzu, die ein Zitat aus der aktuellen Seite mit oder ohne zugehörigen PDF- und anderen Dateien extrahiert. 
     Das heißt, wenn die Option "Automatisch PDFs und andere Dateien anhängen" Einstellung in Zotero ausgewählt ist, fügt Zutilo Menüpunkte zur Erstellung eines neuen Zotero Eintrag ohne Anhänge hinzu (ein Element für jede Methode, die auf der aktuellen Seite "in Zotero speichern" gilt). 
     Wenn die Einstellung nicht ausgewählt ist, fügt Zutilo Menüpunkte hinzu, um einen neuen Zotero Eintrag mit den Anhängen zu speichern.
@@ -126,32 +113,28 @@ Auf diese Funktionen wird vom Firefox-Browser aus zugegriffen, wenn sie nicht mi
     Diese Funktion setzt die Funtionalität um, indem sie erst die zugehörige Einstellung Zoteros ändert, dann den Eintrag speichert, und anschließend die Einstellung wieder zurück in ihrem ursprünglichen Zustand versetzt. 
     Da Zotero Seiten asynchron übersetzt (und damit gleichzeitig), sollten Übersetzungen mit dieser Funktion fertig sein, bevor die normalen Seiten Übersetzungen von Zotero benutzt werden (da sonst der Zustand der "Automatisch PDFs und andere Dateien anhängen" Einstellung vom Timing der Simultanübersetzung abhängt).
 
-    Die Funktion, auf der diese Funktionen beruhen, ist `ZutiloChrome.firefoxOverlay.scrapeThisPage(translate, filesBool)`. Wenn `translate` (ein Zotero translate Objekt) falsch oder nicht gesetzt ist, wird der Standard-Übersetzer für die Seite verwendet. 
+    Die Funktion, auf der diese Funktionen beruhen, ist `ZutiloChrome.firefoxOverlay.scrapeThisPage(translate, filesBool)`.
+    Wenn `translate` (ein Zotero translate Objekt) falsch oder nicht gesetzt ist, wird der Standard-Übersetzer für die Seite verwendet. 
     Wenn fileBool true ist, wird der Eintrag mit den dazugehörigen Anhang-Dateien erstellt. 
     Wenn es false ist, wird das Element ohne die dazugehörigen Dateien erstellt. 
     Wenn filesBool nicht angegeben ist, dann wird das Gegenteil von Zoteros "Automatisch PDFs und andere Dateien anhängen" Einstellung verwendet. 
     Also, wenn in Zotero-Einstellungen die Option "Automatisch PDFs und andere Dateien anhängen"-Option ausgewählt ist, wird `ZutiloChrome.firefoxOverlay.scrapeThisPage(false)` einen Eintrag mit den Default-Seite Übersetzern ohne Anhänge erstellen.
 
-### Reine Zotero-Funktionen
+### Reine Zotero-Funktionen ###
 
 Als Referenz, sind hier ein paar andere Funktionen Zoteros aufgeführt, für die es der Verfasser nützlich findet, Tastenkombinationen zu erstellen:
 
--   **Zotero öffnen / schließen:** 
-
+* __Zotero öffnen / schließen:__
     Zeigt / verbirgt die Zotero-Panel in Firefox. 
     (Name der Funktion: `ZoteroOverlay.toggleDisplay()`).
-
--   **Webseite als Zotero Eintrag speichern:** 
-
+* __Webseite als Zotero Eintrag speichern:__
     Speichert die aktuelle Seite als Webseite Eintrag in Zotero. 
     (Name der Funktion: `ZoteroPane.addItemFromPage()`).
-
--   **Zotero Eintrag aus einer Webseite erstellen:** 
-
+* __Zotero Eintrag aus einer Webseite erstellen:__
     Fügt einen Eintrag in die Zotero-Bibliothek hinzu, der auf dem Referenz-Inhalt der aktuellen Webseite basiert (entspricht Klick auf die kleine Seite / Buch-Symbol in der Firefox-Adressleiste). 
     (Name der Funktion: `Zotero_Browser.scrapeThisPage()`).
 
-### Einige Anmerkungen über Anhänge
+### Einige Anmerkungen über Anhänge ###
 
 Zutilo bietet einige Funktionen, die mehr Kontrolle über die Verwaltung von Anhängen in Zotero geben. 
 Hier finden sich einige mögliche Verwendungen wie Zotero Anhänge überprüft und gefunden werden können. 
@@ -183,7 +166,7 @@ Mit unter relativen Pfaden gespeicherten verlinkten Dateianhängen, kann die Zot
 
 Die 'Anhangpfade-Ändern-Funktion' von Zutilo ,kann die Arbeit mit verlinkten Dateianhängen deutlich vereinfachen. Sie ändert per Batch einen Teil der Pfade aller ausgewählten Anhänge. 
 Wenn eine Gruppe von Dateieanhängen in einen neuen Ordner verschoben wird, kann nun die 'Anhangpfade-Ändern-Funktion' Zutilos verwendet werden, um alle verlinkten Anhangpfade auf einmal zu aktualisieren. 
-Diese Funktion kann auch verwendet werden, um bei einem Betriebssystem Wechsel "/" auf "\\" im Anhangpfade zu ändern. Das Zotero 4.0 Merkmal 'relative Pfade' ersetzt im Prinzip die Notwendigkeit für diese Funktion, obwohl sie mit Anhängen weiter nützlich sein kann, die aus welchem ​​Grund auch immer nicht relativ sind. 
+Diese Funktion kann auch verwendet werden, um bei einem Betriebssystem Wechsel `/`` auf `\` im Anhangpfade zu ändern. Das Zotero 4.0 Merkmal 'relative Pfade' ersetzt im Prinzip die Notwendigkeit für diese Funktion, obwohl sie mit Anhängen weiter nützlich sein kann, die aus welchem ​​Grund auch immer nicht relativ sind. 
 Die 'Anhangpfade-Zeigen-Funktion' Zutilos ist auch nützlich für die Fehlersuche in derzeit in Zotero gespeicherten Anhangpfaden. 
 Insbesondere ungültige Pfade können ggf. mit einer Änderung der globelen Anhangpfade wieder zum Funktionieren gebracht werden, anstatt individuell neue Anhangpfade auswahlen zu müssen.
 
@@ -198,7 +181,7 @@ In diesem Fall ist es am besten, für Einträge in Zotero die zugehörige Dokume
 Zutilo bietet Funktionen zum Speichern von Artikeln mit und ohne Anhänge. 
 Mit diesen Funktionen spart man sich den Aufwand der manuellen Anpassung der "automatisch zugehörige PDFs und andere Dateien anhängen" Einstellung Zoteros oder das manuelle Löschen nicht benötigter Anhänge.
 
-### Grenzen
+### Grenzen ###
 
 Im Moment arbeitet Zutilo mit Zotero als Firefox Browser-Ausschnitt oder App Tab und mit Zotero Standalone. 
 (In der Vergangenheit haben einige Funktionen nicht mit dem separaten Tab und Standalone-Versionen gearbeitet. 
@@ -235,6 +218,25 @@ Speichern Sie alle entpackten Zutilo Dateien irgendwo an der Stelle auf Ihrem Co
 Erstellen Sie eine Textdatei mit dem Namen zutilo@www.wesailatdawn.com, tragen Sie den Verzeichnispfad zum Speicherort des Ordners Zutilos als einzige Textzeile ein, und speichern Sie die Datei in Ihrem Firefox-Profil-Ordner ab (diese Methode wird wahrscheinlich auch mit Zotero Standalone arbeiten, wenn Sie dessen Erweiterungen Ordner finden können). 
 Diese Methode ist nützlich, wenn Sie git verwenden, um ein aktuelles Zutilo aus GitHub zu ziehen (wenn Sie Zutilo von der Mozilla Add-ons-Seite verwenden, sollte Firefox (oder Zotero Standalone) automatisch Zutilo aktualisieren, nachdem die Updates von Mozilla genehmigt wurden ( der Ablauf benötigt immer ein wenig Zeit, nachdem eine Release von Änderungen auf GitHub eingecheckt wurde)).
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Leistungsmerkmale vorschlagen und Bugs melden
 ---------------------------------------------
 
@@ -242,9 +244,11 @@ Die neuesten Quellcode für Zutilo finden Sie auf [GitHub](https://github.com/wi
 Bugreports können durch Klicken auf die "New Issue"-Taste unter [die Issues Abschnitt](https://github.com/willsALMANJ/Zutilo/issues "GitHub Probleme gemeldet werden page") direkt auf der GitHub Webseite eingestellt werden. 
 Dort sollten Sie auch zunächst überprüfen, ob ein von Ihnen bemerktes Problem bereits von einem anderen Benutzer gemeldet wurde. 
 Achten Sie auf die "closed"-Reiter des Issues Abschnitt, um zu überprüfen ob der Fehler bereits behoben wurde.
+
 Vorschläge für neue Leistungsmerkmale in Zutilo können gerne ganz einfach durch die Eröffnung eines neuen Issue-Tickets eingebracht werden. 
 Bitte öffnen Sie immer zunächst ein neues Ticket, bevor Sie neuen Code einsenden und beziehen Sie sich auf diese Ticket Nr..
-Eine Beschreibung der Art von Funktionen, die für Zutilo vorgesehen oder geplant sind, kann auf [der Zutilo Wiki-Seite](https://github.com/willsALMANJ/Zutilo/wiki) gefunden werden. Ein Fahrplan der geplanten Features steht auch in diesem Wiki zur Verfügung.
+Eine Beschreibung der Art von Funktionen, die für Zutilo vorgesehen oder geplant sind, kann auf [der Zutilo Wiki-Seite](https://github.com/willsALMANJ/Zutilo/wiki) gefunden werden.
+Ein Fahrplan der geplanten Features steht auch in diesem Wiki zur Verfügung.
 
 Die Übersetzungen zu Zutilo wurden bisher im Web Translation System von [BabelZilla](www.babelzilla.org) verwaltet.
 Die Lokalisierungen sind derzeit auf github umgezogen.
@@ -257,21 +261,28 @@ Dieser Abschnitt ist kein vollständiges Protokoll aller Änderungen an Zutilo.
 Es enthält nur die größeren Änderungen der Funktionalität oder zusätzlichen Features. 
 Wenn bei einem Upgrade von Zutilo Probleme auftauchen, versuchen Sie in diesem Abschnitt nach einer Erklärung zu suchen.
 
--   Für Version 1.2.11 wurde die deutsche Übersetzung komplett neu durchgesehen und redigiert.
+* Für Version 1.2.11 wurde die deutsche Übersetzung komplett neu durchgesehen und redigiert.
 
--   In Version 1.2.4 wurde Zutilo auf Deutsch übersetzt.
+* In Version 1.2.5:
 
--   In Version 1.2.3 wurden Funktionen hinzugefügt, um Seiten und Links in Firefox im aktuell ausgewählten Zotero Eintrag anzuhängen und die aktuelle Seite zu Zotero sparen mit Anhängen, wenn die Standardeinstellung ist ohne Anhänge zu speichern (oder zu speichern, ohne Anhänge, wenn die Standardeinstellung ist, mit ihnen zu sparen).
+   1. TODO
+   2. TODO
+   3. TODO
 
--   Ab der Version 1.2.1, kann Zutilo ohne Neustart von Firefox installiert und deinstalliert werden.
+* In Version 1.2.4 wurde Zutilo auf Deutsch übersetzt.
 
--   Ab der Version 1.1.17, sollten Änderungen, die mit modifyAttachments gemacht wurden, auch nach einem Neustart Firefox erhalten bleiben.
+* In Version 1.2.3 wurden Funktionen hinzugefügt, um Seiten und Links in Firefox im aktuell ausgewählten Zotero Eintrag anzuhängen und die aktuelle Seite zu Zotero sparen mit Anhängen, wenn die Standardeinstellung ist ohne Anhänge zu speichern (oder zu speichern, ohne Anhänge, wenn die Standardeinstellung ist, mit ihnen zu sparen).
 
--   Ab der Version 1.1.16, können Sie mit modifyAttachments nun Elemente des Pfads ausgehend vom Wurzelverzeichnis ersetzen.
+* Ab der Version 1.2.1, kann Zutilo ohne Neustart von Firefox installiert und deinstalliert werden.
 
--   Ab der Version 1.1.15, modifyAttachments sollte nun mit Windows-Pfaden arbeiten.
+* Ab der Version 1.1.17, sollten Änderungen, die mit modifyAttachments gemacht wurden, auch nach einem Neustart Firefox erhalten bleiben.
 
--   Ab der Version 1.1.11 wurde das wichtigste JavaScript-Objekt, das Zutilo um die Funktionalität von Zotero herum anlegt, von "Zotero.Zutilo" auf "ZutiloChrome.zoteroOverlay" umbenannt. In allen Tastenkombinationen, müssen nun in den Methodenaufrufen die dieses Objekt aufrufen die Namen entsprechend umbenannt werden.
+* Ab der Version 1.1.16, können Sie mit modifyAttachments nun Elemente des Pfads ausgehend vom Wurzelverzeichnis ersetzen.
+
+* Ab der Version 1.1.15, modifyAttachments sollte nun mit Windows-Pfaden arbeiten.
+
+* Ab der Version 1.1.11 wurde das wichtigste JavaScript-Objekt, das Zutilo um die Funktionalität von Zotero herum anlegt, von "Zotero.Zutilo" auf "ZutiloChrome.zoteroOverlay" umbenannt.
+In allen Tastenkombinationen, müssen nun in den Methodenaufrufen die dieses Objekt aufrufen die Namen entsprechend umbenannt werden.
 
 Credits
 -------

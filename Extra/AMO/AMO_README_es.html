@@ -1,0 +1,154 @@
+<strong>Zutilo</strong>
+Zutilo es una pequeña extensión para Firefox que funciona como un plugin para el <a href="http://www.zotero.org/">Zotero Firefox extensión</a>. Zutilo fue diseñado como una herramienta para proporcionar varias funcionalidades pequeños que no están presentes en Zotero. Su nombre fue elegido por tomar la palabra &quot;utilidad&quot; y hacerlo que suene más como &quot;Zotero&quot;. Todos los elementos gráficos de Zutilo se pueden desactivar individualmente, de modo que los rasgos no deseados no saturan la interfaz de usuario.
+
+<strong>Lista de características presentes</strong>
+<strong>Atajos de teclado</strong>
+La mayoría de las características de Zutilo se puede acceder a través de menús contextuales que aparecen al hacer clic derecho en los elementos relevantes en Zotero o Firefox. Puede ser útil para llamar a muchas de las funciones de Zutilo directamente desde el teclado en lugar de utilizar los menús contextuales. Accesos directos para muchas de las funciones de Zutilo (y algunas funciones de básico Zotero) se pueden establecer en la ventana de preferencias de Zutilo (accesible desde el menú acciones de Zotero (el icono de &quot;herramientas&quot;) o Herramientos-&gt;Add-ons.
+
+Si lo prefiere, también puede usar <a href="https://addons.mozilla.org/en-US/firefox/addon/customizable-shortcuts/">la Customizable Shortcuts extensión</a> para configurar los atajos de teclado de Zutilo. Los ajustes realizados con esta extensión anularán todos los ajustes realizados en la ventana de preferencias de Zutilo. Configuración de métodos abreviados de Zutilo con <a href="http://forums.mozillazine.org/viewtopic.php?t=72994">la Keyconfig extensión</a> no se recomienda (la configuración funciona para una sesión, pero será reemplazado por Zutilo cuando Firefox se reinicie).
+
+Funciones de Zutilo se pueden asignar a atajos de teclado con cualquier otro plugin de Firefox como <a href="http://forums.mozillazine.org/viewtopic.php?t=72994">Keyconfig</a>, que ofrece un interfaz sencilla para el mapeo de atajos de teclado para los comandos de Javascript y funciona tanto con Firefox y Zotero Standalone o <a href="http://5digits.org/pentadactyl/index">Pentadactyl</a> o <a href="http://www.vimperator.org/vimperator">Vimperator</a>, que a la vez proporciona una interfaz de línea de comandos más avanzada para Firefox (usuarios de Pentadactyl podrían estar interesadas en <a href="https://github.com/willsALMANJ/Zoterodactyl">Zoterodactyl</a>, un conjunto de Pentadactyl plugins que proporcionan asignaciones de teclas para Zotero y Zutilo). En las descripciones de las características a continuación, los nombres de las funciones correspondientes se dan. Estos son los nombres de las funciones que deben asignarse a llamar a estas funciones sin necesidad de utilizar los menús contextuales.
+
+<strong>Funciones del ítem menú</strong>
+Cada una de las siguientes funciones se pueden llamar desde el Zotero ítem menú (accesado con un clic derecho en el panel de ítems en el medio de Zotero en la que todos los elementos de una colección están en la lista). En las preferencias de Zutilo (se accede desde el mismo menú como las preferencias de Zotero), cada una de estas funciones se pueden configurar para que se muestre en el Zotero ítem menú, en un Zutilo submenú del Zotero ítem menú, o no aparecer en absoluto.
+
+<ul>
+<li><strong>Copiar marcas:</strong> Haga clic en los elementos de la biblioteca de Zotero y copia sus marcas al portapapeles como un '\r\n' delimitada lista. A partir de Zotero 4.0, una lista de las marcas se pueden pegar en una caja nueva marca para añadir todas las marcas a un elemento a la vez. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.copyTags()</code>).
+</li>
+<li><strong>Pegar marcas:</strong> Haga clic en los elementos en la biblioteca de Zotero y pega el contenido del portapapeles a ellos como nuevas marcas. El contenido del Portapapeles debe ser un '\r\n' o '\n' delimitada lista (por ejemplo, la lista creada por la función de copia de marcas descrita anteriormente). (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.pasteTags()</code>).
+</li>
+<li><strong>Copiar creadores:</strong> Haga clic en los elementos de la biblioteca de Zotero y copia sus creadores en el portapapeles como un '\r\n' delimitada lista. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.copyCreators()</code>).
+</li>
+<li><strong>Mostrar caminos de adjuntos:</strong> Muestra las rutas de acceso a los elementos seleccionados y los adjuntos de artículos regulares (uno a uno como ventanas de diálogo por separado - es probable que no desee seleccionar más de un par de cosas a la vez de esta manera). (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.showAttachments()</code>).
+</li>
+<li><strong>Modificar caminos de adjuntos:</strong> Cambie el inicio del camino a todos los adjuntos elegibles seleccionados y todos los adjuntos de seleccionados artículos regulares. Dos ventanas de solicitud aparece. El primero pregunta por el camino viejo parcial mientras que el segundo pide la ruta parcial nuevo. Si escribe &quot;C:/userData/referencias/&quot; para el primer camino y &quot;E:/&quot; por el segundo camino, entonces un adjunto con un camino de &quot;C:/userData/referencias/journals/Nature/2008/coolPaper.pdf&quot; tendrá su ruta cambiada a &quot;E:/journals/Nature/2008/coolPaper.pdf&quot;, mientras que un adjunto con la ruta &quot;E:/journals/Science/2010/neatPaper.pdf&quot; se deja sin cambios. Esta función es especialmente útil para cuando se cambia de ordenador o discos duros y romper los vínculos de todos sus adjuntos.
+
+De forma predeterminada, la ruta de acceso parcial viejo es sólo en comparación con el inicio de cada ruta de los adjuntos. Para reemplazar elementos de caminos no al comienzo, haga clic en la &quot;Reemplazar todas las instancias del texto del camino parcial&quot; casilla de verificación en la ventana que aparece en primer lugar. Esta opción es útil si desea cambiar el nombre de una subcarpeta o cambiar entre Windows y Unix caminos de estilo (reemplazando <code>\</code> y <code>/</code>). (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.modifyAttachments()</code>).
+</li>
+<li><strong>Relacionar ítems:</strong> Relaciona todos los ítems seleccionados entre sí. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.relateItems()</code>).
+</li>
+</ul>
+<strong>Funciones de edición de ítems</strong>
+Zutilo actualmente implementa varias funciones que son útiles para la edición de ítems de Zotero con el teclado. Estas funciones no se pueden llamar desde cualquier elemento gráfico (pero puede ser asignado a un acceso directo del teclado como se ha descrito anteriormente). Las siguientes funciones funcionan cuando un solo ítem de Zotero está seleccionado:
+
+<ul>
+<li><strong>Editar ítem información:</strong> Seleccione la pestaña &quot;Información&quot; en el ítem-panel. Ajuste el foco al primer campo editable de información del ítem. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.editItemInfoGUI()</code>).</li>
+<li><strong>Añadir nota:</strong> Seleccione la ficha &quot;Notas&quot; del ítem-panel. Crea una nueva nota. Fue agregado por completo, pero Zotero ya tiene un atajo de teclado que hace esto. Se puede configurar en las preferencias de Zotero. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.addNoteGUI()</code>).</li>
+<li><strong>Añadir marca:</strong> Seleccione la ficha &quot;Marcas&quot; del ítem-panel. Abre un cuadro de texto para crear una marca nueva. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.addTagGUI()</code>).</li>
+<li><strong>Añadir ítem relacionado:</strong> Seleccione la ficha &quot;Relacionado&quot; del ítem-panel. Abre el diálogo para agregar elementos relacionados. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.addRelatedGUI()</code>).</li>
+</ul>
+<strong>Funciones del Firefox navegador</strong>
+Zutilo añade algunas funciones para ayudar con adjuntar documentos a los ítems de Zotero de páginas en Firefox. Estas funciones se accede desde el navegador Firefox y no funcionan con Zotero Standalone.
+
+<ul>
+<li><strong>Colocación de páginas web y enlaces a ítems de Zotero:</strong> Zutilo añade elementos a menú contextual de Firefox para fijar la página actual o el destino del enlace actual (si se selecciona un enlace) para el ítem seleccionado en ese momento en Zotero. Cómo el apego se procesa depende del método de conexión definido en las preferencias de Zutilo. Si el método es &quot;Importar&quot;, un adjunto importado se crea de la página / link. Si el método es &quot;Preguntar por adjunto enlazado&quot;, un sistema de archivo aparece para permitir al usuario especificar un archivo nuevo. La página / enlace se guarda en el archivo y a continuación un archivo adjunto vinculado (vinculado al archivo descargado) se crea. Si el método es &quot;Preguntar después de la primera&quot;, un adjunto importado se crea si el elemento seleccionado no tiene apegos anteriores (sin contar las web páginas instantáneas). De lo contrario, el archivo del sistema para la creación de un adjunto enlazado se muestra. Si la tecla de mayúsculas se pulsa cuando la función de accesorio está activado, la solicitud de un adjunto enlazado se muestra independientemente de la configuración de preferencia de Zutilo. Si la tecla de control se presiona, el adjunto es importado independientemente de la configuración de preferencia Zutilo.
+
+Si desea crear un atajo de teclado para fijar la página actual al ítem seleccionado en Zotero utilizando el método definido en las preferencias Zutilo, utilice <code>ZutiloChrome.firefoxOverlay.attachURLToCurrentItem(window.content.location.href)</code> para el comando. La llamada a la función general es <code>ZutiloChrome.firefoxOverlay.attachURLToCurrentItem(url, processType)</code>, donde <code>url</code> es una cadena con la URL para descargar y processType puede ser 'Zotero', 'prompt', o 'promptAfterOne'. Si processType no se especifica o se establece en cualquier otra cosa, el método de conexión definido en las preferencias Zutilo se utiliza.
+</li>
+<li><strong>Extraer un ítem de Zotero desde una página web actual con / sin adjuntos:</strong> Zutilo añade elementos adicionales al menú contextual del Zotero icono de la barra de direcciones que extraer citas de la página actual con o sin extracción a PDFs y otros archivos de la página asociada. Es decir, si el &quot;Añadir automáticamente archivos PDFs y de otros tipos&quot; preferencia está seleccionada en Zotero, Zutilo añade elementos de menú (un punto por cada &quot;Guardar en Zotero&quot; método que se aplica a la página actual) para crear un nuevo elemento de Zotero sin los adjuntos. Si la preferencia no está seleccionada, Zutilo añade elementos de menú para crear un nuevo ítem de Zotero con los adjuntos.
+
+Esta función se activa por cambiando la preferencia de los archivos asociados en Zotero, creando el ítem y, a continuación, cambiando la preferencia a su estado original. Porque Zotero traduce páginas de forma asíncrona (y por tanto al mismo tiempo), las traducciones hechas con esta función se debe permitir que termine antes de iniciar las traducciones de página normales con Zotero (pues de lo contrario el estado de la &quot;Archivos asociados&quot; preferencia dependerá del calendario de las traducciones simultáneas) .
+
+La función en que esta característica se basa es <code>ZutiloChrome.firefoxOverlay.scrapeThisPage(traductor, filesBool)</code>. Si traductor (un objeto traductor de Zotero) se establece en false o no establecido, el traductor defecto de la página se utiliza. Si fileBool es true, el ítem se crea con los adjuntos asociados. Si es false, el ítem se crea sin los adjuntos asociados. Si filesBool no se especifica, entonces el opuesto de la preferencia de Zotero se utiliza. Así que, si en las preferencias de Zotero la &quot;Añadir automáticamente archivos PDFs y de otros tipos&quot; opción está seleccionada, <code>ZutiloChrome.firefoxOverlay.scrapeThisPage(false)</code> se creará un elemento utilizando el traductor de página predeterminado sin adjuntar ningún archivo.
+</li>
+</ul>
+<strong>Funciones de Zotero puro</strong>
+Para referencia, aquí hay algunas funciones otras de Zotero que he encontrado que es útil para asignar atajos de teclado:
+
+<ul>
+<li><strong>Abrir / cerrar Zotero:</strong> Muestra / oculta el panel de Zotero en Firefox. (Nombre de la función: <code>ZoteroOverlay.toggleDisplay()</code>).</li>
+<li><strong>Guardar página web como un ítem de Zotero:</strong> Guardar la página actual como un ítem de página web en Zotero. (Nombre de la función: <code>ZoteroPane.addItemFromPage()</code>).</li>
+<li><strong>Extraer Zotero ítem de una página web:</strong> Agrega un ítem a la biblioteca Zotero basado en el contenido de referencia de la página web actual (equivalente a hacer clic en el pequeño página / libro icono en la barra de direcciones de Firefox). (Nombre de la función: <code>Zotero_Browser.scrapeThisPage()</code>).</li>
+</ul>
+<strong>Una nota sobre los archivos adjuntos</strong>
+Zutilo ofrece algunas funciones que proporcionan un mayor control sobre la gestión de los adjuntos en Zotero. Aquí algunos usos posibles de los accesorios Zotero son revisados con el fin de señalar a unas pocas usos posibles de Zutilo.
+
+Zotero ofrece una interfaz de metadatos ricos para organizar y exportar referencias. También se puede utilizar como un navegador de archivos mejorada por adjuntar archivos a los artículos Zotero. Esos artículos se pueden recuperar mediante la búsqueda en los campos de la base de datos de Zotero (por ejemplo, autor, título, marcas, publicación, año, etc) de una manera más fina que un sistema de búsqueda de archivos simple.
+
+Zotero soporta dos tipos de adjuntos, adjuntos importados y adjuntos enlazados. Importados adjuntos se almacenan en el directorio de almacenamiento de Zotero con cada adjunto guardado en una carpeta independiente llamada con una cadena aleatoria de letras y números. Enlazados adjuntos guardan sólo el enlace a la ubicación de un archivo adjunto en el sistema de archivos (por lo que estos accesorios se pueden guardar en una jerarquía de archivos más susceptibles a la navegación fuera de Zotero).
+
+Base Zotero ofrece un mayor apoyo para los archivos importados que para los adjuntos enlazados. Con Zotero puro, cuando un nuevo ítem se crea mediante la extracción de información de referencia de una página web, Zotero puede descargar el PDF (u otros archivos asociados) con la referencia de la página web como adjuntos importados automáticamente. También puede sincronizar datos adjuntos importados a Zotero Server.
+
+<a href="http://www.columbia.edu/~jpl2136/zotfile.html">La ZotFile extensión</a> proporciona apoyo adicional para los adjuntos enlazados en Zotero. ZotFile se puede configurar para convertir automáticamente los archivos adjuntos nuevos importados en los archivos adjuntos enlazados y cambiar el nombre y mover los archivos adjuntos a una ubicación de archivos basado en los metadatos del padre adjunto. Esta característica hace que el mantenimiento de un directorio de archivos adjuntos enlazados sea tan fácil como usar los accesorios importados de Zotero. ZotFile también puede por lotes cambiar el nombre y mover los archivos existentes de fijación (vinculada o importada) y adjuntar a un ítem de Zotero los archivos modificados más recientemente en la carpeta de descargas de Firefox como renombradaos y enlazados adjuntos. (ZotFile también tiene funciones para la extracción de anotaciones PDF como elementos de notas de Zotero y para la sincronización de adjuntos en los dispositivos de tableta.)
+
+Con ZotFile, es fácil de crear y mantener una biblioteca de adjuntos enlazados. Sin embargo, estos archivos no se sincronizarán con Zotero Server. Desde la versión 4.0, Zotero soporta rutas relativas para los adjuntos enlazados. Con los adjuntos enlazados guardados como rutas relativas, una biblioteca de un usuario de Zotero se pueden sincronizar través de múltiples máquinas y todos los enlaces de archivos enlazados seguirá trabajando siempre si el directorio base que contiene todos los adjuntos enlazados se copie en cada máquina (como alternativa, los adjuntos pueden ser almacenados en una unidad de red que cada máquina señala como su directorio base).
+
+La función de Zutilo de modificar las rutas puede ayudar con el trabajo con los adjuntos enlazados por modificación por lotes de las trayectorias de todos los adjuntos seleccionados. Así que si un grupo de archivos adjuntos se mueve a una carpeta nueva, la función de Zutilo de modificar los adjuntos se pueden utilizar para actualizar todos los caminos emparejados a la vez. Esta función también puede utilizarse para cambiar <code>/</code> a <code>\</code> en los caminos emparejados al cambiar los sistemas operativos. La característica de caminos relativos de Zotero 4,0 reemplaza la necesidad de esta función, aunque modificar caminos también pueden ser útiles para las rutas de fijación que no se pueden ser relativas a la razón que sea. La función de Zutilo de mostrar caminos también es útil para la depuración de los caminos almacenados actualmente en Zotero, especialmente para caminos rotos, de modo que las trayectorias pueden ser modificadas con la modificar caminos función en lugar de ser reenlazados individualmente.
+
+Los funciones de Zutilo para adjuntar páginas y enlaces son útiles para adjuntar adjuntos a los ítems de Zotero que se perdieron cuando el artículo fue creado originalmente o simplemente para colocar elementos adicionales más adelante. Los adjuntos se creó siguiendo el procedimiento normal, por lo que estas funciones se pueden utilizar para crear adjuntos importados (comportamiento por defecto) o adjuntos enlazados si se establece ZotFile para cambiar los nombres y mover adjuntos nuevos. Tenga en cuenta que con la opción de Zutilo para &quot;Preguntar por adjunto enlazado&quot; también se activará ZotFile (por lo que es inútil para seleccionar un archivo a través del ventana). En las preferencias de Zutilo, las funciones de adjuntar enlace / página se puede configurar para que solicite una ubicación de adjuntos sólo cuando un ítem ya tiene otros adjuntos. Esta preferencia funciona bien con la &quot;Sólo le pido si el artículo tiene otros archivos adjuntos&quot; opción de ZotFile, que permite ZotFile mover / cambiar el nombre del adjunto y luego solicita el Nombre / ubicación de las subsiguientes
+
+A veces, es útil para guardar las referencias a una colección de artículos para su uso futuro, pero es poco probable que los documentos se necesita para ser consultado. En este caso, lo mejor es guardar los elementos en Zotero sin asociar los archivos de documentos asociados. Zutilo proporciona funciones para guardar los elementos con o sin archivos adjuntos. El uso de estas funciones ahorra la molestia de un cambio manual de la &quot;adjuntar archivos PDF y otros archivos asociados&quot; preferencia de Zotero o la borradura manualmente de los adjuntos que no sean necesarios.
+
+<strong>Limitaciones</strong>
+Por el momento, Zutilo funciona con Zotero como un panel del navegador Firefox o ficha independiente y Zotero Standalone. (En el pasado, algunas funciones no han trabajado con la ficha independiente y Zotero Standalone. Si algo no parece funcionar con uno de estos modos, trate de usar Zotero como un panel del navegador de Firefox y ver si funciona allí. Entonces, por favor póngase en contacto conmigo a través de <a href="https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/" title="Mozilla Add-ons página">la Mozilla Add-Ons página de Zutilo</a> o <a href="https://github.com/willsALMANJ/Zutilo" title="GitHub página">la GitHub página</a>). Algunas de las características específicas del navegador no están disponibles en Standalone Zotero.
+
+Una advertencia: yo (y varios otros ahora) han estado utilizando Zutilo desde hace un tiempo en mi propia colección Zotero sin problema. Si estoy alertado a cualquier error, trato de corregirlos lo antes posible. Dicho esto, por favor, crea una copia de seguridad de sus datos o prueba a cabo funciones de Zutilo sobre un pequeño número de ítems para asegurarse de que funciona de la forma esperada cuando se utiliza por primera vez
+
+<strong>Cómo instalar</strong>
+<strong>1. addons.mozilla.org (facíl)</strong>
+La forma más fácil de instalar Zutilo para Zotero como una extensión de Firefox es a través de <a href="https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/" title="Mozilla Zutilo de Add-ons página">la Mozilla Add-ons página de Zutilo</a>. Simplemente navega allí en Firefox y haz clic en el &quot;Añadir a Firefox&quot; botón. Para Zotero Standalone, usted tendrá que descargar el .xpi archivo e instalarlo manualmente (vee más abajo).
+
+Para obtener el .xpi archivo, vaya a <a href="https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/" title="Añadir Zutilo de Mozilla Complementos página">la Mozilla Add-ons página de Zutilo</a>. Si está usando Firefox, en lugar de hacer clic en &quot;Añadir a Firefox&quot; botón, haga clic en el botón con el botón derecho de ratón y elege la opción &quot;Guardar destino como ....&quot; Se abrirá un cuadro de diálogo que le permite guardar el .xpi archivo. Si usted está usando un navegador web distinto de Firefox, un &quot;Descargar ahora&quot; botón debe ser en el lugar de el &quot;Añadir a Firefox&quot; botón. Puede hacer clic en él para descargar el .xpi archivo.
+
+Una vez que tenga el .xpi archivo, vaya a Herramientas-&gt;Add-ons en Firefox o Zotero Standalone. Haga clic en el botón de artes en la zona superior derecha de la ventana del Administrador de complementos que aparece y elige la opción &quot;Instalar Add-on desde archivo&quot;. A continuación, seleccione el .xpi archivo.
+
+<strong>2. GitHub</strong>
+<strong>Metódo 1: Crear el xpi</strong>
+Si tiene problemas con la Mozilla Add-ons página, también puede descargar Zutilo de <a href="https://github.com/willsALMANJ/Zutilo/downloads" title="Zutilo&#39;s GitHub página">la Downloads sección de la página Zutilo de GitHub</a>.
+
+<ol>
+<li>Haga clic en el &quot;Download as zip&quot; botón allí.</li>
+<li>Luego descomprima el archivo descargado</li>
+<li>Zip de nuevo el contenido.</li>
+<li>Cambia la extensión del archivo de &quot;zip&quot; a &quot;xpi&quot;.</li>
+<li>Vaya a Herramientas-&gt;Add-ons en Firefox o Zotero Standalone.</li>
+<li>Haga clic en el botón de artes en la zona superior derecha de la ventana del Administrador de complementos que aparece y elige la opción &quot;Instalar Add-on desde archivo&quot;.</li>
+<li>Seleccione el .xpi archivo.</li>
+</ol>
+<strong>Metódo 2: Codigo descargado</strong>
+Si tiene problemas para obtener el .xpi archivo para funcionar con Firefox, hay un método que usted puede intentar.
+
+<ol>
+<li>Guarde todos los descomprimidos de los archivos de Zutilo en algún lugar en su computadora donde desea guardar Zutilo.</li>
+<li>Crea un archivo de texto llamado zutilo@www.wesailatdawn.com.</li>
+<li>Pon la ruta del directorio a la carpeta de Zutilo como su única línea de texto.</li>
+<li>Guarde el archivo en la carpeta de extensiones de la carpeta de perfil de Firefox (este método no trabaja con Zotero Standalone).</li>
+</ol>
+Este método es útil si desea usar git para tirar de cambios a Zutilo de GitHub (aunque si se utiliza Zutilo en Firefox e instalarlo desde el Mozilla Add-ons Firefox página se actualizará automáticamente actualizaciones de Zutilo desde que sea aprobadas por Mozilla (un poco poco después de que se publiquen en GitHub)). Alternativamente puede renombrar la carpeta de Zutilo a &quot;zutilo@www.wesailatdawn.com&quot; y moverla en la carpeta de extensiones (este método funciona con Firefox o Zotero Standalone).
+
+<strong>Pedir de funciones nuevas y informar sobre bugs</strong>
+El último código fuente para Zutilo se mantiene en <a href="https://github.com/willsALMANJ/Zutilo" title="Zutilo&#39;s GitHub página">GitHub</a>. Los errores (de código o de traducción) pueden ser reportados haciendo clic en la &quot;New Issue&quot; que aparece debajo <a href="https://github.com/willsALMANJ/Zutilo/issues" title="GitHub página">la Issues sección</a> de la GitHub sitio. También puede consultar para ver si hay un error usted experimenta ya ha sido reportado por otro usuario. Asegúrese de verificar la &quot;Closed&quot; sección para ver si el fallo ya ha sido solucionado.
+
+Peticiones de funciónes nuevos también podrán ser presentadas por la apertura de una nueva Issue. Por favor, abra una nueva Issue antes de enviar su código. Una descripción de los tipos de características que son apropiadas para Zutilo se puede encontrar en la <a href="https://github.com/willsALMANJ/Zutilo/wiki">Zutilo wiki</a> página. Una hoja de ruta de características planeadas también está disponible en el wiki.
+
+Zutilo está subido al <a href="www.babelzilla.org">BabelZilla</a> Web Translation System. Cuando los nuevos locales distintos de Inglés se han completado, que se añadirá a Zutilo.
+
+<strong>Diario de importantes cambios de Zutilo</strong>
+Esta sección no es un registro completo de los cambios en Zutilo. En él se incluirán todos los cambios importantes en la funcionalidad de Zutilo o características adicionales. Si algo se rompe en una actualización de Zutilo, intente buscar en esta sección para una explicación.
+
+<ul>
+<li>En la versión 1.2.5:
+
+<ol>
+<li>Se añadió atajos teclados a Zutilo y se añadióuna QuickCopy menú ítem.</li>
+<li>Un bug que impedía Zutilo se cargue in la Firefox pestaña de Zotero se fijó.</li>
+<li>Se añadió una zh-CN locale parcial.</li>
+</ol></li>
+<li>En la versión 1.2.4, Zutilo fue traducido en Español.
+</li>
+<li>En la versión 1.2.3, las funciones se han añadido a añadir páginas y enlaces en Firefox para el ítem seleccionado actualmente en Zotero y guardar la página actual en Zotero con adjuntos si la configuración por defecto es salvar sin archivos adjuntos (o ahorrar sin adjuntos si la configuración por defecto es ahorrar con ellos).
+</li>
+<li>Partir de la versión 1.2.1, Zutilo puede instalarse y desinstalarse sin necesidad de reiniciar Firefox.
+</li>
+<li>Partir de la versión 1.1.17, los cambios realizados con modifyAttachments siempre debe persistir después de reiniciar Firefox.
+</li>
+<li>Partir de la versión 1.1.16, con modifyAttachments ahora es posible sustituir los elementos de la ruta que no sean el principio.
+</li>
+<li>Partir de la versión 1.1.15, modifyAttachments realmente debería trabajar con rutas de Windows.
+</li>
+<li>Partir de la versión 1.1.11, el principal objeto de JavaScript que Zutilo crea para agregar funcionalidad a Zotero ha cambiado el nombre de &quot;Zotero.Zutilo&quot; a &quot;ZutiloChrome.zoteroOverlay&quot;. Los atajos de teclado llamar a los métodos de este objeto necesitan cambiar los nombres con el fin de seguir trabajando.
+</li>
+</ul>
+<strong>Créditos</strong>
+Zutilo se basa en el formato de extensión Firefox se sugiere en la <a href="https://developer.mozilla.org/en-US/docs/XUL_School">XUL School</a>. Además, los ejemplos fueron tomados de la documentación de <a href="https://developer.mozilla.org/">red de desarrolladores de Mozilla</a> y el código fuente de Zotero. Sus atajos teclados se modelaron en los que se desarrollen en <a href="http://forums.mozillazine.org/viewtopic.php?t=72994">la Keyconfig extensíon</a>. Ayuda con la traducción proporcionada por Urko de BabelZilla.
+
