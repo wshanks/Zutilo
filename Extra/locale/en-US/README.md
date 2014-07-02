@@ -206,7 +206,8 @@ If you are using a web browser other than Firefox, the "Add to Firefox" button s
 You can click on it to download the .xpi file.
 
 Once you have the Zutilo xpi file, go to Tools->Add-ons in either Firefox or Zotero Standalone.
-Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File." Then select the .xpi file.
+Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File."
+Then select the .xpi file.
 
 ### 2. via GitHub
 
@@ -255,6 +256,7 @@ Please see `Extra/docs/README_translation.md` if you are interested in helping w
 
 Log of Important Zutilo Changes
 -------------------------------
+
 This section is not a complete log of changes to Zutilo.
 It will include any major changes to Zutilo's functionality or added features.
 If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
