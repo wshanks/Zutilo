@@ -3,7 +3,8 @@ Zutilo
 
 Zutilo is a small Firefox extension that serves as a plugin for the [Zotero Firefox extension](http://www.zotero.org/).
 Zutilo was designed as a utility to provide several small functionalities that are not present in Zotero.
-Its name was chosen by taking the word "utility" and making it sound more like "Zotero." All of Zutilo's graphical elements can be disabled individually, so that unwanted features do not clutter the user interface.
+Its name was chosen by taking the word "utility" and making it sound more like "Zotero."
+All of Zutilo's graphical elements can be disabled individually, so that unwanted features do not clutter the user interface.
 
 Current feature list
 --------------------
