@@ -218,6 +218,7 @@ Si tiene problemas con la Mozilla Add-ons página, también puede descargar Zuti
 1. Haga clic en el "Download as zip" botón allí.
 2. Luego descomprima el archivo descargado
 3. Zip de nuevo el contenido.
+.
 4. Cambia la extensión del archivo de "zip" a "xpi".
 5. Vaya a Herramientas->Add-ons en Firefox o Zotero Standalone.
 6. Haga clic en el botón de artes en la zona superior derecha de la ventana del Administrador de complementos que aparece y elige la opción "Instalar Add-on desde archivo".
@@ -250,6 +251,8 @@ Una hoja de ruta de características planeadas también está disponible en el w
 
 Zutilo está subido al [BabelZilla](www.babelzilla.org) Web Translation System.
 Cuando los nuevos locales distintos de Inglés se han completado, que se añadirá a Zutilo.
+.
+.
 
 Diario de importantes cambios de Zutilo
 ---------------------------------------

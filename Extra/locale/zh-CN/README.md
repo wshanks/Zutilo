@@ -13,10 +13,14 @@ Zutilo 被设计为一个工具集，来提供一些 Zotero 未提供的小功�
 大部分 Zutilo 功能都可以通过右键点击 Zotero 或 Firefox 相关元素出现的上下文菜单来访问。
 很多时候直接通过键盘访问 Zutilo 的功能比使用上下文菜单更有用。
 Zutilo 目前不提供原生的键盘快捷键(未来的更新可能会提供键盘快捷键)。
+
 不过可以使用其他 Firefox 插件来映射 Zutilo 的功能到键盘快捷键。
 例如 [Keyconfig](http://forums.mozillazine.org/viewtopic.php?t=72994)， 它提供了一个简单的界面，可以映射键盘快捷键到 Javascript 命令，并且适用于 Firefox 和 Zotero 独立版，或者 [Pentadactyl](http://5digits.org/pentadactyl/index) 或 [Vimperator](http://www.vimperator.org/vimperator)，它们都为 Firefox 提供了更高级的命令行界面。
  在下面功能的描述中，同时给出了对应的函数名。
+
 它们是要不使用上下文菜单映射到的函数。
+.
+.
 
 ### 项目菜单功能 ###
 下面的所有功能都可以从 Zotero 项目菜单中访问(在 Zotero 中列出所有项目的位置的项目面板上点击右键打开)。
@@ -49,13 +53,15 @@ Zutilo 目前不提供原生的键盘快捷键(未来的更新可能会提供键
 
     默认情况下，只会比较旧的部分路径和每个附件路径的开始部分。
     要更改不在开始部分的附件路径，请在第一个提示窗口中点击“替换所有实例”复选框。
-    此选项主要在你想要重命名子文件夹或者在 Windows 和 Unix 风格路径(替换`\`和`/``)的时候使用(函数名：`ZutiloChrome.zoteroOverlay.modifyAttachments()`)。
+    此选项主要在你想要重命名子文件夹或者在 Windows 和 Unix 风格路径(替换`\`和`/``)的时候使用
+    (函数名：`ZutiloChrome.zoteroOverlay.modifyAttachments()`)。
 
 * __关联项目：__
     设置所有选中的项目相互关联。
     (函数名：`ZutiloChrome.zoteroOverlay.relateItems()`)。
 
 ### 项目编辑功能 ###
+
 Zutilo 目前实现了一些在使用键盘编辑 Zotero 项目是有用的功能。
 这些功能不能从任何图形元素访问(但是可以像前面介绍的一样分配键盘快捷键)。
 在仅选中一个 Zotero 项目时可以使用下列功能：
@@ -80,6 +86,7 @@ Zutilo 目前实现了一些在使用键盘编辑 Zotero 项目是有用的功�
     (函数名：`ZutiloChrome.zoteroOverlay.addRelatedGUI()`)。
 
 ### Firefox 浏览器功能 ###
+
 Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero 项目。
 这些功能需要从 Firefox 浏览器中访问，不支持 Zotero 独立版。
 
@@ -111,8 +118,10 @@ Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero
     如果 filesBool 是 true，那么项目将被创建为带附件的。
     如果未指定 filesBool，那么将使用与 Zotero 默认设置想法的行为。
     所以，如果 Zotero 的首选项中“自动附加 PDF 和其他文件”选择被选中，`ZutiloChrome.firefoxOverlay.scrapeThisPage(false)` 将使用默认页面转换器创建无附加文件的项目。
+.
 
 ### 基本 Zotero 函数 ###
+
 这里列出了一些 Zotero 的其他函数以供参考，我认为它们会在映射键盘快捷键时有用：
 
 * __切换 Zotero：__
@@ -126,6 +135,7 @@ Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero
     (函数名：`Zotero_Browser.scrapeThisPage()`)。
 
 ### 关于附件的注意事项 ###
+
 Zutilo 提供了一些功能更强大的控制 Zotero 附件的管理。
 下面是 Zotero 附件的一些可能用法，以此来给出 Zutilo 的一些可能的用法。
 
@@ -167,8 +177,10 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 有些时候，保存一组项目的首选项以便以后使用是很有用的，但是通常不需要查看文档本身。
 这种情况下，最好保存 Zotero 中的项目而不附件关联的文档文件。
 使用这些函数省去了手动更改 Zotero 的“附加关联的 PDF 和其他文件”首选项或者手动删除不需要的文档的麻烦。
+.
 
 ### 局限 ###
+
 目前，Zutilo 作为 Firefox 浏览器面板或者独立标签与 Zotero 。
 (以前，某些功能不在独立标签和独立版 Zotero 上工作)。
 如果在某个模式下工作不正常，请尝试使用 Zotero 作为 Firefox 中的浏览器面板然后观察它是否正常工作。
@@ -182,6 +194,8 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 怎样安装
 --------
 
+### 1. 
+
 为 Zotero 安装 Zutilo 作为 Firefox 扩展的方式是通过 [Zutilo 的 Mozilla 附加组件页](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page")。
 只需要在 Firefox 中打开此页然后点击“添加到 Firefox”按钮即可。
 对于 Zotero 独立版，你需要下载 .xpi 文件并手动安装它(见下方)。
@@ -189,21 +203,38 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 要获得 .xpi 文件，请打开 [Zutilo 的 Mozilla 附加组件页](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page")。
 如果你正在使用 Firefox，请不要点击“添加到 Firefox”按钮，右键点击按钮并选择“链接另存为...”。
 你会打开一个对话提示你保存 .xpi 文件。
-如果你使用的是 Firefox 以外的浏览器，“添加到 Firefox”按钮会变成“现在下载”按钮。
-直接点击即可下载 .xpi 文件。
+如果你使用的是 Firefox 以外的浏览器，“添加到 Firefox”按钮会变成“现在下载”按钮。直接点击即可下载 .xpi 文件。
 
 下载 zutilo.xpi 文件后，在 Firefox 或者 Zotero 独立版中打开工具-\>附加组件。
 点击附加组件管理器窗口右上方区域的齿轮按钮并选择“从文件安装附加组件”。
 然后选择 .xpi 文件安装。
 
+### 2. 
+
+#### 
+
 如果你访问 Mozilla 附加组件页有问题，你可以从 [Zutilo 的 GitHub 页面的下载部分](https://github.com/willsALMANJ/Zutilo/downloads "Zutilo's GitHub page") 下载 Zutilo。
+
 点击“作为 zip 下载”按钮。
 然后解压下载的文件，并重新打包，将文件的扩展名从“zip”更改为“xpi”(我不知道为什么 GitHub 的 zip 文件不能直接使用，但是解压并重新打包应该有效)。
+.
+.
+.
+.
+.
+.
+
+####
 
 如果你获取 .xpi 正常工作 Firefox 有问题，你可以尝试下面的方法。
+
 保存所有解压的 Zutilo 文件到你想要保存的计算机的某个地方。
 创建一个名为 zutilo@www.wesailatdawn.com 的文本文件，将 Zutilo 的 chrome 文件夹的路径作为它的唯一一行文本写入，然后保存文件到你的 Firefox 配置文件夹下的 extensions 文件夹(只要你能找到扩展文件夹，此方法也对 Zotero 独立版有效)。
 此方法在你想要使用 git 来保存 Zutilo 的所有更新从 GitHub 时有用(不过如果你使用 Zutilo 在 Firefox 中并从 Mozilla 附加组件页上安装它，Firefox 会自动更新 Zutilo 只要更新被 Mozilla通过)(比 GitHub 上发布略慢)。
+.
+
+.
+.
 
 功能请求和 Bug 提交
 -------------------
@@ -220,6 +251,8 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 
 Zutilo 目前已被上传到 [BabelZilla](www.babelzilla.org) 的网络翻译系统。
 英文以外的其他语言完成后，会被添加到 Zutilo。
+.
+.
 
 Zutilo 重要更新日志
 -------------------
@@ -228,17 +261,25 @@ Zutilo 重要更新日志
 它包含 Zutilo 的所有重大更新或者添加功能。
 如果在某个升级的 Zutilo 中某个功能失效，请查看此部分的解释。
 
--   在 1.2.3 版本中，添加了附加 Firefox 中的页面和链接到当前选中的 Zotero 项目和保存当前页面到 Zotero 带附件如果默认设置是不带附件(或者不带附件如果默认设置是带附件)。
+* 
 
--   版本 1.2.1，Zutilo 可以被安装和卸载而不需重启 Firefox。
+    1. 
+    2. 
+    3. 
 
--   版本 1.1.17，modifyAttachments 更改为总是在重启 Firefox 后保留。
+* 
 
--   版本 1.1.16，modifyAttachments 现在可以替换路径中的任何部分而不只是开头。
+* 在 1.2.3 版本中，添加了附加 Firefox 中的页面和链接到当前选中的 Zotero 项目和保存当前页面到 Zotero 带附件如果默认设置是不带附件(或者不带附件如果默认设置是带附件)。
 
--   版本 1.1.15，modifyAttachments 可以正常为 Windows 路径工作。
+* 版本 1.2.1，Zutilo 可以被安装和卸载而不需重启 Firefox。
 
--   版本 1.1.11，Zutilo 创建来添加功能到 Zotero 的主 JavaScript 对象从“Zotero.Zutilo”更名为“ZutiloChrome.zoteroOverlay”。
+* 版本 1.1.17，modifyAttachments 更改为总是在重启 Firefox 后保留。
+
+* 版本 1.1.16，modifyAttachments 现在可以替换路径中的任何部分而不只是开头。
+
+* 版本 1.1.15，modifyAttachments 可以正常为 Windows 路径工作。
+
+* 版本 1.1.11，Zutilo 创建来添加功能到 Zotero 的主 JavaScript 对象从“Zotero.Zutilo”更名为“ZutiloChrome.zoteroOverlay”。
     调用此对象的方法的所有键盘快捷键需要被重命名以保持正常工作。
 
 Credits
@@ -246,3 +287,5 @@ Credits
 
 Zutilo 基于和模仿了 [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School) 中介绍的 Firefox 扩展结构。
 另 y elige la opción "Instalar Add-on desde archivo".例子来自于 [Mozilla Developer Network](https://developer.mozilla.org/) 文档和 Zotero 的源代码。
+.
+.

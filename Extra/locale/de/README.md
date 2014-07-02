@@ -137,8 +137,7 @@ Als Referenz, sind hier ein paar andere Funktionen Zoteros aufgeführt, für die
 ### Einige Anmerkungen über Anhänge ###
 
 Zutilo bietet einige Funktionen, die mehr Kontrolle über die Verwaltung von Anhängen in Zotero geben. 
-Hier finden sich einige mögliche Verwendungen wie Zotero Anhänge überprüft und gefunden werden können. 
-Dies sind einige der möglichen Nutzungen Zutilos.
+Hier finden sich einige mögliche Verwendungen wie Zotero Anhänge überprüft und gefunden werden können. Dies sind einige der möglichen Nutzungen Zutilos.
 
 Zotero bietet eine metadaten-reiche Schnittstelle für die Organisation und den Export von Referenzen. 
 Es kann auch als ein erweiterter Datei-Browser durch an Zotero Einträgen angehängte Dateien genutzt werden. 
@@ -161,8 +160,7 @@ ZotFile kann auch die bestehenden angehängten Dateien (linkten oder importierte
 Mit ZotFile, ist es einfach eine Bibliothek von verlinkten Dateianhängen zu erstellen und zu pflegen. 
 Allerdings können diese Dateien nicht von Zotero mit dem Zotero Server synchronisiert werden. 
 Ab der Version 4.0 unterstützt Zotero relative Pfade für die verlinkten Dateianhänge. 
-Mit unter relativen Pfaden gespeicherten verlinkten Dateianhängen, kann die Zotero-Bibliothek eines Benutzers auf mehreren Rechnern synchronisiert werden und alle Datei-Links werden weiterhin funktionieren, solange das Basisverzeichnis, welches incl. aller verknüpften Dateianlagen auf jede Maschine kopiert wird, alle Daten enthält. 
-(Alternativ könnten die Dateianhänge auf einem Netzlaufwerk gespeichert werden, das von jeder Maschine als Basis-Verzeichnis genutzt wird.)
+Mit unter relativen Pfaden gespeicherten verlinkten Dateianhängen, kann die Zotero-Bibliothek eines Benutzers auf mehreren Rechnern synchronisiert werden und alle Datei-Links werden weiterhin funktionieren, solange das Basisverzeichnis, welches incl. aller verknüpften Dateianlagen auf jede Maschine kopiert wird, alle Daten enthält. (Alternativ könnten die Dateianhänge auf einem Netzlaufwerk gespeichert werden, das von jeder Maschine als Basis-Verzeichnis genutzt wird.)
 
 Die 'Anhangpfade-Ändern-Funktion' von Zutilo ,kann die Arbeit mit verlinkten Dateianhängen deutlich vereinfachen. Sie ändert per Batch einen Teil der Pfade aller ausgewählten Anhänge. 
 Wenn eine Gruppe von Dateieanhängen in einen neuen Ordner verschoben wird, kann nun die 'Anhangpfade-Ändern-Funktion' Zutilos verwendet werden, um alle verlinkten Anhangpfade auf einmal zu aktualisieren. 
@@ -196,6 +194,8 @@ Das heißt aber dennoch, dass Sie bitte zunächst ein Backup Ihrer Daten erstell
 Installieren
 ------------
 
+### 1. 
+
 Der einfachste Weg, Zutilo für Zotero als Firefox-Erweiterung zu installieren, ist mit [der Mozilla Add-ons-Seite Zutilos](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo die Mozilla Add-ons-Seite"). 
 Navigieren Sie in Firefox genau dorthin und klicken Sie auf die Schaltfläche "Zu Firefox hinzufügen". 
 Für Zotero Standalone, müssen Sie die .xpi-Datei herunterladen und manuell installieren (siehe unten).
@@ -209,33 +209,32 @@ Sobald Sie die Zutilo .xpi Datei haben, auf Extras-\>Add-ons sowohl in Firefox a
 Klicken Sie auf den Zahnrad-Button im rechten oberen Bereich des Add-ons-Manager-Fensters und wählen Sie "Install Add-on Aus Datei". 
 Dann wählen Sie die .xpi-Datei zur Installation aus.
 
+### 2. 
+
+#### 
+
 Wenn Sie Probleme mit der Mozilla Add-ons-Seite haben, können Sie Zutilo auch von [den Downloads Abschnitt der GitHub Seite Zutilos](https://github.com/willsALMANJ/Zutilo/downloads "Zutilo's GitHub page") downloaden. 
-Klicken Sie auf die "Download as zip"-Schaltfläche. 
-Dann entpacken Sie die heruntergeladene Datei. Nun zippen Sie den Ordner erneut und ändern die Dateiendung von "zip" auf "xpi" (warum die GitHub Version der Zip-Datei nicht direkt verwendet werden kann, sondern nur Entpacken und Rezippung funktionieren, weiß der Entwickler derzeit auch nicht).
+
+1. Klicken Sie auf die "Download as zip"-Schaltfläche. 
+2. Dann entpacken Sie die heruntergeladene Datei.
+3. Nun zippen Sie den Ordner erneut und ändern die Dateiendung von "zip" auf "xpi" (warum die GitHub Version der Zip-Datei nicht direkt verwendet werden kann, sondern nur Entpacken und Rezippung funktionieren, weiß der Entwickler derzeit auch nicht).
+.
+4. .
+5. .
+6. .
+7. .
+
+#### 
 
 Wenn Sie Schwierigkeiten haben, die .xpi-Datei mit Firefox ans Funktionieren zu bringen, gibt es eine weitere Methode, die Sie ausprobieren können. 
-Speichern Sie alle entpackten Zutilo Dateien irgendwo an der Stelle auf Ihrem Computer, in der Sie Zutilo ablegen wollen. 
-Erstellen Sie eine Textdatei mit dem Namen zutilo@www.wesailatdawn.com, tragen Sie den Verzeichnispfad zum Speicherort des Ordners Zutilos als einzige Textzeile ein, und speichern Sie die Datei in Ihrem Firefox-Profil-Ordner ab (diese Methode wird wahrscheinlich auch mit Zotero Standalone arbeiten, wenn Sie dessen Erweiterungen Ordner finden können). 
+
+1. Speichern Sie alle entpackten Zutilo Dateien irgendwo an der Stelle auf Ihrem Computer, in der Sie Zutilo ablegen wollen. 
+2. Erstellen Sie eine Textdatei mit dem Namen zutilo@www.wesailatdawn.com
+3. Tragen Sie den Verzeichnispfad zum Speicherort des Ordners Zutilos als einzige Textzeile ein
+4. Speichern Sie die Datei in Ihrem Firefox-Profil-Ordner ab (diese Methode wird wahrscheinlich auch mit Zotero Standalone arbeiten, wenn Sie dessen Erweiterungen Ordner finden können). 
+
 Diese Methode ist nützlich, wenn Sie git verwenden, um ein aktuelles Zutilo aus GitHub zu ziehen (wenn Sie Zutilo von der Mozilla Add-ons-Seite verwenden, sollte Firefox (oder Zotero Standalone) automatisch Zutilo aktualisieren, nachdem die Updates von Mozilla genehmigt wurden ( der Ablauf benötigt immer ein wenig Zeit, nachdem eine Release von Änderungen auf GitHub eingecheckt wurde)).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.
 
 Leistungsmerkmale vorschlagen und Bugs melden
 ---------------------------------------------
@@ -253,6 +252,7 @@ Ein Fahrplan der geplanten Features steht auch in diesem Wiki zur Verfügung.
 Die Übersetzungen zu Zutilo wurden bisher im Web Translation System von [BabelZilla](www.babelzilla.org) verwaltet.
 Die Lokalisierungen sind derzeit auf github umgezogen.
 Neue Sprachumgebungebungen können sowohl dort als auch als Fork über Pull-Requests hinzugefügt werden.
+.
 
 Log der wichtigsten Änderungen in Zutilo
 ----------------------------------------
@@ -260,8 +260,6 @@ Log der wichtigsten Änderungen in Zutilo
 Dieser Abschnitt ist kein vollständiges Protokoll aller Änderungen an Zutilo. 
 Es enthält nur die größeren Änderungen der Funktionalität oder zusätzlichen Features. 
 Wenn bei einem Upgrade von Zutilo Probleme auftauchen, versuchen Sie in diesem Abschnitt nach einer Erklärung zu suchen.
-
-* Für Version 1.2.11 wurde die deutsche Übersetzung komplett neu durchgesehen und redigiert.
 
 * In Version 1.2.5:
 

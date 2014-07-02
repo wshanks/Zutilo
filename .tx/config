@@ -1,0 +1,28 @@
+[main]
+host = https://www.transifex.com
+lang_map = zh: zh-CN
+
+[zutilo.zutilodtd]
+file_filter = chrome/locale/<lang>/zutilo/zutilo.dtd
+source_file = chrome/locale/en-US/zutilo/zutilo.dtd
+source_lang = en
+type = DTD
+
+[zutilo.zutiloproperties]
+file_filter = chrome/locale/<lang>/zutilo/zutilo.properties
+source_file = chrome/locale/en-US/zutilo/zutilo.properties
+source_lang = en
+type = MOZILLAPROPERTIES
+
+[zutilo.externalproperties]
+file_filter = Extra/locale/<lang>/external.properties
+source_file = Extra/locale/en-US/external.properties
+source_lang = en
+type = MOZILLAPROPERTIES
+
+[zutilo.readme]
+file_filter = Extra/locale/<lang>/README.md
+source_file = Extra/locale/en-US/README.md
+source_lang = en
+type = TXT
+
