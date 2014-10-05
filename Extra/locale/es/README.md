@@ -221,7 +221,7 @@ Si tiene problemas con la Mozilla Add-ons página, también puede descargar Zuti
 .
 4. Cambia la extensión del archivo de "zip" a "xpi".
 5. Vaya a Herramientas->Add-ons en Firefox o Zotero Standalone.
-6. Haga clic en el botón de artes en la zona superior derecha de la ventana del Administrador de complementos que aparece y elige la opción "Instalar Add-on desde archivo".
+6. Haga clic en el botón de artes en la zona superior derecha de la ventana del Administrador de complementos que aparece y elige la opción "Instalar Add-on desde archivo". 
 7. Seleccione el .xpi archivo.
 
 #### Metódo 2: Codigo descargado
@@ -261,9 +261,9 @@ Esta sección no es un registro completo de los cambios en Zutilo.
 En él se incluirán todos los cambios importantes en la funcionalidad de Zutilo o características adicionales.
 Si algo se rompe en una actualización de Zutilo, intente buscar en esta sección para una explicación.
 
-* En la versión 1.2.5:
+* En la versión 1.2.5: 
 
-    1. Se añadió atajos teclados a Zutilo y se añadióuna QuickCopy menú ítem. 
+    1. Se añadió atajos teclados a Zutilo y se añadióuna QuickCopy menú ítem.
     2. Un bug que impedía Zutilo se cargue in la Firefox pestaña de Zotero se fijó.
     3. Se añadió una zh-CN locale parcial.
 

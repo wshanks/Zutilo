@@ -16,7 +16,7 @@ Zutilo 目前不提供原生的键盘快捷键(未来的更新可能会提供键
 
 不过可以使用其他 Firefox 插件来映射 Zutilo 的功能到键盘快捷键。
 例如 [Keyconfig](http://forums.mozillazine.org/viewtopic.php?t=72994)， 它提供了一个简单的界面，可以映射键盘快捷键到 Javascript 命令，并且适用于 Firefox 和 Zotero 独立版，或者 [Pentadactyl](http://5digits.org/pentadactyl/index) 或 [Vimperator](http://www.vimperator.org/vimperator)，它们都为 Firefox 提供了更高级的命令行界面。
- 在下面功能的描述中，同时给出了对应的函数名。
+在下面功能的描述中，同时给出了对应的函数名。
 
 它们是要不使用上下文菜单映射到的函数。
 .
@@ -34,7 +34,7 @@ Zutilo 目前不提供原生的键盘快捷键(未来的更新可能会提供键
 * __粘贴标签：__
     右键点击 Zotero 库中的项目并粘贴剪贴板的内容到项目中。
     剪贴板内容必须是“\r\n”或“\n”分隔的列表(例如通过上面介绍的复制标签功能创建的列表)。
-     (函数名：`ZutiloChrome.zoteroOverlay.pasteTags()`)。
+    (函数名：`ZutiloChrome.zoteroOverlay.pasteTags()`)。
 
 * __复制创建者：__
     右键点击 Zotero 库中的项目并将它们的创建者作为一个“\r\n”分隔的列表复制到剪贴板。
@@ -118,7 +118,7 @@ Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero
     如果 filesBool 是 true，那么项目将被创建为带附件的。
     如果未指定 filesBool，那么将使用与 Zotero 默认设置想法的行为。
     所以，如果 Zotero 的首选项中“自动附加 PDF 和其他文件”选择被选中，`ZutiloChrome.firefoxOverlay.scrapeThisPage(false)` 将使用默认页面转换器创建无附加文件的项目。
-.
+    .
 
 ### 基本 Zotero 函数 ###
 
@@ -129,7 +129,7 @@ Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero
     (函数名：`ZoteroOverlay.toggleDisplay()`)。
 * __保存网页为 Zotero 项目：__
     在 Zotero 中保存当前页面为网页项目。
-     (函数名：`ZoteroPane.addItemFromPage()`)。
+    (函数名：`ZoteroPane.addItemFromPage()`)。
 * __从网页中提取 Zotero 项目：__
     根据当前网页的参考内容添加项目到 Zotero 库中(相当于点击 Firefox 中的页面/书本图标)。
     (函数名：`Zotero_Browser.scrapeThisPage()`)。
@@ -194,7 +194,7 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 怎样安装
 --------
 
-### 1. 
+### 1.
 
 为 Zotero 安装 Zutilo 作为 Firefox 扩展的方式是通过 [Zutilo 的 Mozilla 附加组件页](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/ "Zutilo's Mozilla Add-ons page")。
 只需要在 Firefox 中打开此页然后点击“添加到 Firefox”按钮即可。
@@ -209,9 +209,9 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 点击附加组件管理器窗口右上方区域的齿轮按钮并选择“从文件安装附加组件”。
 然后选择 .xpi 文件安装。
 
-### 2. 
+### 2.
 
-#### 
+####
 
 如果你访问 Mozilla 附加组件页有问题，你可以从 [Zutilo 的 GitHub 页面的下载部分](https://github.com/willsALMANJ/Zutilo/downloads "Zutilo's GitHub page") 下载 Zutilo。
 
@@ -221,7 +221,7 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 .
 .
 .
-.
+. 
 .
 
 ####
@@ -263,11 +263,11 @@ Zutilo 重要更新日志
 
 * 
 
-    1. 
-    2. 
-    3. 
+    1.
+    2.
+    3.
 
-* 
+*
 
 * 在 1.2.3 版本中，添加了附加 Firefox 中的页面和链接到当前选中的 Zotero 项目和保存当前页面到 Zotero 带附件如果默认设置是不带附件(或者不带附件如果默认设置是带附件)。
 
@@ -280,7 +280,7 @@ Zutilo 重要更新日志
 * 版本 1.1.15，modifyAttachments 可以正常为 Windows 路径工作。
 
 * 版本 1.1.11，Zutilo 创建来添加功能到 Zotero 的主 JavaScript 对象从“Zotero.Zutilo”更名为“ZutiloChrome.zoteroOverlay”。
-    调用此对象的方法的所有键盘快捷键需要被重命名以保持正常工作。
+调用此对象的方法的所有键盘快捷键需要被重命名以保持正常工作。
 
 Credits
 -------
