@@ -111,6 +111,46 @@ keys.shortcuts["attachLinkFile"] = function(win) {
 };
 
 ///////////////////////////////////////////////////////////
+// Additional Zotero functions (i.e. not Zutilo functions)
+///////////////////////////////////////////////////////////
+keys.shortcuts["recognizeSelected"] = function(win) {
+    win.Zotero_RecognizePDF.recognizeSelected() ;
+};
+keys.shortcuts["createParentItemsFromSelected"]  = function(win) {
+    win.ZoteroPane_Local.createParentItemsFromSelected(); 
+};
+keys.shortcuts["renameSelectedAttachmentsFromParents"]  = function(win) {
+    win.ZoteroPane_Local.renameSelectedAttachmentsFromParents();
+};
+keys.shortcuts["focusZoteroCollectionsTree"] = function(win) {
+    win.document.getElementById("zotero-collections-tree").focus();
+};
+keys.shortcuts["focusZoteroItemsTree"] = function(win) {
+    win.document.getElementById('zotero-items-tree').focus();
+};
+keys.shortcuts["advanceSelectedTabboxTab"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.advanceSelectedTab(1,true); 
+};
+keys.shortcuts["reverseSelectedTabboxTab"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.advanceSelectedTab(-1,true); 
+};
+keys.shortcuts["selectedTabboxTab0"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 0
+};
+keys.shortcuts["selectedTabboxTab1"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 1
+};
+keys.shortcuts["selectedTabboxTab2"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 2
+};
+keys.shortcuts["selectedTabboxTab3"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 3
+};
+
+
+
+
+///////////////////////////////////////////////////////////
 // Firefox only shortcuts
 ///////////////////////////////////////////////////////////
 if (Zutilo.appName == 'Firefox') {
