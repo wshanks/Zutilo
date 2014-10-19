@@ -97,6 +97,7 @@ keys.shortcuts["relateDialog"] = function(win) {
 
 ///////////////////////////////////////////////////////////
 // Zotero functions (i.e. not Zutilo functions)
+// Item manipulation
 ///////////////////////////////////////////////////////////
 keys.shortcuts["newItemMenu"] = function(win) {
 	win.document.getElementById("zotero-tb-add").firstChild.showPopup()
@@ -108,6 +109,44 @@ keys.shortcuts["attachLinkFile"] = function(win) {
 	}
 	
 	win.ZoteroPane.addAttachmentFromDialog(true, zitems[0].id);
+};
+keys.shortcuts["recognizeSelected"] = function(win) {
+    win.Zotero_RecognizePDF.recognizeSelected() ;
+};
+keys.shortcuts["createParentItemsFromSelected"]  = function(win) {
+    win.ZoteroPane_Local.createParentItemsFromSelected(); 
+};
+keys.shortcuts["renameSelectedAttachmentsFromParents"]  = function(win) {
+    win.ZoteroPane_Local.renameSelectedAttachmentsFromParents();
+};
+
+///////////////////////////////////////////////////////////
+// Zotero functions (i.e. not Zutilo functions
+// Focus selection
+///////////////////////////////////////////////////////////
+keys.shortcuts["focusZoteroCollectionsTree"] = function(win) {
+    win.document.getElementById("zotero-collections-tree").focus();
+};
+keys.shortcuts["focusZoteroItemsTree"] = function(win) {
+    win.document.getElementById('zotero-items-tree').focus();
+};
+keys.shortcuts["advanceTabboxTab"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.advanceSelectedTab(1,true); 
+};
+keys.shortcuts["reverseTabboxTab"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.advanceSelectedTab(-1,true); 
+};
+keys.shortcuts["selectTabboxTab0"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 0
+};
+keys.shortcuts["selectTabboxTab1"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 1
+};
+keys.shortcuts["selectTabboxTab2"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 2
+};
+keys.shortcuts["selectTabboxTab3"] = function(win) {
+    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 3
 };
 
 ///////////////////////////////////////////////////////////
