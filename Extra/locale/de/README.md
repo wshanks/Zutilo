@@ -265,9 +265,9 @@ Wenn bei einem Upgrade von Zutilo Probleme auftauchen, versuchen Sie in diesem A
 
 * In Version 1.2.5:
 
-   1. TODO
-   2. TODO
-   3. TODO
+
+
+
 
 * In Version 1.2.4 wurde Zutilo auf Deutsch übersetzt.
 
