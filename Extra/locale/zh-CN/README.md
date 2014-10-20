@@ -19,8 +19,8 @@ Zutilo 目前不提供原生的键盘快捷键(未来的更新可能会提供键
 在下面功能的描述中，同时给出了对应的函数名。
 
 它们是要不使用上下文菜单映射到的函数。
-.
-.
+
+
 
 ### 项目菜单功能 ###
 下面的所有功能都可以从 Zotero 项目菜单中访问(在 Zotero 中列出所有项目的位置的项目面板上点击右键打开)。
@@ -118,7 +118,7 @@ Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero
     如果 filesBool 是 true，那么项目将被创建为带附件的。
     如果未指定 filesBool，那么将使用与 Zotero 默认设置想法的行为。
     所以，如果 Zotero 的首选项中“自动附加 PDF 和其他文件”选择被选中，`ZutiloChrome.firefoxOverlay.scrapeThisPage(false)` 将使用默认页面转换器创建无附加文件的项目。
-    .
+    
 
 ### 基本 Zotero 函数 ###
 
@@ -177,7 +177,7 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 有些时候，保存一组项目的首选项以便以后使用是很有用的，但是通常不需要查看文档本身。
 这种情况下，最好保存 Zotero 中的项目而不附件关联的文档文件。
 使用这些函数省去了手动更改 Zotero 的“附加关联的 PDF 和其他文件”首选项或者手动删除不需要的文档的麻烦。
-.
+
 
 ### 局限 ###
 
@@ -217,12 +217,12 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 
 点击“作为 zip 下载”按钮。
 然后解压下载的文件，并重新打包，将文件的扩展名从“zip”更改为“xpi”(我不知道为什么 GitHub 的 zip 文件不能直接使用，但是解压并重新打包应该有效)。
-.
-.
-.
-.
-. 
-.
+
+
+
+
+ 
+
 
 ####
 
@@ -231,10 +231,10 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 保存所有解压的 Zutilo 文件到你想要保存的计算机的某个地方。
 创建一个名为 zutilo@www.wesailatdawn.com 的文本文件，将 Zutilo 的 chrome 文件夹的路径作为它的唯一一行文本写入，然后保存文件到你的 Firefox 配置文件夹下的 extensions 文件夹(只要你能找到扩展文件夹，此方法也对 Zotero 独立版有效)。
 此方法在你想要使用 git 来保存 Zutilo 的所有更新从 GitHub 时有用(不过如果你使用 Zutilo 在 Firefox 中并从 Mozilla 附加组件页上安装它，Firefox 会自动更新 Zutilo 只要更新被 Mozilla通过)(比 GitHub 上发布略慢)。
-.
 
-.
-.
+
+
+
 
 功能请求和 Bug 提交
 -------------------
@@ -251,8 +251,8 @@ Zutilo 的页面和链接附加函数在附加最初创建时漏掉的文件或�
 
 Zutilo 目前已被上传到 [BabelZilla](www.babelzilla.org) 的网络翻译系统。
 英文以外的其他语言完成后，会被添加到 Zutilo。
-.
-.
+
+
 
 Zutilo 重要更新日志
 -------------------
@@ -263,9 +263,9 @@ Zutilo 重要更新日志
 
 * 
 
-    1.
-    2.
-    3.
+
+
+
 
 *
 
@@ -287,5 +287,6 @@ Credits
 
 Zutilo 基于和模仿了 [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School) 中介绍的 Firefox 扩展结构。
 另 y elige la opción "Instalar Add-on desde archivo".例子来自于 [Mozilla Developer Network](https://developer.mozilla.org/) 文档和 Zotero 的源代码。
-.
-.
+
+
+

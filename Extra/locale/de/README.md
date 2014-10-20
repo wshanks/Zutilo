@@ -218,11 +218,11 @@ Wenn Sie Probleme mit der Mozilla Add-ons-Seite haben, können Sie Zutilo auch v
 1. Klicken Sie auf die "Download as zip"-Schaltfläche. 
 2. Dann entpacken Sie die heruntergeladene Datei.
 3. Nun zippen Sie den Ordner erneut und ändern die Dateiendung von "zip" auf "xpi" (warum die GitHub Version der Zip-Datei nicht direkt verwendet werden kann, sondern nur Entpacken und Rezippung funktionieren, weiß der Entwickler derzeit auch nicht).
-.
-4. .
-5. .
-6. .
-7. .
+
+
+
+
+
 
 #### 
 
@@ -234,7 +234,7 @@ Wenn Sie Schwierigkeiten haben, die .xpi-Datei mit Firefox ans Funktionieren zu 
 4. Speichern Sie die Datei in Ihrem Firefox-Profil-Ordner ab (diese Methode wird wahrscheinlich auch mit Zotero Standalone arbeiten, wenn Sie dessen Erweiterungen Ordner finden können). 
 
 Diese Methode ist nützlich, wenn Sie git verwenden, um ein aktuelles Zutilo aus GitHub zu ziehen (wenn Sie Zutilo von der Mozilla Add-ons-Seite verwenden, sollte Firefox (oder Zotero Standalone) automatisch Zutilo aktualisieren, nachdem die Updates von Mozilla genehmigt wurden ( der Ablauf benötigt immer ein wenig Zeit, nachdem eine Release von Änderungen auf GitHub eingecheckt wurde)).
-.
+
 
 Leistungsmerkmale vorschlagen und Bugs melden
 ---------------------------------------------
@@ -252,7 +252,7 @@ Ein Fahrplan der geplanten Features steht auch in diesem Wiki zur Verfügung.
 Die Übersetzungen zu Zutilo wurden bisher im Web Translation System von [BabelZilla](www.babelzilla.org) verwaltet.
 Die Lokalisierungen sind derzeit auf github umgezogen.
 Neue Sprachumgebungebungen können sowohl dort als auch als Fork über Pull-Requests hinzugefügt werden.
-.
+
 
 Log der wichtigsten Änderungen in Zutilo
 ----------------------------------------
@@ -261,11 +261,11 @@ Dieser Abschnitt ist kein vollständiges Protokoll aller Änderungen an Zutilo.
 Es enthält nur die größeren Änderungen der Funktionalität oder zusätzlichen Features. 
 Wenn bei einem Upgrade von Zutilo Probleme auftauchen, versuchen Sie in diesem Abschnitt nach einer Erklärung zu suchen.
 
-* In Version 1.2.5:
 
-   1. TODO
-   2. TODO
-   3. TODO
+
+
+
+
 
 * In Version 1.2.4 wurde Zutilo auf Deutsch übersetzt.
 
