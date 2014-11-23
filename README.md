@@ -60,6 +60,16 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
     Set all selected items to be related to each other.
     (Function name: `ZutiloChrome.zoteroOverlay.relateItems()`).
 
+* __Copy select item links:__
+	Copy links of the form "zotero://select/items/ITEM_ID" to the clipboard for each selected item.
+	Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin.
+	Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.
+
+* __Copy Zotero URIs:__
+	Copy (www.zotero.org) links to the clipboard for each selected item.
+	If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
+	If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
+
 ### Item editing functions ###
 
 Zutilo currently implements several functions that are useful for editing Zotero items with the keyboard.
@@ -260,6 +270,15 @@ Log of Important Zutilo Changes
 This section is not a complete log of changes to Zutilo.
 It will include any major changes to Zutilo's functionality or added features.
 If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
+
+* In version 1.2.11:
+
+	1. New shortcuts/menu items:
+		- Copy Zotero select link
+		- Copy Zotero URI
+	2. New shortcuts:
+		- Focus collections, items pane, and various item pane tabs
+		- Attachments: recognize PDF, create parent item, and rename from parent
 
 * In version 1.2.5: 
 

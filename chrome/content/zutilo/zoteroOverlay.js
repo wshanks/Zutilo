@@ -296,6 +296,53 @@ ZutiloChrome.zoteroOverlay = {
 		return true;
 	},
 	
+	copyZoteroSelectLink: function() {
+		var zitems = this.getSelectedItems();
+		var links = [];
+
+		if (!this.checkItemNumber(zitems,'regularOrNote1')) {
+			return false;
+		}
+
+		var library_id
+		for (var ii = 0; ii<zitems.length; ii++) {
+			library_id = zitems[ii].libraryID ? zitems[ii].libraryID : 0;
+			links.push("zotero://select/items/" 
+					   + library_id + '_' + zitems[ii].key);
+		}
+
+		var clipboardText = links.join('\r\n');
+		
+		const gClipboardHelper = 
+			Components.classes["@mozilla.org/widget/clipboardhelper;1"]
+            .getService(Components.interfaces.nsIClipboardHelper);
+		gClipboardHelper.copyString(clipboardText,document);
+		
+		return true;
+	},
+
+	copyZoteroItemURI: function() {
+		var zitems = this.getSelectedItems();
+		var links = [];
+
+		if (!this.checkItemNumber(zitems,'regularOrNote1')) {
+			return false;
+		}
+
+		for (var ii = 0; ii<zitems.length; ii++) {
+			links.push(Zotero.URI.getItemURI(zitems[ii]));
+		}
+
+		var clipboardText = links.join('\r\n');
+		
+		const gClipboardHelper = 
+			Components.classes["@mozilla.org/widget/clipboardhelper;1"]
+            .getService(Components.interfaces.nsIClipboardHelper);
+		gClipboardHelper.copyString(clipboardText,document);
+		
+		return true;
+	},
+	
 	///////////////////////////////////////////
 	//XUL overlay functions
 	///////////////////////////////////////////
@@ -635,6 +682,9 @@ ZutiloChrome.zoteroOverlay = {
 		};
 	},
 	
+	// Check number of items in itemArray and show error message if it does not
+	// match checkType. Note that checkType sets the number to be checked and
+	// the error message to display. The actual item types are not checked.
 	checkItemNumber: function(itemArray, checkType) {
 		var checkBool=true;
 		
