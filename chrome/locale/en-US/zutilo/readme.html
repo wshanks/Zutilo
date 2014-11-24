@@ -15,6 +15,8 @@
 <li><p><strong>Modify attachment paths:</strong> Change the beginning of the path to all eligible selected attachments and to all attachments of selected regular items. Two prompt windows appear. The first asks for the old partial path while the second asks for the new partial path. If you enter &quot;C:/userData/references/&quot; for the first path and &quot;E:/&quot; for the second path, then an attachment file with a path of &quot;C:/userData/references/journals/Nature/2008/coolPaper.pdf&quot; will have its path changed to &quot;E:/journals/Nature/2008/coolPaper.pdf&quot; while an attachment with path &quot;E:/journals/Science/2010/neatPaper.pdf&quot; will be left unchanged. This function is mainly useful for when you change computers or hard drives and break the links to all of your attachments.</p>
 <p>By default, the old partial path is only compared with the beginning of each attachment path. To replace elements of attachment paths not at the beginning, click the &quot;replace all instances&quot; check box in the first prompt window. This option is useful if you want to rename a subfolder or switch between Windows and Unix style paths (replacing <code>\</code> and <code>/</code>). (Function name: <code>ZutiloChrome.zoteroOverlay.modifyAttachments()</code>).</p></li>
 <li><p><strong>Relate items:</strong> Set all selected items to be related to each other. (Function name: <code>ZutiloChrome.zoteroOverlay.relateItems()</code>).</p></li>
+<li><p><strong>Copy select item links:</strong> Copy links of the form &quot;zotero://select/items/ITEM_ID&quot; to the clipboard for each selected item. Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin. Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.</p></li>
+<li><p><strong>Copy Zotero URIs:</strong> Copy (www.zotero.org) links to the clipboard for each selected item. If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org). If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.</p></li>
 </ul>
 <h3>Item editing functions</h3>
 <p>Zutilo currently implements several functions that are useful for editing Zotero items with the keyboard. These functions can not be called from any graphical element (but can be assigned to a keyboard shortcut as described above). The following functions work when only a single Zotero item is selected:</p>
@@ -86,6 +88,19 @@
 <h2>Log of Important Zutilo Changes</h2>
 <p>This section is not a complete log of changes to Zutilo. It will include any major changes to Zutilo's functionality or added features. If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.</p>
 <ul>
+<li><p>In version 1.2.11:</p>
+<ol>
+<li>New shortcuts/menu items:
+<ul>
+<li>Copy Zotero select link</li>
+<li>Copy Zotero URI</li>
+</ul></li>
+<li>New shortcuts:
+<ul>
+<li>Focus collections, items pane, and various item pane tabs</li>
+<li>Attachments: recognize PDF, create parent item, and rename from parent</li>
+</ul></li>
+</ol></li>
 <li><p>In version 1.2.5:</p>
 <ol>
 <li>keyboard shortcuts were added to Zutilo and a QuickCopy menu item was added.</li>

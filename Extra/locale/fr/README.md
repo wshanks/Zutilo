@@ -19,16 +19,16 @@ Vous pouvez aussi utiliser [Pentadactyl](http://5digits.org/pentadactyl/index) o
 Dans les descriptions de fonctions ci-dessous, les noms des fonctions correspondantes vous sont donnés.
 
 Ce sont les noms de fonctions qui devraient être associées aux touches du clavier pour appeler des fonctions sans utiliser les menus contextuels.
-
-
+.
+.
 
 ### Fonction d'entrées de menu ###
-
-
+.
+.
 
 * __Copier les marqueurs:__
     Cliquez droit dans la bibliothèque de Zotero et copiez les marqueurs dans le presse-papiers en tant que liste délimitée par des « \r\n ».
-
+    .
     (Nom de la fonction : `ZutiloChrome.zoteroOverlay.copyTags()`).
 
 * __Coller les marqueurs:__
@@ -46,19 +46,29 @@ Ce sont les noms de fonctions qui devraient être associées aux touches du clav
 
 * __Modifier les chemins des pièces jointes:__
     Changer le début du chemin vers toutes les pièces jointes sélectionnées disponibles et vers toutes les pièces jointes aux élements habituels.
+    .
+    .
+    .
+    .
 
-
-
-
-
-
-
-
+    .
+    .
+    .
     (Nom de la fonction : `ZutiloChrome.zoteroOverlay.modifyAttachments()`).
 
 * __Associer les éléments:__
     Paramétrer tous les éléments sélectionnés comme pouvant s'associer les uns aux autres.
     (Nom de la fonction : `ZutiloChrome.zoteroOverlay.relateItems()`).
+
+* __Copy select item links:__
+	Copy links of the form "zotero://select/items/ITEM_ID" to the clipboard for each selected item.
+	Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin.
+	Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.
+
+* __Copy Zotero URIs:__
+	Copy (www.zotero.org) links to the clipboard for each selected item.
+	If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
+	If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
 
 ### Fonctions de modifications d'éléments ###
 
@@ -73,8 +83,8 @@ Les fonctions suivantes ne fonctionneront que si un seul élément de Zotero est
 * __Ajouter une note:__
     Sélectionnez l'onglet « Notes » dans le panneau des éléments.
     Créez une nouvelle note.
-
-
+    .
+    .
     (Nom de la fonction : `ZutiloChrome.zoteroOverlay.addNoteGUI()`).
 * __Ajouter un marqueur:__
     Sélectionnez l'onglet « Marqueurss » dans le panneau des éléments.
@@ -99,16 +109,16 @@ Ces fonctions sont acessibles depuis le navigateur Firefox et ne sont pas dispon
     Si la méthode est « Demander après le premier », un fichier joint important est créé si l'élément sélectionné n'a pas encore de fichier joint (les captures d'écran jointes ne comptent pas).
     Sinon, l'invite de fichier pour créer un fichier joint lié est affichée.
     Si la touche majuscule est appuyée pendant que l afonction de fichier joint est activée, une invite pour fichier lié apparaît quelles que soient les préférences de Zutilo.
-
+    .
 
     Si vous voulez créer un raccourci-clavier pour joindre la page courante à l'élément courant de Zotero en utilisant la méthode précisée dans les préférences, utilisez `ZutiloChrome.firefoxOverlay.attachURLToCurrentItem(window.content.location.href)` pour la commande.
-
-
+    .
+    .
 
 * __Extraire un élément de Zotero de la page courante avec ou sans pièce jointe:__
     Zutilo ajoute des entrées de menu supplémentaires au menu contextuel de l'icône de Zotero dans la barre des modules qui extrait les citations de la page courante en ajoutant ou non les PDF ou autres fichiers extraits de la page.
-
-
+    .
+    .
 
     C'est-à-dire, la préférence « Joindre automatiquement les PDF et autres fichiers » est sélectionnée dans Zotero, Zutilo ajoute des entrées de menu (une entrée pour chaque méthode d'enregistrement avec Zotero qui s'applique à la page courante) pour créer un nouvel élément de Zotero sans pièce jointe.
     Si la préférence n'est pas sélectionnée, Zutilo ajoute des entrées de menu pour créer un nouvel élément Zotero sans pièce jointe.
@@ -117,7 +127,7 @@ Ces fonctions sont acessibles depuis le navigateur Firefox et ne sont pas dispon
     Si un traducteur (un objet traducteur de Zotero) est sur `false` ou bien non précisé, le traducteur par défaut de la page sera utilisé.
     Si fileBool est sur `true`, l'élément est créé avec les documents joints associés.
     S'il est sur `false`, l'élément est créé sans fichiers joints.Si filesBool n'est pas précisé, alors c'est le l'inverse du comportement par défaut de Zotero qui est utilisé.
-
+    .
     Donc, si dans les préférences de Zotero l'option « Joindre automatiquement les PDF et autres fichiers » est sélectionné, `ZutiloChrome.firefoxOverlay.scrapeThisPage(false)` créera un élément qui utilise le traducteur par défaut de la page sans joindre aucun fichier.
 
 ### Fonctions de base de Zotero ###
@@ -143,98 +153,98 @@ Pour Zotero Standalone (application autonome indépendante du navigateur), vous 
 Une fois que vous avez le fichier zutilo.xpi, allez aux Outils\>Modules complémentaires soit dans Firefox, soit dans Zotero standalone.
 Cliquez sur le bouton « engrenages » dans l'angle supérieur droit de la fenêtre de gestionnaire des modules qui apparaît et choisissez le fichier .xpi.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.
+.
+.
+
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+
+.
+.
+
+.
+
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+
+.
+
+.
+
+.
+
+.
+.
+.
+.
+.
+.
+. 
+.
+
+.
+
+.
+
+.
+.
+.
+.
+
+.
+.
 
 Demande de nouvelles fonctions et signalements de bogues
 --------------------------------------------------------
@@ -245,47 +255,56 @@ Vous pouvez aussi vérifier si le bogue que vous rencontrez a déjà ou non ét�
 Veillez à vérifier l'onglet "fermé" de la section *Issues* pour voir sir le bogue a déjà été réglé.
 
 les demandes de fonctionnalités peuvent être envoyées de cette façon.
+.
+.
+.
 
+.
+.
+.
+.
 
+.
+.
 
+.
+.
+.
 
+* In version 1.2.11:
 
+	1. New shortcuts/menu items:
+		- Copy Zotero select link
+		- Copy Zotero URI
+	2. New shortcuts:
+		- Focus collections, items pane, and various item pane tabs
+		- Attachments: recognize PDF, create parent item, and rename from parent
 
+. 
 
+    .
+    .
+    .
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
+.
 
+.
+.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.
+.
+.
 Aide à la traduction fournie par Goofy de BabelZilla.

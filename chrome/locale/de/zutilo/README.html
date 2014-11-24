@@ -15,6 +15,8 @@
 <li><p><strong>Anhangpfade ändern:</strong> Ändern Sie den Anfang der Pfade für alle zugelassenen ausgewählten Anhänge und aller Anhänge der ausgewählten regulären Einträge. Zwei Prompt Fenster werden angezeigt. Das erste fragt nach dem alten Teilpfad, während das zweite nach dem neuen Teilpfad fragt. Wenn Sie &quot;C:/userData/references/&quot; für den ersten Pfad und &quot;E:/&quot; für den zweiten Pfad eingeben, dann wird der Pfad eines verlinkten Anhangs von &quot;C:/userData/references/journals/Nature/2008/coolPaper.pdf&quot; zu &quot;E:/journals/Nature/2008/coolPaper.pdf&quot; geändert, während ein Anhang mit Pfad &quot;E:/journals/Science/2010/neatPaper.pdf&quot; unverändert bleibt. Diese Funktion ist vor allem nützlich, wenn Sie verschiedene Computer oder Festplatten nutzen und die Links zu allen Ihren Anhängen erhalten bleiben sollen.</p>
 <p>Standardmäßig wird der alte Teilpfad nur mit dem Beginn eines jeden Anhangpfads verglichen. Um Teile der verlinkten Pfade nicht am Anfang zu ändern, klicken Sie auf das &quot;Alle Instanzen der Teilpfad Zeichenkette ersetzen&quot; Kontrollkästchen in der ersten Eingabeaufforderung. Diese Option ist nützlich, wenn Sie einen Unterordner oder zwischen Windows-und Unix-Pfaden (<code>\</code> und <code>/</code> ersetzen) umbenennen möchten. (Name der Funktion: <code>ZutiloChrome.zoteroOverlay.modifyAttachments()</code>).</p></li>
 <li><p><strong>Zugehörige Einträge verbinden:</strong> Sorgt dafür, dass alle ausgewählten Elemente als miteinander zugehörig verbunden werden. (Name der Funktion: <code>ZutiloChrome.zoteroOverlay.relateItems()</code>).</p></li>
+<li><p><strong>Copy select item links:</strong> Copy links of the form &quot;zotero://select/items/ITEM_ID&quot; to the clipboard for each selected item. Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin. Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.</p></li>
+<li><p><strong>Copy Zotero URIs:</strong> Copy (www.zotero.org) links to the clipboard for each selected item. If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org). If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.</p></li>
 </ul>
 <h3>Editierfunktionen für die Einträge</h3>
 <p>Zutilo implementiert derzeit mehrere Funktionen, die für die Bearbeitung von Zotero Einträge mit der Tastatur nützlich sind. Diese Funktionen können nicht von jedem UI Element aus aufgerufen werden (sie können aber, wie oben beschrieben, auf eine Tastenkombination zugewiesen werden). Die folgenden Funktionen arbeiten nur, wenn ein einziger Zotero Eintrag ausgewählt ist:</p>
@@ -64,7 +66,11 @@
 <ol>
 <li>Klicken Sie auf die &quot;Download as zip&quot;-Schaltfläche.</li>
 <li>Dann entpacken Sie die heruntergeladene Datei.</li>
-<li>Nun zippen Sie den Ordner erneut und ändern die Dateiendung von &quot;zip&quot; auf &quot;xpi&quot; (warum die GitHub Version der Zip-Datei nicht direkt verwendet werden kann, sondern nur Entpacken und Rezippung funktionieren, weiß der Entwickler derzeit auch nicht).</li>
+<li>Nun zippen Sie den Ordner erneut und ändern die Dateiendung von &quot;zip&quot; auf &quot;xpi&quot; (warum die GitHub Version der Zip-Datei nicht direkt verwendet werden kann, sondern nur Entpacken und Rezippung funktionieren, weiß der Entwickler derzeit auch nicht). .</li>
+<li>.</li>
+<li>.</li>
+<li>.</li>
+<li>.</li>
 </ol>
 <h4></h4>
 <p>Wenn Sie Schwierigkeiten haben, die .xpi-Datei mit Firefox ans Funktionieren zu bringen, gibt es eine weitere Methode, die Sie ausprobieren können.</p>
@@ -74,14 +80,33 @@
 <li>Tragen Sie den Verzeichnispfad zum Speicherort des Ordners Zutilos als einzige Textzeile ein</li>
 <li>Speichern Sie die Datei in Ihrem Firefox-Profil-Ordner ab (diese Methode wird wahrscheinlich auch mit Zotero Standalone arbeiten, wenn Sie dessen Erweiterungen Ordner finden können).</li>
 </ol>
-<p>Diese Methode ist nützlich, wenn Sie git verwenden, um ein aktuelles Zutilo aus GitHub zu ziehen (wenn Sie Zutilo von der Mozilla Add-ons-Seite verwenden, sollte Firefox (oder Zotero Standalone) automatisch Zutilo aktualisieren, nachdem die Updates von Mozilla genehmigt wurden ( der Ablauf benötigt immer ein wenig Zeit, nachdem eine Release von Änderungen auf GitHub eingecheckt wurde)).</p>
+<p>Diese Methode ist nützlich, wenn Sie git verwenden, um ein aktuelles Zutilo aus GitHub zu ziehen (wenn Sie Zutilo von der Mozilla Add-ons-Seite verwenden, sollte Firefox (oder Zotero Standalone) automatisch Zutilo aktualisieren, nachdem die Updates von Mozilla genehmigt wurden ( der Ablauf benötigt immer ein wenig Zeit, nachdem eine Release von Änderungen auf GitHub eingecheckt wurde)). .</p>
 <h2>Leistungsmerkmale vorschlagen und Bugs melden</h2>
 <p>Die neuesten Quellcode für Zutilo finden Sie auf <a href="https://github.com/willsALMANJ/Zutilo" title="Zutilo&#39;s GitHub page">GitHub</a>. Bugreports können durch Klicken auf die &quot;New Issue&quot;-Taste unter <a href="https://github.com/willsALMANJ/Zutilo/issues" title="GitHub Probleme gemeldet werden page">die Issues Abschnitt</a> direkt auf der GitHub Webseite eingestellt werden. Dort sollten Sie auch zunächst überprüfen, ob ein von Ihnen bemerktes Problem bereits von einem anderen Benutzer gemeldet wurde. Achten Sie auf die &quot;closed&quot;-Reiter des Issues Abschnitt, um zu überprüfen ob der Fehler bereits behoben wurde.</p>
 <p>Vorschläge für neue Leistungsmerkmale in Zutilo können gerne ganz einfach durch die Eröffnung eines neuen Issue-Tickets eingebracht werden. Bitte öffnen Sie immer zunächst ein neues Ticket, bevor Sie neuen Code einsenden und beziehen Sie sich auf diese Ticket Nr.. Eine Beschreibung der Art von Funktionen, die für Zutilo vorgesehen oder geplant sind, kann auf <a href="https://github.com/willsALMANJ/Zutilo/wiki">der Zutilo Wiki-Seite</a> gefunden werden. Ein Fahrplan der geplanten Features steht auch in diesem Wiki zur Verfügung.</p>
-<p>Die Übersetzungen zu Zutilo wurden bisher im Web Translation System von <a href="www.babelzilla.org">BabelZilla</a> verwaltet. Die Lokalisierungen sind derzeit auf github umgezogen. Neue Sprachumgebungebungen können sowohl dort als auch als Fork über Pull-Requests hinzugefügt werden.</p>
+<p>Die Übersetzungen zu Zutilo wurden bisher im Web Translation System von <a href="www.babelzilla.org">BabelZilla</a> verwaltet. Die Lokalisierungen sind derzeit auf github umgezogen. Neue Sprachumgebungebungen können sowohl dort als auch als Fork über Pull-Requests hinzugefügt werden. .</p>
 <h2>Log der wichtigsten Änderungen in Zutilo</h2>
 <p>Dieser Abschnitt ist kein vollständiges Protokoll aller Änderungen an Zutilo. Es enthält nur die größeren Änderungen der Funktionalität oder zusätzlichen Features. Wenn bei einem Upgrade von Zutilo Probleme auftauchen, versuchen Sie in diesem Abschnitt nach einer Erklärung zu suchen.</p>
 <ul>
+<li><p>In version 1.2.11:</p>
+<ol>
+<li>New shortcuts/menu items:
+<ul>
+<li>Copy Zotero select link</li>
+<li>Copy Zotero URI</li>
+</ul></li>
+<li>New shortcuts:
+<ul>
+<li>Focus collections, items pane, and various item pane tabs</li>
+<li>Attachments: recognize PDF, create parent item, and rename from parent</li>
+</ul></li>
+</ol></li>
+<li><p>In Version 1.2.5:</p>
+<ol>
+<li>TODO</li>
+<li>TODO</li>
+<li>TODO</li>
+</ol></li>
 <li><p>In Version 1.2.4 wurde Zutilo auf Deutsch übersetzt.</p></li>
 <li><p>In Version 1.2.3 wurden Funktionen hinzugefügt, um Seiten und Links in Firefox im aktuell ausgewählten Zotero Eintrag anzuhängen und die aktuelle Seite zu Zotero sparen mit Anhängen, wenn die Standardeinstellung ist ohne Anhänge zu speichern (oder zu speichern, ohne Anhänge, wenn die Standardeinstellung ist, mit ihnen zu sparen).</p></li>
 <li><p>Ab der Version 1.2.1, kann Zutilo ohne Neustart von Firefox installiert und deinstalliert werden.</p></li>

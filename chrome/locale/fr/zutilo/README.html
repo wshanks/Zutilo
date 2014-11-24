@@ -4,36 +4,36 @@
 <h3>Raccourcis clavier</h3>
 <p>La plupart des fonctions de Zotero sont accessibles avec des menus contextuels qui apparaissent sous le clic droit sur les éléments pertinents de Zotero ou Firefox. Il peut être très utile d'appeler les un grand nombre de fonctions de Zutilo directement au clavier plutôt qu'en utilisant les menus contextuels. Raccourcis pour de nombreuses fonctions peuvent être définies dans les préférences de Zutilo.</p>
 <p>Les fonctions de Zutilo peuvent être « mappées » en utilisant un autre module pour Firefox comme <a href="http://forums.mozillazine.org/viewtopic.php?t=72994">Keyconfig</a>, qui fournit une une interface simple pour le mappage des touches du clavier destinées aux commandes JavaScript, il fonctionne aussi bien avec Firefox qu'avec la version standalone de Zotero. Vous pouvez aussi utiliser <a href="http://5digits.org/pentadactyl/index">Pentadactyl</a> ou <a href="http://www.vimperator.org/vimperator">Vimperator</a>, qui offrent tous deux une interface plus avancée en ligne de commande pour Firefox. Dans les descriptions de fonctions ci-dessous, les noms des fonctions correspondantes vous sont donnés.</p>
-<p>Ce sont les noms de fonctions qui devraient être associées aux touches du clavier pour appeler des fonctions sans utiliser les menus contextuels.</p>
+<p>Ce sont les noms de fonctions qui devraient être associées aux touches du clavier pour appeler des fonctions sans utiliser les menus contextuels. . .</p>
 <h3>Fonction d'entrées de menu</h3>
+<p>. .</p>
 <ul>
-<li><p><strong>Copier les marqueurs:</strong> Cliquez droit dans la bibliothèque de Zotero et copiez les marqueurs dans le presse-papiers en tant que liste délimitée par des « \r\n ».</p>
-<p>(Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.copyTags()</code>).</p></li>
+<li><p><strong>Copier les marqueurs:</strong> Cliquez droit dans la bibliothèque de Zotero et copiez les marqueurs dans le presse-papiers en tant que liste délimitée par des « \r\n ». . (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.copyTags()</code>).</p></li>
 <li><p><strong>Coller les marqueurs:</strong> Cliquer droit sur des parties de la bibliothèque de Zotero et collez le contenu du presse-papiers dans celles-ci. Le contenu du presse-papiers doit être une liste dont les éléments sont séparés par des '\r\n' ou des '\n' (comme pour la liste créée par la fonction 'copier les marqueurs' ci-dessus). (nom de la fonction : <code>ZutiloChrome.zoteroOverlay.pasteTags()</code>).</p></li>
 <li><p><strong>Copier les créateurs:</strong> Cliquez droit sur les éléments de la bibliothèque de Zotero et copiez les créateurs dans le presse-papiers sous forme de liste délimitée par des '\r\n'. (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.copyCreators()</code>).</p></li>
 <li><p><strong>Afficher le chemin des pièces jointes:</strong> Afficher les chemins vers les fichiers joints sélectionnés et vers les pièces jointes aux éléments habituels sélectionnés (un par un dans une fenêtre de dialogue distincte -- vous ne voudrez sûrement pas sélectinner plus de quelques éléments à la fois de cette façon !). (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.showAttachments()</code>).</p></li>
-<li><p><strong>Modifier les chemins des pièces jointes:</strong> Changer le début du chemin vers toutes les pièces jointes sélectionnées disponibles et vers toutes les pièces jointes aux élements habituels.</p>
-<p>(Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.modifyAttachments()</code>).</p></li>
+<li><p><strong>Modifier les chemins des pièces jointes:</strong> Changer le début du chemin vers toutes les pièces jointes sélectionnées disponibles et vers toutes les pièces jointes aux élements habituels. . . . .</p>
+<p>. . . (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.modifyAttachments()</code>).</p></li>
 <li><p><strong>Associer les éléments:</strong> Paramétrer tous les éléments sélectionnés comme pouvant s'associer les uns aux autres. (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.relateItems()</code>).</p></li>
+<li><p><strong>Copy select item links:</strong> Copy links of the form &quot;zotero://select/items/ITEM_ID&quot; to the clipboard for each selected item. Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin. Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.</p></li>
+<li><p><strong>Copy Zotero URIs:</strong> Copy (www.zotero.org) links to the clipboard for each selected item. If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org). If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.</p></li>
 </ul>
 <h3>Fonctions de modifications d'éléments</h3>
 <p>Zutilo implémente pour l'instant quelques fonctions qui sont utiles pour éditer les élémenst de Zotero avec le stouches du clavier. Ces fonctions ne peuvent être appelées par une quelconque interface graphique mais on peut les assigner à un raccourci-clavier tel que décrit ci-dessous. Les fonctions suivantes ne fonctionneront que si un seul élément de Zotero est sélectionné :</p>
 <ul>
 <li><strong>Modifier l'information de l'élément:</strong> Sélectionnez l'onglet « Info » dans le panneau des éléments. Placez le curseur dans le premier champ modifiable des informations de l'élément. (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.editItemInfoGUI()</code>).</li>
-<li><p><strong>Ajouter une note:</strong> Sélectionnez l'onglet « Notes » dans le panneau des éléments. Créez une nouvelle note.</p>
-(Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.addNoteGUI()</code>).</li>
+<li><strong>Ajouter une note:</strong> Sélectionnez l'onglet « Notes » dans le panneau des éléments. Créez une nouvelle note. . . (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.addNoteGUI()</code>).</li>
 <li><strong>Ajouter un marqueur:</strong> Sélectionnez l'onglet « Marqueurss » dans le panneau des éléments. Ouvrez une boîte de saisie de texte pour créer un nouveau marqueur. (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.addTagGUI()</code>).</li>
-<li><p><strong>Ajouter un élément associé:</strong> Sélectionnez l'onglet « Associés » dans le panneau des éléments. Ouvrez la boîte de dialogue pour ajouter des éléments associés. (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.addRelatedGUI()</code>).</p></li>
+<li><strong>Ajouter un élément associé:</strong> Sélectionnez l'onglet « Associés » dans le panneau des éléments. Ouvrez la boîte de dialogue pour ajouter des éléments associés. (Nom de la fonction : <code>ZutiloChrome.zoteroOverlay.addRelatedGUI()</code>).</li>
 </ul>
 <h3>Fonctions pour le navigateur Firefox</h3>
 <p>Zutilo ajoute quelques fonctions pour vous aider à joindre des documents aux éléments de Zotero depuis les pages de Firefox. Ces fonctions sont acessibles depuis le navigateur Firefox et ne sont pas disponibles avec Zotero Standalone.</p>
 <ul>
-<li><p><strong>Joindre des pages web et des liens aux éléments de Zotero:</strong> Zutilo ajoute des entrées de menu contextuel à Firefox pour jondre la page courante ou la cible du lien (si un lien est sélectionné) à l'élément de Zotero sélectionné. Le traitement du fichier joint dépend de la méthode d'association que vous avez choisie dans les préférences de Zutilo. Si la méthode est « Importer », un fichier joint est importé depuis la page ou le lien. Si la méthode choisie est « Demander ou envoyer le fichier lié », une invite de fichier apparaît pour permettre à l'utilisateur de préciser un nouveau fichier. Le lien ou la page est enregistré(e) dans ce fichier puis un fichier joint lié est créé (avec un lien vers le fichier téléchargé). Si la méthode est « Demander après le premier », un fichier joint important est créé si l'élément sélectionné n'a pas encore de fichier joint (les captures d'écran jointes ne comptent pas). Sinon, l'invite de fichier pour créer un fichier joint lié est affichée. Si la touche majuscule est appuyée pendant que l afonction de fichier joint est activée, une invite pour fichier lié apparaît quelles que soient les préférences de Zutilo.</p>
-<p>Si vous voulez créer un raccourci-clavier pour joindre la page courante à l'élément courant de Zotero en utilisant la méthode précisée dans les préférences, utilisez <code>ZutiloChrome.firefoxOverlay.attachURLToCurrentItem(window.content.location.href)</code> pour la commande.</p></li>
-<li><p><strong>Extraire un élément de Zotero de la page courante avec ou sans pièce jointe:</strong> Zutilo ajoute des entrées de menu supplémentaires au menu contextuel de l'icône de Zotero dans la barre des modules qui extrait les citations de la page courante en ajoutant ou non les PDF ou autres fichiers extraits de la page.</p>
+<li><p><strong>Joindre des pages web et des liens aux éléments de Zotero:</strong> Zutilo ajoute des entrées de menu contextuel à Firefox pour jondre la page courante ou la cible du lien (si un lien est sélectionné) à l'élément de Zotero sélectionné. Le traitement du fichier joint dépend de la méthode d'association que vous avez choisie dans les préférences de Zutilo. Si la méthode est « Importer », un fichier joint est importé depuis la page ou le lien. Si la méthode choisie est « Demander ou envoyer le fichier lié », une invite de fichier apparaît pour permettre à l'utilisateur de préciser un nouveau fichier. Le lien ou la page est enregistré(e) dans ce fichier puis un fichier joint lié est créé (avec un lien vers le fichier téléchargé). Si la méthode est « Demander après le premier », un fichier joint important est créé si l'élément sélectionné n'a pas encore de fichier joint (les captures d'écran jointes ne comptent pas). Sinon, l'invite de fichier pour créer un fichier joint lié est affichée. Si la touche majuscule est appuyée pendant que l afonction de fichier joint est activée, une invite pour fichier lié apparaît quelles que soient les préférences de Zutilo. .</p>
+<p>Si vous voulez créer un raccourci-clavier pour joindre la page courante à l'élément courant de Zotero en utilisant la méthode précisée dans les préférences, utilisez <code>ZutiloChrome.firefoxOverlay.attachURLToCurrentItem(window.content.location.href)</code> pour la commande. . .</p></li>
+<li><p><strong>Extraire un élément de Zotero de la page courante avec ou sans pièce jointe:</strong> Zutilo ajoute des entrées de menu supplémentaires au menu contextuel de l'icône de Zotero dans la barre des modules qui extrait les citations de la page courante en ajoutant ou non les PDF ou autres fichiers extraits de la page. . .</p>
 <p>C'est-à-dire, la préférence « Joindre automatiquement les PDF et autres fichiers » est sélectionnée dans Zotero, Zutilo ajoute des entrées de menu (une entrée pour chaque méthode d'enregistrement avec Zotero qui s'applique à la page courante) pour créer un nouvel élément de Zotero sans pièce jointe. Si la préférence n'est pas sélectionnée, Zutilo ajoute des entrées de menu pour créer un nouvel élément Zotero sans pièce jointe.</p>
-<p>La fonction sur laquelle est basée cette fonctionnalité est <code>ZutiloChrome.firefoxOverlay.scrapeThisPage(translator, filesBool)</code>. Si un traducteur (un objet traducteur de Zotero) est sur <code>false</code> ou bien non précisé, le traducteur par défaut de la page sera utilisé. Si fileBool est sur <code>true</code>, l'élément est créé avec les documents joints associés. S'il est sur <code>false</code>, l'élément est créé sans fichiers joints.Si filesBool n'est pas précisé, alors c'est le l'inverse du comportement par défaut de Zotero qui est utilisé.</p>
-<p>Donc, si dans les préférences de Zotero l'option « Joindre automatiquement les PDF et autres fichiers » est sélectionné, <code>ZutiloChrome.firefoxOverlay.scrapeThisPage(false)</code> créera un élément qui utilise le traducteur par défaut de la page sans joindre aucun fichier.</p></li>
+<p>La fonction sur laquelle est basée cette fonctionnalité est <code>ZutiloChrome.firefoxOverlay.scrapeThisPage(translator, filesBool)</code>. Si un traducteur (un objet traducteur de Zotero) est sur <code>false</code> ou bien non précisé, le traducteur par défaut de la page sera utilisé. Si fileBool est sur <code>true</code>, l'élément est créé avec les documents joints associés. S'il est sur <code>false</code>, l'élément est créé sans fichiers joints.Si filesBool n'est pas précisé, alors c'est le l'inverse du comportement par défaut de Zotero qui est utilisé. . Donc, si dans les préférences de Zotero l'option « Joindre automatiquement les PDF et autres fichiers » est sélectionné, <code>ZutiloChrome.firefoxOverlay.scrapeThisPage(false)</code> créera un élément qui utilise le traducteur par défaut de la page sans joindre aucun fichier.</p></li>
 </ul>
 <h3>Fonctions de base de Zotero</h3>
 <p>Pour référence, voici quelques autres fonctions de Zotero que j'ai trouvé utiles pour mapper les raccourcis-clavier:</p>
@@ -45,7 +45,60 @@
 <h3>Comment l'installer</h3>
 <p>Le plus simple est d'installer l'extension Zutilo for Zotero via <a href="https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/" title="Zutilo&#39;s Mozilla Add-ons page">la page officielle de l'extension sur AMO</a>. Rendez-vous sur cette page et cliquez sur le bouton « Ajouter à Firefox ».</p>
 <p>Pour Zotero Standalone (application autonome indépendante du navigateur), vous devrez télécharger un fichier .xpi (clic droit et &quot;Enregistrer sous…&quot; sur la page Zutilo de AMO) et l'installer manuellement (voir ci-dessous). Une fois que vous avez le fichier zutilo.xpi, allez aux Outils&gt;Modules complémentaires soit dans Firefox, soit dans Zotero standalone. Cliquez sur le bouton « engrenages » dans l'angle supérieur droit de la fenêtre de gestionnaire des modules qui apparaît et choisissez le fichier .xpi.</p>
+<p>. . .</p>
+<p>. . .</p>
+<p>. . . . .</p>
+<p>. . . .</p>
+<p>. . . . .</p>
+<p>. . . . .</p>
+<p>. . . .</p>
+<p>.</p>
+<p>. . . . .</p>
+<p>. . .</p>
+<p>. .</p>
+<p>.</p>
+<p>. . .</p>
+<p>. . . .</p>
+<p>. . .</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>. . . . . . . .</p>
+<p>.</p>
+<p>.</p>
+<p>. . . .</p>
+<p>. .</p>
 <h2>Demande de nouvelles fonctions et signalements de bogues</h2>
 <p>Le dernier code source de Zutilo est maintenu sur <a href="https://github.com/willsALMANJ/Zutilo" title="Zutilo&#39;s GitHub page">GitHub</a>. vous pouvez faire remonter les bogues en cliquant sur le bouton &quot;New Issue&quot; (Nouveau problème) dans la section <a href="https://github.com/willsALMANJ/Zutilo/issues" title="GitHub Issues page">Issues</a> du site de  GitHub. Vous pouvez aussi vérifier si le bogue que vous rencontrez a déjà ou non été signalé par d'autres. Veillez à vérifier l'onglet &quot;fermé&quot; de la section <em>Issues</em> pour voir sir le bogue a déjà été réglé.</p>
-<p>les demandes de fonctionnalités peuvent être envoyées de cette façon.</p>
-<p>Aide à la traduction fournie par Goofy de BabelZilla.</p>
+<p>les demandes de fonctionnalités peuvent être envoyées de cette façon. . . .</p>
+<p>. . . .</p>
+<p>. .</p>
+<p>. . .</p>
+<ul>
+<li><p>In version 1.2.11:</p>
+<ol>
+<li>New shortcuts/menu items:
+<ul>
+<li>Copy Zotero select link</li>
+<li>Copy Zotero URI</li>
+</ul></li>
+<li>New shortcuts:
+<ul>
+<li>Focus collections, items pane, and various item pane tabs</li>
+<li>Attachments: recognize PDF, create parent item, and rename from parent</li>
+</ul></li>
+</ol></li>
+</ul>
+<p>.</p>
+<pre><code>.
+.
+.</code></pre>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>. .</p>
+<p>. .</p>
+<p>. . . Aide à la traduction fournie par Goofy de BabelZilla.</p>
