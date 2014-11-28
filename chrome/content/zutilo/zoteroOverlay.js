@@ -342,6 +342,56 @@ ZutiloChrome.zoteroOverlay = {
 		
 		return true;
 	},
+
+	createBookSection: function() {
+		// Validate item selection
+		var zitems = this.getSelectedItems();
+
+		if (!this.checkItemNumber(zitems,'regularSection')) {
+			return false;
+		}
+
+		var bookItem = zitems[0];
+		if (bookItem.itemTypeID != Zotero.ItemTypes.getID('book')) {
+			var prompts = 
+				Components.classes["@mozilla.org/embedcomp/prompt-service;1"].
+				getService(Components.interfaces.nsIPromptService);
+			prompts.alert(null,
+				Zutilo._bundle.
+					GetStringFromName("zutilo.error.bookitemmessage"),
+				Zutilo._bundle.
+					GetStringFromName("zutilo.error.bookitemmessage"));
+			return false;
+		}
+
+		// Duplicate item
+		ZoteroPane.duplicateSelectedItem();
+
+		// Set item type
+		zitems = this.getSelectedItems();
+		var sectionItem = zitems[0];
+		sectionItem.setType(Zotero.ItemTypes.getID('bookSection'));
+
+		// Change authors to book authors
+		var creators = sectionItem.getCreators();
+		for (var index=0; index<creators.length; index++) {
+			if (creators[index].creatorTypeID == 
+					Zotero.CreatorTypes.getID('author')) {
+				creators[index] = Zotero.CreatorTypes.getID('bookAuthors');
+			}
+		}
+
+		// Relate items
+		bookItem.addRelatedItem(sectionItem.id);
+		sectionItem.addRelatedItem(bookItem.id);
+		sectionItem.save();
+
+		// Update GUI and select textbox
+		document.getElementById('zotero-editpane-item-box').refresh();
+		this.editItemInfoGUI();
+
+		return true;
+	},
 	
 	///////////////////////////////////////////
 	//XUL overlay functions

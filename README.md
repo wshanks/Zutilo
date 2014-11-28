@@ -70,6 +70,19 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
 	If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
 	If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
 
+* __Create book section:__
+	Create a book section item from the currently selected book item.
+
+	The new item is created by duplicating the book item and changing its type to book section.
+	Author entries for the book item are converted to "book author" entries for the new book section item.
+	The new book section item is added as a related item to the original book item.
+	Finally, the title textbox for the new item is focused so that a new title for the book section may be entered.
+
+	This function only works when a single book item is selected.
+	Note that some fields (number of pages and short title, as of late 2014) apply only to book items and not book section items.
+	There is no prompt to confirm this loss of fields.	
+	(Function name: `ZutiloChrome.zoteroOverlay.createBookSection()`).
+
 ### Item editing functions ###
 
 Zutilo currently implements several functions that are useful for editing Zotero items with the keyboard.

@@ -23,7 +23,7 @@ var Zutilo = {
 	//argument and that should be able to be called from the Zotero item menu
   	_itemmenuFunctions: ["copyTags","pasteTags","relateItems","showAttachments",
 		"modifyAttachments","copyCreators","copyItems","copyZoteroSelectLink",
-		"copyZoteroItemURI"],
+		"copyZoteroItemURI", "createBookSection"],
 	ffcacmFunctions: [
 		{name: 'attachPage',
 			condition: ''},
