@@ -64,11 +64,13 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
 	Copy links of the form "zotero://select/items/ITEM_ID" to the clipboard for each selected item.
 	Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin.
 	Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.
+	(Function name: `ZutiloChrome.zoteroOverlay.copyZoteroSelectLink()`).
 
 * __Copy Zotero URIs:__
 	Copy (www.zotero.org) links to the clipboard for each selected item.
 	If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
 	If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
+	(Function name: `ZutiloChrome.zoteroOverlay.copyZoteroItemURI()`).
 
 * __Create book section:__
 	Create a book section item from the currently selected book item.
