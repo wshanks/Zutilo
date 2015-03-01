@@ -305,15 +305,25 @@ ZutiloChrome.firefoxOverlay = new function() {
 	//////////////////////////////////////////////////////////////////////////////////
 	// Status bar icon functions
 	//////////////////////////////////////////////////////////////////////////////////
-	function setupStatusPopup() {
+	function getStatusPopup() {
 		var statusPopupEl = document.getElementById("zotero-status-image-context");
+		// For version > 4.0.26.1
+		if (!statusPopupEl) {
+			var statusButton = document.getElementById('zotero-toolbar-save-button');
+			statusPopupEl = statusButton.children[0];
+		}
+
+		return statusPopupEl
+	}
+	function setupStatusPopup() {
+		var statusPopupEl = getStatusPopup();
 		statusPopupEl.addEventListener('popupshowing',statusPopupListener,false);
 		
 		ZutiloChrome.firefoxOverlay.cleanupQueue.push(cleanupStatusPopup);
 	}
 	
 	function cleanupStatusPopup() {
-		var statusPopupEl = document.getElementById("zotero-status-image-context");
+		var statusPopupEl = getStatusPopup();
 		if (statusPopupEl) {
 			statusPopupEl.removeEventListener('popupshowing',statusPopupListener,false);
 			ZutiloChrome.removeLabeledChildren(statusPopupEl, 
