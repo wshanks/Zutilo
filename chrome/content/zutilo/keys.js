@@ -130,6 +130,10 @@ keys.shortcuts["renameSelectedAttachmentsFromParents"]  = function(win) {
 // Zotero functions (i.e. not Zutilo functions
 // Focus selection
 ///////////////////////////////////////////////////////////
+keys.shortcuts["duplicateItem"] = function(win) {
+	win.ZoteroPane.duplicateSelectedItem();
+};
+	
 keys.shortcuts["focusZoteroCollectionsTree"] = function(win) {
     win.document.getElementById("zotero-collections-tree").focus();
 };
@@ -197,10 +201,6 @@ if (Zutilo.appName == 'Firefox') {
 	
 	keys.shortcuts["saveItemZotero"] = function(win) {
 		win.Zotero_Browser.scrapeThisPage()
-	};
-	
-	keys.shortcuts["duplicateItem"] = function(win) {
-		win.ZoteroPane.duplicateSelectedItem()
 	};
 	
 	keys.shortcuts["websiteItem"] = function(win) {
