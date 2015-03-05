@@ -105,7 +105,7 @@ ZutiloChrome.firefoxOverlay = new function() {
 					processType = 'Zotero';
 				}
 				ZutiloChrome.firefoxOverlay.attachURLToCurrentItem(
-					window.content.location.href, processType);
+					gBrowser.currentURI.spec, processType);
 			};
 			
 		var attachLinkCmd = function(event) {
