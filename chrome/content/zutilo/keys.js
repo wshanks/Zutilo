@@ -127,7 +127,7 @@ keys.shortcuts["renameSelectedAttachmentsFromParents"]  = function(win) {
 };
 
 ///////////////////////////////////////////////////////////
-// Zotero functions (i.e. not Zutilo functions
+// Zotero functions (i.e. not Zutilo functions)
 // Focus selection
 ///////////////////////////////////////////////////////////
 keys.shortcuts["duplicateItem"] = function(win) {
@@ -157,6 +157,26 @@ keys.shortcuts["selectTabboxTab2"] = function(win) {
 };
 keys.shortcuts["selectTabboxTab3"] = function(win) {
     win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 3
+};
+
+///////////////////////////////////////////////////////////
+// Zotero functions (i.e. not Zutilo functions)
+// Hide/show left/right pane
+///////////////////////////////////////////////////////////
+keys.shortcuts["toggleZoteroCollectionsPane"] = function(win) {
+    if (win.document.getElementById('zotero-collections-pane').getAttribute('collapsed') == 'true') {
+	win.document.getElementById('zotero-collections-pane').setAttribute('collapsed', 'false');
+    } else {
+	win.document.getElementById('zotero-collections-pane').setAttribute('collapsed', 'true');
+    };
+};
+
+keys.shortcuts["toggleZoteroItemPane"] = function(win) {
+    if (win.document.getElementById('zotero-item-pane').getAttribute('collapsed') == 'true') {
+	win.document.getElementById('zotero-item-pane').setAttribute('collapsed', 'false');
+    } else {
+	win.document.getElementById('zotero-item-pane').setAttribute('collapsed', 'true');
+    };
 };
 
 ///////////////////////////////////////////////////////////
