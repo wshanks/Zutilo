@@ -95,7 +95,7 @@ The following functions work when only a single Zotero item is selected:
     Open the dialog for adding related items.
     (Function name: `ZutiloChrome.zoteroOverlay.addRelatedGUI()`).
 
-### Navigation ###
+### Navigation and hiding panes ###
 
 Zutilo implements several functions that are useful for navigating between and within the three main panes.
 These functions can not be called from any graphical element (but can be assigned to a keyboard shortcut as described above).
