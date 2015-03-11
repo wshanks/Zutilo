@@ -101,7 +101,8 @@ Zutilo implements several functions that are useful for navigating between and w
 These functions can not be called from any graphical element (but can be assigned to a keyboard shortcut as described above).
 
 * __Focus collections pane:__
-    Set the focus to the collections pane (left pane).
+    Set the focus to the collections pane (left pane, Libraries pane).
+    Added for completeness, but Zotero already has a keyboard shortcut that does this.
 * __Focus items pane:__
     Set the focus to the items pane (middle pane).
 
