@@ -166,16 +166,38 @@ keys.shortcuts["selectTabboxTab3"] = function(win) {
 keys.shortcuts["toggleZoteroCollectionsPane"] = function(win) {
     if (win.document.getElementById('zotero-collections-pane').getAttribute('collapsed') == 'true') {
 	win.document.getElementById('zotero-collections-pane').setAttribute('collapsed', 'false');
+	win.document.getElementById('zotero-collections-splitter').removeAttribute('state');
     } else {
 	win.document.getElementById('zotero-collections-pane').setAttribute('collapsed', 'true');
+	win.document.getElementById('zotero-collections-splitter').setAttribute('state', 'collapsed');
     };
 };
 
 keys.shortcuts["toggleZoteroItemPane"] = function(win) {
     if (win.document.getElementById('zotero-item-pane').getAttribute('collapsed') == 'true') {
 	win.document.getElementById('zotero-item-pane').setAttribute('collapsed', 'false');
+	win.document.getElementById('zotero-items-splitter').removeAttribute('state');
     } else {
 	win.document.getElementById('zotero-item-pane').setAttribute('collapsed', 'true');
+	win.document.getElementById('zotero-items-splitter').setAttribute('state', 'collapsed');
+    };
+};
+
+keys.shortcuts["toggleZoteroCollectionsPaneStickySplitter"] = function(win) {
+    if (win.document.getElementById('zotero-collections-pane').getAttribute('collapsed') == 'true') {
+	win.document.getElementById('zotero-collections-pane').setAttribute('collapsed', 'false');
+    } else {
+	win.document.getElementById('zotero-collections-pane').setAttribute('collapsed', 'true');
+	win.document.getElementById('zotero-collections-splitter').setAttribute('state', 'collapsed');
+    };
+};
+
+keys.shortcuts["toggleZoteroItemPaneStickySplitter"] = function(win) {
+    if (win.document.getElementById('zotero-item-pane').getAttribute('collapsed') == 'true') {
+	win.document.getElementById('zotero-item-pane').setAttribute('collapsed', 'false');
+    } else {
+	win.document.getElementById('zotero-item-pane').setAttribute('collapsed', 'true');
+	win.document.getElementById('zotero-items-splitter').setAttribute('state', 'collapsed');
     };
 };
 
