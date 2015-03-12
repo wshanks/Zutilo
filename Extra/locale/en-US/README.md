@@ -98,6 +98,7 @@ The following functions work when only a single Zotero item is selected:
 ### Navigating and hiding panes ###
 
 Zutilo implements several functions that are useful for navigating between and within the three main panes.
+If the relevant pane is hidden, the following functions will show it.
 These functions can not be called from any graphical element (but can be assigned to a keyboard shortcut as described above).
 
 * __Focus collections pane:__

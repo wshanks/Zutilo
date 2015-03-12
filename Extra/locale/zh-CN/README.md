@@ -98,6 +98,7 @@ Zutilo 目前实现了一些在使用键盘编辑 Zotero 项目是有用的功�
 ### Navigating and hiding panes ###
 
 Zutilo implements several functions that are useful for navigating between and within the three main panes.
+If the relevant pane is hidden, the following functions will show it.
 These functions can not be called from any graphical element (but can be assigned to a keyboard shortcut as described above).
 
 * __Focus collections pane:__

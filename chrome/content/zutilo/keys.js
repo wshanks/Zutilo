@@ -89,15 +89,19 @@ keys.shortcuts["copyZoteroItemURI"] = function(win) {
 // Zutilo's Zotero item pane editing functions
 ///////////////////////////////////////////////////////////
 keys.shortcuts["itemInfo"] = function(win) {
+        win.ZutiloChrome.zoteroOverlay.showItemPane();
 	win.ZutiloChrome.zoteroOverlay.editItemInfoGUI();
 };
 keys.shortcuts["addNote"] = function(win) {
+        win.ZutiloChrome.zoteroOverlay.showItemPane();
 	win.ZutiloChrome.zoteroOverlay.addNoteGUI();
 };
 keys.shortcuts["addTag"] = function(win) {
+        win.ZutiloChrome.zoteroOverlay.showItemPane();
 	win.ZutiloChrome.zoteroOverlay.addTagGUI();
 };
 keys.shortcuts["relateDialog"] = function(win) {
+        win.ZutiloChrome.zoteroOverlay.showItemPane();
 	win.ZutiloChrome.zoteroOverlay.addRelatedGUI();
 };
 
@@ -135,27 +139,37 @@ keys.shortcuts["duplicateItem"] = function(win) {
 };
 	
 keys.shortcuts["focusZoteroCollectionsTree"] = function(win) {
+    if (win.document.getElementById('zotero-collections-pane').getAttribute('collapsed') == 'true') {
+	win.document.getElementById('zotero-collections-pane').setAttribute('collapsed', 'false');
+	win.document.getElementById('zotero-collections-splitter').removeAttribute('state');
+    };
     win.document.getElementById("zotero-collections-tree").focus();
 };
 keys.shortcuts["focusZoteroItemsTree"] = function(win) {
     win.document.getElementById('zotero-items-tree').focus();
 };
 keys.shortcuts["advanceTabboxTab"] = function(win) {
+    win.ZutiloChrome.zoteroOverlay.showItemPane();
     win.document.getElementById('zotero-view-tabbox').tabs.advanceSelectedTab(1,true); 
 };
 keys.shortcuts["reverseTabboxTab"] = function(win) {
+    win.ZutiloChrome.zoteroOverlay.showItemPane();
     win.document.getElementById('zotero-view-tabbox').tabs.advanceSelectedTab(-1,true); 
 };
 keys.shortcuts["selectTabboxTab0"] = function(win) {
+    win.ZutiloChrome.zoteroOverlay.showItemPane();
     win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 0
 };
 keys.shortcuts["selectTabboxTab1"] = function(win) {
+    win.ZutiloChrome.zoteroOverlay.showItemPane();
     win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 1
 };
 keys.shortcuts["selectTabboxTab2"] = function(win) {
+    win.ZutiloChrome.zoteroOverlay.showItemPane();
     win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 2
 };
 keys.shortcuts["selectTabboxTab3"] = function(win) {
+    win.ZutiloChrome.zoteroOverlay.showItemPane();
     win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 3
 };
 
