@@ -95,6 +95,52 @@ Zutilo 目前实现了一些在使用键盘编辑 Zotero 项目是有用的功�
     打开添加关联项目的对话。
     (函数名：`ZutiloChrome.zoteroOverlay.addRelatedGUI()`)。
 
+### Navigating and hiding panes ###
+
+Zutilo implements several functions that are useful for navigating between and within the three main panes.
+These functions can not be called from any graphical element (but can be assigned to a keyboard shortcut as described above).
+
+* __Focus collections pane:__
+    Set the focus to the collections pane (left pane, Libraries pane).
+    Added for completeness, but Zotero already has a keyboard shortcut that does this.
+* __Focus items pane:__
+    Set the focus to the items pane (middle pane).
+
+The following four functions are similar to the four item editing functions above, except that they just set focus on the respective tab in the item pane.
+
+* __Focus item pane: Info tab:__
+    Select the "Info" tab in the item pane.
+* __Focus item pane: Notes tab:__
+    Select the "Notes" tab of the item pane.
+* __Focus item pane: Tags tab:__
+    Select the "Tags" tab of the item pane.
+* __Focus item pane: Related tab:__
+    Select the "Related" tab of the item pane.
+
+The following two functions allow you to cycle through the same four tags in the item pane.
+
+* __Focus item pane: next tab:__
+    Select next tab in item pane.
+* __Focus item pane: previous tab:__
+    Select previous tab in item pane.
+
+The following two functions allow you to easily show or hide the collections pane (left pane) and the item pane (right pane).
+
+* __Item pane: Show / hide:__
+    Show or hide the item pane.
+* __Collections pane: Show / hide:__
+    Show or hide the collections pane.
+
+The following two functions achieve the same, i.e. they allow you to easily show or hide the collections pane (left pane) and the item pane (right pane).
+However, when the pane is shown, the thicker vertical divider ("splitter", "grippy", appears when the pane is hidden) remains visible until the width of the pane is adjusted. 
+
+* __Item pane: Show / hide (sticky):__
+    Show or hide the item pane.
+    When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.
+* __Collections pane: Show / hide (sticky):__
+    Show or hide the collections pane.
+    When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.
+
 ### Firefox 浏览器功能 ###
 
 Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero 项目。

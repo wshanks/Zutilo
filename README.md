@@ -95,7 +95,7 @@ The following functions work when only a single Zotero item is selected:
     Open the dialog for adding related items.
     (Function name: `ZutiloChrome.zoteroOverlay.addRelatedGUI()`).
 
-### Navigation and hiding panes ###
+### Navigating and hiding panes ###
 
 Zutilo implements several functions that are useful for navigating between and within the three main panes.
 These functions can not be called from any graphical element (but can be assigned to a keyboard shortcut as described above).
@@ -136,10 +136,10 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
 
 * __Item pane: Show / hide (sticky):__
     Show or hide the item pane.
-    When the pane is show, the vertical divider renmains visible until the width of the pane is adjusted.
+    When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.
 * __Collections pane: Show / hide (sticky):__
     Show or hide the collections pane.
-    When the pane is show, the vertical divider renmains visible until the width of the pane is adjusted.
+    When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.
 
 ### Firefox browser functions ###
 
