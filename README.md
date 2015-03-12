@@ -103,7 +103,7 @@ If the relevant pane is hidden, the following functions will show it.
 
 * __Focus collections pane:__
     Set the focus to the collections pane (left pane, Libraries pane).
-    Added for completeness, but Zotero already has a keyboard shortcut that does this.
+    Similar to the existing Zotero shortcut, except that this function also shows the pane if it's hidden.
 * __Focus items pane:__
     Set the focus to the items pane (middle pane).
 
