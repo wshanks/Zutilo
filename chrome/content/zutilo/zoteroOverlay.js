@@ -100,7 +100,14 @@ ZutiloChrome.zoteroOverlay = {
 		
 		return true;
 	},
-		
+
+	showItemPane: function() {
+	        if (ZoteroPane.document.getElementById('zotero-item-pane').getAttribute('collapsed') == 'true') {
+		    ZoteroPane.document.getElementById('zotero-item-pane').setAttribute('collapsed', 'false');
+		    ZoteroPane.document.getElementById('zotero-items-splitter').removeAttribute('state');
+		};
+        },
+	
 	///////////////////////////////////////////
 	// Functions called from Zotero item menu
 	///////////////////////////////////////////
