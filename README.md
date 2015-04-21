@@ -132,7 +132,7 @@ The following two functions allow you to easily show or hide the collections pan
 * __Collections pane: Show / hide:__
     Show or hide the collections pane.
 
-The following two functions achieve the same, i.e. they allow you to easily show or hide the collections pane (left pane) and the item pane (right pane).
+Like the functions above, the following two functions allow you to easily show or hide the collections pane (left pane) and the item pane (right pane).
 However, when the pane is shown, the thicker vertical divider ("splitter", "grippy", appears when the pane is hidden) remains visible until the width of the pane is adjusted. 
 
 * __Item pane: Show / hide (sticky):__

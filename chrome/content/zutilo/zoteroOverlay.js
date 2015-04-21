@@ -4,6 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 "use strict";
+/* global ZoteroPane */
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
@@ -102,11 +103,36 @@ ZutiloChrome.zoteroOverlay = {
 	},
 
 	showItemPane: function() {
-	        if (ZoteroPane.document.getElementById('zotero-item-pane').getAttribute('collapsed') == 'true') {
-		    ZoteroPane.document.getElementById('zotero-item-pane').setAttribute('collapsed', 'false');
-		    ZoteroPane.document.getElementById('zotero-items-splitter').removeAttribute('state');
-		};
-        },
+        if (ZoteroPane.document.getElementById('zotero-item-pane').getAttribute('collapsed') == 'true') {
+            ZoteroPane.document.getElementById('zotero-item-pane').setAttribute('collapsed', 'false');
+            ZoteroPane.document.getElementById('zotero-items-splitter').removeAttribute('state');
+		}
+    },
+
+    updatePaneVisibility: function(paneName, command, keepSplitter) {
+        var pane = ZoteroPane.document.getElementById(paneName + '-pane');
+        var splitter = ZoteroPane.document.getElementById(paneName + '-splitter');
+
+        switch (command) {
+            case "toggle":
+                if (pane.collapsed) {
+                    this.updatePaneVisibility(paneName, 'show', keepSplitter);
+                } else {
+                    this.updatePaneVisibility(paneName, 'hide', keepSplitter);
+                }
+                break;
+            case "show":
+                pane.collapsed = false;
+                if (!keepSplitter) {
+                    splitter.removeAttribute('state');
+                }
+                break;
+            case "hide":
+                pane.collapsed = true;
+                splitter.setAttribute('state', 'collapsed');
+                break;
+        }
+    },
 	
 	///////////////////////////////////////////
 	// Functions called from Zotero item menu
