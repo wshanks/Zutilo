@@ -15,8 +15,11 @@
 <li><p><strong>修改附件路径：</strong> 为选中的附件和选中的常规项目的所有附件中符合条件的项目更改路径的开始部分。 会出现两个提示窗口。 第一个窗口会询问旧的部分路径，第二个窗口会询问新的部分路径。 如果你输入“C:/userData/references/”作为第一个路径，输入“E:/”作为第二个路径，那么路径为“C:/userData/references/journals/Nature/2008/coolPaper.pdf”的附件的路径将会被更改为“E:/journals/Nature/2008/coolPaper.pdf”，而路径为“E:/journals/Science/2010/neatPaper.pdf”的附件保持不变。 此功能主要在你更换计算机或者硬盘时所有附件路径损坏时使用。</p>
 <p>默认情况下，只会比较旧的部分路径和每个附件路径的开始部分。 要更改不在开始部分的附件路径，请在第一个提示窗口中点击“替换所有实例”复选框。 此选项主要在你想要重命名子文件夹或者在 Windows 和 Unix 风格路径(替换<code>\</code>和<code>/``)的时候使用 (函数名：</code>ZutiloChrome.zoteroOverlay.modifyAttachments()`)。</p></li>
 <li><p><strong>关联项目：</strong> 设置所有选中的项目相互关联。 (函数名：<code>ZutiloChrome.zoteroOverlay.relateItems()</code>)。</p></li>
-<li><p><strong>Copy select item links:</strong> Copy links of the form &quot;zotero://select/items/ITEM_ID&quot; to the clipboard for each selected item. Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin. Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.</p></li>
-<li><p><strong>Copy Zotero URIs:</strong> Copy (www.zotero.org) links to the clipboard for each selected item. If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org). If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.</p></li>
+<li><p><strong>Copy select item links:</strong> Copy links of the form &quot;zotero://select/items/ITEM_ID&quot; to the clipboard for each selected item. Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin. Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up. (Function name: <code>ZutiloChrome.zoteroOverlay.copyZoteroSelectLink()</code>).</p></li>
+<li><p><strong>Copy Zotero URIs:</strong> Copy (www.zotero.org) links to the clipboard for each selected item. If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org). If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful. (Function name: <code>ZutiloChrome.zoteroOverlay.copyZoteroItemURI()</code>).</p></li>
+<li><p><strong>Create book section:</strong> Create a book section item from the currently selected book item.</p>
+<p>The new item is created by duplicating the book item and changing its type to book section. Author entries for the book item are converted to &quot;book author&quot; entries for the new book section item. The new book section item is added as a related item to the original book item. Finally, the title textbox for the new item is focused so that a new title for the book section may be entered.</p>
+<p>This function only works when a single book item is selected. Note that some fields (number of pages and short title, as of late 2014) apply only to book items and not book section items. There is no prompt to confirm this loss of fields.<br />(Function name: <code>ZutiloChrome.zoteroOverlay.createBookSection()</code>).</p></li>
 </ul>
 <h3>项目编辑功能</h3>
 <p>Zutilo 目前实现了一些在使用键盘编辑 Zotero 项目是有用的功能。 这些功能不能从任何图形元素访问(但是可以像前面介绍的一样分配键盘快捷键)。 在仅选中一个 Zotero 项目时可以使用下列功能：</p>
@@ -25,6 +28,34 @@
 <li><strong>添加注释：</strong> 在项目面板中选择“注释”标签。 创建一个新的注释。 为了完整性添加，Zotero 已有键盘快捷键进行此操作。 它可以在 Zotero 首选项中设置。 (函数名：<code>ZutiloChrome.zoteroOverlay.addNoteGUI()</code>)。</li>
 <li><strong>添加标签：</strong> 在项目面板中选择“标签”标签。 打开文本框来创建新标签。 (函数名：<code>ZutiloChrome.zoteroOverlay.addTagGUI()</code>)。</li>
 <li><strong>添加关联项目：</strong> 在项目面板中选择“关联”标签。 打开添加关联项目的对话。 (函数名：<code>ZutiloChrome.zoteroOverlay.addRelatedGUI()</code>)。</li>
+</ul>
+<h3>Navigating and hiding panes</h3>
+<p>Zutilo implements several functions that are useful for navigating between and within the three main panes. If the relevant pane is hidden, the following functions will show it. These functions can not be called from any graphical element (but can be assigned to a keyboard shortcut as described above).</p>
+<ul>
+<li><strong>Focus collections pane:</strong> Set the focus to the collections pane (left pane, Libraries pane). Added for completeness, but Zotero already has a keyboard shortcut that does this.</li>
+<li><strong>Focus items pane:</strong> Set the focus to the items pane (middle pane).</li>
+</ul>
+<p>The following four functions are similar to the four item editing functions above, except that they just set focus on the respective tab in the item pane.</p>
+<ul>
+<li><strong>Focus item pane: Info tab:</strong> Select the &quot;Info&quot; tab in the item pane.</li>
+<li><strong>Focus item pane: Notes tab:</strong> Select the &quot;Notes&quot; tab of the item pane.</li>
+<li><strong>Focus item pane: Tags tab:</strong> Select the &quot;Tags&quot; tab of the item pane.</li>
+<li><strong>Focus item pane: Related tab:</strong> Select the &quot;Related&quot; tab of the item pane.</li>
+</ul>
+<p>The following two functions allow you to cycle through the same four tags in the item pane.</p>
+<ul>
+<li><strong>Focus item pane: next tab:</strong> Select next tab in item pane.</li>
+<li><strong>Focus item pane: previous tab:</strong> Select previous tab in item pane.</li>
+</ul>
+<p>The following two functions allow you to easily show or hide the collections pane (left pane) and the item pane (right pane).</p>
+<ul>
+<li><strong>Item pane: Show / hide:</strong> Show or hide the item pane.</li>
+<li><strong>Collections pane: Show / hide:</strong> Show or hide the collections pane.</li>
+</ul>
+<p>The following two functions achieve the same, i.e. they allow you to easily show or hide the collections pane (left pane) and the item pane (right pane). However, when the pane is shown, the thicker vertical divider (&quot;splitter&quot;, &quot;grippy&quot;, appears when the pane is hidden) remains visible until the width of the pane is adjusted.</p>
+<ul>
+<li><strong>Item pane: Show / hide (sticky):</strong> Show or hide the item pane. When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.</li>
+<li><strong>Collections pane: Show / hide (sticky):</strong> Show or hide the collections pane. When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.</li>
 </ul>
 <h3>Firefox 浏览器功能</h3>
 <p>Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero 项目。 这些功能需要从 Firefox 浏览器中访问，不支持 Zotero 独立版。</p>
@@ -88,11 +119,7 @@
 <li>Attachments: recognize PDF, create parent item, and rename from parent</li>
 </ul></li>
 </ol></li>
-<li><ol>
-<li></li>
-<li></li>
-<li></li>
-</ol></li>
+<li><p>1. 2. 3.</p></li>
 <li></li>
 <li><p>在 1.2.3 版本中，添加了附加 Firefox 中的页面和链接到当前选中的 Zotero 项目和保存当前页面到 Zotero 带附件如果默认设置是不带附件(或者不带附件如果默认设置是带附件)。</p></li>
 <li><p>版本 1.2.1，Zutilo 可以被安装和卸载而不需重启 Firefox。</p></li>

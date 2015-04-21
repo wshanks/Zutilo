@@ -15,8 +15,11 @@
 <li><p><strong>Modificar caminos de adjuntos:</strong> Cambie el inicio del camino a todos los adjuntos elegibles seleccionados y todos los adjuntos de seleccionados artículos regulares. Dos ventanas de solicitud aparece. El primero pregunta por el camino viejo parcial mientras que el segundo pide la ruta parcial nuevo. Si escribe &quot;C:/userData/referencias/&quot; para el primer camino y &quot;E:/&quot; por el segundo camino, entonces un adjunto con un camino de &quot;C:/userData/referencias/journals/Nature/2008/coolPaper.pdf&quot; tendrá su ruta cambiada a &quot;E:/journals/Nature/2008/coolPaper.pdf&quot;, mientras que un adjunto con la ruta &quot;E:/journals/Science/2010/neatPaper.pdf&quot; se deja sin cambios. Esta función es especialmente útil para cuando se cambia de ordenador o discos duros y romper los vínculos de todos sus adjuntos.</p>
 <p>De forma predeterminada, la ruta de acceso parcial viejo es sólo en comparación con el inicio de cada ruta de los adjuntos. Para reemplazar elementos de caminos no al comienzo, haga clic en la &quot;Reemplazar todas las instancias del texto del camino parcial&quot; casilla de verificación en la ventana que aparece en primer lugar. Esta opción es útil si desea cambiar el nombre de una subcarpeta o cambiar entre Windows y Unix caminos de estilo (reemplazando <code>\</code> y <code>/</code>). (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.modifyAttachments()</code>).</p></li>
 <li><p><strong>Relacionar ítems:</strong> Relaciona todos los ítems seleccionados entre sí. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.relateItems()</code>).</p></li>
-<li><p><strong>Copy select item links:</strong> Copy links of the form &quot;zotero://select/items/ITEM_ID&quot; to the clipboard for each selected item. Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin. Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.</p></li>
-<li><p><strong>Copy Zotero URIs:</strong> Copy (www.zotero.org) links to the clipboard for each selected item. If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org). If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.</p></li>
+<li><p><strong>Copy select item links:</strong> Copy links of the form &quot;zotero://select/items/ITEM_ID&quot; to the clipboard for each selected item. Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin. Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up. (Function name: <code>ZutiloChrome.zoteroOverlay.copyZoteroSelectLink()</code>).</p></li>
+<li><p><strong>Copy Zotero URIs:</strong> Copy (www.zotero.org) links to the clipboard for each selected item. If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org). If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful. (Function name: <code>ZutiloChrome.zoteroOverlay.copyZoteroItemURI()</code>).</p></li>
+<li><p><strong>Create book section:</strong> Create a book section item from the currently selected book item.</p>
+<p>The new item is created by duplicating the book item and changing its type to book section. Author entries for the book item are converted to &quot;book author&quot; entries for the new book section item. The new book section item is added as a related item to the original book item. Finally, the title textbox for the new item is focused so that a new title for the book section may be entered.</p>
+<p>This function only works when a single book item is selected. Note that some fields (number of pages and short title, as of late 2014) apply only to book items and not book section items. There is no prompt to confirm this loss of fields.<br />(Function name: <code>ZutiloChrome.zoteroOverlay.createBookSection()</code>).</p></li>
 </ul>
 <h3>Funciones de edición de ítems</h3>
 <p>Zutilo actualmente implementa varias funciones que son útiles para la edición de ítems de Zotero con el teclado. Estas funciones no se pueden llamar desde cualquier elemento gráfico (pero puede ser asignado a un acceso directo del teclado como se ha descrito anteriormente). Las siguientes funciones funcionan cuando un solo ítem de Zotero está seleccionado:</p>
@@ -25,6 +28,34 @@
 <li><strong>Añadir nota:</strong> Seleccione la ficha &quot;Notas&quot; del ítem-panel. Crea una nueva nota. Fue agregado por completo, pero Zotero ya tiene un atajo de teclado que hace esto. Se puede configurar en las preferencias de Zotero. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.addNoteGUI()</code>).</li>
 <li><strong>Añadir marca:</strong> Seleccione la ficha &quot;Marcas&quot; del ítem-panel. Abre un cuadro de texto para crear una marca nueva. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.addTagGUI()</code>).</li>
 <li><strong>Añadir ítem relacionado:</strong> Seleccione la ficha &quot;Relacionado&quot; del ítem-panel. Abre el diálogo para agregar elementos relacionados. (Nombre de la función: <code>ZutiloChrome.zoteroOverlay.addRelatedGUI()</code>).</li>
+</ul>
+<h3>Navigating and hiding panes</h3>
+<p>Zutilo implements several functions that are useful for navigating between and within the three main panes. If the relevant pane is hidden, the following functions will show it. These functions can not be called from any graphical element (but can be assigned to a keyboard shortcut as described above).</p>
+<ul>
+<li><strong>Focus collections pane:</strong> Set the focus to the collections pane (left pane, Libraries pane). Added for completeness, but Zotero already has a keyboard shortcut that does this.</li>
+<li><strong>Focus items pane:</strong> Set the focus to the items pane (middle pane).</li>
+</ul>
+<p>The following four functions are similar to the four item editing functions above, except that they just set focus on the respective tab in the item pane.</p>
+<ul>
+<li><strong>Focus item pane: Info tab:</strong> Select the &quot;Info&quot; tab in the item pane.</li>
+<li><strong>Focus item pane: Notes tab:</strong> Select the &quot;Notes&quot; tab of the item pane.</li>
+<li><strong>Focus item pane: Tags tab:</strong> Select the &quot;Tags&quot; tab of the item pane.</li>
+<li><strong>Focus item pane: Related tab:</strong> Select the &quot;Related&quot; tab of the item pane.</li>
+</ul>
+<p>The following two functions allow you to cycle through the same four tags in the item pane.</p>
+<ul>
+<li><strong>Focus item pane: next tab:</strong> Select next tab in item pane.</li>
+<li><strong>Focus item pane: previous tab:</strong> Select previous tab in item pane.</li>
+</ul>
+<p>The following two functions allow you to easily show or hide the collections pane (left pane) and the item pane (right pane).</p>
+<ul>
+<li><strong>Item pane: Show / hide:</strong> Show or hide the item pane.</li>
+<li><strong>Collections pane: Show / hide:</strong> Show or hide the collections pane.</li>
+</ul>
+<p>The following two functions achieve the same, i.e. they allow you to easily show or hide the collections pane (left pane) and the item pane (right pane). However, when the pane is shown, the thicker vertical divider (&quot;splitter&quot;, &quot;grippy&quot;, appears when the pane is hidden) remains visible until the width of the pane is adjusted.</p>
+<ul>
+<li><strong>Item pane: Show / hide (sticky):</strong> Show or hide the item pane. When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.</li>
+<li><strong>Collections pane: Show / hide (sticky):</strong> Show or hide the collections pane. When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.</li>
 </ul>
 <h3>Funciones del Firefox navegador</h3>
 <p>Zutilo añade algunas funciones para ayudar con adjuntar documentos a los ítems de Zotero de páginas en Firefox. Estas funciones se accede desde el navegador Firefox y no funcionan con Zotero Standalone.</p>
