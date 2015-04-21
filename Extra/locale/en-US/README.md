@@ -64,11 +64,26 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
 	Copy links of the form "zotero://select/items/ITEM_ID" to the clipboard for each selected item.
 	Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin.
 	Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.
+	(Function name: `ZutiloChrome.zoteroOverlay.copyZoteroSelectLink()`).
 
 * __Copy Zotero URIs:__
 	Copy (www.zotero.org) links to the clipboard for each selected item.
 	If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
 	If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
+	(Function name: `ZutiloChrome.zoteroOverlay.copyZoteroItemURI()`).
+
+* __Create book section:__
+	Create a book section item from the currently selected book item.
+
+	The new item is created by duplicating the book item and changing its type to book section.
+	Author entries for the book item are converted to "book author" entries for the new book section item.
+	The new book section item is added as a related item to the original book item.
+	Finally, the title textbox for the new item is focused so that a new title for the book section may be entered.
+
+	This function only works when a single book item is selected.
+	Note that some fields (number of pages and short title, as of late 2014) apply only to book items and not book section items.
+	There is no prompt to confirm this loss of fields.	
+	(Function name: `ZutiloChrome.zoteroOverlay.createBookSection()`).
 
 ### Item editing functions ###
 
