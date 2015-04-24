@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 "use strict";
-/* global ZoteroPane */
+/* global Zutilo, ZoteroPane, Components */
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("chrome://zutilo/content/zutilo.jsm");
 
@@ -198,7 +198,35 @@ ZutiloChrome.zoteroOverlay = {
 		
 		return true;
 	},
-		
+
+    copyChildIDs: function() {
+        var zitems = this.getSelectedItems(['note', 'attachment']);
+        if (zitems.length === 0) {
+            return 0;
+        }
+
+        Zutilo.itemClipboard = [];
+        for (var idx = 0; idx < zitems.length; idx++) {
+            Zutilo.itemClipboard.push(zitems[idx].id);
+        }
+    },
+
+    relocateChildren: function() {
+        var zitems = this.getSelectedItems(['regular']);
+
+        if (!this.checkItemNumber(zitems, 'regularSingle')) {
+            return false;
+        }
+        var newParent = zitems[0];
+
+        var child;
+        for (var idx = 0; idx < Zutilo.itemClipboard.length; idx++) {
+            child = Zotero.Items.get(Zutilo.itemClipboard[idx]);
+            child.setSource(newParent.id);
+            child.save();
+        }
+    },
+
 	pasteTags: function() {
 		var zitems = this.getSelectedItems(['regular','note']);
 		

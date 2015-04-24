@@ -23,7 +23,8 @@ var Zutilo = {
 	//argument and that should be able to be called from the Zotero item menu
   	_itemmenuFunctions: ["copyTags","pasteTags","relateItems","showAttachments",
 		"modifyAttachments","copyCreators","copyItems","copyZoteroSelectLink",
-		"copyZoteroItemURI", "createBookSection"],
+		"copyZoteroItemURI", "createBookSection", "copyChildIDs",
+        "relocateChildren"],
 	ffcacmFunctions: [
 		{name: 'attachPage',
 			condition: ''},
@@ -33,6 +34,8 @@ var Zutilo = {
 	_bundle: Cc["@mozilla.org/intl/stringbundle;1"].
 		getService(Components.interfaces.nsIStringBundleService).
 		createBundle("chrome://zutilo/locale/zutilo.properties"),
+
+    itemClipboard: [],
 		
 	appName: function() {
 		var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);

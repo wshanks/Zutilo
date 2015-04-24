@@ -84,6 +84,12 @@ keys.shortcuts["copyZoteroSelectLink"] = function(win) {
 keys.shortcuts["copyZoteroItemURI"] = function(win) {
 	win.ZutiloChrome.zoteroOverlay.copyZoteroItemURI();
 };
+keys.shortcuts["copyChildIDs"] = function(win) {
+	win.ZutiloChrome.zoteroOverlay.copyChildIDs();
+};
+keys.shortcuts["relocateChildren"] = function(win) {
+	win.ZutiloChrome.zoteroOverlay.relocateChildren();
+};
 	
 ///////////////////////////////////////////////////////////
 // Zutilo's Zotero item pane editing functions
