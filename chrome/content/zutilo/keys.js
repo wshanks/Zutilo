@@ -84,6 +84,12 @@ keys.shortcuts["copyZoteroSelectLink"] = function(win) {
 keys.shortcuts["copyZoteroItemURI"] = function(win) {
 	win.ZutiloChrome.zoteroOverlay.copyZoteroItemURI();
 };
+keys.shortcuts.createBookItem = function(win) {
+    win.ZutiloChrome.zoteroOverlay.createBookItem();
+};
+keys.shortcuts.createBookSection = function(win) {
+    win.ZutiloChrome.zoteroOverlay.createBookSection();
+};
 keys.shortcuts["copyChildIDs"] = function(win) {
 	win.ZutiloChrome.zoteroOverlay.copyChildIDs();
 };

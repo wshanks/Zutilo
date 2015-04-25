@@ -410,7 +410,7 @@ ZutiloChrome.zoteroOverlay = {
         // Validate item selection
         var zitems = this.getSelectedItems();
 
-        if (!this.checkItemNumber(zitems, 'regularSection')) {
+        if (!this.checkItemNumber(zitems, 'regularSingle')) {
             return false;
         }
 
@@ -421,7 +421,7 @@ ZutiloChrome.zoteroOverlay = {
                 getService(Components.interfaces.nsIPromptService);
             prompts.alert(null,
                 Zutilo._bundle.
-                    GetStringFromName('zutilo.error.bookitemmessage'),
+                    GetStringFromName('zutilo.error.bookitemtitle'),
                 Zutilo._bundle.
                     GetStringFromName('zutilo.error.bookitemmessage'));
             return false;
@@ -444,10 +444,61 @@ ZutiloChrome.zoteroOverlay = {
             }
         }
 
+        sectionItem.save();
+
         // Relate items
         bookItem.addRelatedItem(sectionItem.id);
         sectionItem.addRelatedItem(bookItem.id);
-        sectionItem.save();
+
+        // Update GUI and select textbox
+        document.getElementById('zotero-editpane-item-box').refresh();
+        this.editItemInfoGUI();
+
+        return true;
+    },
+
+    createBookItem: function() {
+        // Validate item selection
+        var zitems = this.getSelectedItems();
+
+        if (!this.checkItemNumber(zitems, 'regularSingle')) {
+            return false;
+        }
+
+        var sectionItem = zitems[0];
+        if (sectionItem.itemTypeID != Zotero.ItemTypes.getID('bookSection')) {
+            var prompts =
+                Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
+                getService(Components.interfaces.nsIPromptService);
+            prompts.alert(null,
+                Zutilo._bundle.
+                    GetStringFromName('zutilo.error.booksectiontitle'),
+                Zutilo._bundle.
+                    GetStringFromName('zutilo.error.booksectionmessage'));
+            return false;
+        }
+
+        // Duplicate item
+        ZoteroPane.duplicateSelectedItem();
+
+        // Set item type
+        zitems = this.getSelectedItems();
+        var bookItem = zitems[0];
+        bookItem.setType(Zotero.ItemTypes.getID('book'));
+
+        // Change book title to title
+        var bookTitleField = Zotero.ItemFields.getID('bookTitle');
+        var titleField = Zotero.ItemFields.getID('title');
+        var bookTitle = sectionItem.getField(bookTitleField);
+        if (bookTitle !== '') {
+            bookItem.setField(titleField, bookTitle);
+        }
+
+        bookItem.save();
+
+        // Relate items
+        bookItem.addRelatedItem(sectionItem.id);
+        sectionItem.addRelatedItem(bookItem.id);
 
         // Update GUI and select textbox
         document.getElementById('zotero-editpane-item-box').refresh();
