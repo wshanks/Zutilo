@@ -167,7 +167,7 @@
 				<textbox id="edit" flex="1" onfocus="this.select();" 
 					onkeypress="Recognize(event);"/>
 				<button label="&zutilo.preferences.shortcuts.apply;" 
-					oncommand="Apply();"/>
+					oncommand="applyShortcut();"/>
 				<button label="&zutilo.preferences.shortcuts.disable;" 
 					oncommand="Disable();"/>
 			</groupbox>            

@@ -3,14 +3,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-"use strict";
-Components.utils.import("chrome://zutilo/content/zutilo.jsm");
+'use strict';
+/* global gBrowser, window, document, Components */
+Components.utils.import('chrome://zutilo/content/zutilo.jsm');
 
 function upgradeInit() {
-	var upgradeDescription = document.getElementById("zutilo-startup-upgradedescription");
-	upgradeDescription.textContent = window.arguments[0].upgradeMessage;
+    var upgradeDescription = document.
+        getElementById('zutilo-startup-upgradedescription');
+    upgradeDescription.textContent = window.arguments[0].upgradeMessage;
 }
 
 window.addEventListener('load', function(e) {
-		upgradeInit(); 
-	}, false);
+        upgradeInit();
+    }, false);
