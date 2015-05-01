@@ -507,6 +507,7 @@ ZutiloChrome.zoteroOverlay = {
         if (bookTitle !== '') {
             bookItem.setField(titleField, bookTitle);
         }
+		bookItem.setField(Zotero.ItemFields.getID('abstractNote'), '')
 
         bookItem.save();
 
