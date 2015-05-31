@@ -65,6 +65,9 @@ var keys = {
 keys.shortcuts.copyTags = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyTags()
 };
+keys.shortcuts.removeTags = function(win) {
+    win.ZutiloChrome.zoteroOverlay.removeTags()
+};
 keys.shortcuts.copyCreators = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyCreators()
 };

@@ -31,6 +31,10 @@ En las preferencias de Zutilo (se accede desde el mismo menú como las preferenc
     A partir de Zotero 4.0, una lista de las marcas se pueden pegar en una caja nueva marca para añadir todas las marcas a un elemento a la vez.
     (Nombre de la función: `ZutiloChrome.zoteroOverlay.copyTags()`).
 
+* __Remove tags:__
+    Right click items in the Zotero library and remove all of their tags.
+    (Function name: `ZutiloChrome.zoteroOverlay.removeTags()`).
+
 * __Pegar marcas:__
     Haga clic en los elementos en la biblioteca de Zotero y pega el contenido del portapapeles a ellos como nuevas marcas.
     El contenido del Portapapeles debe ser un '\r\n' o '\n' delimitada lista (por ejemplo, la lista creada por la función de copia de marcas descrita anteriormente).

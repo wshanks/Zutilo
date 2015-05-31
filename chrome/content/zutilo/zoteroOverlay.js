@@ -210,6 +210,18 @@ ZutiloChrome.zoteroOverlay = {
 
         return true;
     },
+	
+	removeTags: function() {
+        var zitems = this.getSelectedItems(['regular', 'note']);
+
+        if (!this.checkItemNumber(zitems, 'regularOrNote1')) {
+            return false;
+        }
+
+		for (let idx = 0; idx < zitems.length; idx++) {
+			zitems[idx].removeAllTags()
+		}
+	},
 
     copyChildIDs: function() {
         var zitems = this.getSelectedItems(['note', 'attachment']);

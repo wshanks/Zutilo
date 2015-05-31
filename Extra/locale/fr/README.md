@@ -31,6 +31,10 @@ Ce sont les noms de fonctions qui devraient être associées aux touches du clav
     .
     (Nom de la fonction : `ZutiloChrome.zoteroOverlay.copyTags()`).
 
+* __Remove tags:__
+    Right click items in the Zotero library and remove all of their tags.
+    (Function name: `ZutiloChrome.zoteroOverlay.removeTags()`).
+
 * __Coller les marqueurs:__
     Cliquer droit sur des parties de la bibliothèque de Zotero et collez le contenu du presse-papiers dans celles-ci.
     Le contenu du presse-papiers doit être une liste dont les éléments sont séparés par des '\r\n' ou des '\n' (comme pour la liste créée par la fonction 'copier les marqueurs' ci-dessus).

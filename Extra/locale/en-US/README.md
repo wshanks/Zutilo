@@ -31,6 +31,10 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
     As of Zotero 4.0, such a list of tags can be pasted into a new tag box to add all of the tags to an item at once.
     (Function name: `ZutiloChrome.zoteroOverlay.copyTags()`).
 
+* __Remove tags:__
+    Right click items in the Zotero library and remove all of their tags.
+    (Function name: `ZutiloChrome.zoteroOverlay.removeTags()`).
+
 * __Paste tags:__
     Right click items in the Zotero library and paste the contents of the clipboard to them.
     The contents of the clipboard must be a '\r\n' or '\n' delimited list (such as the list created by the copy tags function described above).

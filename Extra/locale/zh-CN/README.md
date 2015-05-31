@@ -31,6 +31,10 @@ Zutilo 目前不提供原生的键盘快捷键(未来的更新可能会提供键
     对于 Zotero 4.0，这样的标签列表可以复制到一个新的标签框中，一次性为一个项目添加所有标签。
     (函数名：`ZutiloChrome.zoteroOverlay.copyTags()`)。
 
+* __Remove tags:__
+    Right click items in the Zotero library and remove all of their tags.
+    (Function name: `ZutiloChrome.zoteroOverlay.removeTags()`).
+
 * __粘贴标签：__
     右键点击 Zotero 库中的项目并粘贴剪贴板的内容到项目中。
     剪贴板内容必须是“\r\n”或“\n”分隔的列表(例如通过上面介绍的复制标签功能创建的列表)。

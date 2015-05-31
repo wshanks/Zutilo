@@ -31,6 +31,10 @@ In den Zutilo Einstellungen (zugänglich im gleichen Menü wie die Zotero-Einste
     Ab Zotero 4.0 kann eine solche Liste von Tags aus der Zwischenablage in einem neuen tag Feld eingefügt werden, um alle Tags zu einem Element gleichzeitig hinzuzufügen.
     (Name der Funktion: `ZutiloChrome.zoteroOverlay.copyTags()`).
 
+* __Remove tags:__
+    Right click items in the Zotero library and remove all of their tags.
+    (Function name: `ZutiloChrome.zoteroOverlay.removeTags()`).
+
 * __Einfügen Tags:__
     Machen sie einen Rechtsklick auf einen oder mehrere markierte Einträge von Elementen in der Zotero-Bibliothek und fügen Sie den Inhalt der Zwischenablage in diesen als Tags ein.
     Der Inhalt der Zwischenablage muss eine '\r\n' oder '\n' getrennte Liste sein (wie die durch die oben beschriebene "Tags Kopieren" Funktion erstellte Liste).
