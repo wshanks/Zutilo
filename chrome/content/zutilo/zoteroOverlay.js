@@ -314,6 +314,12 @@ ZutiloChrome.zoteroOverlay = {
         // Loop through attachments and replace partial paths
         var attachmentPath;
         for (var index = 0; index < attachmentArray.length; index++) {
+			// Only modify linked file attachments since paths for the other
+			// attachment types are managed by Zotero.
+			if (attachmentArray[index].attachmentLinkMode !=
+					Zotero.Attachments.LINK_MODE_LINKED_FILE) {
+				continue
+			}
             attachmentPath = attachmentArray[index].attachmentPath;
             if (checkGlobal.value) {
                 attachmentArray[index].attachmentPath =
@@ -353,7 +359,14 @@ ZutiloChrome.zoteroOverlay = {
             var title = Zutilo._bundle.
                 formatStringFromName('zutilo.attachments.showTitle',
                 [index + 1, attachmentArray.length], 2);
-            prompts.alert(null, title, attachmentArray[index].attachmentPath);
+			var text
+			if (attachmentArray[index].attachmentLinkMode == 
+					Zotero.Attachments.LINK_MODE_LINKED_URL) {
+				text = attachmentArray[index].getField('url')
+			} else {
+				text = attachmentArray[index].attachmentPath
+			}
+            prompts.alert(null, title, text);
         }
         return true;
     },
