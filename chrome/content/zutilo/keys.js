@@ -167,15 +167,15 @@ keys.shortcuts.duplicateItem = function(win) {
 };
 
 keys.shortcuts.generateReport = function(win) {
-	var curElement = win.document.activeElement.id;
-	switch (curElement) {
-		case "zotero-collections-tree":
-			win.Zotero_Report_Interface.loadCollectionReport();
-			break;
-		case "zotero-items-tree":
-			win.Zotero_Report_Interface.loadItemReport();
-			break;
-	}
+    if (win.document.activeElement.id == "zotero-collections-tree") {
+            win.Zotero_Report_Interface.loadCollectionReport()
+    } else {
+        // "zotero-items-tree" whether it is the active element or not
+		let zitems = win.ZoteroPane.getSelectedItems()
+		if (zitems.length > 0) {
+			win.Zotero_Report_Interface.loadItemReport()
+		}
+    }
 };
 
 keys.shortcuts.focusZoteroCollectionsTree = function(win) {
