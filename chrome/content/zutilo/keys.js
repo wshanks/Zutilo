@@ -166,6 +166,18 @@ keys.shortcuts.duplicateItem = function(win) {
     win.ZoteroPane.duplicateSelectedItem();
 };
 
+keys.shortcuts.generateReport = function(win) {
+    if (win.document.activeElement.id == "zotero-collections-tree") {
+            win.Zotero_Report_Interface.loadCollectionReport()
+    } else {
+        // "zotero-items-tree" whether it is the active element or not
+		let zitems = win.ZoteroPane.getSelectedItems()
+		if (zitems.length > 0) {
+			win.Zotero_Report_Interface.loadItemReport()
+		}
+    }
+};
+
 keys.shortcuts.focusZoteroCollectionsTree = function(win) {
     win.ZutiloChrome.zoteroOverlay.
         updatePaneVisibility('zotero-collections', 'show');
