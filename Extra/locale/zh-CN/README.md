@@ -209,6 +209,12 @@ Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero
 * __从网页中提取 Zotero 项目：__
     根据当前网页的参考内容添加项目到 Zotero 库中(相当于点击 Firefox 中的页面/书本图标)。
     (函数名：`Zotero_Browser.scrapeThisPage()`)。
+* __Generate report:__
+    Generate Zotero report from selected items or collection.
+    In Zotero there are two functions (Function names: `Zotero_Report_Interface.loadCollectionReport()` and `Zotero_Report_Interface.loadItemReport()`).
+    Zutilo combines these into a single shortcut.
+    If the Collections pane has focus, a report is generated for the selected collection.
+    Otherwise, a report is generated for the currently selected items.
 
 ### 关于附件的注意事项 ###
 

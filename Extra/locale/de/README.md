@@ -209,6 +209,12 @@ Als Referenz, sind hier ein paar andere Funktionen Zoteros aufgeführt, für die
 * __Zotero Eintrag aus einer Webseite erstellen:__
     Fügt einen Eintrag in die Zotero-Bibliothek hinzu, der auf dem Referenz-Inhalt der aktuellen Webseite basiert (entspricht Klick auf die kleine Seite / Buch-Symbol in der Firefox-Adressleiste).
     (Name der Funktion: `Zotero_Browser.scrapeThisPage()`).
+* __Generate report:__
+    Generate Zotero report from selected items or collection.
+    In Zotero there are two functions (Function names: `Zotero_Report_Interface.loadCollectionReport()` and `Zotero_Report_Interface.loadItemReport()`).
+    Zutilo combines these into a single shortcut.
+    If the Collections pane has focus, a report is generated for the selected collection.
+    Otherwise, a report is generated for the currently selected items.
 
 ### Einige Anmerkungen über Anhänge ###
 

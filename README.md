@@ -209,6 +209,12 @@ For reference, here are a few other functions in Zotero that I have found it use
 * __Extract Zotero item from a webpage:__
     Adds an item to the Zotero library based on the reference content of the current webpage (equivalent to clicking on the little page/book icon in the Firefox address bar).
     (Function name: `Zotero_Browser.scrapeThisPage()`).
+* __Generate report:__
+    Generate Zotero report from selected items or collection.
+    In Zotero there are two functions (Function names: `Zotero_Report_Interface.loadCollectionReport()` and `Zotero_Report_Interface.loadItemReport()`).
+    Zutilo combines these into a single shortcut.
+    If the Collections pane has focus, a report is generated for the selected collection.
+    Otherwise, a report is generated for the currently selected items.
 
 ### A note about Zotero attachments ###
 
