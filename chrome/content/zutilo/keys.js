@@ -167,13 +167,14 @@ keys.shortcuts.duplicateItem = function(win) {
 };
 
 keys.shortcuts.generateReport = function(win) {
-    if (win.document.activeElement.id == "zotero-collections-tree") {
-            win.Zotero_Report_Interface.loadCollectionReport()
+	let context = win.ZoteroPane.document.defaultView
+    if (context.document.activeElement.id == "zotero-collections-tree") {
+            context.Zotero_Report_Interface.loadCollectionReport()
     } else {
         // "zotero-items-tree" whether it is the active element or not
 		let zitems = win.ZoteroPane.getSelectedItems()
 		if (zitems.length > 0) {
-			win.Zotero_Report_Interface.loadItemReport()
+			context.Zotero_Report_Interface.loadItemReport()
 		}
     }
 };
