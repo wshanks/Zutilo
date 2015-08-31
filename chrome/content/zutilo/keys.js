@@ -166,6 +166,13 @@ keys.shortcuts.duplicateItem = function(win) {
     win.ZoteroPane.duplicateSelectedItem();
 };
 
+keys.shortcuts.openStyleEditor = function(win) {
+var prefs_context = {}
+Services.scriptloader.loadSubScript('chrome://zotero/content/include.js', prefs_context) 
+Services.scriptloader.loadSubScript('chrome://zotero/content/preferences/preferences.js', prefs_context)
+prefs_context.Zotero_Preferences.openInViewer('chrome://zotero/content/tools/csledit.xul', true)
+}
+
 keys.shortcuts.generateReport = function(win) {
 	let context = win.ZoteroPane.document.defaultView
     if (context.document.activeElement.id == "zotero-collections-tree") {
