@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 'use strict';
-/* global gBrowser, window, document, Components */
+/* global gBrowser, window, document, Components, Services */
 /* global Zotero, ZoteroPane, Zotero_Browser */
 /* global Zutilo, ZutiloChrome, gKeys */
 
@@ -167,10 +167,14 @@ keys.shortcuts.duplicateItem = function(win) {
 };
 
 keys.shortcuts.openStyleEditor = function(win) {
-var prefs_context = {}
-Services.scriptloader.loadSubScript('chrome://zotero/content/include.js', prefs_context) 
-Services.scriptloader.loadSubScript('chrome://zotero/content/preferences/preferences.js', prefs_context)
-prefs_context.Zotero_Preferences.openInViewer('chrome://zotero/content/tools/csledit.xul', true)
+	var prefs_context = {}
+	Services.scriptloader.
+		loadSubScript('chrome://zotero/content/include.js', prefs_context) 
+	Services.scriptloader.
+		loadSubScript('chrome://zotero/content/preferences/preferences.js',
+					  prefs_context)
+	prefs_context.Zotero_Preferences.
+		openInViewer('chrome://zotero/content/tools/csledit.xul', true)
 }
 
 keys.shortcuts.generateReport = function(win) {
