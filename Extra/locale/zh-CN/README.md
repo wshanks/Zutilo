@@ -215,6 +215,8 @@ Zutilo 添加了一些功能来协助从 Firefox 页面中附加文档到 Zotero
     Zutilo combines these into a single shortcut.
     If the Collections pane has focus, a report is generated for the selected collection.
     Otherwise, a report is generated for the currently selected items.
+* __Open style editor:__
+    Open the style editor window (normally accessible from the advanced section of Zotero's preferences).
 
 ### 关于附件的注意事项 ###
 

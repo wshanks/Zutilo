@@ -215,6 +215,8 @@ Als Referenz, sind hier ein paar andere Funktionen Zoteros aufgeführt, für die
     Zutilo combines these into a single shortcut.
     If the Collections pane has focus, a report is generated for the selected collection.
     Otherwise, a report is generated for the currently selected items.
+* __Open style editor:__
+    Open the style editor window (normally accessible from the advanced section of Zotero's preferences).
 
 ### Einige Anmerkungen über Anhänge ###
 
