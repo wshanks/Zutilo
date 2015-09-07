@@ -262,15 +262,15 @@ if (Zutilo.appName == 'Firefox') {
     };
 
     keys.shortcuts.saveItemZutilo = function(win) {
-        win.ZutiloChrome.firefoxOverlay.scrapeThisPage()
+        win.ZutiloChrome.firefoxOverlay.scrapeThisPage('opposite')
     };
 
     keys.shortcuts.saveItemWithAttachments = function(win) {
-        win.ZutiloChrome.firefoxOverlay.scrapeThisPage(false, true)
+        win.ZutiloChrome.firefoxOverlay.scrapeThisPage('with')
     };
 
     keys.shortcuts.saveItemWithoutAttachments = function(win) {
-        win.ZutiloChrome.firefoxOverlay.scrapeThisPage(false, false)
+        win.ZutiloChrome.firefoxOverlay.scrapeThisPage('without')
     };
 
     /***********************************************/

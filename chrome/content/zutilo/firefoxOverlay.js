@@ -19,6 +19,8 @@ Components.utils.import('chrome://zutilo/content/zutilo.jsm');
 ZutiloChrome.firefoxOverlay = {
     warnedThisSession: false,
     cleanupQueue: [],
+    isScraping: false,
+    scrapeTimeout: null,
 
     init: function() {
         window.setTimeout(function() {
@@ -55,18 +57,8 @@ ZutiloChrome.firefoxOverlay = {
     // Load Firefox-specific overlay that is relevant only when Zotero is active
     /**************************************************************************/
     firefoxZoteroOverlay: function() {
-        this.scrapeQueue = {
-            count: 0,
-            currentFilesBool: undefined,
-            originalFilesBool: undefined
-        };
-
-        // The following functions are defined with jshint disabled
-        // jshint undef:false
-        this.scrapeThisPage = scrapeThisPage;
-        this.performTranslation = performTranslation;
-        // jshint undef:true
         this.refreshContentAreaContextMenu = refreshContentAreaContextMenu;
+        this.scrapeThisPage = scrapeThisPage
 
         setupStatusPopup();
         setupContentAreaContextMenu();
@@ -363,277 +355,111 @@ function statusPopupListener(e) {
 
     var popup = e.target;
 
+    // Get array of relevant status popup entries that correspond to normal
+    // translators which might download attachment items.
+    var translator_entries = []
+    for (let entry of popup.children) {
+        if (entry.tagName == 'menuseparator') {
+            break
+        } else {
+            translator_entries.push(entry)
+        }
+    }
+
+    // Ignore the last two entries before the first menuseparator because they
+    // are generic web page translators.
+    translator_entries.splice(translator_entries.length - 2, 2)
+    if (translator_entries.length === 0) {
+        return
+    }
+
+    // Add menu separator and new entries
     var menuSep = document.createElement('menuseparator');
     menuSep.setAttribute('id', 'zutilo-zoterostatuspopup-menusep');
     popup.appendChild(menuSep);
 
-    var prefFilesBool = Zotero.Prefs.get('downloadAssociatedFiles');
-    var labelEnd;
+    // New entries should have callbacks that call doCommand on existing
+    // entries and watch isScraping to change associated files preference
+    for (let entry of translator_entries) {
+        addStatusEntry(popup, entry)
+    }
+}
+
+function addStatusEntry(popup, entry) {
+    var labelEnd
     var strRoot = 'zutilo.pagescrape.statusPopup.'
-    if (prefFilesBool) {
+    if (Zotero.Prefs.get('downloadAssociatedFiles')) {
         labelEnd = ' ' + Zutilo._bundle.
-            GetStringFromName(strRoot + 'noAttachments');
+            GetStringFromName(strRoot + 'noAttachments')
     } else {
         labelEnd = ' ' + Zutilo._bundle.
-            GetStringFromName(strRoot + 'withAttachments');
+            GetStringFromName(strRoot + 'withAttachments')
     }
 
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-    // Disable jshint warning since it is disabled for _getTabOject definition
-    // jshint undef:false
-    var tab = _getTabObject(Zotero_Browser.tabbrowser.selectedBrowser);
-    // jshint undef:true
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
-    var translators = tab.page.translators;
-    for (var index = 0, n = translators.length; index < n; index++) {
-        let translator = translators[index];
+    var menuitem = document.createElement('menuitem')
+    var label = entry.label + labelEnd
+    menuitem.setAttribute('label', label)
+    menuitem.setAttribute('class', 'menuitem-iconic')
 
-        var menuitem = document.createElement('menuitem');
-        var label = Zotero.getString('ingester.saveToZoteroUsing',
-            translator.label) + labelEnd;
-        menuitem.setAttribute('label', label);
-        menuitem.setAttribute('image', (translator.itemType === 'multiple' ?
-            'chrome://zotero/skin/treesource-collection.png' :
-            Zotero.ItemTypes.getImageSrc(translator.itemType)));
-        menuitem.setAttribute('class', 'menuitem-iconic');
-        let listenerFunc
-        // jshint loopfunc:true
-        (function(translator, prefFilesBool) {
-            listenerFunc = function(e) {
-                ZutiloChrome.firefoxOverlay.scrapeThisPage(translator,
-                                                           !prefFilesBool);
-            }
-        }(translator, prefFilesBool))
-        // jshint loopfunc:false
-        menuitem.addEventListener('command', listenerFunc, false);
-        menuitem.setAttribute('id',
-                              'zutilo-zoterostatuspopup-item' + index);
-        popup.appendChild(menuitem);
-    }
+    menuitem.addEventListener('command',
+                              function(e) {
+                                  // Must stop propagation to prevent Zotero
+                                  // from also saving item with its default
+                                  // behavior
+                                  e.stopPropagation()
+                                  scrapeThisPage('opposite', entry)},
+                              false);
+    popup.appendChild(menuitem);
 }
 
-/* This function is a copy of _getTabObject() in Zotero's browser.js file.
- * It is defined
- * as a private function there and so can not be directly here.
- */
-// jscs:disable
-// jshint ignore:start
-function _getTabObject(browser) {
-    if(!browser) return false;
-    if(!browser.zoteroBrowserData) {
-        browser.zoteroBrowserData = new Zotero_Browser.Tab(browser);
-    }
-    return browser.zoteroBrowserData;
-}
-// jscs:enable
-// jshint ignore:end
-
-/*
-This function is a copy of Zotero_Browser.scrapeThisPage() in Zotero's
-browser.js file with extra blocks of code inserted to toggle Zotero's
-downloadAssociatedFiles preference if it does not match filesBool.  The
-added blocks of code are marked with preceding and following comments.
-*/
-// jscs: disable
-// jshint ignore:start
-function scrapeThisPage(translator, filesBool) {
-    // BEGIN ADDITION
-    var prefFilesBool = Zotero.Prefs.get('downloadAssociatedFiles');
-    if (filesBool !== true && filesBool !== false) {
-        filesBool = !prefFilesBool;
-    }
-    if (ZutiloChrome.firefoxOverlay.scrapeQueue.count > 0) {
-        // Don't allow mulitple scrapes at all right now because Zotero
-        // doesn't handle them.  When it does, add the condition below
-        /*
-        Don't allow multiple simultaneous instances of scrapeThisPage()
-        that involve a changed value for the downloadAssociatedFiels
-        preference.  Because translation is performed asynchronously,
-        multiple instances of scrapeThisPage() each setting the
-        downloadAssociatedFiles preference could produce erratic results
-        */
-        var strRoot = 'zutilo.pagescrape.multipleExecution.'
+function scrapeThisPage(filesBehavior, entry) {
+    // Don't allow simultaneous scraping
+    if (Zotero_Browser.isScraping) {
+        let strRoot = 'zutilo.pagescrape.multipleExecution.'
         Services.prompt.alert(null,
             Zutilo._bundle.
                 GetStringFromName(strRoot + 'title'),
             Zutilo._bundle.
-                GetStringFromName(strRoot + 'body'));
+                GetStringFromName(strRoot + 'body'))
         return
-    }
-    // END ADDITION
-    // Perform translation
-    var tab = _getTabObject(Zotero_Browser.tabbrowser.selectedBrowser);
-    if(tab.page.translators && tab.page.translators.length) {
-        tab.page.translate.setTranslator(translator || tab.page.translators[0]);
-        // BEGIN ADDITION
-        if (ZutiloChrome.firefoxOverlay.scrapeQueue.count === 0) {
-            ZutiloChrome.firefoxOverlay.scrapeQueue.originalFilesBool =
-                prefFilesBool;
-            ZutiloChrome.firefoxOverlay.scrapeQueue.currentFilesBool =
-                filesBool;
-            if (prefFilesBool != filesBool) {
-                Zotero.Prefs.set('downloadAssociatedFiles', filesBool);
-            }
-        }
-        ZutiloChrome.firefoxOverlay.scrapeQueue.count++;
+    } 
 
-        var doneHandler = function(obj, status) {
-            ZutiloChrome.firefoxOverlay.scrapeQueue.count--;
-            if (ZutiloChrome.firefoxOverlay.scrapeQueue.count === 0 &&
-                ZutiloChrome.firefoxOverlay.scrapeQueue.currentFilesBool !=
-                ZutiloChrome.firefoxOverlay.scrapeQueue.originalFilesBool) {
-                Zotero.Prefs.set('downloadAssociatedFiles',
-                    ZutiloChrome.firefoxOverlay.scrapeQueue.
-                        originalFilesBool);
-            }
-        };
-        // END ADDITION
-        // MODIFICATION: the following line uses modified version of
-        // performTranslation compared to the one called in browser.js
-        ZutiloChrome.firefoxOverlay.performTranslation(tab.page.translate,
-            undefined, undefined, doneHandler);
-    }
-}
-// jscs: enable
-// jshint ignore:end
-
-/*
-This function is a copy of Zotero_Browser.performTranslation() in Zotero's
-browser.js file with extra blocks of code inserted to allow for a second
-"done" handler to be set (performTranslation clears the done handlers
-internally, so the handler can not be passed in to Zotero's
-performTranslation()).
-*/
-// jscs:disable
-// jshint ignore:start
-function performTranslation(translate, libraryID, collection, doneHandler) {
-    if (Zotero.locked) {
-        Zotero_Browser.progress.changeHeadline(Zotero.getString("ingester.scrapeError"));
-        var desc = Zotero.localeJoin([
-            Zotero.getString('general.operationInProgress'),
-            Zotero.getString('general.operationInProgress.waitUntilFinishedAndTryAgain')
-        ]);
-        Zotero_Browser.progress.addDescription(desc);
-        Zotero_Browser.progress.show();
-        Zotero_Browser.progress.startCloseTimer(8000);
-        return;
+    // Default to default translator
+    if (typeof entry === 'undefined') {
+        entry = document.getElementById('zotero-toolbar-save-button')
     }
 
-    if (!Zotero.stateCheck()) {
-        Zotero_Browser.progress.changeHeadline(Zotero.getString("ingester.scrapeError"));
-        var desc = Zotero.getString("ingester.scrapeErrorDescription.previousError")
-            + ' ' + Zotero.getString("general.restartFirefoxAndTryAgain", Zotero.appName);
-        Zotero_Browser.progress.addDescription(desc);
-        Zotero_Browser.progress.show();
-        Zotero_Browser.progress.startCloseTimer(8000);
-        return;
-    }
-
-    Zotero_Browser.progress.show();
-    Zotero_Browser.isScraping = true;
-
-    // Get libraryID and collectionID
-    if(libraryID === undefined && ZoteroPane && !Zotero.isConnector) {
-        try {
-            if (!ZoteroPane.collectionsView.editable) {
-                Zotero_Browser.progress.changeHeadline(Zotero.getString("ingester.scrapeError"));
-                var desc = Zotero.getString('save.error.cannotMakeChangesToCollection');
-                Zotero_Browser.progress.addDescription(desc);
-                Zotero_Browser.progress.show();
-                Zotero_Browser.progress.startCloseTimer(8000);
-                return;
-            }
-
-            libraryID = ZoteroPane.getSelectedLibraryID();
-            collection = ZoteroPane.getSelectedCollection();
-        } catch(e) {}
-    }
-
-    if(Zotero.isConnector) {
-        Zotero.Connector.callMethod("getSelectedCollection", {}, function(response, status) {
-            if(status !== 200) {
-                Zotero_Browser.progress.changeHeadline(Zotero.getString("ingester.scraping"));
-            } else {
-                Zotero_Browser.progress.changeHeadline(Zotero.getString("ingester.scrapingTo"),
-                    "chrome://zotero/skin/treesource-"+(response.id ? "collection" : "library")+".png",
-                    response.name+"\u2026");
-            }
-        });
+    // Flip associated files pref
+    let filesBool = Zotero.Prefs.get('downloadAssociatedFiles')
+    if (filesBehavior == 'with') {
+        Zotero.Prefs.set('downloadAssociatedFiles', true)
+    } else if (filesBehavior == 'without') {
+        Zotero.Prefs.set('downloadAssociatedFiles', false)
     } else {
-        var name;
-        if(collection) {
-            name = collection.name;
-        } else if(libraryID) {
-            name = Zotero.Libraries.getName(libraryID);
-        } else {
-            name = Zotero.getString("pane.collections.library");
-        }
-
-        Zotero_Browser.progress.changeHeadline(Zotero.getString("ingester.scrapingTo"),
-            "chrome://zotero/skin/treesource-"+(collection ? "collection" : "library")+".png",
-            name+"\u2026");
+        // opposite
+        Zotero.Prefs.set('downloadAssociatedFiles', !filesBool)
     }
 
-    translate.clearHandlers("done");
-    translate.clearHandlers("itemDone");
+    // Define clean up actions to restore previous state after scraping
+    function cleanupScraping() {
+        Zotero.Prefs.set('downloadAssociatedFiles', filesBool)
+        Zotero_Browser.unwatch('isScraping')
+        ZutiloChrome.firefoxOverlay.isScraping = false
+        window.clearTimeout(ZutiloChrome.firefoxOverlay.scrapeTimeout)
+    }
 
-    translate.setHandler("done", function(obj, returnValue) {
-        if(!returnValue) {
-            Zotero_Browser.progress.show();
-            Zotero_Browser.progress.changeHeadline(Zotero.getString("ingester.scrapeError"));
-            // Include link to Known Translator Issues page
-            var url = "http://www.zotero.org/documentation/known_translator_issues";
-            var linkText = '<a href="' + url + '" tooltiptext="' + url + '">'
-                + Zotero.getString('ingester.scrapeErrorDescription.linkText') + '</a>';
-            Zotero_Browser.progress.addDescription(Zotero.getString("ingester.scrapeErrorDescription", linkText));
-            Zotero_Browser.progress.startCloseTimer(8000);
-        } else {
-            Zotero_Browser.progress.startCloseTimer();
+    // Watch for end of scraping so that clean up can be done
+    Zotero_Browser.watch('isScraping', function(id, oldval, newval) {
+        if (newval === false) {
+            cleanupScraping()
         }
-        Zotero_Browser.isScraping = false;
-    });
+    })
 
-    // BEGIN ADDITION
-    translate.setHandler('done', doneHandler);
-    // END ADDITION
+    // Set timer to clean up if watch never triggers (due to some failure)
+    ZutiloChrome.firefoxOverlay.scrapeTimeout =
+        window.setTimeout(cleanupScraping, 60000)
 
-    var attachmentsMap = new WeakMap();
-
-    translate.setHandler("itemDone", function(obj, dbItem, item) {
-        Zotero_Browser.progress.show();
-        var itemProgress = new Zotero_Browser.progress.ItemProgress(Zotero.ItemTypes.getImageSrc(item.itemType),
-            item.title);
-        itemProgress.setProgress(100);
-        for(var i = 0; i < item.attachments.length; i++) {
-            var attachment = item.attachments[i];
-            attachmentsMap.set(attachment,
-                new Zotero_Browser.progress.ItemProgress(
-                    Zotero.Utilities.determineAttachmentIcon(attachment),
-                    attachment.title, itemProgress));
-        }
-
-        // add item to collection, if one was specified
-        if(collection) {
-            collection.addItem(dbItem.id);
-        }
-    });
-
-    translate.setHandler("attachmentProgress", function(obj, attachment, progress, error) {
-        var itemProgress = attachmentsMap.get(attachment);
-        //MODIFICATION: the following line was added to hack around a bug in Zotero
-        if (!itemProgress) return
-        if(progress === false) {
-            itemProgress.setError();
-        } else {
-            itemProgress.setProgress(progress);
-            if(progress === 100) {
-                itemProgress.setIcon(Zotero.Utilities.determineAttachmentIcon(attachment));
-            }
-        }
-    });
-
-    translate.translate(libraryID);
+    // Start translation
+    ZutiloChrome.firefoxOverlay.isScraping = true
+    entry.doCommand()
 }
-// jscs: enable
-// jshint ignore:end
-
