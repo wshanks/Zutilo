@@ -398,6 +398,26 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
+	copyItems_alt1: function() {
+		var pref = 'export.quickCopy.setting'
+		var origSetting = Zotero.Prefs.get(pref)
+		var newSetting = Zutilo.Prefs.get('quickCopy_alt1')
+		Zotero.Prefs.set(pref, newSetting)
+		ZoteroPane.copySelectedItemsToClipboard(false)
+		Zotero.Prefs.set(pref, origSetting)
+		return true
+	},
+
+	copyItems_alt2: function() {
+		var pref = 'export.quickCopy.setting'
+		var origSetting = Zotero.Prefs.get(pref)
+		var newSetting = Zutilo.Prefs.get('quickCopy_alt2')
+		Zotero.Prefs.set(pref, newSetting)
+		ZoteroPane.copySelectedItemsToClipboard(false)
+		Zotero.Prefs.set(pref, origSetting)
+		return true
+	},
+
     copyZoteroSelectLink: function() {
         var zitems = this.getSelectedItems();
         var links = [];

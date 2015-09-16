@@ -28,6 +28,7 @@ var Zutilo = {
     // menu
     _itemmenuFunctions: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
         'showAttachments', 'modifyAttachments', 'copyCreators', 'copyItems',
+		'copyItems_alt1', 'copyItems_alt2',
         'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
         'createBookItem', 'copyChildIDs', 'relocateChildren'],
     ffcacmFunctions: [
@@ -262,6 +263,9 @@ Zutilo.Prefs = {
             defaults.setCharPref('shortcut.' + keyLabel,
                 JSON.stringify({modifiers: '', key: '', keycode: ''}));
         }
+		// Alternative QuickCopy translators
+		defaults.setCharPref('quickCopy_alt1', '')
+		defaults.setCharPref('quickCopy_alt2', '')
         // Other preferences
         defaults.setCharPref('attachLinkAppearance', 'Zotero');
         defaults.setCharPref('attachmentImportProcessType', 'Zotero');

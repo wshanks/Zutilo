@@ -86,6 +86,12 @@ keys.shortcuts.modifyAttachments = function(win) {
 keys.shortcuts.copyItems = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyItems()
 };
+keys.shortcuts.copyItems_alt1 = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyItems_alt1()
+};
+keys.shortcuts.copyItems_alt2 = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyItems_alt2()
+};
 keys.shortcuts.copyZoteroSelectLink = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyZoteroSelectLink()
 };

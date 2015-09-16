@@ -64,6 +64,13 @@ Zutilo 目前不提供原生的键盘快捷键(未来的更新可能会提供键
     设置所有选中的项目相互关联。
     (函数名：`ZutiloChrome.zoteroOverlay.relateItems()`)。
 
+* __QuickCopy items:__
+	Copy selected items to the clipboard using the "Default output format" specified in the "Export" section of Zotero's preferences.
+	There are also two alternative QuickCopy items (labeled "alt 1" and "alt 2").
+	These items will copy to the clipboard using alternative export translators.
+	To select the translators used by these functions, the corresponding preferences `extensions.zutilo.quickcopy_alt1` and `extensions.zutilo.quickcopy_alt2` must be set in `about:config`.
+	Each preference should be set to whatever appears in `about:config` for the `export.quickCopy.setting` preference when the desired translator is set as the "Default output format" in Zotero's preferences.
+
 * __Copy select item links:__
 	Copy links of the form "zotero://select/items/ITEM_ID" to the clipboard for each selected item.
 	Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin.
