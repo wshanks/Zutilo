@@ -388,6 +388,7 @@ ZutiloChrome.zoteroOverlay = {
                     zitems[ii].addRelatedItem(ids[jj]);
                 }
             }
+			zitems[ii].save()
         }
 
         return true;
