@@ -352,7 +352,9 @@ les demandes de fonctionnalités peuvent être envoyées de cette façon.
 .
 .
 
-* In version 1.2.11:
+* In version 1.3.0:
+
+  - New features
 
 	1. New shortcuts/menu items:
 		- Copy Zotero select link
@@ -360,6 +362,19 @@ les demandes de fonctionnalités peuvent être envoyées de cette façon.
 	2. New shortcuts:
 		- Focus collections, items pane, and various item pane tabs
 		- Attachments: recognize PDF, create parent item, and rename from parent
+		- Toggle visiblity of collections and item pane
+	3. New remove tags function
+	4. Create book item from book section item and vice versa
+	5. Move notes/attachments from one item to another
+
+  - Bugfixes
+
+	1. Fix bug in relating items 
+	2. Fix item saving toolbar menu items and keyboard shortcuts 
+	3. Minor fix for handling different attachment types correctly. 
+	4. Preferences window bug fix
+	5. Update the Save to Zotero menupopup items to work with the new Zotero / Save to Zotero combo button.
+	6. Allow the duplicate item shortcut to work in Zotero Standalone.
 
 . 
 
@@ -388,4 +403,5 @@ les demandes de fonctionnalités peuvent être envoyées de cette façon.
 .
 .
 .
+Patches submitted by bjohas, bwiernik, and gracile-fr via GitHub.
 Aide à la traduction fournie par Goofy de BabelZilla.

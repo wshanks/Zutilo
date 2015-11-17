@@ -352,7 +352,9 @@ Dieser Abschnitt ist kein vollständiges Protokoll aller Änderungen an Zutilo.
 Es enthält nur die größeren Änderungen der Funktionalität oder zusätzlichen Features.
 Wenn bei einem Upgrade von Zutilo Probleme auftauchen, versuchen Sie in diesem Abschnitt nach einer Erklärung zu suchen.
 
-* In version 1.2.11:
+* In version 1.3.0:
+
+  - New features
 
 	1. New shortcuts/menu items:
 		- Copy Zotero select link
@@ -360,6 +362,19 @@ Wenn bei einem Upgrade von Zutilo Probleme auftauchen, versuchen Sie in diesem A
 	2. New shortcuts:
 		- Focus collections, items pane, and various item pane tabs
 		- Attachments: recognize PDF, create parent item, and rename from parent
+		- Toggle visiblity of collections and item pane
+	3. New remove tags function
+	4. Create book item from book section item and vice versa
+	5. Move notes/attachments from one item to another
+
+  - Bugfixes
+
+	1. Fix bug in relating items 
+	2. Fix item saving toolbar menu items and keyboard shortcuts 
+	3. Minor fix for handling different attachment types correctly. 
+	4. Preferences window bug fix
+	5. Update the Save to Zotero menupopup items to work with the new Zotero / Save to Zotero combo button.
+	6. Allow the duplicate item shortcut to work in Zotero Standalone.
 
 * In Version 1.2.5: 
 
@@ -388,4 +403,5 @@ Credits
 Zutilo basiert auf dem Firefox-Erweiterungs Format [XUL Schule Tutorial](https://developer.mozilla.org/en-US/docs/XUL_School).
 Darüber hinaus wurden Beispiele aus der [Mozilla Developer Network](https://developer.mozilla.org/) Dokumentation und dem Zotero Quellcode übernommen.
 Bei der Übersetzung dieser Dokumentation ins Deutsche wurde der ursprüngliche Text des Entwicklers Will Shanks von Armin Stroß-Radschinski redigiert und überarbeitet.
+Patches submitted by bjohas, bwiernik, and gracile-fr via GitHub.
 Das HTML der ersten deutschen Übersetzung aus [BabelZilla](www.babelzilla.org) wurde von ihm mithilfe von [pandoc](http://johnmacfarlane.net/pandoc/) wieder in markdown mit Einzelzeilen zurückübersetzt.

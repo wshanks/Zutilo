@@ -352,7 +352,9 @@ This section is not a complete log of changes to Zutilo.
 It will include any major changes to Zutilo's functionality or added features.
 If something breaks on an upgrade of Zutilo, try looking in this section for an explanation.
 
-* In version 1.2.11:
+* In version 1.3.0:
+
+  - New features
 
 	1. New shortcuts/menu items:
 		- Copy Zotero select link
@@ -360,6 +362,19 @@ If something breaks on an upgrade of Zutilo, try looking in this section for an 
 	2. New shortcuts:
 		- Focus collections, items pane, and various item pane tabs
 		- Attachments: recognize PDF, create parent item, and rename from parent
+		- Toggle visiblity of collections and item pane
+	3. New remove tags function
+	4. Create book item from book section item and vice versa
+	5. Move notes/attachments from one item to another
+
+  - Bugfixes
+
+	1. Fix bug in relating items 
+	2. Fix item saving toolbar menu items and keyboard shortcuts 
+	3. Minor fix for handling different attachment types correctly. 
+	4. Preferences window bug fix
+	5. Update the Save to Zotero menupopup items to work with the new Zotero / Save to Zotero combo button.
+	6. Allow the duplicate item shortcut to work in Zotero Standalone.
 
 * In version 1.2.5: 
 
@@ -388,4 +403,5 @@ Credits
 Zutilo is modeled on the Firefox extension format suggested in the [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School).
 Additionally, examples were taken from the [Mozilla Developer Network](https://developer.mozilla.org/) documentation and the Zotero source code.
 It's shortcut features were modeled on those implemented by [Keyconfig extension](http://forums.mozillazine.org/viewtopic.php?t=72994).
+Patches submitted by bjohas, bwiernik, and gracile-fr via GitHub.
 Translation support was provided by Armin Stroß-Radschinski, Goofy, Urko, and Wang H. K. on BabelZilla.

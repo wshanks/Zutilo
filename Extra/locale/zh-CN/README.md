@@ -352,7 +352,9 @@ Zutilo 重要更新日志
 它包含 Zutilo 的所有重大更新或者添加功能。
 如果在某个升级的 Zutilo 中某个功能失效，请查看此部分的解释。
 
-* In version 1.2.11:
+* In version 1.3.0:
+
+  - New features
 
 	1. New shortcuts/menu items:
 		- Copy Zotero select link
@@ -360,6 +362,19 @@ Zutilo 重要更新日志
 	2. New shortcuts:
 		- Focus collections, items pane, and various item pane tabs
 		- Attachments: recognize PDF, create parent item, and rename from parent
+		- Toggle visiblity of collections and item pane
+	3. New remove tags function
+	4. Create book item from book section item and vice versa
+	5. Move notes/attachments from one item to another
+
+  - Bugfixes
+
+	1. Fix bug in relating items 
+	2. Fix item saving toolbar menu items and keyboard shortcuts 
+	3. Minor fix for handling different attachment types correctly. 
+	4. Preferences window bug fix
+	5. Update the Save to Zotero menupopup items to work with the new Zotero / Save to Zotero combo button.
+	6. Allow the duplicate item shortcut to work in Zotero Standalone.
 
 * 
 
@@ -388,4 +403,5 @@ Credits
 Zutilo 基于和模仿了 [XUL School tutorial](https://developer.mozilla.org/en-US/docs/XUL_School) 中介绍的 Firefox 扩展结构。
 另 y elige la opción "Instalar Add-on desde archivo".例子来自于 [Mozilla Developer Network](https://developer.mozilla.org/) 文档和 Zotero 的源代码。
 .
+Patches submitted by bjohas, bwiernik, and gracile-fr via GitHub.
 .
