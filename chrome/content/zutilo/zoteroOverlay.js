@@ -753,7 +753,7 @@ ZutiloChrome.zoteroOverlay = {
         // extension
         key.setAttribute('label', 'Zutilo: ' + Zutilo.keys.keyName(keyLabel));
         // key.setAttribute('command', 'zutilo-keyset-command');
-        key.setAttribute('oncommand', '//');
+        key.setAttribute('=oncommand'.replace('=', ''), '//');
         key.addEventListener('command',
             function() {
                 Zutilo.keys.shortcuts[keyLabel](window);
