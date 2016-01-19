@@ -164,6 +164,20 @@ keys.shortcuts.renameSelectedAttachmentsFromParents  = function(win) {
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 
+keys.shortcuts.attachURI = function(win) {
+    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
+	var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
+	win.ZoteroPane_Local.addAttachmentFromURI(true, itemID)
+    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
+}
+
+keys.shortcuts.attachStoredFile = function(win) {
+    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
+	var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
+	win.ZoteroPane_Local.addAttachmentFromDialog(false, itemID)
+    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
+}
+
 /***********************************************/
 // Zotero functions (i.e. not Zutilo functions)
 // Focus selection
