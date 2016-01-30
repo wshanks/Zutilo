@@ -62,19 +62,19 @@ Whether the attachment files are imported to Zotero or downloaded and linked to 
 
 ## Usage notes
 
-For additional notes on usage, see [USAGE](USAGE.md).
+For additional notes on usage, see [USAGE](docs/USAGE.md).
 
 ## Command reference
 
-For a detailed list of Zutilo's commands, please see the [command reference](COMMANDS.md).
+For a detailed list of Zutilo's commands, please see the [command reference](docs/COMMANDS.md).
 
 ## Support
 
-For guidelines regarding bug reports, feature requests, and translation help, please see the [feedback page](BUGS.md).
+For guidelines regarding bug reports, feature requests, and translation help, please see the [feedback page](docs/BUGS.md).
 
 ## Development
 
-For notes on working with the Zutilo code, please see the [build document](BUILD.md).
+For notes on working with the Zutilo code, please see the [build document](docs/DEVELOPERS.md).
 
 ## Credits
 
