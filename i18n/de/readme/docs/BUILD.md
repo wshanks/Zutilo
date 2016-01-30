@@ -1,3 +1,7 @@
+To build the Zutilo `.xpi` file from the source directory, run the `bash` script `Extra/scripts/build.sh`.
+The script requires `bash`, `pandoc`, and `zip`.
+The script also calls a Python script to generate readme files for (addons.mozilla.org), but the Python script can fail without affecting the `.xpi` file.
+
 Here is a quick overview of Zutilo's utility scripts:
 
 * updateREADME.sh
