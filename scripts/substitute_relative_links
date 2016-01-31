@@ -8,23 +8,37 @@ import re
 def main():
     '''Main logic'''
     parser = argparse.ArgumentParser('Replace relative links in a markdown '
-                                     'file with their content')
+                                     'file with the content of their targets')
     parser.add_argument('input', help='Input markdown file')
     parser.add_argument('output', help='Output markdown file')
+    parser.add_argument('--link-root', help=('Make links into absolute links '
+                                             'using this root, instead of '
+                                             'replacing links with the content'
+                                             'of their targets'))
     args = parser.parse_args()
 
     link_re = re.compile(r'\[..*\]\((.*\.md)\)')
-    root = os.path.dirname(os.path.abspath(args.input))
+    input_root = os.path.dirname(os.path.abspath(args.input))
 
     with open(args.input, 'r') as f_in, open(args.output, 'w') as f_out:
         for line in f_in:
             match = link_re.search(line)
             if match:
-                with open(os.path.join(root, match.group(1)), 'r') as f_link:
-                    for link_line in f_link:
-                        f_out.write(link_line)
+                handle_link(line=line, link=match.group(1), f_out=f_out,
+                            link_root=args.link_root, input_root=input_root)
             else:
                 f_out.write(line)
+
+
+def handle_link(line, link, f_out, link_root, input_root):
+    '''Process the line with a relative link'''
+    if link_root:
+        line = line.replace(link, os.path.join(link_root, link))
+        f_out.write(line)
+    else:
+        with open(os.path.join(input_root, link), 'r') as f_link:
+            for link_line in f_link:
+                f_out.write(link_line)
 
 
 if __name__ == '__main__':
