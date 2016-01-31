@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+'''Replace relative links in a markdown file with their content'''
+import argparse
+import os
+import re
+
+
+def main():
+    '''Main logic'''
+    parser = argparse.ArgumentParser('Replace relative links in a markdown '
+                                     'file with their content')
+    parser.add_argument('input', help='Input markdown file')
+    parser.add_argument('output', help='Output markdown file')
+    args = parser.parse_args()
+
+    link_re = re.compile(r'\[..*\]\((.*\.md)\)')
+    root = os.path.dirname(os.path.abspath(args.input))
+
+    with open(args.input, 'r') as f_in, open(args.output, 'w') as f_out:
+        for line in f_in:
+            match = link_re.search(line)
+            if match:
+                with open(os.path.join(root, match.group(1)), 'r') as f_link:
+                    for link_line in f_link:
+                        f_out.write(link_line)
+            else:
+                f_out.write(line)
+
+
+if __name__ == '__main__':
+    main()
