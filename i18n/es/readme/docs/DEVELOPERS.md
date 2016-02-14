@@ -1,20 +1,49 @@
-To build the Zutilo `.xpi` file from the source directory, run the `bash` script `Extra/scripts/build.sh`.
-The script requires `bash`, `pandoc`, and `zip`.
-The script also calls a Python script to generate readme files for (addons.mozilla.org), but the Python script can fail without affecting the `.xpi` file.
+### Building Zutilo
+To build the Zutilo `xpi` file, run `make` in the top level of the repository.
+This command creates `build/zutilo.xpi`.
+In order to build Zutilo, the following programs are needed:
 
-Here is a quick overview of Zutilo's utility scripts:
+* zip
+* pandoc
+* python (version 3)
+* GNU coreutils (need make and sed to work)
 
-* updateREADME.sh
-Copies `README.md` from the root directory to the `Extra/locale/en-US` directory and then converts `README.md` to html for each locale and moves that html file into the appropriate locale subdirectory of `chrome/locale`.
+As a quick work around, you can just zip everything in the `addon/` folder and name it `zutilo.xpi`.
+The `make` machinery is mainly used for converting the README files from `markdown` to `html` and including them in the `xpi` file, but for testing you can just ignore the README file.
 
-* zipCommand.sh
-Generate the zutilo.xpi file by zipping all of the necessary files together.
+### Overview of Zutilo codebase
+Most of the Zutilo logic is contained in the files in `addon/chrome/content/zutilo`.
+The highlights are:
 
-* AMO_README.py
-Generates stripped down versions of README.html for each locale by removing the tags not allowed in add-on descriptions on (addons.mozilla.org) and saves these html files in `Extra/AMO`.
+* `zutilo.jsm`
+  - `addon/bootstrap.js` loads this file when Zutilo starts up and it handles the rest of the Zutilo setup.
+  - This file defines the `Zutilo` module.
+  - The `Zutilo` module contains properties about Zutilo that are window independent.
+  - The `Zutilo` module creates observers and listeners for loading the rest of the Zutilo code into each window.
 
-* build.sh
-Runs `updateREADME.sh`, `zipCommand.sh`, and `AMO_README.py`.
+* `zutiloChrome.js`
+  - Contains some basic UI element helper functions unrelated to specific Zutilo features
 
-* Add_external_locale_files.py, Remove_external_locale_files.py
-These files copy and delete the files in `Extra/locale` from the corresponding locale directories in `chrome/locale`. These files are localized strings related to Zutilo that do not get packaged in the add-on itself (e.g. the markdown version of the README file and the captions for the figures on (addons.mozilla.org)). These scripts are useful for submitting the add-on for translation on [BabelZilla](www.babelzilla.org) which only accepts the XPI file of the add-on and then parses it for the localized portion to present the strings to translators.
+* `zoteroOverlay.js`
+  - Contains all of the functions that extend Zotero's UI and all of the Zutilo defined functions that interact with Zotero data
+
+* `firefoxOverlay.js`
+  - Contains all of the functions that are specific to the Firefox version of Zotero (e.g. functions that interact with the browser content)
+
+* `keys.js`
+  - Defines all of Zutilo's keyboard shortcut functions
+  - To define a new shortcut:
+	1. Create a new method of `keys.shortcuts` that is a function of a `window` object.
+	2. Create a new entry in `addon/chrome/locale/en-US/zutilo/zutilo.properties` for `zutilo.shortcuts.name.<method_name>` where `<method_name>` is the method name used in step 1 (technically, you should create this entry for all other locales as well).
+
+* `keyconfig_adapted.js`
+  - Code adapted from the KeyConfig extension for setting up Zutilo's keyboard shortcuts
+
+* `preferences.js`
+  - Code for populating the preferences window dynamically
+
+* `preferences.xul`
+  - Static layout for the preferences window.
+
+The other relevant content of the addon are the `zutilo.properties` and `zutilo.dtd` files which contain the dynamically and statically loaded UI strings for Zutilo.
+These are located in the various different locale folders under `addon/chrome/locale`.
