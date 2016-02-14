@@ -2,6 +2,8 @@
 '''Copy new, uncommitted strings from English to non-English locales in lieu of
 getting translations'''
 
+from glob import iglob
+from itertools import chain
 import os
 # NOTE: requires Python >= 3.5
 from subprocess import run, PIPE
@@ -20,7 +22,7 @@ def update_locales(changed_file, path_template):
     if diff == '':
         return
 
-    locales = [d for d in os.listdir('chrome/locale') if d != 'en-US']
+    locales = [d for d in os.listdir('addon/chrome/locale') if d != 'en-US']
 
     for loc in locales:
         run(['patch', '-F', '4', path_template.format(locale=loc)],
@@ -37,8 +39,11 @@ def main():
                  universal_newlines=True, stdout=PIPE)
     os.chdir(result.stdout.strip())
 
-    update_locales('README.md', 'Extra/locale/{locale}/README.md')
-    update_locales('chrome/locale/en-US/zutilo/zutilo.properties',
-                   'chrome/locale/{locale}/zutilo/zutilo.properties')
+    for doc in chain(iglob('*.md'), iglob('docs/*.md')):
+        update_locales(doc, os.path.join('i18n/{locale}/readme/', doc))
+    update_locales('addon/chrome/locale/en-US/zutilo/zutilo.properties',
+                   'addon/chrome/locale/{locale}/zutilo/zutilo.properties')
+    update_locales('addon/chrome/locale/en-US/zutilo/zutilo.dtd',
+                   'addon/chrome/locale/{locale}/zutilo/zutilo.dtd')
 
 main()
