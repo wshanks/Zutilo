@@ -38,6 +38,7 @@
 
 <!ENTITY zutilo.preferences.shortcuts "Raccourcis-clavier">
 <!ENTITY zutilo.preferences.shortcuts.labels "Nom">
+<!ENTITY zutilo.preferences.shortcuts.categories "Category">
 <!ENTITY zutilo.preferences.shortcuts.keys "Raccourci">
 <!ENTITY zutilo.preferences.shortcuts.apply "Appliquer">
 <!ENTITY zutilo.preferences.shortcuts.disable "Désactiver">

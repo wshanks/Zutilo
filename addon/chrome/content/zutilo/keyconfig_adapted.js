@@ -377,6 +377,11 @@ sorter['shortcut-name'] = function(a, b) {
     var bName = Zutilo.keys.keyName(b);
     return aName.localeCompare(bName);
 };
+sorter['shortcut-category'] = function(a, b) {
+    var aName = Zutilo.keys.categoryName(Zutilo.keys.categories[a]);
+    var bName = Zutilo.keys.categoryName(Zutilo.keys.categories[b]);
+    return aName.localeCompare(bName);
+};
 sorter['shortcut-value'] = function(a, b) {
     var aShortcut = getFormattedKey(a);
     var bShortcut = getFormattedKey(b);
@@ -401,9 +406,11 @@ var keyView = {
         switch (col.id) {
             case 'shortcut-name':
                 return Zutilo.keys.keyName(gKeys[row])
-            // case 'shortcut-value':
-            default:
+            case 'shortcut-value':
                 return getFormattedKey(gKeys[row])
+			case 'shortcut-category':
+				return Zutilo.keys.categoryName(
+					Zutilo.keys.categories[gKeys[row]])
         }
     },
     setTree: function(treebox) {

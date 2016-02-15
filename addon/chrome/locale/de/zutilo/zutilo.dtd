@@ -38,6 +38,7 @@
 
 <!ENTITY zutilo.preferences.shortcuts "Tastenkombinationen">
 <!ENTITY zutilo.preferences.shortcuts.labels "Name">
+<!ENTITY zutilo.preferences.shortcuts.categories "Category">
 <!ENTITY zutilo.preferences.shortcuts.keys "Tastenkombination">
 <!ENTITY zutilo.preferences.shortcuts.apply "Übernehmen">
 <!ENTITY zutilo.preferences.shortcuts.disable "Deaktivieren">

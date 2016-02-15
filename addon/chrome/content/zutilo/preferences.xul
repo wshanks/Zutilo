@@ -154,6 +154,11 @@
 						flex="1" sortDirection="ascending" sortActive="true"
 						persist="width,ordinal,sortDirection,sortActive,hidden"/>
 					<splitter class="tree-splitter"/>
+					<treecol id="shortcut-category" 
+						label="&zutilo.preferences.shortcuts.categories;" 
+						flex="1" 
+						persist="width,ordinal,sortDirection,sortActive,hidden"/>
+					<splitter class="tree-splitter"/>
 					<treecol id="shortcut-value" 
 						label="&zutilo.preferences.shortcuts.keys;" 
 						flex="1" 

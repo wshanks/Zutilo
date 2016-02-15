@@ -38,6 +38,7 @@
 
 <!ENTITY zutilo.preferences.shortcuts "Combinacíones">
 <!ENTITY zutilo.preferences.shortcuts.labels "Nombre">
+<!ENTITY zutilo.preferences.shortcuts.categories "Category">
 <!ENTITY zutilo.preferences.shortcuts.keys "Combinacíon">
 <!ENTITY zutilo.preferences.shortcuts.apply "Aplicar">
 <!ENTITY zutilo.preferences.shortcuts.disable "Deshabilitar">

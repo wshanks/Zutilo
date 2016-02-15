@@ -38,6 +38,7 @@
 
 <!ENTITY zutilo.preferences.shortcuts "Shortcuts">
 <!ENTITY zutilo.preferences.shortcuts.labels "Name">
+<!ENTITY zutilo.preferences.shortcuts.categories "Category">
 <!ENTITY zutilo.preferences.shortcuts.keys "Shortcut">
 <!ENTITY zutilo.preferences.shortcuts.apply "Apply">
 <!ENTITY zutilo.preferences.shortcuts.disable "Disable">
