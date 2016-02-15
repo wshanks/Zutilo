@@ -253,10 +253,14 @@ Zutilo.Prefs = {
         var defaults = Services.prefs.getDefaultBranch('extensions.zutilo.');
 
         // Preferences for _itemmenuFunctions
-        for (var index = 0;index < Zutilo._itemmenuFunctions.length;index++) {
-            defaults.setCharPref('itemmenu.' + Zutilo._itemmenuFunctions[index],
-                                 'Zutilo');
-        }
+		for (let func of Zutilo._itemmenuFunctions) {
+			let pref = 'Hide'
+			if (['copyTags', 'pasteTags', 'relateItems',
+				 'copyItems'].indexOf(func) >= 0) {
+				pref = 'Zutilo'
+			}
+			defaults.setCharPref('itemmenu.' + func, pref)
+		}
         // Preferences for _shortcuts
         // switch to loading shortcuts script and looping on shortcuts object
         for (var keyLabel in Zutilo.keys.shortcuts) {
