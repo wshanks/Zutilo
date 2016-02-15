@@ -1,3 +1,9 @@
+* In version 1.4.0:
+
+    1. Shortcuts for attaching stored files and URI links
+    2. Sort shortcuts by category
+    3. Hide most item menu functions by default
+
 * In version 1.3.0:
 
   - New features
