@@ -28,7 +28,7 @@ amo_readme: $(AMO_READMES)
 $(BLDDIR)/amo_readme/%/README.html:
 	@mkdir -p $(dir $@)
 	scripts/substitute_relative_links \
-		--link-root https://www.github.com/willsALMANJ/Zutilo/i18n/$*/readme \
+		--link-root https://www.github.com/willsALMANJ/Zutilo/blob/master/i18n/$*/readme \
 		i18n/$*/readme/README.md \
 		$(BLDDIR)/amo_readme/$*/README.md
 	pandoc -f markdown_strict -t html \
