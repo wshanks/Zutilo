@@ -37,7 +37,6 @@ ZutiloChrome.firefoxOverlay = {
     },
 
     unload: function() {
-        this.cleanupStatusPopup();
         for (var index = 0; index < this.cleanupQueue.length; index++) {
             this.cleanupQueue[index]();
         }
