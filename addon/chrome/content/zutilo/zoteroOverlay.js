@@ -78,11 +78,16 @@ ZutiloChrome.zoteroOverlay = {
 
         // Select tag tab of item pane
         var tabIndex = 2;
-        var zoteroViewTabbox =
-            ZoteroPane.document.getElementById('zotero-view-tabbox');
-        zoteroViewTabbox.selectedIndex = tabIndex;
+		ZoteroPane.document.getElementById('zotero-view-tabbox').
+			tabs.selectedIndex = tabIndex
         // Focus new tag entry textbox
-        ZoteroPane.document.getElementById('zotero-editpane-tags').new();
+        let tagPane =
+			ZoteroPane.document.getElementById('zotero-editpane-tags')
+		if (tagPane._tagColors === undefined) {
+			window.setTimeout(function() {tagPane.new()}, 200)
+		} else {
+			tagPane.new()
+		}
 
         return true;
     },
