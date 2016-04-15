@@ -1,0 +1,6 @@
+{
+  "libs": [
+    "browser",
+    "ecma6"
+  ]
+}
