@@ -4,6 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 'use strict'
 /* global gBrowser, window, document, AddonManager, Components, Services */
+/* global CustomizableUI */
 
 var EXPORTED_SYMBOLS = ['Zutilo'];
 
@@ -11,6 +12,7 @@ var Cc = Components.classes
 var Ci = Components.interfaces
 var Cu = Components.utils
 Cu.import('resource://gre/modules/AddonManager.jsm');
+Cu.import('resource:///modules/CustomizableUI.jsm')
 Cu.import('resource://gre/modules/Services.jsm');
 
 /**
@@ -22,6 +24,7 @@ var Zutilo = {
     /********************************************/
     id: 'zutilo@www.wesailatdawn.com',
     zoteroID: 'zotero@chnm.gmu.edu',
+	zoteroVersion: null,
     zoteroTabURL: 'chrome://zotero/content/tab.xul',
     // All strings here should be the exact name of Zutilo functions that take
     // no argument and that should be able to be called from the Zotero item
@@ -68,8 +71,13 @@ var Zutilo = {
     // Zutilo setup functions
     /********************************************/
     init: function() {
-        this.observers.register();
+        AddonManager.getAddonByID(Zutilo.zoteroID,
+            function(aAddon) {
+                Zutilo.zoteroVersion = aAddon.version
+            }
+		)
 
+        this.observers.register();
         Services.scriptloader.loadSubScript('chrome://zutilo/content/keys.js',
                                             this);
 
@@ -77,9 +85,16 @@ var Zutilo = {
         // Zutilo.ZoteroPrefs.init();
 
         this.prepareWindows();
+
+        if (this.appName == 'Firefox') {
+            CustomizableUI.addListener(saveIconListener)
+        }
     },
 
     cleanup: function() {
+        if (this.appName == 'Firefox') {
+            CustomizableUI.removeListener(saveIconListener)
+        }
         Zutilo.Prefs.unregister();
         Zutilo.observers.unregister();
         Services.wm.removeListener(Zutilo.windowListener);
@@ -376,6 +391,23 @@ Zutilo.Prefs = {
         }
     }
 };
+
+
+/* Zotero save button methods */
+
+var saveIconListener = {
+    onWidgetAdded: function(widgetID, area, position) {
+        if (widgetID == 'zotero-toolbar-buttons' ||
+                widgetID == 'zotero-toolbar-save-button-single') {
+            var windows = Services.wm.getEnumerator('navigator:browser')
+            let win
+            while (windows.hasMoreElements()) {
+                win = windows.getNext()
+                win.ZutiloChrome.firefoxOverlay.setupStatusPopup()
+            }
+        }
+    }
+}
 
 // This object was used to watch a Zotero pref, but it's not necessary now.
 // Leaving Zutilo.ZoteroPrefs code here for possible future use

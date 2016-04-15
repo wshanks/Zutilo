@@ -63,9 +63,14 @@ ZutiloChrome.zoteroOverlay = {
             ZoteroPane.document.getElementById('zotero-view-tabbox');
         zoteroViewTabbox.selectedIndex = tabIndex;
         // Create new note
-        ZoteroPane.newNote(false, zitems[0].id);
-        // This version didn't work in tab mode:
-        // ZoteroItemPane.addNote(false);
+        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+            // XXX: Legacy 4.0
+            ZoteroPane.newNote(false, zitems[0].id);
+            // This version didn't work in tab mode:
+            // ZoteroItemPane.addNote(false);
+        } else {
+            ZoteroPane.newNote(false, zitems[0].key)
+        }
 
         return true;
     },
@@ -78,16 +83,16 @@ ZutiloChrome.zoteroOverlay = {
 
         // Select tag tab of item pane
         var tabIndex = 2;
-		ZoteroPane.document.getElementById('zotero-view-tabbox').
-			tabs.selectedIndex = tabIndex
+        ZoteroPane.document.getElementById('zotero-view-tabbox').
+            tabs.selectedIndex = tabIndex
         // Focus new tag entry textbox
         let tagPane =
-			ZoteroPane.document.getElementById('zotero-editpane-tags')
-		if (tagPane._tagColors === undefined) {
-			window.setTimeout(function() {tagPane.new()}, 200)
-		} else {
-			tagPane.new()
-		}
+            ZoteroPane.document.getElementById('zotero-editpane-tags')
+        if (tagPane._tagColors === undefined) {
+            window.setTimeout(function() {tagPane.new()}, 200)
+        } else {
+            tagPane.new()
+        }
 
         return true;
     },
@@ -162,19 +167,20 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         var creatorsArray = [];
-        for (var i = 0; i < zitems.length; i++) {
-            var tempCreators = zitems[i].getCreators();
-            var arrayStr = '';
-            for (var j = 0; j < tempCreators.length; j++) {
-                arrayStr = '\n' + creatorsArray.join('\n') + '\n';
-                var tempName = tempCreators[j].ref.lastName;
-                tempName += '\t' + tempCreators[j].ref.firstName;
-                tempName = tempName.replace(/^\s+|\s+$/g, '') ;
-                if (arrayStr.indexOf('\n' + tempName + '\n') == -1) {
-                    creatorsArray.push(tempName);
+        for (let zitem of zitems) {
+            let creators = zitem.getCreators()
+            for (let creator of creators) {
+                if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                    // XXX: Legacy 4.0
+                    creator = creator.ref
+                }
+                let creatorStr = creator.lastName + '\t' + creator.firstName
+                if (creatorsArray.indexOf(creatorStr) == -1) {
+                    creatorsArray.push(creatorStr)
                 }
             }
         }
+
         var clipboardText = creatorsArray.join('\r\n');
 
         const gClipboardHelper =
@@ -201,8 +207,17 @@ ZutiloChrome.zoteroOverlay = {
             var arrayStr = '';
             for (var j = 0; j < tempTags.length; j++) {
                 arrayStr = '\n' + tagsArray.join('\n') + '\n';
-                if (arrayStr.indexOf('\n' + tempTags[j].name + '\n') == -1) {
-                    tagsArray.push(tempTags[j].name);
+
+                let tag
+                if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                    // XXX: Legacy 4.0
+                    tag = tempTags[j].name
+                } else {
+                    tag = tempTags[j].tag
+                }
+
+                if (arrayStr.indexOf('\n' + tag + '\n') == -1) {
+                    tagsArray.push(tag);
                 }
             }
         }
@@ -215,18 +230,22 @@ ZutiloChrome.zoteroOverlay = {
 
         return true;
     },
-	
-	removeTags: function() {
+    
+    removeTags: function() {
         var zitems = this.getSelectedItems(['regular', 'note']);
 
         if (!this.checkItemNumber(zitems, 'regularOrNote1')) {
             return false;
         }
 
-		for (let idx = 0; idx < zitems.length; idx++) {
-			zitems[idx].removeAllTags()
-		}
-	},
+        for (let idx = 0; idx < zitems.length; idx++) {
+            zitems[idx].removeAllTags()
+            if (Zutilo.zoteroVersion.split('.')[0] > 4) {
+                // XXX: Legacy 4.0
+                zitems[idx].saveTx()
+            }
+        }
+    },
 
     copyChildIDs: function() {
         var zitems = this.getSelectedItems(['note', 'attachment']);
@@ -251,8 +270,14 @@ ZutiloChrome.zoteroOverlay = {
         var child;
         for (var idx = 0; idx < Zutilo.itemClipboard.length; idx++) {
             child = Zotero.Items.get(Zutilo.itemClipboard[idx]);
-            child.setSource(newParent.id);
-            child.save();
+            if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                // XXX: Legacy 4.0
+                child.setSource(newParent.id);
+                child.save();
+            } else {
+                child.parentKey = newParent.key
+                child.saveTx()
+            }
         }
     },
 
@@ -270,11 +295,14 @@ ZutiloChrome.zoteroOverlay = {
 
         var tagArray = clipboardText.split(/\r\n?|\n/);
 
-        for (var i = 0; i < zitems.length; i++) {
-            // The following line might be needed to work around some item
-            // handling issues, but I will leave it out for now.
-            // var tempID = Zotero.Items.getLibraryKeyHash(zitems[i]);
-            zitems[i].addTags(tagArray);
+        for (let zitem of zitems) {
+            for (let tag of tagArray) {
+                zitem.addTag(tag)
+            }
+            if (Zutilo.zoteroVersion.split('.')[0] > 4) {
+                // XXX: Legacy 4.0
+                zitem.saveTx()
+            }
         }
 
         return true;
@@ -319,12 +347,12 @@ ZutiloChrome.zoteroOverlay = {
         // Loop through attachments and replace partial paths
         var attachmentPath;
         for (var index = 0; index < attachmentArray.length; index++) {
-			// Only modify linked file attachments since paths for the other
-			// attachment types are managed by Zotero.
-			if (attachmentArray[index].attachmentLinkMode !=
-					Zotero.Attachments.LINK_MODE_LINKED_FILE) {
-				continue
-			}
+            // Only modify linked file attachments since paths for the other
+            // attachment types are managed by Zotero.
+            if (attachmentArray[index].attachmentLinkMode !=
+                    Zotero.Attachments.LINK_MODE_LINKED_FILE) {
+                continue
+            }
             attachmentPath = attachmentArray[index].attachmentPath;
             if (checkGlobal.value) {
                 attachmentArray[index].attachmentPath =
@@ -364,13 +392,13 @@ ZutiloChrome.zoteroOverlay = {
             var title = Zutilo._bundle.
                 formatStringFromName('zutilo.attachments.showTitle',
                 [index + 1, attachmentArray.length], 2);
-			var text
-			if (attachmentArray[index].attachmentLinkMode == 
-					Zotero.Attachments.LINK_MODE_LINKED_URL) {
-				text = attachmentArray[index].getField('url')
-			} else {
-				text = attachmentArray[index].attachmentPath
-			}
+            var text
+            if (attachmentArray[index].attachmentLinkMode ==
+                    Zotero.Attachments.LINK_MODE_LINKED_URL) {
+                text = attachmentArray[index].getField('url')
+            } else {
+                text = attachmentArray[index].attachmentPath
+            }
             prompts.alert(null, title, text);
         }
         return true;
@@ -383,17 +411,23 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        var ids = [];
-        for (var ii = 0; ii < zitems.length; ii++) {
-            ids[ii] = zitems[ii].id;
-        }
-        for (ii = 0; ii < zitems.length; ii++) {
-            for (var jj = 0; jj < ids.length; jj++) {
-                if (ii != jj) {
-                    zitems[ii].addRelatedItem(ids[jj]);
+        for (let zitem of zitems) {
+            for (let addItem of zitems) {
+                if (zitem != addItem) {
+                    if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                        // XXX: Legacy 4.0
+                        zitem.addRelatedItem(addItem.id)
+                    } else {
+                        zitem.addRelatedItem(addItem)
+                    }
                 }
             }
-			zitems[ii].save()
+            if (Zutilo.zoteroVersion.split('.')[0] > 4) {
+                // XXX: Legacy 4.0
+                zitem.saveTx()
+            } else {
+                zitem.save()
+            }
         }
 
         return true;
@@ -404,25 +438,25 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
-	copyItems_alt1: function() {
-		var pref = 'export.quickCopy.setting'
-		var origSetting = Zotero.Prefs.get(pref)
-		var newSetting = Zutilo.Prefs.get('quickCopy_alt1')
-		Zotero.Prefs.set(pref, newSetting)
-		ZoteroPane.copySelectedItemsToClipboard(false)
-		Zotero.Prefs.set(pref, origSetting)
-		return true
-	},
+    copyItems_alt1: function() {
+        var pref = 'export.quickCopy.setting'
+        var origSetting = Zotero.Prefs.get(pref)
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt1')
+        Zotero.Prefs.set(pref, newSetting)
+        ZoteroPane.copySelectedItemsToClipboard(false)
+        Zotero.Prefs.set(pref, origSetting)
+        return true
+    },
 
-	copyItems_alt2: function() {
-		var pref = 'export.quickCopy.setting'
-		var origSetting = Zotero.Prefs.get(pref)
-		var newSetting = Zutilo.Prefs.get('quickCopy_alt2')
-		Zotero.Prefs.set(pref, newSetting)
-		ZoteroPane.copySelectedItemsToClipboard(false)
-		Zotero.Prefs.set(pref, origSetting)
-		return true
-	},
+    copyItems_alt2: function() {
+        var pref = 'export.quickCopy.setting'
+        var origSetting = Zotero.Prefs.get(pref)
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt2')
+        Zotero.Prefs.set(pref, newSetting)
+        ZoteroPane.copySelectedItemsToClipboard(false)
+        Zotero.Prefs.set(pref, origSetting)
+        return true
+    },
 
     copyZoteroSelectLink: function() {
         var zitems = this.getSelectedItems();
@@ -492,32 +526,59 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        // Duplicate item
-        ZoteroPane.duplicateSelectedItem();
+        function modifyNewItem(context, sectionItem) {
+            // Set item type
+            sectionItem.setType(Zotero.ItemTypes.getID('bookSection'));
 
-        // Set item type
-        zitems = this.getSelectedItems();
-        var sectionItem = zitems[0];
-        sectionItem.setType(Zotero.ItemTypes.getID('bookSection'));
+            // Change authors to book authors
+            var creators = sectionItem.getCreators();
+            for (var index = 0; index < creators.length; index++) {
+                if (creators[index].creatorTypeID ==
+                        Zotero.CreatorTypes.getID('author')) {
+                    creators[index] = Zotero.CreatorTypes.getID('bookAuthors');
+                }
+            }
 
-        // Change authors to book authors
-        var creators = sectionItem.getCreators();
-        for (var index = 0; index < creators.length; index++) {
-            if (creators[index].creatorTypeID ==
-                    Zotero.CreatorTypes.getID('author')) {
-                creators[index] = Zotero.CreatorTypes.getID('bookAuthors');
+            // Relate items
+            if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                // XXX: Legacy 4.0
+                bookItem.addRelatedItem(sectionItem.id);
+                sectionItem.addRelatedItem(bookItem.id);
+
+                sectionItem.save()
+                bookItem.save()
+
+                // Update GUI and select textbox
+                // document.getElementById('zotero-editpane-item-box').refresh()
+                alert('boo')
+                context.editItemInfoGUI();
+            } else {
+                bookItem.addRelatedItem(sectionItem);
+                sectionItem.addRelatedItem(bookItem);
+
+                Zotero.Promise.coroutine(function*() {
+                    yield sectionItem.saveTx()
+                    yield bookItem.saveTx()
+
+                    // Update GUI and select textbox
+                    context.editItemInfoGUI()
+                })()
             }
         }
 
-        sectionItem.save();
-
-        // Relate items
-        bookItem.addRelatedItem(sectionItem.id);
-        sectionItem.addRelatedItem(bookItem.id);
-
-        // Update GUI and select textbox
-        document.getElementById('zotero-editpane-item-box').refresh();
-        this.editItemInfoGUI();
+        // Duplicate item and then do the work
+        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+            // XXX: Legacy 4.0
+            ZoteroPane.duplicateSelectedItem();
+            zitems = this.getSelectedItems();
+            var sectionItem = zitems[0];
+            modifyNewItem(this, sectionItem)
+        } else {
+            Zotero.Promise.coroutine(function*(context) {
+                let sectionItem = yield ZoteroPane.duplicateSelectedItem()
+                modifyNewItem(context, sectionItem)
+            })(this)
+        }
 
         return true;
     },
@@ -543,32 +604,58 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        // Duplicate item
-        ZoteroPane.duplicateSelectedItem();
+        function modifyNewItem(context, bookItem) {
+            bookItem.setType(Zotero.ItemTypes.getID('book'));
 
-        // Set item type
-        zitems = this.getSelectedItems();
-        var bookItem = zitems[0];
-        bookItem.setType(Zotero.ItemTypes.getID('book'));
+            // Change book title to title
+            var bookTitleField = Zotero.ItemFields.getID('bookTitle');
+            var titleField = Zotero.ItemFields.getID('title');
+            var bookTitle = sectionItem.getField(bookTitleField);
+            if (bookTitle !== '') {
+                bookItem.setField(titleField, bookTitle);
+            }
+            bookItem.setField(Zotero.ItemFields.getID('abstractNote'), '')
 
-        // Change book title to title
-        var bookTitleField = Zotero.ItemFields.getID('bookTitle');
-        var titleField = Zotero.ItemFields.getID('title');
-        var bookTitle = sectionItem.getField(bookTitleField);
-        if (bookTitle !== '') {
-            bookItem.setField(titleField, bookTitle);
+            // Relate items
+            if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                // XXX: Legacy 4.0
+                bookItem.addRelatedItem(sectionItem.id)
+                sectionItem.addRelatedItem(bookItem.id)
+
+                bookItem.save()
+                sectionItem.save()
+
+                // Update GUI and select textbox
+                document.getElementById('zotero-editpane-item-box').refresh()
+                context.editItemInfoGUI();
+            } else {
+                bookItem.addRelatedItem(sectionItem)
+                sectionItem.addRelatedItem(bookItem)
+
+                Zotero.Promise.coroutine(function*() {
+                    yield sectionItem.saveTx()
+                    yield bookItem.saveTx()
+
+                    // Update GUI and select textbox
+                    context.editItemInfoGUI()
+                })()
+            }
         }
-		bookItem.setField(Zotero.ItemFields.getID('abstractNote'), '')
 
-        bookItem.save();
+        // Duplicate item and then do the work
+        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+            // XXX: Legacy 4.0
+            ZoteroPane.duplicateSelectedItem();
+            zitems = this.getSelectedItems();
+            var bookItem = zitems[0];
+            modifyNewItem(this, bookItem)
+        } else {
+            Zotero.Promise.coroutine(function*(context) {
+                let bookItem = yield ZoteroPane.duplicateSelectedItem()
+                modifyNewItem(context, bookItem)
+            })(this)
+        }
 
-        // Relate items
-        bookItem.addRelatedItem(sectionItem.id);
-        sectionItem.addRelatedItem(bookItem.id);
-
-        // Update GUI and select textbox
-        document.getElementById('zotero-editpane-item-box').refresh();
-        this.editItemInfoGUI();
 
         return true;
     },

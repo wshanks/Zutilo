@@ -28,7 +28,7 @@ ZutiloChrome.firefoxOverlay = {
                 Zutilo.checkZoteroActiveAndCallIf(false,
                                                   ZutiloChrome.firefoxOverlay,
                                ZutiloChrome.firefoxOverlay.warnZoteroNotActive);
-                var overlayFunc = function() {this.firefoxZoteroOverlay()};
+                var overlayFunc = function() {this.firefoxZoteroOverlay()}
                 Zutilo.checkZoteroActiveAndCallIf(true,
                                                   ZutiloChrome.firefoxOverlay,
                                                   overlayFunc);
@@ -59,8 +59,8 @@ ZutiloChrome.firefoxOverlay = {
         this.refreshContentAreaContextMenu = refreshContentAreaContextMenu;
         this.scrapeThisPage = scrapeThisPage
 
-        setupStatusPopup();
-        setupContentAreaContextMenu();
+        setupContentAreaContextMenu()
+        setupStatusPopup()
     },
 
     /**************************************************************************/
@@ -119,49 +119,87 @@ ZutiloChrome.firefoxOverlay = {
             }
         }
 
-        Zotero.MIME.getMIMETypeFromURL(url,
-                                       function(mimeType, hasNativeHandler) {
+        function mimeCallback(mimeType, hasNativeHandler) {
             function zoteroImport(attachmentCallback) {
-                Zotero.Attachments.importFromURL(url, zitem.id, undefined,
-                                                 undefined,
-                                                 undefined, mimeType, undefined,
-                                                 attachmentCallback);
+                if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                    // XXX: Legacy 4.0
+                    Zotero.Attachments.importFromURL(url, zitem.id, undefined,
+                                                     undefined,
+                                                     undefined, mimeType,
+                                                     undefined,
+                                                     attachmentCallback)
+                } else {
+                    Zotero.Promise.coroutine(function*() {
+                        let attachmentItem =
+                            yield Zotero.Attachments.importFromURL(
+                                {url: url,
+                                 parentItemID: zitem.id,
+                                 contentType: mimeType})
+                        if (attachmentCallback !== null) {
+                            attachmentCallback(attachmentItem)
+                        }
+                    })()
+                }
+            }
+
+            function moveAttachment(attachmentItem) {
+                var nsIFilePicker = Components.interfaces.nsIFilePicker;
+                var fp = Components.classes['@mozilla.org/filepicker;1']
+                    .createInstance(nsIFilePicker);
+                var strName = 'zutilo.attachments.selectDestination';
+                fp.init(window,
+                    Zutilo._bundle.GetStringFromName(strName),
+                    nsIFilePicker.modeSave);
+                fp.appendFilters(nsIFilePicker.filterAll);
+
+                var importedFile = attachmentItem.getFile();
+                fp.defaultString = ZutiloChrome.firefoxOverlay.
+                    adjustZoteroExtension(url, importedFile.leafName)
+
+                fp.open(function(result) {
+                    if (result == nsIFilePicker.returnOK ||
+                        result == nsIFilePicker.returnReplace) {
+                        // Move attachment file to chosen directory and
+                        // attach as linked file.
+                        importedFile.moveTo(fp.file.parent,
+                                            fp.file.leafName);
+                        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                            // XXX: Legacy 4.0
+                            Zotero.Attachments.linkFromFile(fp.file,
+                                                            zitem.itemID)
+                        } else {
+                            Zotero.Attachments.
+                                linkFromFile({file: fp.file,
+                                              parentItemID: zitem.itemID})
+                        }
+                    }
+                    if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                        // XXX: Legacy 4.0
+                        attachmentItem.erase()
+                    } else {
+                        attachmentItem.eraseTx()
+                    }
+                })
             }
 
             // Choose process type for mimeType
             if (processType == 'prompt') {
                 // Prompt for file name and location
-                zoteroImport(function(attachmentItem) {
-                    var nsIFilePicker = Components.interfaces.nsIFilePicker;
-                    var fp = Components.classes['@mozilla.org/filepicker;1']
-                        .createInstance(nsIFilePicker);
-                    var strName = 'zutilo.attachments.selectDestination';
-                    fp.init(window,
-                        Zutilo._bundle.GetStringFromName(strName),
-                        nsIFilePicker.modeSave);
-                    fp.appendFilters(nsIFilePicker.filterAll);
-
-                    var importedFile = attachmentItem.getFile();
-                    fp.defaultString =
-                        this.adjustZoteroExtension(url, importedFile.leafName);
-
-                    fp.open(function(result) {
-                        if (result == nsIFilePicker.returnOK) {
-                            // Move attachment file to chosen directory and
-                            // attach as linked file.
-                            importedFile.moveTo(fp.file.parent,
-                                                fp.file.leafName);
-                            Zotero.Attachments.linkFromFile(fp.file,
-                                                            zitem.itemID);
-                        }
-                        attachmentItem.erase();
-                    });
-                });
+                zoteroImport(moveAttachment)
             } else if (processType == 'Zotero') {
                 // Use Zotero importFromURL()
                 zoteroImport(function() {});
             }
-        });
+        }
+
+        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+            // XXX: Legacy 4.0
+            Zotero.MIME.getMIMETypeFromURL(url, mimeCallback)
+        } else {
+            Zotero.MIME.getMIMETypeFromURL(url).then(function(result) {
+                mimeCallback(result[0], result[1])
+            })
+        }
     },
 
     adjustZoteroExtension: function(url, zoteroFileName) {
@@ -317,33 +355,44 @@ function cleanupFFCACM() {
 // Status bar icon functions
 /**************************************************************************/
 function getStatusPopup() {
-    var statusPopupEl = document.
+    var statusPopupEl = []
+    var oldElement = document.
         getElementById('zotero-status-image-context');
     // For version > 4.0.26.1
-    if (!statusPopupEl) {
-        var statusButton = document.
-            getElementById('zotero-toolbar-save-button');
-        statusPopupEl = statusButton.children[0];
+    if (oldElement) {
+        statusPopupEl.push(oldElement)
+    } else {
+        for (let buttonID of ['zotero-toolbar-save-button',
+                          'zotero-toolbar-save-button-single']) {
+            let statusButton = document.getElementById(buttonID)
+            if (statusButton) {
+                statusPopupEl.push(statusButton.children[0])
+            }
+        }
     }
 
     return statusPopupEl
 }
 
 function setupStatusPopup() {
-    var statusPopupEl = getStatusPopup();
-    statusPopupEl.addEventListener('popupshowing', statusPopupListener,
-                                   false);
+    var statusPopupEl = getStatusPopup()
+    for (let menupopup of statusPopupEl) {
+        menupopup.addEventListener('popupshowing', statusPopupListener, false)
+    }
 
-    ZutiloChrome.firefoxOverlay.cleanupQueue.push(cleanupStatusPopup);
+    if (statusPopupEl) {
+        ZutiloChrome.firefoxOverlay.cleanupQueue.push(cleanupStatusPopup)
+    }
 }
+ZutiloChrome.firefoxOverlay.setupStatusPopup = setupStatusPopup
 
 function cleanupStatusPopup() {
-    var statusPopupEl = getStatusPopup();
+    var statusPopupEl = getStatusPopup()
     if (statusPopupEl) {
-        statusPopupEl.removeEventListener('popupshowing',
-                                          statusPopupListener, false);
-        ZutiloChrome.removeLabeledChildren(statusPopupEl,
-            'zutilo-zoterostatuspopup-');
+        for (let menupopup of statusPopupEl) {
+            menupopup.removeEventListener('popupshowing',
+                                          statusPopupListener, false)
+        }
     }
 }
 
@@ -356,19 +405,19 @@ function statusPopupListener(e) {
 
     // Get array of relevant status popup entries that correspond to normal
     // translators which might download attachment items.
-    var translator_entries = []
+    var translatorEntries = []
     for (let entry of popup.children) {
         if (entry.tagName == 'menuseparator') {
             break
         } else {
-            translator_entries.push(entry)
+            translatorEntries.push(entry)
         }
     }
 
     // Ignore the last two entries before the first menuseparator because they
     // are generic web page translators.
-    translator_entries.splice(translator_entries.length - 2, 2)
-    if (translator_entries.length === 0) {
+    translatorEntries.splice(translatorEntries.length - 2, 2)
+    if (translatorEntries.length === 0) {
         return
     }
 
@@ -379,7 +428,7 @@ function statusPopupListener(e) {
 
     // New entries should have callbacks that call doCommand on existing
     // entries and watch isScraping to change associated files preference
-    for (let entry of translator_entries) {
+    for (let entry of translatorEntries) {
         addStatusEntry(popup, entry)
     }
 }

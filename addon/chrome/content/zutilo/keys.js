@@ -188,8 +188,8 @@ keys.shortcuts.createParentItemsFromSelected  = function(win) {
     win.ZoteroPane_Local.createParentItemsFromSelected()
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
-keys.categories.renameSelectedAttachmentsFromParents  = 'attachments'
-keys.shortcuts.renameSelectedAttachmentsFromParents  = function(win) {
+keys.categories.renameSelectedAttachmentsFromParents = 'attachments'
+keys.shortcuts.renameSelectedAttachmentsFromParents = function(win) {
     // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     win.ZoteroPane_Local.renameSelectedAttachmentsFromParents()
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
