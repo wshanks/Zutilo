@@ -404,6 +404,42 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
+	copyAttachmentPaths: function() {
+	   var attachmentArray = this.getSelectedAttachments();
+
+        if (!this.checkItemNumber(attachmentArray, 'attachment1')) {
+            return false;
+        }
+
+		var paths = []
+		for (let attachment of attachmentArray) {
+			let path
+			if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+				// XXX: Legacy 4.0
+				if (attachment.attachmentLinkMode !=
+						Zotero.Attachments.LINK_MODE_LINKED_URL) {
+					path = attachment.getFile().path
+				}
+			} else {
+				path = attachment.getFilePath()
+			}
+			if (path) {
+				paths.push(path)
+			}
+		}
+
+		if (paths.length > 0) {
+			var clipboardText = paths.join('\r\n')
+
+			const gClipboardHelper =
+				Components.classes['@mozilla.org/widget/clipboardhelper;1']
+				.getService(Components.interfaces.nsIClipboardHelper);
+			gClipboardHelper.copyString(clipboardText, document);
+		}
+
+        return true;
+	},
+
     relateItems: function() {
         var zitems = this.getSelectedItems(['regular', 'note']);
 

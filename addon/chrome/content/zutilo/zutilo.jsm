@@ -24,14 +24,14 @@ var Zutilo = {
     /********************************************/
     id: 'zutilo@www.wesailatdawn.com',
     zoteroID: 'zotero@chnm.gmu.edu',
-	zoteroVersion: null,
+    zoteroVersion: null,
     zoteroTabURL: 'chrome://zotero/content/tab.xul',
     // All strings here should be the exact name of Zutilo functions that take
     // no argument and that should be able to be called from the Zotero item
     // menu
     _itemmenuFunctions: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
-        'showAttachments', 'modifyAttachments', 'copyCreators', 'copyItems',
-		'copyItems_alt1', 'copyItems_alt2',
+        'showAttachments', 'modifyAttachments', 'copyAttachmentPaths',
+		'copyCreators', 'copyItems', 'copyItems_alt1', 'copyItems_alt2',
         'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
         'createBookItem', 'copyChildIDs', 'relocateChildren'],
     ffcacmFunctions: [
