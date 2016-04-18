@@ -39,8 +39,9 @@ def main():
                  universal_newlines=True, stdout=PIPE)
     os.chdir(result.stdout.strip())
 
-    for doc in chain(iglob('*.md'), iglob('docs/*.md')):
-        update_locales(doc, os.path.join('i18n/{locale}/readme/', doc))
+    for doc in chain(iglob('i18n/en-US/readme/*.md'),
+                     iglob('i18n/en-US/readme/docs/*.md')):
+        update_locales(doc, doc.replace('en-US', '{locale}'))
     update_locales('addon/chrome/locale/en-US/zutilo/zutilo.properties',
                    'addon/chrome/locale/{locale}/zutilo/zutilo.properties')
     update_locales('addon/chrome/locale/en-US/zutilo/zutilo.dtd',
