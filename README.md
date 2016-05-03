@@ -1,5 +1,4 @@
 # Zutilo
-
 Zutilo is a plugin for [Zotero](http://www.zotero.org/) (both the Firefox addon and the standalone client).
 Zutilo adds several functions not available in base Zotero through extra menu items and keyboard shortcuts.
 Here are some of Zutilo's features:
