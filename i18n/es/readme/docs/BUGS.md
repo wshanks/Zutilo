@@ -7,6 +7,12 @@ Make sure to check the "closed" tab of the Issues section to see if the bug has 
 
 If you prefer, you may contact the author directly via email, using the contact information on the GitHub, but note that posting issues publicly may help others with the same problem.
 
+#### Note on compatibility
+
+Zotero version 5.0 introduced numerous backwards incompatible changes.
+Zutilo versions 2.x will maintain compatibility with Zotero 4.x and 5.x.
+Zutilo version 3.x will drop compatibility with Zotero 4.x (at whatever time seems appropriate).
+
 #### Suggestions for bug reports
 
 When submitting bug reports, please include the following:

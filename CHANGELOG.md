@@ -1,3 +1,8 @@
+* In version 2.0.0:
+
+	1. New function: copy attachment paths to clipboard
+	2. Many compatibility fixes for Zotero 5.0
+
 * In version 1.4.0:
 
     1. Shortcuts for attaching stored files and URI links
