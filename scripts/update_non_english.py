@@ -41,7 +41,8 @@ def main():
 
     for doc in chain(iglob('i18n/en-US/readme/*.md'),
                      iglob('i18n/en-US/readme/docs/*.md')):
-        update_locales(doc, doc.replace('en-US', '{locale}'))
+        update_locales(doc.replace('i18n/en-US/readme/', ''),
+                       doc.replace('en-US', '{locale}'))
     update_locales('addon/chrome/locale/en-US/zutilo/zutilo.properties',
                    'addon/chrome/locale/{locale}/zutilo/zutilo.properties')
     update_locales('addon/chrome/locale/en-US/zutilo/zutilo.dtd',
