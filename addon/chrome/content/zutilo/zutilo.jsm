@@ -12,7 +12,6 @@ var Cc = Components.classes
 var Ci = Components.interfaces
 var Cu = Components.utils
 Cu.import('resource://gre/modules/AddonManager.jsm');
-Cu.import('resource:///modules/CustomizableUI.jsm')
 Cu.import('resource://gre/modules/Services.jsm');
 
 /**
@@ -87,6 +86,7 @@ var Zutilo = {
         this.prepareWindows();
 
         if (this.appName == 'Firefox') {
+            Cu.import('resource:///modules/CustomizableUI.jsm')
             CustomizableUI.addListener(saveIconListener)
         }
     },
