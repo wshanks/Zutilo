@@ -121,7 +121,7 @@ ZutiloChrome.firefoxOverlay = {
 
         function mimeCallback(mimeType, hasNativeHandler) {
             function zoteroImport(attachmentCallback) {
-                if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                if (Zotero.version.split('.')[0] < 5) {
                     // XXX: Legacy 4.0
                     Zotero.Attachments.importFromURL(url, zitem.id, undefined,
                                                      undefined,
@@ -163,7 +163,7 @@ ZutiloChrome.firefoxOverlay = {
                         // attach as linked file.
                         importedFile.moveTo(fp.file.parent,
                                             fp.file.leafName);
-                        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                        if (Zotero.version.split('.')[0] < 5) {
                             // XXX: Legacy 4.0
                             Zotero.Attachments.linkFromFile(fp.file,
                                                             zitem.itemID)
@@ -173,7 +173,7 @@ ZutiloChrome.firefoxOverlay = {
                                               parentItemID: zitem.itemID})
                         }
                     }
-                    if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                    if (Zotero.version.split('.')[0] < 5) {
                         // XXX: Legacy 4.0
                         attachmentItem.erase()
                     } else {
@@ -192,7 +192,7 @@ ZutiloChrome.firefoxOverlay = {
             }
         }
 
-        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+        if (Zotero.version.split('.')[0] < 5) {
             // XXX: Legacy 4.0
             Zotero.MIME.getMIMETypeFromURL(url, mimeCallback)
         } else {

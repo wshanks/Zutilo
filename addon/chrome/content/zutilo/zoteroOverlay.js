@@ -63,7 +63,7 @@ ZutiloChrome.zoteroOverlay = {
             ZoteroPane.document.getElementById('zotero-view-tabbox');
         zoteroViewTabbox.selectedIndex = tabIndex;
         // Create new note
-        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+        if (Zotero.version.split('.')[0] < 5) {
             // XXX: Legacy 4.0
             ZoteroPane.newNote(false, zitems[0].id);
             // This version didn't work in tab mode:
@@ -170,7 +170,7 @@ ZutiloChrome.zoteroOverlay = {
         for (let zitem of zitems) {
             let creators = zitem.getCreators()
             for (let creator of creators) {
-                if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                if (Zotero.version.split('.')[0] < 5) {
                     // XXX: Legacy 4.0
                     creator = creator.ref
                 }
@@ -209,7 +209,7 @@ ZutiloChrome.zoteroOverlay = {
                 arrayStr = '\n' + tagsArray.join('\n') + '\n';
 
                 let tag
-                if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                if (Zotero.version.split('.')[0] < 5) {
                     // XXX: Legacy 4.0
                     tag = tempTags[j].name
                 } else {
@@ -240,7 +240,7 @@ ZutiloChrome.zoteroOverlay = {
 
         for (let idx = 0; idx < zitems.length; idx++) {
             zitems[idx].removeAllTags()
-            if (Zutilo.zoteroVersion.split('.')[0] > 4) {
+            if (Zotero.version.split('.')[0] > 4) {
                 // XXX: Legacy 4.0
                 zitems[idx].saveTx()
             }
@@ -270,7 +270,7 @@ ZutiloChrome.zoteroOverlay = {
         var child;
         for (var idx = 0; idx < Zutilo.itemClipboard.length; idx++) {
             child = Zotero.Items.get(Zutilo.itemClipboard[idx]);
-            if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+            if (Zotero.version.split('.')[0] < 5) {
                 // XXX: Legacy 4.0
                 child.setSource(newParent.id);
                 child.save();
@@ -299,7 +299,7 @@ ZutiloChrome.zoteroOverlay = {
             for (let tag of tagArray) {
                 zitem.addTag(tag)
             }
-            if (Zutilo.zoteroVersion.split('.')[0] > 4) {
+            if (Zotero.version.split('.')[0] > 4) {
                 // XXX: Legacy 4.0
                 zitem.saveTx()
             }
@@ -414,7 +414,7 @@ ZutiloChrome.zoteroOverlay = {
 		var paths = []
 		for (let attachment of attachmentArray) {
 			let path
-			if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+			if (Zotero.version.split('.')[0] < 5) {
 				// XXX: Legacy 4.0
 				if (attachment.attachmentLinkMode !=
 						Zotero.Attachments.LINK_MODE_LINKED_URL) {
@@ -450,7 +450,7 @@ ZutiloChrome.zoteroOverlay = {
         for (let zitem of zitems) {
             for (let addItem of zitems) {
                 if (zitem != addItem) {
-                    if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+                    if (Zotero.version.split('.')[0] < 5) {
                         // XXX: Legacy 4.0
                         zitem.addRelatedItem(addItem.id)
                     } else {
@@ -458,7 +458,7 @@ ZutiloChrome.zoteroOverlay = {
                     }
                 }
             }
-            if (Zutilo.zoteroVersion.split('.')[0] > 4) {
+            if (Zotero.version.split('.')[0] > 4) {
                 // XXX: Legacy 4.0
                 zitem.saveTx()
             } else {
@@ -576,7 +576,7 @@ ZutiloChrome.zoteroOverlay = {
             }
 
             // Relate items
-            if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+            if (Zotero.version.split('.')[0] < 5) {
                 // XXX: Legacy 4.0
                 bookItem.addRelatedItem(sectionItem.id);
                 sectionItem.addRelatedItem(bookItem.id);
@@ -602,7 +602,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Duplicate item and then do the work
-        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+        if (Zotero.version.split('.')[0] < 5) {
             // XXX: Legacy 4.0
             ZoteroPane.duplicateSelectedItem();
             zitems = this.getSelectedItems();
@@ -652,7 +652,7 @@ ZutiloChrome.zoteroOverlay = {
             bookItem.setField(Zotero.ItemFields.getID('abstractNote'), '')
 
             // Relate items
-            if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+            if (Zotero.version.split('.')[0] < 5) {
                 // XXX: Legacy 4.0
                 bookItem.addRelatedItem(sectionItem.id)
                 sectionItem.addRelatedItem(bookItem.id)
@@ -678,7 +678,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Duplicate item and then do the work
-        if (Zutilo.zoteroVersion.split('.')[0] < 5) {
+        if (Zotero.version.split('.')[0] < 5) {
             // XXX: Legacy 4.0
             ZoteroPane.duplicateSelectedItem();
             zitems = this.getSelectedItems();

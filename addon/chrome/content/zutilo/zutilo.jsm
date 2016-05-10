@@ -23,7 +23,6 @@ var Zutilo = {
     /********************************************/
     id: 'zutilo@www.wesailatdawn.com',
     zoteroID: 'zotero@chnm.gmu.edu',
-    zoteroVersion: null,
     zoteroTabURL: 'chrome://zotero/content/tab.xul',
     // All strings here should be the exact name of Zutilo functions that take
     // no argument and that should be able to be called from the Zotero item
@@ -70,12 +69,6 @@ var Zutilo = {
     // Zutilo setup functions
     /********************************************/
     init: function() {
-        AddonManager.getAddonByID(Zutilo.zoteroID,
-            function(aAddon) {
-                Zutilo.zoteroVersion = aAddon.version
-            }
-		)
-
         this.observers.register();
         Services.scriptloader.loadSubScript('chrome://zutilo/content/keys.js',
                                             this);
