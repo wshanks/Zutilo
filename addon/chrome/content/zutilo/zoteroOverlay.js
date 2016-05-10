@@ -586,7 +586,6 @@ ZutiloChrome.zoteroOverlay = {
 
                 // Update GUI and select textbox
                 // document.getElementById('zotero-editpane-item-box').refresh()
-                alert('boo')
                 context.editItemInfoGUI();
             } else {
                 bookItem.addRelatedItem(sectionItem);
