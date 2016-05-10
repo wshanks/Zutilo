@@ -1,3 +1,7 @@
+* In version 2.0.1:
+
+    + Fix bug that made Zutilo not work at all in Zotero Standalone
+
 * In version 2.0.0:
 
 	1. New function: copy attachment paths to clipboard
