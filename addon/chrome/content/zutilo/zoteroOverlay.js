@@ -192,9 +192,9 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     copyTags: function() {
-        var zitems = this.getSelectedItems(['regular', 'note']);
+        var zitems = this.getSelectedItems(['regular', 'note', 'attachment']);
 
-        if (!this.checkItemNumber(zitems, 'regularOrNote1')) {
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
             return false;
         }
 
@@ -232,9 +232,9 @@ ZutiloChrome.zoteroOverlay = {
     },
     
     removeTags: function() {
-        var zitems = this.getSelectedItems(['regular', 'note']);
+        var zitems = this.getSelectedItems(['regular', 'note', 'attachment']);
 
-        if (!this.checkItemNumber(zitems, 'regularOrNote1')) {
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
             return false;
         }
 
@@ -282,9 +282,9 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     pasteTags: function() {
-        var zitems = this.getSelectedItems(['regular', 'note']);
+        var zitems = this.getSelectedItems(['regular', 'note', 'attachment']);
 
-        if (!this.checkItemNumber(zitems, 'regularOrNote1')) {
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
             return false;
         }
 
@@ -441,9 +441,9 @@ ZutiloChrome.zoteroOverlay = {
 	},
 
     relateItems: function() {
-        var zitems = this.getSelectedItems(['regular', 'note']);
+        var zitems = this.getSelectedItems(['regular', 'note', 'attachment']);
 
-        if (!this.checkItemNumber(zitems, 'regularOrNote2')) {
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment2')) {
             return false;
         }
 
@@ -498,7 +498,7 @@ ZutiloChrome.zoteroOverlay = {
         var zitems = this.getSelectedItems();
         var links = [];
 
-        if (!this.checkItemNumber(zitems, 'regularOrNote1')) {
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
             return false;
         }
 
@@ -523,7 +523,7 @@ ZutiloChrome.zoteroOverlay = {
         var zitems = this.getSelectedItems();
         var links = [];
 
-        if (!this.checkItemNumber(zitems, 'regularOrNote1')) {
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
             return false;
         }
 
@@ -1065,6 +1065,7 @@ ZutiloChrome.zoteroOverlay = {
         switch (checkType) {
             case 'regular1':
             case 'regularOrNote1':
+            case 'regularNoteAttachment1':
                 if (!itemArray.length) {
                     prompts.alert(null, errorTitle, Zutilo._bundle.
                         GetStringFromName('zutilo.checkItems.' + checkType));
@@ -1080,6 +1081,7 @@ ZutiloChrome.zoteroOverlay = {
                 break;
             case 'regular2':
             case 'regularOrNote2':
+            case 'regularNoteAttachment2':
                 if ((!itemArray.length) || (itemArray.length < 2)) {
                     prompts.alert(null, errorTitle, Zutilo._bundle.
                         GetStringFromName('zutilo.checkItems.' + checkType));
