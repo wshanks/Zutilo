@@ -1,3 +1,7 @@
+* In version 2.0.2:
+
+	+ Allow some functions (like copy tags) to work on attachments and notes as well as regular items.
+
 * In version 2.0.1:
 
     + Fix bug that made Zutilo not work at all in Zotero Standalone
