@@ -707,6 +707,7 @@ ZutiloChrome.zoteroOverlay = {
 
     overlayZoteroPane: function(doc) {
         ZutiloChrome.zoteroOverlay.zoteroActionsMenu(doc);
+        ZutiloChrome.zoteroOverlay.zoteroMenu(doc);
         ZutiloChrome.zoteroOverlay.zoteroItemPopup(doc);
     },
 
@@ -741,7 +742,33 @@ ZutiloChrome.zoteroOverlay = {
 
         ZutiloChrome.registerXUL(zutiloMenuItemID, doc);
     },
+	
+	zoteroMenu: function(doc) {
+        // Add Zutilo preferences item to Zotero actions menu
+		var zoteroPrefsMenu = doc.getElementById('menu_preferences').parentElement;
+        if (zoteroPrefsMenu === null) {
+            // Don't do anything if elements not loaded yet
+            return;
+        }
 
+        var zutiloMenuItem = doc.createElement('menuitem');
+        var zutiloMenuItemID = 'zutilo-zotero-actions-preferences';
+        zutiloMenuItem.setAttribute('id', zutiloMenuItemID);
+        zutiloMenuItem.setAttribute('label',
+            Zutilo._bundle.
+                GetStringFromName('zutilo.zotero.actions.preferences'));
+        zutiloMenuItem.addEventListener('command',
+            function() {
+                ZutiloChrome.openPreferences();
+            }, false);
+        var zoteroPrefsItem =
+            doc.getElementById('menu_preferences');
+        zoteroPrefsMenu.insertBefore(zutiloMenuItem,
+                                      zoteroPrefsItem.nextSibling);
+
+        ZutiloChrome.registerXUL(zutiloMenuItemID, doc);
+    },
+	
     /******************************************/
     // Item menu functions
     /******************************************/
