@@ -706,9 +706,14 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     overlayZoteroPane: function(doc) {
-        ZutiloChrome.zoteroOverlay.zoteroActionsMenu(doc);
-        ZutiloChrome.zoteroOverlay.zoteroMenu(doc);
-        ZutiloChrome.zoteroOverlay.zoteroItemPopup(doc);
+        var prefsId
+        if (Zotero.version.split('.')[0] < 5) {
+            prefsId = 'zotero-tb-actions-prefs'
+        } else {
+            prefsId = 'menu_preferences'
+        }
+        ZutiloChrome.zoteroOverlay.prefsMenuItem(doc, prefsId)
+        ZutiloChrome.zoteroOverlay.zoteroItemPopup(doc)
     },
 
     pageloadListener: function(event) {
@@ -717,58 +722,31 @@ ZutiloChrome.zoteroOverlay = {
         }
     },
 
-    zoteroActionsMenu: function(doc) {
-        // Add Zutilo preferences item to Zotero actions menu
-        var zoteroActionMenu = doc.getElementById('zotero-tb-actions-popup');
-        if (zoteroActionMenu === null) {
-            // Don't do anything if elements not loaded yet
-            return;
-        }
-
-        var zutiloMenuItem = doc.createElement('menuitem');
-        var zutiloMenuItemID = 'zutilo-zotero-actions-preferences';
-        zutiloMenuItem.setAttribute('id', zutiloMenuItemID);
-        zutiloMenuItem.setAttribute('label',
-            Zutilo._bundle.
-                GetStringFromName('zutilo.zotero.actions.preferences'));
-        zutiloMenuItem.addEventListener('command',
-            function() {
-                ZutiloChrome.openPreferences();
-            }, false);
-        var zoteroPrefsItem =
-            doc.getElementById('zotero-tb-actions-prefs');
-        zoteroActionMenu.insertBefore(zutiloMenuItem,
-                                      zoteroPrefsItem.nextSibling);
-
-        ZutiloChrome.registerXUL(zutiloMenuItemID, doc);
-    },
-	
-	zoteroMenu: function(doc) {
-        // Add Zutilo preferences item to Zotero actions menu
-		var zoteroPrefsMenu = doc.getElementById('menu_preferences').parentElement;
+    prefsMenuItem: function(doc, prefsId) {
+        // Add Zutilo preferences item after Zotero preferences menu item
+        var zoteroPrefsItem = doc.getElementById(prefsId)
+        var zoteroPrefsMenu = zoteroPrefsItem.parentElement
         if (zoteroPrefsMenu === null) {
             // Don't do anything if elements not loaded yet
             return;
         }
 
-        var zutiloMenuItem = doc.createElement('menuitem');
-        var zutiloMenuItemID = 'zutilo-zotero-actions-preferences';
-        zutiloMenuItem.setAttribute('id', zutiloMenuItemID);
+        var zutiloMenuItem = doc.createElement('menuitem')
+        var zutiloMenuItemID = 'zutilo-preferences'
+        zutiloMenuItem.setAttribute('id', zutiloMenuItemID)
         zutiloMenuItem.setAttribute('label',
             Zutilo._bundle.
-                GetStringFromName('zutilo.zotero.actions.preferences'));
+                GetStringFromName('zutilo.preferences.menuitem'))
         zutiloMenuItem.addEventListener('command',
             function() {
-                ZutiloChrome.openPreferences();
-            }, false);
-        var zoteroPrefsItem =
-            doc.getElementById('menu_preferences');
+                ZutiloChrome.openPreferences()
+            }, false)
         zoteroPrefsMenu.insertBefore(zutiloMenuItem,
-                                      zoteroPrefsItem.nextSibling);
+                                      zoteroPrefsItem.nextSibling)
 
-        ZutiloChrome.registerXUL(zutiloMenuItemID, doc);
+        ZutiloChrome.registerXUL(zutiloMenuItemID, doc)
     },
-	
+
     /******************************************/
     // Item menu functions
     /******************************************/

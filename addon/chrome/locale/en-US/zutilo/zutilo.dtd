@@ -1,7 +1,5 @@
 <!ENTITY zutilo.name			"Zutilo">
 
-<!ENTITY zutilo.zotero.actions.preferences	"Zutilo Preferences...">
-
 <!ENTITY zutilo.startup.upgradetitle	"Zutilo: Upgrade message">
 
 <!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero not active!">

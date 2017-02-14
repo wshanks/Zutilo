@@ -1,7 +1,5 @@
 <!ENTITY zutilo.name			"Zutilo">
 
-<!ENTITY zutilo.zotero.actions.preferences	"Zutilo 首选项...">
-
 <!ENTITY zutilo.startup.upgradetitle	"Zutilo：升级消息">
 
 <!ENTITY zutilo.zoteronotactive.title "Zutilo：Zotero 未激活！">
