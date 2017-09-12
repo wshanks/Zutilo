@@ -28,7 +28,8 @@ var Zutilo = {
     // no argument and that should be able to be called from the Zotero item
     // menu
     _itemmenuFunctions: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
-        'showAttachments', 'modifyAttachments', 'copyAttachmentPaths',
+        'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
+        'copyAttachmentPaths',
 		'copyCreators', 'copyItems', 'copyItems_alt1', 'copyItems_alt2',
         'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
         'createBookItem', 'copyChildIDs', 'relocateChildren'],

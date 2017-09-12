@@ -1,3 +1,7 @@
+* In version 2.0.4b:
+
+    + New function to modify linked URL attachments
+
 * In version 2.0.3:
 
     + Improved French locale (thanks to gracile-fr)

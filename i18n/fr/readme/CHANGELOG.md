@@ -1,3 +1,7 @@
+* In version 2.0.4b:
+
+    + New function to modify linked URL attachments
+
 * In version 2.0.2:
 
 	+ Allow some functions (like copy tags) to work on attachments and notes as well as regular items.

@@ -96,6 +96,10 @@ keys.categories.modifyAttachments = 'attachments'
 keys.shortcuts.modifyAttachments = function(win) {
     win.ZutiloChrome.zoteroOverlay.modifyAttachments()
 };
+keys.categories.modifyURLAttachments = 'attachments'
+keys.shortcuts.modifyURLAttachments = function(win) {
+    win.ZutiloChrome.zoteroOverlay.modifyURLAttachments()
+};
 keys.categories.copyAttachmentPaths = 'attachments'
 keys.shortcuts.copyAttachmentPaths = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyAttachmentPaths()

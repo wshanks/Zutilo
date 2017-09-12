@@ -30,6 +30,9 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
     To replace elements of attachment paths not at the beginning, click the "replace all instances" check box in the first prompt window.
     This option is useful if you want to rename a subfolder or switch between Windows and Unix style paths (replacing `\` and `/`).
 
+* __Modify attached URLs:__
+    This function works the same as `Modify attachment paths` above but modifies the URL of URL attachments instead of the file path of linked file attachments.
+
 * __Copy attachment paths:__
     Copy to the clipboard the path for each selected attachment and/or each child attachment of each selected item.
     For file attachments, the full path on the file system is copied.

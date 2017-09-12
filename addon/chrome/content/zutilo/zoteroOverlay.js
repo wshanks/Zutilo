@@ -308,7 +308,7 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
-    modifyAttachments: function() {
+    _modifyAttachmentPaths: function(mode) {
         var attachmentArray = this.getSelectedAttachments();
 
         if (!this.checkItemNumber(attachmentArray, 'attachment1')) {
@@ -317,8 +317,14 @@ ZutiloChrome.zoteroOverlay = {
         var prompts = Components.
             classes['@mozilla.org/embedcomp/prompt-service;1'].
             getService(Components.interfaces.nsIPromptService);
-        var promptTitle =
-            Zutilo._bundle.GetStringFromName('zutilo.attachments.modifyTitle');
+        var promptTitle
+        if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
+            promptTitle = Zutilo._bundle.
+                GetStringFromName('zutilo.attachments.modifyTitle')
+        } else if (mode == Zotero.Attachments.LINK_MODE_LINKED_URL) {
+            promptTitle = Zutilo._bundle.
+                GetStringFromName('zutilo.attachments.modifyURLTitle')
+        }
 
         // Prompt for old path
         var promptText = { value: '' };
@@ -344,38 +350,65 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
+        function getPath(attachment) {
+            if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
+                return attachment.attachmentPath
+            } else if (mode == Zotero.Attachments.LINK_MODE_LINKED_URL) {
+                return attachment.getField('url')
+            }
+        }
+
+        function setPath(attachment, path) {
+            if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
+                attachment.attachmentPath = path
+            } else if (mode == Zotero.Attachments.LINK_MODE_LINKED_URL) {
+                attachment.setField('title', path)
+                attachment.setField('url', path)
+            }
+        }
+
         // Loop through attachments and replace partial paths
         var attachmentPath;
+        var newFullPath
         for (var index = 0; index < attachmentArray.length; index++) {
             // Only modify linked file attachments since paths for the other
             // attachment types are managed by Zotero.
-            if (attachmentArray[index].attachmentLinkMode !=
-                    Zotero.Attachments.LINK_MODE_LINKED_FILE) {
+            if (attachmentArray[index].attachmentLinkMode != mode) {
                 continue
             }
-            attachmentPath = attachmentArray[index].attachmentPath;
+            var oldFullPath = getPath(attachmentArray[index])
             if (checkGlobal.value) {
-                attachmentArray[index].attachmentPath =
-                    attachmentPath.replace(
+                newFullPath =
+                    oldFullPath.replace(
                         new RegExp(Zutilo.escapeForRegExp(oldPath), 'g'),
                         newPath);
             } else {
                 // If only check beginning of strings, just do quick compare
                 // and substitution (I think this might be faster than
                 // replace() ).
-                if (attachmentPath.substr(0, oldPath.length) == oldPath) {
-                    attachmentArray[index].attachmentPath =
-                        newPath + attachmentPath.substr(oldPath.length);
+                if (oldFullPath.substr(0, oldPath.length) == oldPath) {
+                    newFullPath =
+                        newPath + oldFullPath.substr(oldPath.length);
                 }
             }
             // attachmentPath stores the unmodified path
             // only save to database if path was actually modified
-            if (attachmentArray[index].attachmentPath != attachmentPath) {
-                attachmentArray[index].save();
+            if (newFullPath != oldFullPath) {
+                // TODO: wrap all saves in one transaction
+                setPath(attachmentArray[index], newFullPath)
+                attachmentArray[index].saveTx();
             }
         }
 
         return true;
+    },
+
+    modifyAttachments: function() {
+        this._modifyAttachmentPaths(Zotero.Attachments.LINK_MODE_LINKED_FILE)
+    },
+
+    modifyURLAttachments: function() {
+        this._modifyAttachmentPaths(Zotero.Attachments.LINK_MODE_LINKED_URL)
     },
 
     showAttachments: function() {
