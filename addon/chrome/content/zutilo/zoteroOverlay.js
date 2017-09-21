@@ -396,7 +396,12 @@ ZutiloChrome.zoteroOverlay = {
             if (newFullPath != oldFullPath) {
                 // TODO: wrap all saves in one transaction
                 setPath(attachmentArray[index], newFullPath)
-                attachmentArray[index].saveTx();
+                if (typeof attachmentArray[index].saveTx === 'function') {
+                    attachmentArray[index].saveTx();
+                } else {
+                    // XXX: Legacy 4.0
+                    attachmentArray[index].save();
+                }
             }
         }
 
