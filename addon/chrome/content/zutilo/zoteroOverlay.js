@@ -91,7 +91,12 @@ ZutiloChrome.zoteroOverlay = {
         if (tagPane._tagColors === undefined) {
             window.setTimeout(function() {tagPane.new()}, 200)
         } else {
-            tagPane.new()
+            if (typeof tagPane.newTag === 'function') {
+                tagPane.newTag()
+            } else {
+                // XXX: Legacy 4.0
+                tagPane.new()
+            }
         }
 
         return true;
