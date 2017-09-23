@@ -164,6 +164,24 @@ ZutiloChrome.zoteroOverlay = {
     /******************************************/
     // Functions called from Zotero item menu
     /******************************************/
+    _copyToClipboard: function(clipboardText) {
+        if (clipboardText) {
+            const gClipboardHelper =
+                Components.classes['@mozilla.org/widget/clipboardhelper;1']
+                .getService(Components.interfaces.nsIClipboardHelper);
+            gClipboardHelper.copyString(clipboardText, document);
+        } else {
+            var prompts = Components.
+                classes['@mozilla.org/embedcomp/prompt-service;1'].
+                getService(Components.interfaces.nsIPromptService);
+            var title = Zutilo._bundle.
+                GetStringFromName('zutilo.error.copynoitemstitle')
+            var text = Zutilo._bundle.
+                GetStringFromName('zutilo.error.copynoitemstext')
+            prompts.alert(null, title, text)
+        }
+    },
+
     copyCreators: function() {
         var zitems = this.getSelectedItems('regular');
 
@@ -188,10 +206,7 @@ ZutiloChrome.zoteroOverlay = {
 
         var clipboardText = creatorsArray.join('\r\n');
 
-        const gClipboardHelper =
-            Components.classes['@mozilla.org/widget/clipboardhelper;1']
-            .getService(Components.interfaces.nsIClipboardHelper);
-        gClipboardHelper.copyString(clipboardText, document);
+        this._copyToClipboard(clipboardText)
 
         return true;
     },
@@ -228,10 +243,7 @@ ZutiloChrome.zoteroOverlay = {
         }
         var clipboardText = tagsArray.join('\r\n');
 
-        const gClipboardHelper =
-            Components.classes['@mozilla.org/widget/clipboardhelper;1']
-            .getService(Components.interfaces.nsIClipboardHelper);
-        gClipboardHelper.copyString(clipboardText, document);
+        this._copyToClipoard(clipboardText)
 
         return true;
     },
@@ -447,41 +459,38 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
-	copyAttachmentPaths: function() {
-	   var attachmentArray = this.getSelectedAttachments();
+    copyAttachmentPaths: function() {
+        var attachmentArray = this.getSelectedAttachments();
 
         if (!this.checkItemNumber(attachmentArray, 'attachment1')) {
             return false;
         }
 
-		var paths = []
-		for (let attachment of attachmentArray) {
-			let path
-			if (Zotero.version.split('.')[0] < 5) {
-				// XXX: Legacy 4.0
-				if (attachment.attachmentLinkMode !=
-						Zotero.Attachments.LINK_MODE_LINKED_URL) {
-					path = attachment.getFile().path
-				}
-			} else {
-				path = attachment.getFilePath()
-			}
-			if (path) {
-				paths.push(path)
-			}
-		}
+        var paths = []
+        for (let attachment of attachmentArray) {
+            let path
+            if (Zotero.version.split('.')[0] < 5) {
+                // XXX: Legacy 4.0
+                if (attachment.attachmentLinkMode !=
+                        Zotero.Attachments.LINK_MODE_LINKED_URL) {
+                    path = attachment.getFile().path
+                }
+            } else {
+                path = attachment.getFilePath()
+            }
+            if (path) {
+                paths.push(path)
+            }
+        }
 
-		if (paths.length > 0) {
-			var clipboardText = paths.join('\r\n')
+        if (paths.length > 0) {
+            var clipboardText = paths.join('\r\n')
 
-			const gClipboardHelper =
-				Components.classes['@mozilla.org/widget/clipboardhelper;1']
-				.getService(Components.interfaces.nsIClipboardHelper);
-			gClipboardHelper.copyString(clipboardText, document);
-		}
+            this._copyToClipboard(clipboardText)
+        }
 
         return true;
-	},
+    },
 
     relateItems: function() {
         var zitems = this.getSelectedItems(['regular', 'note', 'attachment']);
@@ -554,10 +563,7 @@ ZutiloChrome.zoteroOverlay = {
 
         var clipboardText = links.join('\r\n');
 
-        const gClipboardHelper =
-            Components.classes['@mozilla.org/widget/clipboardhelper;1']
-            .getService(Components.interfaces.nsIClipboardHelper);
-        gClipboardHelper.copyString(clipboardText, document);
+        this._copyToClipboard(clipboardText)
 
         return true;
     },
@@ -576,10 +582,7 @@ ZutiloChrome.zoteroOverlay = {
 
         var clipboardText = links.join('\r\n');
 
-        const gClipboardHelper =
-            Components.classes['@mozilla.org/widget/clipboardhelper;1']
-            .getService(Components.interfaces.nsIClipboardHelper);
-        gClipboardHelper.copyString(clipboardText, document);
+        this._copyToClipboard(clipboardText)
 
         return true;
     },
