@@ -109,16 +109,16 @@ var Zutilo = {
         onOpenWindow: function(xulWindow) {
             var domWindow = xulWindow
                 .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-                .getInterface(Components.interfaces.nsIDOMWindowInternal);
+                .getInterface(Components.interfaces.nsIDOMWindow)
 
             domWindow.addEventListener('load', function listener() {
-                domWindow.removeEventListener('load', listener, false);
+                domWindow.removeEventListener('load', listener, false)
 
                 if (domWindow.document.documentElement.
                         getAttribute('windowtype') == 'navigator:browser') {
-                    Zutilo.loadWindowChrome(domWindow);
+                    Zutilo.loadWindowChrome(domWindow)
                 }
-            }, false);
+            }, false)
         },
 
         onCloseWindow: function(xulWindow) {},
