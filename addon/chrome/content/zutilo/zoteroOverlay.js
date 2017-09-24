@@ -28,6 +28,12 @@ ZutiloChrome.zoteroOverlay = {
             gBrowser.removeEventListener('load',
                 ZutiloChrome.zoteroOverlay.pageloadListener, true);
         }
+        if (Zotero.version.split('.')[0] > 4) {
+            // XXX: Legacy 4.0
+            var toolsPopup = document.getElementById('menu_ToolsPopup')
+            toolsPopup.removeEventListener('popupshowing',
+                ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
+        }
     },
 
     /******************************************/
@@ -749,17 +755,54 @@ ZutiloChrome.zoteroOverlay = {
         ZutiloChrome.actOnAllDocuments(ZutiloChrome.zoteroOverlay.
                                        overlayZoteroPane);
         this.initKeys();
+
+        if (Zotero.version.split('.')[0] > 4) {
+            // XXX: Legacy 4.0
+            var toolsPopup = document.getElementById('menu_ToolsPopup')
+            toolsPopup.addEventListener('popupshowing',
+                ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
+        }
     },
 
     overlayZoteroPane: function(doc) {
         var prefsId
+        var menuPopup
         if (Zotero.version.split('.')[0] < 5) {
-            prefsId = 'zotero-tb-actions-prefs'
+            // XXX: Legacy 4.0
+            menuPopup = doc.getElementById('zotero-tb-actions-prefs').
+                parentElement
         } else {
-            prefsId = 'menu_preferences'
+            menuPopup = doc.getElementById('menu_ToolsPopup')
         }
-        ZutiloChrome.zoteroOverlay.prefsMenuItem(doc, prefsId)
+        ZutiloChrome.zoteroOverlay.prefsMenuItem(doc, menuPopup)
         ZutiloChrome.zoteroOverlay.zoteroItemPopup(doc)
+    },
+
+    prefsSeparatorListener: function() {
+        var addonsMenuItem = document.getElementById('menu_addons')
+        var nextSibling = addonsMenuItem
+        var needSeparator = true
+        while (nextSibling) {
+            if (nextSibling.nodeName == 'menuseparator') {
+                needSeparator = false
+                break
+            }
+            nextSibling = nextSibling.nextSibling
+        }
+        if (needSeparator) {
+            var zutiloSeparator = document.createElement('menuseparator')
+            zutiloSeparator.setAttribute('id', 'zutilo-toolsmenu-separator')
+            var toolsPopup = document.getElementById('menu_ToolsPopup')
+            toolsPopup.insertBefore(zutiloSeparator,
+                addonsMenuItem.nextSibling)
+            var removeListener = function() {
+                toolsPopup.removeChild(zutiloSeparator)
+                toolsPopup.removeEventListener('popuphiding',
+                    removeListener, false)
+            }
+            toolsPopup.addEventListener('popuphiding', removeListener,
+                false)
+        }
     },
 
     pageloadListener: function(event) {
@@ -768,11 +811,9 @@ ZutiloChrome.zoteroOverlay = {
         }
     },
 
-    prefsMenuItem: function(doc, prefsId) {
-        // Add Zutilo preferences item after Zotero preferences menu item
-        var zoteroPrefsItem = doc.getElementById(prefsId)
-        var zoteroPrefsMenu = zoteroPrefsItem.parentElement
-        if (zoteroPrefsMenu === null) {
+    prefsMenuItem: function(doc, menuPopup) {
+        // Add Zutilo preferences item to Tools menu
+        if (menuPopup === null) {
             // Don't do anything if elements not loaded yet
             return;
         }
@@ -787,8 +828,8 @@ ZutiloChrome.zoteroOverlay = {
             function() {
                 ZutiloChrome.openPreferences()
             }, false)
-        zoteroPrefsMenu.insertBefore(zutiloMenuItem,
-                                      zoteroPrefsItem.nextSibling)
+
+        menuPopup.appendChild(zutiloMenuItem)
 
         ZutiloChrome.registerXUL(zutiloMenuItemID, doc)
     },
