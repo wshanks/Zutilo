@@ -1,6 +1,10 @@
 * In version 2.0.4b:
 
     + New function to modify linked URL attachments
+    + New shortcut for adding items by identifier
+    + Minor bug fixes
+        - Don't change clipboard when no valid items copied
+        - Add Zutilo preferences to Tools menu on all platforms
 
 * In version 2.0.3:
 

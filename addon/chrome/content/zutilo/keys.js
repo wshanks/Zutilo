@@ -173,6 +173,10 @@ keys.categories.newItemMenu = 'itemcreation'
 keys.shortcuts.newItemMenu = function(win) {
     win.document.getElementById('zotero-tb-add').firstChild.showPopup();
 };
+keys.categories.lookupID = 'itemcreation'
+keys.shortcuts.lookupID = function(win) {
+    win.document.getElementById('zotero-lookup-panel').showPopup()
+}
 keys.categories.attachLinkFile = 'attachments'
 keys.shortcuts.attachLinkFile = function(win) {
     var zitems = win.ZutiloChrome.zoteroOverlay.getSelectedItems('regular');
