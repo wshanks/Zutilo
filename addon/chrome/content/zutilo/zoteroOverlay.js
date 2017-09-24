@@ -243,11 +243,11 @@ ZutiloChrome.zoteroOverlay = {
         }
         var clipboardText = tagsArray.join('\r\n');
 
-        this._copyToClipoard(clipboardText)
+        this._copyToClipboard(clipboardText)
 
         return true;
     },
-    
+
     removeTags: function() {
         var zitems = this.getSelectedItems(['regular', 'note', 'attachment']);
 
