@@ -311,12 +311,14 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        var clipboardText = ZutiloChrome.getFromClipboard();
+        var clipboardText = ZutiloChrome.getFromClipboard().trim()
         if (!clipboardText) {
             return false;
         }
 
-        var tagArray = clipboardText.split(/\r\n?|\n/);
+        var tagArray = clipboardText.split(/\r\n?|\n/)
+        tagArray = tagArray.map(function(val) {return val.trim()});
+        tagArray = tagArray.filter(Boolean)
 
         for (let zitem of zitems) {
             for (let tag of tagArray) {
