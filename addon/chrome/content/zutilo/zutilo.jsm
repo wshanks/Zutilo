@@ -58,6 +58,10 @@ var Zutilo = {
                 // Zotero Standalone
                 appName = 'Zotero';
                 break;
+            case 'juris-m@juris-m.github.io':
+                // Juris-M Standalone
+                appName = 'Zotero';
+                break;
             default:
                 // Unknown app -- assume it is a Firefox variant...
                 appName = 'Firefox';
