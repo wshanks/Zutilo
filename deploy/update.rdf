@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+    <rdf:Description rdf:about="urn:mozilla:extension:zutilo@www.wesailatdawn.com">
+        <em:updates>
+            <rdf:Seq>
+                <rdf:li>
+                    <rdf:Description>
+                        <em:version>2.0.3</em:version>
+                        <em:targetApplication>
+                            <rdf:Description>
+                                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                                <em:minVersion>34.0</em:minVersion>
+                                <em:maxVersion>56.*</em:maxVersion>
+                                <em:updateLink>https://github.com/willsALMANJ/Zutilo/releases/download/2.0.3/zutilo.xpi</em:updateLink>
+                            </rdf:Description>
+                        </em:targetApplication>
+
+                        <em:targetApplication>
+                            <rdf:Description>
+				<em:id>zotero@chnm.gmu.edu</em:id>
+				<em:minVersion>3.0b1</em:minVersion>
+				<em:maxVersion>*</em:maxVersion>
+                                <em:updateLink>https://github.com/willsALMANJ/Zutilo/releases/download/2.0.3/zutilo.xpi</em:updateLink>
+                            </rdf:Description>
+                        </em:targetApplication> 
+
+                        <em:targetApplication>
+                            <rdf:Description>
+                                <em:id>juris-m@juris-m.github.io</em:id>
+                                <em:minVersion>4.0</em:minVersion>
+                                <em:maxVersion>5.0.*</em:maxVersion>
+                                <em:updateLink>https://github.com/willsALMANJ/Zutilo/releases/download/2.0.3/zutilo.xpi</em:updateLink>
+                            </rdf:Description>
+                        </em:targetApplication>
+
+                    </rdf:Description>
+                </rdf:li>
+            </rdf:Seq>
+        </em:updates>
+    </rdf:Description>
+</rdf:RDF>
