@@ -6,6 +6,10 @@ github:
     - path: build/zutilo.xpi
       type: application/x-xpinstall
 
+git_release:
+    remote: origin
+    branch: release
+
 version_strings:
 - path: addon/install.rdf
   pattern: (<em:version>)(?P<release>.*)(</em:version>)
