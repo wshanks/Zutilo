@@ -15,17 +15,10 @@ All of Zutilo's graphical elements can be disabled individually, so that unwante
 
 ## Installation
 
-### Firefox
-
-The latest released version of Zutilo is available from [Zutilo's Mozilla Add-ons page](https://addons.mozilla.org/en-US/firefox/addon/zutilo-utility-for-zotero/).
-Just click the "Add to Firefox" button.
-
-### Zotero Standalone
-
-Download the Zutilo `.xpi` file from [Zutilo's GitHub releases page](https://github.com/willsALMANJ/Zutilo/releases).
+Download the Zutilo `zutilo.xpi` file from [Zutilo's GitHub releases page](https://github.com/willsALMANJ/Zutilo/releases).
 Then go to Tools->Add-ons in Zotero Standalone.
 Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File."
-Then select the downloaded `.xpi` file.
+Then select the downloaded `zutilo.xpi` file.
 
 ## Getting started
 
