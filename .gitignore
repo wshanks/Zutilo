@@ -3,3 +3,4 @@ build/
 addon/chrome/locale/*/zutilo/README.html
 *.sw*
 *~
+\#*#
