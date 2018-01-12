@@ -5,10 +5,11 @@
 
 'use strict';
 /* global gBrowser, window, document, Components */
-/* global Zotero, ZoteroPane */
+/* global Zotero, ZoteroPane, ZOTERO_CONFIG */
 /* global Zutilo, ZutiloChrome */
 Components.utils.import('resource://gre/modules/Services.jsm');
 Components.utils.import('chrome://zutilo/content/zutilo.jsm');
+Components.utils.import('resource://zotero/config.js');
 
 ZutiloChrome.zoteroOverlay = {
     /******************************************/
@@ -584,8 +585,14 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
+        var link
         for (var ii = 0; ii < zitems.length; ii++) {
-            links.push(Zotero.URI.getItemURI(zitems[ii]));
+            link = Zotero.URI.getItemURI(zitems[ii])
+            if (link.startsWith(ZOTERO_CONFIG.BASE_URI)) {
+                link = (ZOTERO_CONFIG.WWW_BASE_URL +
+                        link.slice(ZOTERO_CONFIG.BASE_URI.length))
+            }
+            links.push(link)
         }
 
         var clipboardText = links.join('\r\n');

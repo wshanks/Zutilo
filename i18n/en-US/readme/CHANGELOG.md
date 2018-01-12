@@ -1,3 +1,7 @@
+* In version 3.0.1:
+
+	+ Update base URL used for copying Zotero web links
+
 * In version 3.0.0:
 
     + Zutilo is now distributed on from [its GitHub releases page](https://github.com/willsalmanj/zutilo/releases). Starting with version 3.0, new releases will not be uploaded to addons.mozilla.org and will use the GitHub page to check for updates.
