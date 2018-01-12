@@ -1,5 +1,6 @@
-* In version 2.0.4b:
+* In version 2.0.4:
 
+    + Final version published to addons.mozilla.org
     + New function to modify linked URL attachments
     + New shortcut for adding items by identifier
     + Minor bug fixes
