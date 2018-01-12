@@ -24,4 +24,7 @@
 	<script src="chrome://zutilo/content/zutiloUpgraded.js"/>
 
 	<description id="zutilo-startup-upgradedescription"/>
+
+        <button oncommand="Zutilo.openLink('https://github.com/willsALMANJ/Zutilo/releases')"
+               label="&zutilo.about.opengithub;"/>
 </dialog>
