@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 'use strict';
-/* global gBrowser, window, document, Components, Services */
+/* global gBrowser, window, document, Components, AddonManager, Services */
 /* global Zotero, ZoteroPane, Zotero_Browser */
 /* global Zutilo, ZutiloChrome, gKeys */
 
@@ -388,3 +388,31 @@ if (Zutilo.appName == 'Firefox') {
     };
 
 }
+
+AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
+    if (aAddon === null || !aAddon.isActive) {
+        return
+    }
+
+    keys.categories.BBTPin = 'bbt'
+    keys.shortcuts.BBTPin = function(win) {
+        win.Zotero.BetterBibTeX.ready.then(
+            function() {win.Zotero.BetterBibTeX.KeyManager.pin('selected')})
+    }
+
+    keys.categories.BBTUnpin = 'bbt'
+    keys.shortcuts.BBTUnpin = function(win) {
+        win.Zotero.BetterBibTeX.ready.then(function() {
+            win.Zotero.BetterBibTeX.KeyManager.unpin('selected')})
+    }
+
+    keys.categories.BBTRefresh = 'bbt'
+    keys.shortcuts.BBTRefresh = function(win) {
+        win.Zotero.BetterBibTeX.ready.then(function() {
+            win.Zotero.BetterBibTeX.KeyManager.refresh('selected', true)})
+    }
+    // Call setDefaults again so it generates defaults for these shortcuts
+    // created in the getAddonByID callback.
+    // TODO: Only add defaults for the shortcuts generated here.
+    Zutilo.Prefs.setDefaults()
+})

@@ -256,3 +256,13 @@ Any of the menu items can be set to hidden in Zutilo's preferences.
 
     This function works by toggling the associated files preference in Zotero, creating the item, and then toggling the preference back to its original state.
     Because Zotero translates pages asynchronously (and thus simultaneously), translations made with this function should be allowed to finish before starting normal page translations with Zotero (since otherwise the state of the "Associated files" preference will depend on the timing of the simultaneous translations).
+
+### Better BibTeX functions
+
+The following functions are only available when [Better BibTeX](https://github.com/retorquere/zotero-better-bibtex) is installed (and only for Zotero version 5.0 or higher).
+
+* __Pin key:__ Pin the key for the currently selected items.
+
+* __Unpin key:__ Unpin the key for the currently selected items.
+
+* __Force-refresh key:__ Force-refresh the key for the currently selected items.
