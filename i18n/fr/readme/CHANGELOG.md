@@ -1,3 +1,7 @@
+* In version 3.0.2a:
+
+	+ Add shortcuts for BetterBibTeX
+	
 * In version 3.0.1:
 
 	+ Update base URL used for copying Zotero web links
