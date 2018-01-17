@@ -76,3 +76,9 @@ For a list of acknowledgments, please see the [author page](AUTHORS.md).
 ## Changes
 
 For a summary changes by version number, please see the [changelog](CHANGELOG.md).
+
+## How to Contribute
+
+1. Star the repository on GitHub. The number of stars on GitHub is one of the most visible metrics for gauging the level of interest in project.
+2. Encourage others to use the project, either directly or by writing a blog post. Besides GitHub stars, the other metric for gauging interest in the project is the total number of downloads of the xpi.
+3. Submit new features or translations. However, keep in mind that new features add to the maintenance burden of the project. So get in contact before putting a lot of time into a new feature.
