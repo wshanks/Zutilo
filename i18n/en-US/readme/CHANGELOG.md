@@ -1,5 +1,7 @@
-    * In version 3.0.3:
+* In version 3.0.3:
+
 	+ Fix French locale
+
 * In version 3.0.2:
 
 	+ Add shortcuts for BetterBibTeX
