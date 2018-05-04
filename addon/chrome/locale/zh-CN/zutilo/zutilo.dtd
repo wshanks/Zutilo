@@ -1,10 +1,10 @@
 <!ENTITY zutilo.name			"Zutilo">
 
-<!ENTITY zutilo.startup.upgradetitle	"Zutilo：升级消息">
+<!ENTITY zutilo.startup.upgradetitle	"Zutilo: 升级消息">
 
-<!ENTITY zutilo.zoteronotactive.title "Zutilo：Zotero 未激活！">
+<!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero 未激活！">
 <!ENTITY zutilo.zoteronotactive.infomessage "Zutilo 是 Zotero 的 Firefox 扩展的一个插件，Zotero 目前已被禁用或未安装。Zetero 可以从 Zetero 主页上下载。Zutilo 可以从附加组件管理器中卸载。">
-<!ENTITY zutilo.zoteronotactive.actionmessage "当下面的按钮被按下时，会关掉窗口并进行如下动作：">
+<!ENTITY zutilo.zoteronotactive.actionmessage "当下面的按钮被按下时，会关掉窗口并进行如下动作: ">
 <!ENTITY zutilo.zoteronotactive.zoteropage "打开 Zotero 主页">
 <!ENTITY zutilo.zoteronotactive.addonmanager "打开附加组件管理器">
 <!ENTITY zutilo.zoteronotactive.dontshow "以后不再显示此窗口">
@@ -24,22 +24,22 @@
 <!ENTITY zutilo.preferences.ui.statuspopup.checkbox "转换有/无附件时显示菜单项">
 
 <!ENTITY zutilo.preferences.ui.ffcacm.label "Firefox 内容区域上下文菜单">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.label "创建附件的方法：">
+<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.label "创建附件的方法: ">
 <!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.Zotero "导入">
 <!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.prompt "提示输入连接的文件">
 <!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.promptAfterOne "首次后提示">
-<!ENTITY zutilo.preferences.ui.attachPage.label "显示附加页面菜单项在：">
-<!ENTITY zutilo.preferences.ui.attachLink.label "显示附件链接菜单项在：">
+<!ENTITY zutilo.preferences.ui.attachPage.label "显示附加页面菜单项在: ">
+<!ENTITY zutilo.preferences.ui.attachLink.label "显示附件链接菜单项在: ">
 <!ENTITY zutilo.preferences.ui.ffcacm.Firefox "Firefox 上下文菜单">
 <!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Zotero 子菜单">
 <!ENTITY zutilo.preferences.ui.ffcacm.hide "不要显示">
 
-<!ENTITY zutilo.preferences.shortcuts "Shortcuts">
-<!ENTITY zutilo.preferences.shortcuts.labels "Name">
-<!ENTITY zutilo.preferences.shortcuts.categories "Category">
-<!ENTITY zutilo.preferences.shortcuts.keys "Shortcut">
-<!ENTITY zutilo.preferences.shortcuts.apply "Apply">
-<!ENTITY zutilo.preferences.shortcuts.disable "Disable">
+<!ENTITY zutilo.preferences.shortcuts "快捷键列表">
+<!ENTITY zutilo.preferences.shortcuts.labels "名称">
+<!ENTITY zutilo.preferences.shortcuts.categories "分类">
+<!ENTITY zutilo.preferences.shortcuts.keys "快捷键">
+<!ENTITY zutilo.preferences.shortcuts.apply "应用">
+<!ENTITY zutilo.preferences.shortcuts.disable "取消">
 
 <!ENTITY zutilo.preferences.about "关于">
 <!ENTITY zutilo.preferences.readme.caption "关于 Zutilo">
