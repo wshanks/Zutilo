@@ -36,7 +36,7 @@ $(BLDDIR)/amo_readme/%/README.html:
 		$(BLDDIR)/amo_readme/$*/README.html
 	# Strip tags not allowed on addons.mozilla.org
 	sed -e 's/<p>//' -e 's#</p>#\n#' -e 's/h[1-9]>/strong>/g' -e 's#br />#\n#' \
-		-i $(BLDDIR)/amo_readme/$*/README.html
+		$(BLDDIR)/amo_readme/$*/README.html
 
 clean:
 	rm -f $(BLDDIR)/zutilo.xpi
