@@ -39,7 +39,7 @@
 <!ENTITY zutilo.preferences.shortcuts.categories "分类">
 <!ENTITY zutilo.preferences.shortcuts.keys "快捷键">
 <!ENTITY zutilo.preferences.shortcuts.apply "应用">
-<!ENTITY zutilo.preferences.shortcuts.disable "取消">
+<!ENTITY zutilo.preferences.shortcuts.disable "重置">
 
 <!ENTITY zutilo.preferences.about "关于">
 <!ENTITY zutilo.preferences.readme.caption "关于 Zutilo">
