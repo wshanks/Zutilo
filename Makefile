@@ -6,7 +6,7 @@ INTERNAL_READMES := $(patsubst %, addon/chrome/locale/%/zutilo/README.html, $(LO
 AMO_READMES := $(patsubst %, $(BLDDIR)/amo_readme/%/README.html, $(LOCALES))
 
 # Necessary because zip copies leading directories if run from above targets
-ABS_BLDDIR := $(shell realpath $(BLDDIR))
+ABS_BLDDIR := $(shell readlink -f $(BLDDIR))
 
 all: xpi amo_readme
 
@@ -36,7 +36,7 @@ $(BLDDIR)/amo_readme/%/README.html:
 		$(BLDDIR)/amo_readme/$*/README.html
 	# Strip tags not allowed on addons.mozilla.org
 	sed -e 's/<p>//' -e 's#</p>#\n#' -e 's/h[1-9]>/strong>/g' -e 's#br />#\n#' \
-		$(BLDDIR)/amo_readme/$*/README.html
+		-i $(BLDDIR)/amo_readme/$*/README.html
 
 clean:
 	rm -f $(BLDDIR)/zutilo.xpi
