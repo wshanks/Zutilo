@@ -27,7 +27,7 @@
 		<em:translator>de: Will Shanks and Armin Stroß-Radschinski</em:translator>
 		<em:translator>fr: Goofy</em:translator>
 		<em:translator>es: Will Shanks and Urko</em:translator>
-		<em:translator>zh-CN: Wang H. K.</em:translator>
+		<em:translator>zh-CN: Wang H. K. and Liu K.</em:translator>
     
 		<!-- Requires Firefox -->
 		<em:targetApplication>
@@ -76,6 +76,13 @@
 				<em:locale>fr</em:locale>
 				<em:name>Zutilo Outil pour Zotero</em:name>
 				<em:description>Un outil qui ajoute certaines fonctionnalités à Zotero</em:description>
+			</Description>
+		</em:localized>
+		<em:localized>
+			<Description>
+				<em:locale>zh-CN</em:locale>
+				<em:name>Zutilo Zotero 工具箱</em:name>
+				<em:description>一个为Zotero增加了各种实用宏的工具箱</em:description>
 			</Description>
 		</em:localized>
 	</Description>
