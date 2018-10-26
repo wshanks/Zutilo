@@ -14,12 +14,6 @@ source_file = addon/chrome/locale/en-US/zutilo/zutilo.properties
 source_lang = en
 type = MOZILLAPROPERTIES
 
-[zutilo.externalproperties]
-file_filter = i18n/<lang>/external.properties
-source_file = i18n/en-US/external.properties
-source_lang = en
-type = MOZILLAPROPERTIES
-
 [zutilo.readme]
 file_filter = i18n/<lang>/readme/README.md
 source_file = i18n/en-US/readme/README.md
