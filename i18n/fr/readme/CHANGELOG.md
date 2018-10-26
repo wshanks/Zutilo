@@ -19,6 +19,11 @@
         - Don't change clipboard when no valid items copied
         - Add Zutilo preferences to Tools menu on all platforms
 
+* In version 2.0.3:
+
+    + Improved French locale (thanks to gracile-fr)
+    + Add preferences menu item to the global menu in Zotero 5.0 (thanks to gracile-fr)
+
 * In version 2.0.2:
 
 	+ Allow some functions (like copy tags) to work on attachments and notes as well as regular items.
