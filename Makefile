@@ -6,7 +6,7 @@ INTERNAL_READMES := $(patsubst %, addon/chrome/locale/%/zutilo/README.html, $(LO
 AMO_READMES := $(patsubst %, $(BLDDIR)/amo_readme/%/README.html, $(LOCALES))
 
 # Necessary because zip copies leading directories if run from above targets
-ABS_BLDDIR := $(shell readlink -f $(BLDDIR))
+ABS_BLDDIR := $(shell realpath $(BLDDIR))
 
 all: xpi amo_readme
 
