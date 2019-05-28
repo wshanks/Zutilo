@@ -2,6 +2,7 @@
 
     + Update Chinese translation
     + Add "Link to File..." shortcut
+    + Add "Show file" shortcut
 
 * In version 3.0.3:
 

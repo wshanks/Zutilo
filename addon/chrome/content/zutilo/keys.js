@@ -227,6 +227,29 @@ keys.shortcuts.attachStoredFile = function(win) {
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 }
 
+keys.categories.showFile = 'attachments'
+keys.shortcuts.showFile = function(win) {
+    let zitems = win.ZoteroPane.getSelectedItems()
+
+    var _getBestFile = win.Zotero.Promise.coroutine(function* (item) {
+        if(item.isAttachment()) {
+            if(item.attachmentLinkMode === Zotero.Attachments.LINK_MODE_LINKED_URL) return false;
+            return item;
+        } else {
+            return yield item.getBestAttachment();
+        }
+    });
+
+    win.Zotero.Promise.coroutine(function* (zitems){
+        for (let item of zitems) {
+            var attachment = yield _getBestFile(item);
+            if(attachment) {
+                win.ZoteroPane_Local.showAttachmentInFilesystem(attachment.id);
+            }
+        }
+    })(zitems)
+}
+
 /***********************************************/
 // Zotero functions (i.e. not Zutilo functions)
 // Focus selection
