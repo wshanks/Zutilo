@@ -443,3 +443,16 @@ AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
     // TODO: Only add defaults for the shortcuts generated here.
     Zutilo.Prefs.setDefaults()
 })
+
+AddonManager.getAddonByID('zotfile@columbia.edu', function(aAddon) {
+    if (aAddon === null || !aAddon.isActive) {
+        return
+    }
+
+    keys.categories.ZotFileAttach = 'ZotFile'
+    keys.shortcuts.ZotFileAttach = function(win) {
+        win.Zotero.ZotFile.attachFileFromSourceDirectory()
+    }
+
+    Zutilo.Prefs.setDefaults()
+})

@@ -3,6 +3,7 @@
     + Update Chinese translation
     + Add "Link to File..." shortcut
     + Add "Show file" shortcut
+    + Add "Attach new file" shortcut for ZotFile
 
 * In version 3.0.3:
 
