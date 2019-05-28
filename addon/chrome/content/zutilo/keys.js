@@ -177,6 +177,10 @@ keys.categories.lookupID = 'itemcreation'
 keys.shortcuts.lookupID = function(win) {
     win.document.getElementById('zotero-lookup-panel').showPopup()
 }
+keys.categories.linked = 'itemcreation'
+keys.shortcuts.linked = function(win) {
+    win.ZoteroPane.addAttachmentFromDialog(true)
+}
 keys.categories.attachLinkFile = 'attachments'
 keys.shortcuts.attachLinkFile = function(win) {
     var zitems = win.ZutiloChrome.zoteroOverlay.getSelectedItems('regular');

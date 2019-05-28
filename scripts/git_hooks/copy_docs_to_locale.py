@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''Script to copy file contents staged in git between two root directories'''
 
 from glob import glob

@@ -13,4 +13,4 @@ elif [ $OS = "Darwin" ] ; then
 	DIR="$( cd -P "$(dirname "${FILEPATH}")" && pwd)"
 fi
 
-python "${DIR}"/copy_docs_to_locale.py
+python3 "${DIR}"/copy_docs_to_locale.py

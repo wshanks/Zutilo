@@ -1,3 +1,8 @@
+* In version 3.0.4b:
+
+    + Update Chinese translation
+    + Add "Link to File..." shortcut
+
 * In version 3.0.3:
 
 	+ Fix French locale
