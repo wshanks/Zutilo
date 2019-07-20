@@ -1,4 +1,4 @@
-* In version 3.0.4b:
+* In version 3.1.0:
 
     + Update Chinese translation
     + Add "Link to File..." shortcut
