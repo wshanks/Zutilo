@@ -822,10 +822,25 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         var libraryID;
+        var libraryType
+        var path
         for (var ii = 0; ii < zitems.length; ii++) {
-            libraryID = zitems[ii].libraryID ? zitems[ii].libraryID : 0;
-            links.push('zotero://select/items/' +
-                       libraryID + '_' + zitems[ii].key);
+
+            libraryType = Zotero.Libraries.get(zitems[ii].libraryID).libraryType
+
+            switch (libraryType) {
+                case 'group':
+                    path = Zotero.URI.getLibraryPath(zitems[ii].libraryID)
+                    break;
+                case 'user':
+                    path = 'library'
+                    break;
+                default:
+                    // Feeds?
+                    continue
+            }
+
+            links.push('zotero://select/' + path + '/items/'+ zitems[ii].key)
         }
 
         var clipboardText = links.join('\r\n');
