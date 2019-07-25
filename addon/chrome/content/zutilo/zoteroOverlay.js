@@ -11,6 +11,19 @@ Components.utils.import('resource://gre/modules/Services.jsm');
 Components.utils.import('chrome://zutilo/content/zutilo.jsm');
 Components.utils.import('resource://zotero/config.js');
 
+function debug(msg, err) {
+    if (err) {
+        Zotero.debug(`{Zutilo} ${new Date} error: ${msg} (${err} ${err.stack})`)
+    } else {
+        Zotero.debug(`{Zutilo} ${new Date}: ${msg}`)
+    }
+}
+
+// needed as a separate function, because ZutiloChrome.zoteroOverlay.refreshZoteroItemPopup refers to `this`, and a bind would make it two separate functions in add/remove eventlistener
+function refreshZoteroItemPopup() {
+  ZutiloChrome.zoteroOverlay.refreshZoteroItemPopup(document)
+}
+
 ZutiloChrome.zoteroOverlay = {
     /******************************************/
     // Window load handling
@@ -22,6 +35,8 @@ ZutiloChrome.zoteroOverlay = {
             gBrowser.addEventListener('load',
                 ZutiloChrome.zoteroOverlay.pageloadListener, true);
         }
+
+        document.getElementById('zotero-itemmenu').addEventListener('popupshowing', refreshZoteroItemPopup, false)
     },
 
     unload: function() {
@@ -35,6 +50,8 @@ ZutiloChrome.zoteroOverlay = {
             toolsPopup.removeEventListener('popupshowing',
                 ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
         }
+
+        document.getElementById('zotero-itemmenu').removeEventListener('popupshowing', refreshZoteroItemPopup, false)
     },
 
     /******************************************/
@@ -302,6 +319,219 @@ ZutiloChrome.zoteroOverlay = {
                 child.parentKey = newParent.key
                 child.saveTx()
             }
+        }
+    },
+
+    CopyItems: new class {
+        constructor() {
+            // this gets us a BlueBird promise which has isPending
+            this.ready = new Zotero.Promise((resolve, reject) => {
+                this._init()
+                    .then(() => resolve(true))
+                    .catch(err => {
+                        debug('CopyItems._init', err)
+                        reject(err)
+                    })
+            })
+        }
+        async _init() {
+            await Zotero.Schema.schemaUpdatePromise
+    
+            const baseMapped = Zotero.ItemFields.getBaseMappedFields()
+            this.fields = Zotero.ItemFields.getAll().filter(field => !baseMapped.includes(field.id)).map(field => field.name)
+        }
+    
+        sourceItem() {
+            const items = ZutiloChrome.zoteroOverlay.getSelectedItems() || []
+            return items.length === 1 && items[0].isRegularItem() ? items[0] : null
+        }
+    
+        targetItems() {
+            const items = (ZutiloChrome.zoteroOverlay.getSelectedItems() || []).filter(item => item.isRegularItem())
+            debug(`targetItems: ${items.length}`)
+            return items
+        }
+
+        getFieldIDFromTypeAndBase(itemType, field) {
+            // isValidForItemType doesn't check base fields and getFieldIDFromTypeAndBase throws an error if the field is not defined on the type... oy vey.
+            try {
+                return Zotero.ItemFields.getFieldIDFromTypeAndBase(itemType, field)
+            } catch (err) {
+                return false
+            }
+        }
+    
+        clipboard() {
+            const clipboard = ZutiloChrome.getFromClipboard(true).trim()
+            debug(`clipboard: ${clipboard}`)
+            if (!clipboard || !clipboard.startsWith('{')) return null
+    
+            try {
+                const item = JSON.parse(clipboard)
+                if (!item.itemType) throw new Error(`${clipboard} does not look like a Zotero item`)
+                return item
+            } catch (err) {
+                debug('Not valid JSON on clipboard', err)
+            }
+            return null
+        }
+    },
+
+    copyJSON: function() {
+        this._copyJSON().catch(err => debug('copyJSON', err))
+    },
+    _copyJSON: async function() {
+        await this.CopyItems.ready
+
+        const sourceItem = this.CopyItems.sourceItem()
+        if (!sourceItem) {
+            debug('Unexpected call to copyItem2JSON: no regular item selected')
+            return
+        }
+
+        const item = Zotero.Utilities.Internal.itemToExportFormat(sourceItem)
+
+        // normalize all fields to base fields for easier copying
+        for (const field of Object.keys(item)) {
+            if (['itemType', 'creators'].includes(field)) continue
+
+            // OK to use isValidForType because the fields are non-basefields here and all the rest we want to get rid of anyhow
+            if (!Zotero.ItemFields.isValidForType(field, sourceItem.itemTypeID)) {
+                debug(`stripping ${item.itemType}.${field}`)
+                delete item[field]
+                continue
+            }
+
+            const baseID = Zotero.ItemFields.getBaseIDFromTypeAndField(sourceItem.itemTypeID, field)
+            if (baseID === false) continue
+            const baseField = Zotero.ItemFields.getName(baseID)
+            if (baseField !== field) {
+                item[baseField] = item[field]
+                delete item[field]
+            }
+        }
+
+        // add missing fields -- '' if it could have been present on the item, null if not, so that inspection of the JSON object tells you about what you can expect for the itemType
+        for (const field of this.CopyItems.fields) {
+          if (item.hasOwnProperty(field)) continue
+          item[field] = this.CopyItems.getFieldIDFromTypeAndBase(sourceItem.itemTypeID, field) ? '' : null
+        }
+
+        this._copyToClipboard(JSON.stringify(item, null, 2))
+    },
+
+    pasteJSONIntoEmptyFields: function() {
+        debug('pasteJSONIntoEmptyFields')
+        this.pasteJSON('into-empty-fields').catch(err => debug('pasteJSONIntoEmptyFields', err))
+    },
+    pasteJSONFromNonEmptyFields: function() {
+        debug('pasteJSONFromNonEmptyFields')
+        this.pasteJSON('from-non-empty-fields').catch(err => debug('pasteJSONFromNonEmptyFields', err))
+    },
+    pasteJSONAll: function() {
+        debug('pasteJSONAll')
+        this.pasteJSON('all').catch(err => debug('pasteJSONAll', err))
+    },
+    pasteJSON: async function(mode) {
+        await this.CopyItems.ready
+
+        const copiedItem = this.CopyItems.clipboard()
+        if (!copiedItem) {
+            debug('Unexpected call to pasteJSON: no item on clipboard')
+            return
+        }
+        const items = this.CopyItems.targetItems()
+        if (!items.length) {
+            debug('Unexpected call to pasteJSON: no target items selected')
+            return
+        }
+
+        function creatorID(creator) {
+            return JSON.stringify(['creatorType', 'name', 'firstName', 'lastName'].map(field => creator[field] || ''))
+        }
+
+        for (const item of items) {
+            let save = false
+
+            for (const [field, value] of Object.entries(copiedItem)) {
+                const fieldID = this.CopyItems.getFieldIDFromTypeAndBase(item.itemTypeID, field)
+                debug(`${item.itemTypeID}.${field} = ${value}: valid = ${fieldID}`)
+                
+                if (field ===  'creators') {
+                    let creators
+                    let creatorIDs
+                    let newCreators
+                    switch (mode) {
+                        case 'into-empty-fields':
+                            creators = item.getCreators().map(creator => {
+                              if (creator.fieldMode === 1) {
+                                return {
+                                  creatorType: Zotero.CreatorTypes.getName(creator.creatorTypeID),
+                                  name: creator.name || creator.lastName || '',
+                                }
+                              }
+                              return {
+                                creatorType: Zotero.CreatorTypes.getName(creator.creatorTypeID),
+                                firstName: creator.firstName || '',
+                                lastName: creator.lastName || '',
+                              }
+                            })
+                            creatorIDs = (creators || []).map(creatorID)
+                            newCreators = value.filter(creator => !creatorIDs.includes(creatorID(creator)))
+
+                            if (!newCreators.length) continue
+
+                            creators = creators.concat(newCreators)
+                            break
+
+                        case 'from-non-empty-fields':
+                            if (!value.length) continue
+
+                            creators = value
+                            break
+
+                        case 'all':
+                            creators = value
+                            break
+                    }
+
+                    item.setCreators([]) // clears existing
+                    item.setCreators(creators)
+                    save = true
+
+                } else if (fieldID !== false) {
+
+                    const fieldName = Zotero.ItemFields.getName(fieldID)
+                    const currentValue = item.getField(fieldName, true, true)
+
+                    const isEmpty = {
+                        source: typeof value !== 'number' && typeof value !== 'boolean' && !value,
+                        target: typeof currentValue !== 'number' && typeof value !== 'boolean' && !currentValue,
+                    }
+
+                    switch (mode) {
+                        case 'into-empty-fields':
+                            if (isEmpty.source || !isEmpty.target) continue
+
+                            break
+
+                        case 'from-non-empty-fields':
+                            if (isEmpty.source) continue
+
+                            break
+
+                        case 'all':
+                            break
+
+                    }
+
+                    item.setField(fieldName, isEmpty.source ? '' : value)
+                    save = true
+                }
+            }
+
+            debug(`pasteJSON: ${item.id}, save: ${save}`)
+            if (save) await item.saveTx()
         }
     },
 
@@ -883,6 +1113,25 @@ ZutiloChrome.zoteroOverlay = {
         this.refreshZoteroItemPopup(doc);
     },
 
+    CheckVisibility: new class {
+        copyJSON() {
+            return !ZutiloChrome.zoteroOverlay.CopyItems.ready.isPending() && ZutiloChrome.zoteroOverlay.CopyItems.sourceItem()
+        }
+
+        pasteJSON() {
+            return !ZutiloChrome.zoteroOverlay.CopyItems.ready.isPending() && ZutiloChrome.zoteroOverlay.CopyItems.targetItems().length && ZutiloChrome.zoteroOverlay.CopyItems.clipboard()
+        }
+        pasteJSONIntoEmptyFields() {
+            return this.pasteJSON()
+        }
+        pasteJSONFromNonEmptyFields() {
+            return this.pasteJSON()
+        }
+        pasteJSONAll() {
+            return this.pasteJSON()
+        }
+    },
+
     // Update hidden state of Zotero item menu elements
     refreshZoteroItemPopup: function(doc) {
         if (typeof doc == 'undefined') {
@@ -900,11 +1149,13 @@ ZutiloChrome.zoteroOverlay = {
             var zoteroMenuItem = doc.getElementById(
                 'zutilo-zoteroitemmenu-' + Zutilo._itemmenuFunctions[index]);
 
-            if (prefVal == 'Zotero') {
+            const visible = !this.CheckVisibility[Zutilo._itemmenuFunctions[index]] || this.CheckVisibility[Zutilo._itemmenuFunctions[index]]()
+
+            if (visible && prefVal == 'Zotero') {
                 showMenuSeparator = true;
                 zutiloMenuItem.hidden = true;
                 zoteroMenuItem.hidden = false;
-            } else if (prefVal == 'Zutilo') {
+            } else if (visible && prefVal == 'Zutilo') {
                 showMenuSeparator = true;
                 showSubmenu = true;
                 zutiloMenuItem.hidden = false;

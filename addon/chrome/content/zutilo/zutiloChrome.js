@@ -171,7 +171,7 @@ ZutiloChrome.removeLabeledChildren = function(parentElem, childLabel) {
 /******************************************/
 
 // Get string from clipboard
-ZutiloChrome.getFromClipboard = function() {
+ZutiloChrome.getFromClipboard = function(silent) {
 
     var trans = Components.classes['@mozilla.org/widget/transferable;1'].
           createInstance(Components.interfaces.nsITransferable);
@@ -189,12 +189,14 @@ ZutiloChrome.getFromClipboard = function() {
     try {
         trans.getTransferData('text/unicode', str, strLength);
     } catch (err) {
-        var prompts = Cc['@mozilla.org/embedcomp/prompt-service;1'].
-            getService(Components.interfaces.nsIPromptService);
-        prompts.alert(null, Zutilo._bundle.
-            GetStringFromName('zutilo.error.pastetitle'),
-            Zutilo._bundle.
-            GetStringFromName('zutilo.error.pastemessage'));
+        if (!silent) {
+            var prompts = Cc['@mozilla.org/embedcomp/prompt-service;1'].
+                getService(Components.interfaces.nsIPromptService);
+            prompts.alert(null, Zutilo._bundle.
+                GetStringFromName('zutilo.error.pastetitle'),
+                Zutilo._bundle.
+                GetStringFromName('zutilo.error.pastemessage'));
+        }
         return '';
     }
 

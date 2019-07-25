@@ -10,6 +10,9 @@ ABS_BLDDIR := $(shell realpath $(BLDDIR))
 
 all: xpi amo_readme
 
+0x0: $(BLDDIR)/zutilo.xpi
+	curl -F'file=@$(BLDDIR)/zutilo.xpi' https://0x0.st
+
 xpi: $(BLDDIR)/zutilo.xpi
 
 $(BLDDIR)/zutilo.xpi: $(INTERNAL_READMES)
