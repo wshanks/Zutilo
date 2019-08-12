@@ -27,14 +27,17 @@ var Zutilo = {
     // All strings here should be the exact name of Zutilo functions that take
     // no argument and that should be able to be called from the Zotero item
     // menu
-    _itemmenuFunctions: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
-        'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
-        'copyAttachmentPaths',
-        'copyCreators', 'copyItems', 'copyItems_alt1', 'copyItems_alt2',
-        'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
-        'createBookItem', 'copyChildIDs', 'relocateChildren',
-        'copyJSON', 'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields', 'pasteJSONAll',
+    _menuFunctions: {
+        item: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
+            'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
+            'copyAttachmentPaths',
+            'copyCreators', 'copyItems', 'copyItems_alt1', 'copyItems_alt2',
+            'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
+            'createBookItem', 'copyChildIDs', 'relocateChildren',
+            'copyJSON', 'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields', 'pasteJSONAll',
         ],
+        collection: ['copyZoteroCollectionSelectLink', 'copyZoteroCollectionURI'],
+    },
     ffcacmFunctions: [
         {name: 'attachPage',
             condition: ''},
@@ -170,6 +173,8 @@ var Zutilo = {
 
             switch (topic) {
                 case 'zutilo-zoteroitemmenu-update':
+                case 'zutilo-zoterocollectionmenu-update':
+                    const menuName = (topic.includes('item') ? 'item' : 'collection')
                     while (windows.hasMoreElements()) {
                         tmpWin = windows.getNext();
                         if ('undefined' != typeof tmpWin.ZutiloChrome &&
@@ -178,7 +183,7 @@ var Zutilo = {
 
                             tmpWin.ZutiloChrome.actOnAllDocuments(
                                 tmpWin.ZutiloChrome.zoteroOverlay.
-                                refreshZoteroItemPopup.bind(tmpWin.ZutiloChrome.zoteroOverlay));
+                                refreshZoteroPopup.bind(tmpWin.ZutiloChrome.zoteroOverlay, menuName));
                         }
                     }
                     break;
@@ -203,11 +208,14 @@ var Zutilo = {
         register: function() {
             Services.obs.addObserver(this, 'zutilo-zoteroitemmenu-update',
                                      false);
+            Services.obs.addObserver(this, 'zutilo-zoterocollectionmenu-update',
+                                     false);
             Services.obs.addObserver(this, 'zutilo-shortcut-update', false);
         },
 
         unregister: function() {
             Services.obs.removeObserver(this, 'zutilo-zoteroitemmenu-update');
+            Services.obs.removeObserver(this, 'zutilo-zoterocollectionmenu-update');
             Services.obs.removeObserver(this, 'zutilo-shortcut-update');
         }
     },
@@ -267,24 +275,26 @@ Zutilo.Prefs = {
     setDefaults: function() {
         var defaults = Services.prefs.getDefaultBranch('extensions.zutilo.');
 
-        // Preferences for _itemmenuFunctions
-		for (let func of Zutilo._itemmenuFunctions) {
-			let pref = 'Hide'
-			if (['copyTags', 'pasteTags', 'relateItems',
-				 'copyItems'].indexOf(func) >= 0) {
-				pref = 'Zutilo'
-			}
-			defaults.setCharPref('itemmenu.' + func, pref)
-		}
+        // Preferences for _menuFunctions
+        for (const menuName of ['item', 'collection']) {
+            for (let func of Zutilo._menuFunctions[menuName]) {
+                let pref = 'Hide'
+                if (['copyTags', 'pasteTags', 'relateItems',
+                    'copyItems'].includes(func)) {
+                    pref = 'Zutilo'
+                }
+                defaults.setCharPref(`${menuName}menu.${func}`, pref)
+            }
+        }
         // Preferences for _shortcuts
         // switch to loading shortcuts script and looping on shortcuts object
         for (var keyLabel in Zutilo.keys.shortcuts) {
             defaults.setCharPref('shortcut.' + keyLabel,
                 JSON.stringify({modifiers: '', key: '', keycode: ''}));
         }
-		// Alternative QuickCopy translators
-		defaults.setCharPref('quickCopy_alt1', '')
-		defaults.setCharPref('quickCopy_alt2', '')
+        // Alternative QuickCopy translators
+        defaults.setCharPref('quickCopy_alt1', '')
+        defaults.setCharPref('quickCopy_alt2', '')
         // Other preferences
         defaults.setCharPref('attachLinkAppearance', 'Zotero');
         defaults.setCharPref('attachmentImportProcessType', 'Zotero');
@@ -375,9 +385,17 @@ Zutilo.Prefs = {
         // a change
         if (data.indexOf('itemmenu') === 0) {
             prefParts = data.split('.');
-            if (Zutilo._itemmenuFunctions.indexOf(prefParts[1]) != -1) {
+            if (Zutilo._menuFunctions.item.includes(prefParts[1])) {
                 Services.obs.notifyObservers(null,
                                              'zutilo-zoteroitemmenu-update',
+                                             null);
+            }
+        }
+        if (data.indexOf('collectionmenu') === 0) {
+            prefParts = data.split('.');
+            if (Zutilo._menuFunctions.collection.includes(prefParts[1])) {
+                Services.obs.notifyObservers(null,
+                                             'zutilo-zoterocollectionmenu-update',
                                              null);
             }
         }

@@ -30,7 +30,7 @@
 			</groupbox>
 		</prefpane>
         
-		<prefpane label="&zutilo.preferences.userInterface;" id="zutilo-prefpane-ui" onpaneload="buildItemmenuPrefs()" flex="1">
+		<prefpane label="&zutilo.preferences.userInterface;" id="zutilo-prefpane-ui" onpaneload="buildMenuPrefs()" flex="1">
         	<preferences id="zutilo-prefpane-ui-preferences">
         		<preference id="pref-showStatusPopupItems" 
         			name="extensions.zutilo.showStatusPopupItems" type="bool"/>
@@ -41,20 +41,34 @@
         		<preference id="pref-attachLinkApperance" 
         			name="extensions.zutilo.attachLinkAppearance" type="string"/>
         	</preferences>
-        	<groupbox>
-        		<caption label='&zutilo.preferences.ui.itemmenuLabel;'/>
-				<grid>
-					<columns>
-						<column/>
-						<column flex="1"/>
-					</columns>
-				
-					<rows id="zutilo-prefpane-ui-rows">
-						<!-- rows added dynamically by buildItemmenuPrefs() -->
-					</rows>
-				</grid>
-			</groupbox>
-			
+     <groupbox>
+       <caption label='&zutilo.preferences.ui.itemmenuLabel;'/>
+       <grid>
+         <columns>
+           <column/>
+           <column flex="1"/>
+         </columns>
+       
+         <rows id="zutilo-prefpane-item-rows">
+           <!-- rows added dynamically by buildMenuPrefs() -->
+         </rows>
+       </grid>
+     </groupbox>
+     
+     <groupbox>
+       <caption label='&zutilo.preferences.ui.collectionmenuLabel;'/>
+       <grid>
+         <columns>
+           <column/>
+           <column flex="1"/>
+         </columns>
+       
+         <rows id="zutilo-prefpane-collection-rows">
+           <!-- rows added dynamically by buildMenuPrefs() -->
+         </rows>
+       </grid>
+     </groupbox>
+
 			<groupbox id='zutilo-prefpane-ui-browser-menus'>
         		<caption label='&zutilo.preferences.ui.browserLabel;'/>
         		
