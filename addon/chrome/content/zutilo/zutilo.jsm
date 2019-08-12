@@ -30,9 +30,11 @@ var Zutilo = {
     _itemmenuFunctions: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
         'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
         'copyAttachmentPaths',
-		'copyCreators', 'copyItems', 'copyItems_alt1', 'copyItems_alt2',
+        'copyCreators', 'copyItems', 'copyItems_alt1', 'copyItems_alt2',
         'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
-        'createBookItem', 'copyChildIDs', 'relocateChildren'],
+        'createBookItem', 'copyChildIDs', 'relocateChildren',
+        'copyJSON', 'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields', 'pasteJSONAll',
+        ],
     ffcacmFunctions: [
         {name: 'attachPage',
             condition: ''},
@@ -176,7 +178,7 @@ var Zutilo = {
 
                             tmpWin.ZutiloChrome.actOnAllDocuments(
                                 tmpWin.ZutiloChrome.zoteroOverlay.
-                                refreshZoteroItemPopup);
+                                refreshZoteroItemPopup.bind(tmpWin.ZutiloChrome.zoteroOverlay));
                         }
                     }
                     break;
