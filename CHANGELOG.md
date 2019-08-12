@@ -1,3 +1,7 @@
+* In version 3.2.0b:
+
+    + Add copy/paste item field functions
+
 * In version 3.1.0:
 
     + Update Chinese translation
