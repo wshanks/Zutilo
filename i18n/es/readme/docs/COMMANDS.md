@@ -86,6 +86,21 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
 * __Relocate child items:__
     Move all items stored in Zutilo's internal clipboard (put there by the "Copy child items" function) to the currently selected item.
 
+* __Copy item fields:__
+    Copies all source-item metadata fields to the clipboard.
+    The data copied is all data visible in the right panel only (not tags, not notes).
+
+* __Paste into empty item fields:__
+    (‘Paste-into-empty’) paste where source has value and target has none/empty.
+    Authors from the source are merged in even if the target already has authors.
+
+* __Paste non-empty item fields__
+    (‘Paste-non-empty’): paste where source has value.
+    Replaces authors if there is an author field in the pasted data.
+
+* __Paste all items fields__
+    (Paste-all): paste all fields from source, even if they are empty.
+
 ### Navigating the UI and editing items via keyboard shortcuts
 
 Zutilo currently implements several keyboard shortcuts that are useful for editing Zotero items.
@@ -267,3 +282,5 @@ The following functions are only available when [Better BibTeX](https://github.c
 * __Unpin key:__ Unpin the key for the currently selected items.
 
 * __Force-refresh key:__ Force-refresh the key for the currently selected items.
+
+
