@@ -1,5 +1,6 @@
 * In version 3.0.3:
 
+    + Add functions to copy select links and web links to collections
 	+ Fix French locale
 
 * In version 3.0.2:
