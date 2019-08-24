@@ -1,53 +1,53 @@
 <?xml version="1.0"?>
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-		xmlns:em="http://www.mozilla.org/2004/em-rdf#">
-	
-	<Description about="urn:mozilla:install-manifest">
-		<em:id>zutilo@www.wesailatdawn.com</em:id>
-		<em:name>Zutilo Utility for Zotero</em:name>
-		<em:version>3.1.1a</em:version>
-		<em:multiprocessCompatible>true</em:multiprocessCompatible>
-        <em:updateURL>https://raw.githubusercontent.com/willsALMANJ/Zutilo/release/deploy/update.rdf</em:updateURL>
-		
-		<em:localized>
-			<Description>
-				<em:locale>en-US</em:locale>
-				<em:name>Zutilo Utility for Zotero</em:name>
-				<em:description>A utility adding assorted macros for Zotero</em:description>
-			</Description>
-		</em:localized>
-		
-		<em:creator>Will Shanks</em:creator>
-		<em:optionsURL>chrome://zutilo/content/preferences.xul</em:optionsURL>
-		<em:type>2</em:type> <!-- type=extension -->
-		<em:iconURL>chrome://zutilo/skin/zutilo.png</em:iconURL>
-		<em:icon64URL>chrome://zutilo/skin/zutilo64.png</em:icon64URL>
-		<em:bootstrap>true</em:bootstrap>
-		
-		<em:translator>de: Will Shanks and Armin Stroß-Radschinski</em:translator>
-		<em:translator>fr: Goofy</em:translator>
-		<em:translator>es: Will Shanks and Urko</em:translator>
-		<em:translator>zh-CN: Wang H. K. and Liu K.</em:translator>
-    
-		<!-- Requires Firefox -->
-		<em:targetApplication>
-			<Description>
-				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-				<em:minVersion>16.0a1</em:minVersion>
-				<em:maxVersion>56.*</em:maxVersion>
-			</Description>
-		</em:targetApplication>
-		
-		<!-- Or requires Zotero Standalone -->
-		<em:targetApplication>
-			<Description>
-				<em:id>zotero@chnm.gmu.edu</em:id>
-				<em:minVersion>3.0b1</em:minVersion>
-				<em:maxVersion>*</em:maxVersion>
-			</Description>
-		</em:targetApplication> 
+        xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
-		<!-- Or requires Juris-M -->
+    <Description about="urn:mozilla:install-manifest">
+        <em:id>zutilo@www.wesailatdawn.com</em:id>
+        <em:name>Zutilo Utility for Zotero</em:name>
+        <em:version>3.1.1a</em:version>
+        <em:multiprocessCompatible>true</em:multiprocessCompatible>
+        <em:updateURL>https://raw.githubusercontent.com/willsALMANJ/Zutilo/release/deploy/update.rdf</em:updateURL>
+
+        <em:localized>
+            <Description>
+                <em:locale>en-US</em:locale>
+                <em:name>Zutilo Utility for Zotero</em:name>
+                <em:description>A utility adding assorted macros for Zotero</em:description>
+            </Description>
+        </em:localized>
+
+        <em:creator>Will Shanks</em:creator>
+        <em:optionsURL>chrome://zutilo/content/preferences.xul</em:optionsURL>
+        <em:type>2</em:type> <!-- type=extension -->
+        <em:iconURL>chrome://zutilo/skin/zutilo.png</em:iconURL>
+        <em:icon64URL>chrome://zutilo/skin/zutilo64.png</em:icon64URL>
+        <em:bootstrap>true</em:bootstrap>
+
+        <em:translator>de: Will Shanks and Armin Stroß-Radschinski</em:translator>
+        <em:translator>fr: Goofy</em:translator>
+        <em:translator>es: Will Shanks and Urko</em:translator>
+        <em:translator>zh-CN: Wang H. K. and Liu K.</em:translator>
+
+        <!-- Requires Firefox -->
+        <em:targetApplication>
+            <Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>16.0a1</em:minVersion>
+                <em:maxVersion>56.*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+
+        <!-- Or requires Zotero Standalone -->
+        <em:targetApplication>
+            <Description>
+                <em:id>zotero@chnm.gmu.edu</em:id>
+                <em:minVersion>3.0b1</em:minVersion>
+                <em:maxVersion>*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+
+        <!-- Or requires Juris-M -->
         <em:targetApplication>
           <Description>
             <em:id>juris-m@juris-m.github.io</em:id>
@@ -56,34 +56,34 @@
           </Description>
         </em:targetApplication>
 
-		
-		<em:localized>
-			<Description>
-				<em:locale>de</em:locale>
-				<em:name>Zutilo Dienstprogramm für Zotero</em:name>
-				<em:description>Ein Dienstprogramm, das verschiedene Makros zu Zotero fügt</em:description>
-			</Description>
-		</em:localized>
-		<em:localized>
-			<Description>
-				<em:locale>es</em:locale>
-				<em:name>Utilidad Zutilo para Zotero</em:name>
-				<em:description>Una utilidad que ofrece diversas macros a Zotero</em:description>
-			</Description>
-		</em:localized>
-		<em:localized>
-			<Description>
-				<em:locale>fr</em:locale>
-				<em:name>Zutilo Outil pour Zotero</em:name>
-				<em:description>Un outil qui ajoute certaines fonctionnalités à Zotero</em:description>
-			</Description>
-		</em:localized>
-		<em:localized>
-			<Description>
-				<em:locale>zh-CN</em:locale>
-				<em:name>Zutilo Zotero 工具箱</em:name>
-				<em:description>一个为Zotero增加了各种实用宏的工具箱</em:description>
-			</Description>
-		</em:localized>
-	</Description>
+
+        <em:localized>
+            <Description>
+                <em:locale>de</em:locale>
+                <em:name>Zutilo Dienstprogramm für Zotero</em:name>
+                <em:description>Ein Dienstprogramm, das verschiedene Makros zu Zotero fügt</em:description>
+            </Description>
+        </em:localized>
+        <em:localized>
+            <Description>
+                <em:locale>es</em:locale>
+                <em:name>Utilidad Zutilo para Zotero</em:name>
+                <em:description>Una utilidad que ofrece diversas macros a Zotero</em:description>
+            </Description>
+        </em:localized>
+        <em:localized>
+            <Description>
+                <em:locale>fr</em:locale>
+                <em:name>Zutilo Outil pour Zotero</em:name>
+                <em:description>Un outil qui ajoute certaines fonctionnalités à Zotero</em:description>
+            </Description>
+        </em:localized>
+        <em:localized>
+            <Description>
+                <em:locale>zh-CN</em:locale>
+                <em:name>Zutilo Zotero 工具箱</em:name>
+                <em:description>一个为Zotero增加了各种实用宏的工具箱</em:description>
+            </Description>
+        </em:localized>
+    </Description>
 </RDF>

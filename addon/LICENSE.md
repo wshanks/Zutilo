@@ -1,5 +1,5 @@
 Copyright 2012 Will Shanks.
-Zutilo is licensed under a [Mozilla Public License, v. 2.0](http://mozilla.org/MPL/2.0/) (full text below).  
+Zutilo is licensed under a [Mozilla Public License, v. 2.0](http://mozilla.org/MPL/2.0/) (full text below).
 
 Zotero is licensed under the Affero GPL 3.0.
 
@@ -42,7 +42,7 @@ Mozilla Public License Version 2.0
     means any form of the work other than Source Code Form.
 
 1.7. "Larger Work"
-    means a work that combines Covered Software with other material, in 
+    means a work that combines Covered Software with other material, in
     a separate file or files, that is not Covered Software.
 
 1.8. "License"

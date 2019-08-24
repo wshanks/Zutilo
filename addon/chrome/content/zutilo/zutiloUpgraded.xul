@@ -11,17 +11,17 @@
 <!DOCTYPE window SYSTEM "chrome://zutilo/locale/zutilo.dtd">
 
 <dialog
-	id="zutilo-startup-upgradedialog"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	orient="vertical"
-	buttons="accept"
-	ondialogaccept="window.close();return true;"
-	flex="1"
-	title="&zutilo.startup.upgradetitle;"
-	width="400"
-	height="400">
-	
-	<script src="chrome://zutilo/content/zutiloUpgraded.js"/>
+    id="zutilo-startup-upgradedialog"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    orient="vertical"
+    buttons="accept"
+    ondialogaccept="window.close();return true;"
+    flex="1"
+    title="&zutilo.startup.upgradetitle;"
+    width="400"
+    height="400">
+    
+    <script src="chrome://zutilo/content/zutiloUpgraded.js"/>
 
-	<description id="zutilo-startup-upgradedescription"/>
+    <description id="zutilo-startup-upgradedescription"/>
 </dialog>

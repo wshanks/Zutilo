@@ -1,6 +1,6 @@
-<!ENTITY zutilo.name			"Zutilo">
+<!ENTITY zutilo.name            "Zutilo">
 
-<!ENTITY zutilo.startup.upgradetitle	"Zutilo: 升级消息">
+<!ENTITY zutilo.startup.upgradetitle    "Zutilo: 升级消息">
 
 <!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero 未激活！">
 <!ENTITY zutilo.zoteronotactive.infomessage "Zutilo 是 Zotero 的 Firefox 扩展的一个插件，Zotero 目前已被禁用或未安装。Zetero 可以从 Zetero 主页上下载。Zutilo 可以从附加组件管理器中卸载。">
@@ -9,7 +9,7 @@
 <!ENTITY zutilo.zoteronotactive.addonmanager "打开附加组件管理器">
 <!ENTITY zutilo.zoteronotactive.dontshow "以后不再显示此窗口">
 
-<!ENTITY zutilo.preferences.title	"Zutilo 首选项">
+<!ENTITY zutilo.preferences.title    "Zutilo 首选项">
 
 <!ENTITY zutilo.preferences.general "常规">
 <!ENTITY zutilo.preferences.general.standalonemessage "目前没有关于 Zotero 独立版的首选项。">

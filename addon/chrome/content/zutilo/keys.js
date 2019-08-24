@@ -4,9 +4,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 'use strict';
-/* global gBrowser, window, document, Components, AddonManager, Services */
-/* global Zotero, ZoteroPane, Zotero_Browser */
-/* global Zutilo, ZutiloChrome, gKeys */
+/* global Components, AddonManager, Services */
+/* global Zotero */
+/* global Zutilo, gKeys */
 
 /********************************************/
 // Include core modules and built-in modules
@@ -45,19 +45,17 @@ var keys = {
     },
 
     getLabels: function() {
-        var labels = [];
-
         for (var shortcut in Zutilo.keys.shortcuts) {
             gKeys.push(shortcut)
         }
     },
 
-	categoryName: function(categoryLabel) {
-		return Zutilo._bundle.GetStringFromName('zutilo.shortcuts.category.' +
-											    categoryLabel)
-	},
+    categoryName: function(categoryLabel) {
+        return Zutilo._bundle.GetStringFromName('zutilo.shortcuts.category.' +
+                                                categoryLabel)
+    },
 
-	categories: {},
+    categories: {},
     shortcuts: {}
 };
 
@@ -214,16 +212,16 @@ keys.shortcuts.renameSelectedAttachmentsFromParents = function(win) {
 keys.categories.attachURI = 'attachments'
 keys.shortcuts.attachURI = function(win) {
     // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-	var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
-	win.ZoteroPane_Local.addAttachmentFromURI(true, itemID)
+    var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
+    win.ZoteroPane_Local.addAttachmentFromURI(true, itemID)
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 }
 
 keys.categories.attachStoredFile = 'attachments'
 keys.shortcuts.attachStoredFile = function(win) {
     // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-	var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
-	win.ZoteroPane_Local.addAttachmentFromDialog(false, itemID)
+    var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
+    win.ZoteroPane_Local.addAttachmentFromDialog(false, itemID)
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 }
 
@@ -260,28 +258,28 @@ keys.shortcuts.duplicateItem = function(win) {
 };
 
 keys.categories.openStyleEditor = 'uinavigation'
-keys.shortcuts.openStyleEditor = function(win) {
-	var prefs_context = {}
-	Services.scriptloader.
-		loadSubScript('chrome://zotero/content/include.js', prefs_context) 
-	Services.scriptloader.
-		loadSubScript('chrome://zotero/content/preferences/preferences.js',
-					  prefs_context)
-	prefs_context.Zotero_Preferences.
-		openInViewer('chrome://zotero/content/tools/csledit.xul', true)
+keys.shortcuts.openStyleEditor = function(_win) {
+    var prefs_context = {}
+    Services.scriptloader.
+        loadSubScript('chrome://zotero/content/include.js', prefs_context)
+    Services.scriptloader.
+        loadSubScript('chrome://zotero/content/preferences/preferences.js',
+                      prefs_context)
+    prefs_context.Zotero_Preferences.
+        openInViewer('chrome://zotero/content/tools/csledit.xul', true)
 }
 
 keys.categories.generateReport = 'other'
 keys.shortcuts.generateReport = function(win) {
-	let context = win.ZoteroPane.document.defaultView
+    let context = win.ZoteroPane.document.defaultView
     if (context.document.activeElement.id == "zotero-collections-tree") {
             context.Zotero_Report_Interface.loadCollectionReport()
     } else {
         // "zotero-items-tree" whether it is the active element or not
-		let zitems = win.ZoteroPane.getSelectedItems()
-		if (zitems.length > 0) {
-			context.Zotero_Report_Interface.loadItemReport()
-		}
+        let zitems = win.ZoteroPane.getSelectedItems()
+        if (zitems.length > 0) {
+            context.Zotero_Report_Interface.loadItemReport()
+        }
     }
 };
 

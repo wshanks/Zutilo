@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 'use strict';
-/* global gBrowser, window, document, Components */
+/* global window, document, Components */
 Components.utils.import('chrome://zutilo/content/zutilo.jsm');
 
 function upgradeInit() {
@@ -13,6 +13,6 @@ function upgradeInit() {
     upgradeDescription.textContent = window.arguments[0].upgradeMessage;
 }
 
-window.addEventListener('load', function(e) {
+window.addEventListener('load', function(_e) {
         upgradeInit();
     }, false);

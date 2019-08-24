@@ -4,10 +4,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 'use strict';
-/* global gBrowser, window, document, AddonManager, Components, Services */
-/* global Zutilo, ZutiloChrome */
+/* global window, document, Components */
+/* global Zutilo */
 Components.utils.import('chrome://zutilo/content/zutilo.jsm');
 
+// eslint-disable-next-line no-unused-vars
 function onAccept() {
     if (document.getElementById('zutilo-zoteronotactive-zoteropage').checked) {
         Zutilo.openLink('http://www.zotero.org/');
