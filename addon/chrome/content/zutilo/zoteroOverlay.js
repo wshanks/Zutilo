@@ -19,9 +19,12 @@ function debug(msg, err) {
     }
 }
 
-// needed as a separate function, because ZutiloChrome.zoteroOverlay.refreshZoteroItemPopup refers to `this`, and a bind would make it two separate functions in add/remove eventlistener
+// needed as a separate function, because ZutiloChrome.zoteroOverlay.refreshZoteroPopup refers to `this`, and a bind would make it two separate functions in add/remove eventlistener
 function refreshZoteroItemPopup() {
-  ZutiloChrome.zoteroOverlay.refreshZoteroItemPopup(document)
+  ZutiloChrome.zoteroOverlay.refreshZoteroPopup('item', document)
+}
+function refreshZoteroCollectionPopup() {
+  ZutiloChrome.zoteroOverlay.refreshZoteroPopup('collection', document)
 }
 
 ZutiloChrome.zoteroOverlay = {
@@ -37,6 +40,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         document.getElementById('zotero-itemmenu').addEventListener('popupshowing', refreshZoteroItemPopup, false)
+        document.getElementById('zotero-collectionmenu').addEventListener('popupshowing', refreshZoteroCollectionPopup, false)
     },
 
     unload: function() {
@@ -52,6 +56,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         document.getElementById('zotero-itemmenu').removeEventListener('popupshowing', refreshZoteroItemPopup, false)
+        document.getElementById('zotero-collectionmenu').removeEventListener('popupshowing', refreshZoteroCollectionPopup, false)
     },
 
     /******************************************/
@@ -319,6 +324,12 @@ ZutiloChrome.zoteroOverlay = {
                 child.parentKey = newParent.key
                 child.saveTx()
             }
+        }
+    },
+
+    Collection: new class {
+        selected() {
+            return window.ZoteroPane.getSelectedCollection();
         }
     },
 
@@ -785,6 +796,23 @@ ZutiloChrome.zoteroOverlay = {
         return true
     },
 
+    copyZoteroCollectionSelectLink: function() {
+        const collection = ZutiloChrome.zoteroOverlay.Collection.selected()
+        if (!collection) return
+
+        if (collection.libraryID === Zotero.Libraries.userLibraryID) {
+          this._copyToClipboard(`zotero://select/library/collections/${collection.key}`)
+        } else {
+          this._copyToClipboard(`zotero://select/groups/${Zotero.Groups.getGroupIDFromLibraryID(collection.libraryID)}/collections/${collection.key}`)
+        }
+    },
+
+    copyZoteroCollectionURI: function() {
+        const collection = ZutiloChrome.zoteroOverlay.Collection.selected()
+        if (!collection) return
+        this._copyToClipboard(Zotero.URI.getCollectionURI(collection))
+    },
+
     copyZoteroSelectLink: function() {
         var zitems = this.getSelectedItems();
         var links = [];
@@ -1014,7 +1042,8 @@ ZutiloChrome.zoteroOverlay = {
             menuPopup = doc.getElementById('menu_ToolsPopup')
         }
         ZutiloChrome.zoteroOverlay.prefsMenuItem(doc, menuPopup)
-        ZutiloChrome.zoteroOverlay.zoteroItemPopup(doc)
+        ZutiloChrome.zoteroOverlay.zoteroPopup('item', doc)
+        ZutiloChrome.zoteroOverlay.zoteroPopup('collection', doc)
     },
 
     prefsSeparatorListener: function() {
@@ -1077,40 +1106,40 @@ ZutiloChrome.zoteroOverlay = {
     // Item menu functions
     /******************************************/
     // Create XUL for Zotero item menu elements
-    zoteroItemPopup: function(doc) {
-        var zoteroItemmenu = doc.getElementById('zotero-itemmenu');
-        if (zoteroItemmenu === null) {
+    zoteroPopup: function(menuName, doc) {
+        var zoteroMenu = doc.getElementById(`zotero-${menuName}menu`);
+        if (zoteroMenu === null) {
             // Don't do anything if elements not loaded yet
             return;
         }
 
         var zutiloSeparator = doc.createElement('menuseparator');
-        var zutiloSeparatorID = 'zutilo-itemmenu-separator';
+        var zutiloSeparatorID = `zutilo-${menuName}menu-separator`;
         zutiloSeparator.setAttribute('id', zutiloSeparatorID);
-        zoteroItemmenu.appendChild(zutiloSeparator);
+        zoteroMenu.appendChild(zutiloSeparator);
         ZutiloChrome.registerXUL(zutiloSeparatorID, doc);
 
-        this.createItemmenuItems(zoteroItemmenu, 'zutilo-zoteroitemmenu-',
+        this.createMenuItems(menuName, zoteroMenu, `zutilo-zotero${menuName}menu-`,
                                  true, doc);
 
         // Zutilo submenu
         var zutiloSubmenu = doc.createElement('menu');
-        var zutiloSubmenuID = 'zutilo-itemmenu-submenu';
+        var zutiloSubmenuID = `zutilo-${menuName}menu-submenu`;
         zutiloSubmenu.setAttribute('id', zutiloSubmenuID);
         zutiloSubmenu.setAttribute('label',
-            Zutilo._bundle.GetStringFromName('zutilo.itemmenu.zutilo'));
-        zoteroItemmenu.appendChild(zutiloSubmenu);
+            Zutilo._bundle.GetStringFromName(`zutilo.${menuName}menu.zutilo`));
+        zoteroMenu.appendChild(zutiloSubmenu);
         ZutiloChrome.registerXUL(zutiloSubmenuID, doc);
 
         // Zutilo submenu popup
         var zutiloSubmenuPopup = doc.createElement('menupopup');
-        zutiloSubmenuPopup.setAttribute('id', 'zutilo-itemmenu-submenupopup');
+        zutiloSubmenuPopup.setAttribute('id', `zutilo-${menuName}menu-submenupopup`);
         zutiloSubmenu.appendChild(zutiloSubmenuPopup);
 
-        this.createItemmenuItems(zutiloSubmenuPopup, 'zutilo-zutiloitemmenu-',
+        this.createMenuItems(menuName, zutiloSubmenuPopup, `zutilo-zutilo${menuName}menu-`,
                                  false, doc);
 
-        this.refreshZoteroItemPopup(doc);
+        this.refreshZoteroPopup(menuName, doc);
     },
 
     CheckVisibility: new class {
@@ -1130,26 +1159,31 @@ ZutiloChrome.zoteroOverlay = {
         pasteJSONAll() {
             return this.pasteJSON()
         }
+
+        copyZoteroCollectionSelectLink() {
+            return ZutiloChrome.zoteroOverlay.Collection.selected()
+        }
+
+        copyZoteroCollectionURI() {
+            return (typeof Zotero.Users.getCurrentUserID() !== 'undefined') && ZutiloChrome.zoteroOverlay.Collection.selected()
+        }
     },
 
     // Update hidden state of Zotero item menu elements
-    refreshZoteroItemPopup: function(doc) {
+    refreshZoteroPopup: function(menuName, doc) {
         if (typeof doc == 'undefined') {
             doc = document;
         }
         var showMenuSeparator = false;
         var showSubmenu = false;
 
-        for (var index = 0; index < Zutilo._itemmenuFunctions.length; index++) {
-            var prefVal = Zutilo.Prefs.get('itemmenu.' +
-                                           Zutilo._itemmenuFunctions[index]);
+        for (const functionName of Zutilo._menuFunctions[menuName]) {
+            var prefVal = Zutilo.Prefs.get(`${menuName}menu.${functionName}`);
 
-            var zutiloMenuItem = doc.getElementById(
-                'zutilo-zutiloitemmenu-' + Zutilo._itemmenuFunctions[index]);
-            var zoteroMenuItem = doc.getElementById(
-                'zutilo-zoteroitemmenu-' + Zutilo._itemmenuFunctions[index]);
+            var zutiloMenuItem = doc.getElementById(`zutilo-zutilo${menuName}menu-${functionName}`);
+            var zoteroMenuItem = doc.getElementById(`zutilo-zotero${menuName}menu-${functionName}`);
 
-            const visible = !this.CheckVisibility[Zutilo._itemmenuFunctions[index]] || this.CheckVisibility[Zutilo._itemmenuFunctions[index]]()
+            const visible = !this.CheckVisibility[functionName] || this.CheckVisibility[functionName]()
 
             if (visible && prefVal == 'Zotero') {
                 showMenuSeparator = true;
@@ -1166,27 +1200,15 @@ ZutiloChrome.zoteroOverlay = {
             }
         }
 
-        var menuSeparator = doc.getElementById('zutilo-itemmenu-separator');
-        if (showMenuSeparator) {
-            menuSeparator.hidden = false;
-        } else {
-            menuSeparator.hidden = true;
-        }
-
-        var submenu = doc.getElementById('zutilo-itemmenu-submenu');
-        if (showSubmenu) {
-            submenu.hidden = false;
-        } else {
-            submenu.hidden = true;
-        }
+        doc.getElementById(`zutilo-${menuName}menu-separator`).hidden = !showMenuSeparator;
+        doc.getElementById(`zutilo-${menuName}menu-submenu`).hidden = !showSubmenu;
     },
 
     // Create Zotero item menu items as children of menuPopup
-    createItemmenuItems: function(menuPopup, IDPrefix, elementsAreRoot, doc) {
+    createMenuItems: function(menuName, menuPopup, IDPrefix, elementsAreRoot, doc) {
         var menuFunc;
-        for (var index = 0;index < Zutilo._itemmenuFunctions.length;index++) {
-            menuFunc = this.zoteroItemmenuItem(
-                Zutilo._itemmenuFunctions[index], IDPrefix, doc);
+        for (const functionName of Zutilo._menuFunctions[menuName]) {
+            menuFunc = this.zoteroMenuItem(menuName, functionName, IDPrefix, doc);
             menuPopup.appendChild(menuFunc);
             if (elementsAreRoot) {
                 ZutiloChrome.registerXUL(menuFunc.id, doc);
@@ -1195,14 +1217,14 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     // Create Zotero item menu item
-    zoteroItemmenuItem: function(functionName, IDPrefix, doc) {
+    zoteroMenuItem: function(menuName, functionName, IDPrefix, doc) {
         var menuFunc = doc.createElement('menuitem');
         menuFunc.setAttribute('id', IDPrefix + functionName);
         menuFunc.setAttribute('label',
-            Zutilo._bundle.GetStringFromName('zutilo.itemmenu.' +
-                                             functionName));
+            Zutilo._bundle.GetStringFromName(`zutilo.${menuName}menu.${functionName}`));
         menuFunc.addEventListener('command',
-            function() {
+            function(event) {
+                event.stopPropagation();
                 ZutiloChrome.zoteroOverlay[functionName]();
             }, false);
         return menuFunc;

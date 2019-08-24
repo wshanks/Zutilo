@@ -17,6 +17,7 @@
 
 <!ENTITY zutilo.preferences.userInterface "Benutzerschnittstelle">
 <!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero Eintragmenü">
+<!ENTITY zutilo.preferences.ui.collectionmenuLabel "Zotero collection menu">
 <!ENTITY zutilo.preferences.ui.browserLabel "Browserkontextmenü">
 
 <!ENTITY zutilo.preferences.ui.statusbar.label "Addressleiste">

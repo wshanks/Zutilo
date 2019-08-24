@@ -17,6 +17,7 @@
 
 <!ENTITY zutilo.preferences.userInterface "用户界面">
 <!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero 选项菜单">
+<!ENTITY zutilo.preferences.ui.collectionmenuLabel "Zotero collection menu">
 <!ENTITY zutilo.preferences.ui.browserLabel "浏览器上下文菜单">
 
 <!ENTITY zutilo.preferences.ui.statusbar.label "地址栏">
