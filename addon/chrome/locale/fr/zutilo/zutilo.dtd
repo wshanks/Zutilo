@@ -17,6 +17,7 @@
 
 <!ENTITY zutilo.preferences.userInterface "Interface utilisateur">
 <!ENTITY zutilo.preferences.ui.itemmenuLabel "Dans Zotero">
+<!ENTITY zutilo.preferences.ui.collectionmenuLabel "Zotero collection menu">
 <!ENTITY zutilo.preferences.ui.browserLabel "Dans le navigateur">
 
 <!ENTITY zutilo.preferences.ui.statusbar.label "Dans la barre d’adresse">

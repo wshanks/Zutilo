@@ -1,3 +1,8 @@
+* In version 3.2.0b:
+
+    + Add functions to copy select links and web links to collections
+    + Add copy/paste item field functions
+
 * In version 3.1.0:
 
     + Update Chinese translation
