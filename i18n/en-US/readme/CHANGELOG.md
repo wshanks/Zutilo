@@ -1,3 +1,9 @@
+* In version 3.2.0b:
+
+    + Update item select link to newer format used by recent version of Zotero
+    + Add functions to copy select links and web links to collections
+    + Add copy/paste item field functions
+
 * In version 3.1.0:
 
     + Update Chinese translation
