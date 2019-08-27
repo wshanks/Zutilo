@@ -17,3 +17,7 @@ version_strings:
   pattern: (<em:version>)(?P<release>.*)(</em:version>)
 - path: deploy/update.rdf
   pattern: (<em:updateLink>https://github.com/willsALMANJ/Zutilo/releases/download/v)(?P<release>.*)(/zutilo.xpi</em:updateLink>)
+- path: package.json
+  pattern: '^(  "version": ")(?P<release>.*)(",)$'
+- path: package-lock.json
+  pattern: '^(  "version": ")(?P<release>.*)(",)$'
