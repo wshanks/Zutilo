@@ -1,6 +1,6 @@
-<!ENTITY zutilo.name			"Zutilo">
+<!ENTITY zutilo.name            "Zutilo">
 
-<!ENTITY zutilo.startup.upgradetitle	"Zutilo: Upgrade message">
+<!ENTITY zutilo.startup.upgradetitle    "Zutilo: Upgrade message">
 
 <!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero not active!">
 <!ENTITY zutilo.zoteronotactive.infomessage "Zutilo is a plugin for the Zotero Firefox extension which is currently either disabled or not installed. Zotero can be downloaded from the Zotero home page.  Zutilo can be uninstalled from the Add-ons Manager.">
@@ -9,7 +9,7 @@
 <!ENTITY zutilo.zoteronotactive.addonmanager "Open Add-ons Manager">
 <!ENTITY zutilo.zoteronotactive.dontshow "Suppress this window in the future">
 
-<!ENTITY zutilo.preferences.title	"Zutilo Preferences">
+<!ENTITY zutilo.preferences.title    "Zutilo Preferences">
 
 <!ENTITY zutilo.preferences.general "General">
 <!ENTITY zutilo.preferences.general.standalonemessage "Currently there are no general preferences for Zotero Standalone.">

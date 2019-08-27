@@ -4,10 +4,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 'use strict';
-/* global gBrowser, window, document, Components */
-/* global keyconfigOnLoad, Zutilo, ZutiloChrome */
+/* global window, document, Components */
+/* global keyconfigOnLoad, Zutilo */
 Components.utils.import('chrome://zutilo/content/zutilo.jsm');
 
+// eslint-disable-next-line no-unused-vars
 function initializePrefWindow() {
     if (Zutilo.appName == 'Firefox') {
         // Hide Zotero Standalone specific preference window elements
@@ -24,6 +25,7 @@ function initializePrefWindow() {
     keyconfigOnLoad();
 }
 
+// eslint-disable-next-line no-unused-vars
 function buildMenuPrefs() {
     for (const menuName of ['item', 'collection']) {
         for (const functionName of Zutilo._menuFunctions[menuName]) {
@@ -75,6 +77,7 @@ function addMenuRadiogroup(menuName, menuFunction) {
     menuRows.appendChild(newRow);
 }
 
+// eslint-disable-next-line no-unused-vars
 function showReadme() {
     window.openDialog('chrome://zutilo/content/readme.xul',
         'zutilo-readme-window', 'chrome');

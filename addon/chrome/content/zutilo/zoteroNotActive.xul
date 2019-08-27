@@ -11,26 +11,26 @@
 <!DOCTYPE window SYSTEM "chrome://zutilo/locale/zutilo.dtd">
 
 <dialog
-	id="zutilo-zoteroNotActive-dialog"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	orient="vertical"
-	buttons="accept"
-	ondialogaccept="return onAccept();"
-	flex="1"
-	title="&zutilo.zoteronotactive.title;"
-	width="400"
-	height="400">
-	
-	<script src="chrome://zutilo/content/zoteroNotActive.js"/>
+    id="zutilo-zoteroNotActive-dialog"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    orient="vertical"
+    buttons="accept"
+    ondialogaccept="return onAccept();"
+    flex="1"
+    title="&zutilo.zoteronotactive.title;"
+    width="400"
+    height="400">
+    
+    <script src="chrome://zutilo/content/zoteroNotActive.js"/>
 
-	<description id="zutilo-zoteronotactive-infomessage">
-		&zutilo.zoteronotactive.infomessage;
-	</description>
-	<description id="zutilo-zoteronotactive-actionmessage">
-		&zutilo.zoteronotactive.actionmessage;
-	</description>
-	<checkbox id="zutilo-zoteronotactive-zoteropage" label="&zutilo.zoteronotactive.zoteropage;"/>
-	<checkbox id="zutilo-zoteronotactive-addonmanager" label="&zutilo.zoteronotactive.addonmanager;"/>
-	<checkbox id="zutilo-zoteronotactive-dontshow" label="&zutilo.zoteronotactive.dontshow;"/>
+    <description id="zutilo-zoteronotactive-infomessage">
+        &zutilo.zoteronotactive.infomessage;
+    </description>
+    <description id="zutilo-zoteronotactive-actionmessage">
+        &zutilo.zoteronotactive.actionmessage;
+    </description>
+    <checkbox id="zutilo-zoteronotactive-zoteropage" label="&zutilo.zoteronotactive.zoteropage;"/>
+    <checkbox id="zutilo-zoteronotactive-addonmanager" label="&zutilo.zoteronotactive.addonmanager;"/>
+    <checkbox id="zutilo-zoteronotactive-dontshow" label="&zutilo.zoteronotactive.dontshow;"/>
 
 </dialog>
