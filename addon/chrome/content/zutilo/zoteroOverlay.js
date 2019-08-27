@@ -39,12 +39,9 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     unload: function() {
-        if (Zotero.version.split('.')[0] > 4) {
-            // XXX: Legacy 4.0
-            var toolsPopup = document.getElementById('menu_ToolsPopup')
-            toolsPopup.removeEventListener('popupshowing',
-                ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
-        }
+        var toolsPopup = document.getElementById('menu_ToolsPopup')
+        toolsPopup.removeEventListener('popupshowing',
+            ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
 
         document.getElementById('zotero-itemmenu').removeEventListener('popupshowing', refreshZoteroItemPopup, false)
         document.getElementById('zotero-collectionmenu').removeEventListener('popupshowing', refreshZoteroCollectionPopup, false)
@@ -83,14 +80,7 @@ ZutiloChrome.zoteroOverlay = {
             ZoteroPane.document.getElementById('zotero-view-tabbox');
         zoteroViewTabbox.selectedIndex = tabIndex;
         // Create new note
-        if (Zotero.version.split('.')[0] < 5) {
-            // XXX: Legacy 4.0
-            ZoteroPane.newNote(false, zitems[0].id);
-            // This version didn't work in tab mode:
-            // ZoteroItemPane.addNote(false);
-        } else {
-            ZoteroPane.newNote(false, zitems[0].key)
-        }
+        ZoteroPane.newNote(false, zitems[0].key)
 
         return true;
     },
@@ -111,12 +101,7 @@ ZutiloChrome.zoteroOverlay = {
         if (tagPane._tagColors === undefined) {
             window.setTimeout(function() {tagPane.new()}, 200)
         } else {
-            if (typeof tagPane.newTag === 'function') {
-                tagPane.newTag()
-            } else {
-                // XXX: Legacy 4.0
-                tagPane.new()
-            }
+            tagPane.newTag()
         }
 
         return true;
@@ -213,10 +198,6 @@ ZutiloChrome.zoteroOverlay = {
         for (let zitem of zitems) {
             let creators = zitem.getCreators()
             for (let creator of creators) {
-                if (Zotero.version.split('.')[0] < 5) {
-                    // XXX: Legacy 4.0
-                    creator = creator.ref
-                }
                 let creatorStr = creator.lastName + '\t' + creator.firstName
                 if (creatorsArray.indexOf(creatorStr) == -1) {
                     creatorsArray.push(creatorStr)
@@ -249,12 +230,7 @@ ZutiloChrome.zoteroOverlay = {
                 arrayStr = '\n' + tagsArray.join('\n') + '\n';
 
                 let tag
-                if (Zotero.version.split('.')[0] < 5) {
-                    // XXX: Legacy 4.0
-                    tag = tempTags[j].name
-                } else {
-                    tag = tempTags[j].tag
-                }
+                tag = tempTags[j].tag
 
                 if (arrayStr.indexOf('\n' + tag + '\n') == -1) {
                     tagsArray.push(tag);
@@ -277,10 +253,7 @@ ZutiloChrome.zoteroOverlay = {
 
         for (let idx = 0; idx < zitems.length; idx++) {
             zitems[idx].removeAllTags()
-            if (Zotero.version.split('.')[0] > 4) {
-                // XXX: Legacy 4.0
-                zitems[idx].saveTx()
-            }
+            zitems[idx].saveTx()
         }
     },
 
@@ -307,14 +280,8 @@ ZutiloChrome.zoteroOverlay = {
         var child;
         for (var idx = 0; idx < Zutilo.itemClipboard.length; idx++) {
             child = Zotero.Items.get(Zutilo.itemClipboard[idx]);
-            if (Zotero.version.split('.')[0] < 5) {
-                // XXX: Legacy 4.0
-                child.setSource(newParent.id);
-                child.save();
-            } else {
-                child.parentKey = newParent.key
-                child.saveTx()
-            }
+            child.parentKey = newParent.key
+            child.saveTx()
         }
     },
 
@@ -559,10 +526,7 @@ ZutiloChrome.zoteroOverlay = {
             for (let tag of tagArray) {
                 zitem.addTag(tag)
             }
-            if (Zotero.version.split('.')[0] > 4) {
-                // XXX: Legacy 4.0
-                zitem.saveTx()
-            }
+            zitem.saveTx()
         }
 
         return true;
@@ -655,12 +619,7 @@ ZutiloChrome.zoteroOverlay = {
             if (newFullPath != oldFullPath) {
                 // TODO: wrap all saves in one transaction
                 setPath(attachmentArray[index], newFullPath)
-                if (typeof attachmentArray[index].saveTx === 'function') {
-                    attachmentArray[index].saveTx();
-                } else {
-                    // XXX: Legacy 4.0
-                    attachmentArray[index].save();
-                }
+                attachmentArray[index].saveTx();
             }
         }
 
@@ -711,15 +670,7 @@ ZutiloChrome.zoteroOverlay = {
         var paths = []
         for (let attachment of attachmentArray) {
             let path
-            if (Zotero.version.split('.')[0] < 5) {
-                // XXX: Legacy 4.0
-                if (attachment.attachmentLinkMode !=
-                        Zotero.Attachments.LINK_MODE_LINKED_URL) {
-                    path = attachment.getFile().path
-                }
-            } else {
-                path = attachment.getFilePath()
-            }
+            path = attachment.getFilePath()
             if (path) {
                 paths.push(path)
             }
@@ -744,20 +695,10 @@ ZutiloChrome.zoteroOverlay = {
         for (let zitem of zitems) {
             for (let addItem of zitems) {
                 if (zitem != addItem) {
-                    if (Zotero.version.split('.')[0] < 5) {
-                        // XXX: Legacy 4.0
-                        zitem.addRelatedItem(addItem.id)
-                    } else {
-                        zitem.addRelatedItem(addItem)
-                    }
+                    zitem.addRelatedItem(addItem)
                 }
             }
-            if (Zotero.version.split('.')[0] > 4) {
-                // XXX: Legacy 4.0
-                zitem.saveTx()
-            } else {
-                zitem.save()
-            }
+            zitem.saveTx()
         }
 
         return true;
@@ -901,44 +842,23 @@ ZutiloChrome.zoteroOverlay = {
             }
 
             // Relate items
-            if (Zotero.version.split('.')[0] < 5) {
-                // XXX: Legacy 4.0
-                bookItem.addRelatedItem(sectionItem.id);
-                sectionItem.addRelatedItem(bookItem.id);
+            bookItem.addRelatedItem(sectionItem);
+            sectionItem.addRelatedItem(bookItem);
 
-                sectionItem.save()
-                bookItem.save()
+            Zotero.Promise.coroutine(function*() {
+                yield sectionItem.saveTx()
+                yield bookItem.saveTx()
 
                 // Update GUI and select textbox
-                // document.getElementById('zotero-editpane-item-box').refresh()
-                context.editItemInfoGUI();
-            } else {
-                bookItem.addRelatedItem(sectionItem);
-                sectionItem.addRelatedItem(bookItem);
-
-                Zotero.Promise.coroutine(function*() {
-                    yield sectionItem.saveTx()
-                    yield bookItem.saveTx()
-
-                    // Update GUI and select textbox
-                    context.editItemInfoGUI()
-                })()
-            }
+                context.editItemInfoGUI()
+            })()
         }
 
         // Duplicate item and then do the work
-        if (Zotero.version.split('.')[0] < 5) {
-            // XXX: Legacy 4.0
-            ZoteroPane.duplicateSelectedItem();
-            zitems = this.getSelectedItems();
-            var sectionItem = zitems[0];
-            modifyNewItem(this, sectionItem)
-        } else {
-            Zotero.Promise.coroutine(function*(context) {
-                let sectionItem = yield ZoteroPane.duplicateSelectedItem()
-                modifyNewItem(context, sectionItem)
-            })(this)
-        }
+        Zotero.Promise.coroutine(function*(context) {
+            let sectionItem = yield ZoteroPane.duplicateSelectedItem()
+            modifyNewItem(context, sectionItem)
+        })(this)
 
         return true;
     },
@@ -977,44 +897,23 @@ ZutiloChrome.zoteroOverlay = {
             bookItem.setField(Zotero.ItemFields.getID('abstractNote'), '')
 
             // Relate items
-            if (Zotero.version.split('.')[0] < 5) {
-                // XXX: Legacy 4.0
-                bookItem.addRelatedItem(sectionItem.id)
-                sectionItem.addRelatedItem(bookItem.id)
+            bookItem.addRelatedItem(sectionItem)
+            sectionItem.addRelatedItem(bookItem)
 
-                bookItem.save()
-                sectionItem.save()
+            Zotero.Promise.coroutine(function*() {
+                yield sectionItem.saveTx()
+                yield bookItem.saveTx()
 
                 // Update GUI and select textbox
-                document.getElementById('zotero-editpane-item-box').refresh()
-                context.editItemInfoGUI();
-            } else {
-                bookItem.addRelatedItem(sectionItem)
-                sectionItem.addRelatedItem(bookItem)
-
-                Zotero.Promise.coroutine(function*() {
-                    yield sectionItem.saveTx()
-                    yield bookItem.saveTx()
-
-                    // Update GUI and select textbox
-                    context.editItemInfoGUI()
-                })()
-            }
+                context.editItemInfoGUI()
+            })()
         }
 
         // Duplicate item and then do the work
-        if (Zotero.version.split('.')[0] < 5) {
-            // XXX: Legacy 4.0
-            ZoteroPane.duplicateSelectedItem();
-            zitems = this.getSelectedItems();
-            var bookItem = zitems[0];
-            modifyNewItem(this, bookItem)
-        } else {
-            Zotero.Promise.coroutine(function*(context) {
-                let bookItem = yield ZoteroPane.duplicateSelectedItem()
-                modifyNewItem(context, bookItem)
-            })(this)
-        }
+        Zotero.Promise.coroutine(function*(context) {
+            let bookItem = yield ZoteroPane.duplicateSelectedItem()
+            modifyNewItem(context, bookItem)
+        })(this)
 
 
         return true;
@@ -1028,23 +927,14 @@ ZutiloChrome.zoteroOverlay = {
         ZutiloChrome.zoteroOverlay.overlayZoteroPane(document)
         this.initKeys();
 
-        if (Zotero.version.split('.')[0] > 4) {
-            // XXX: Legacy 4.0
-            var toolsPopup = document.getElementById('menu_ToolsPopup')
-            toolsPopup.addEventListener('popupshowing',
-                ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
-        }
+        var toolsPopup = document.getElementById('menu_ToolsPopup')
+        toolsPopup.addEventListener('popupshowing',
+            ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
     },
 
     overlayZoteroPane: function(doc) {
         var menuPopup
-        if (Zotero.version.split('.')[0] < 5) {
-            // XXX: Legacy 4.0
-            menuPopup = doc.getElementById('zotero-tb-actions-prefs').
-                parentElement
-        } else {
-            menuPopup = doc.getElementById('menu_ToolsPopup')
-        }
+        menuPopup = doc.getElementById('menu_ToolsPopup')
         ZutiloChrome.zoteroOverlay.prefsMenuItem(doc, menuPopup)
         ZutiloChrome.zoteroOverlay.zoteroPopup('item', doc)
         ZutiloChrome.zoteroOverlay.zoteroPopup('collection', doc)
