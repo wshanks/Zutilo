@@ -138,6 +138,22 @@ keys.categories.relocateChildren = 'itemediting'
 keys.shortcuts.relocateChildren = function(win) {
     win.ZutiloChrome.zoteroOverlay.relocateChildren()
 };
+keys.categories.copyJSON = 'copying'
+keys.shortcuts.copyJSON = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyJSON()
+}
+keys.categories.pasteJSONIntoEmptyFields = 'itemediting'
+keys.shortcuts.pasteJSONIntoEmptyFields = function(win) {
+    win.ZutiloChrome.zoteroOverlay.pasteJSONIntoEmptyFields()
+}
+keys.categories.pasteJSONFromNonEmptyFields = 'itemediting'
+keys.shortcuts.pasteJSONFromNonEmptyFields = function(win) {
+    win.ZutiloChrome.zoteroOverlay.pasteJSONFromNonEmptyFields()
+}
+keys.categories.pasteJSONAll = 'itemediting'
+keys.shortcuts.pasteJSONAll = function(win) {
+    win.ZutiloChrome.zoteroOverlay.pasteJSONAll()
+}
 
 /***********************************************/
 // Zutilo's Zotero item pane editing functions
