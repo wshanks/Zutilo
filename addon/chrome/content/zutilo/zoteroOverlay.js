@@ -1294,6 +1294,12 @@ ZutiloChrome.zoteroOverlay = {
 
     updateKey: function(keyLabel) {
         var key = document.getElementById(Zutilo.keys.keyID(keyLabel));
+        if (key === null) {
+            // updateKey gets triggered before keys have been set when Zutilo
+            // is reinstalled if shortcuts had been set during the previous
+            // install previously defined
+            return
+        }
 
         key.removeAttribute('modifiers');
         key.removeAttribute('key');
