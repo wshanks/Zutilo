@@ -1,5 +1,5 @@
 ### Item menu functions
-Each of the functions below can be called from the Zotero item menu (accessed by right-clicking in the items pane in the middle of Zotero where all of a collection's items are listed).
+Each of the functions below can be called from the Zotero item context menu (accessed by right-clicking in the items pane in the middle of Zotero where all of a collection's items are listed).
 In the Zutilo preferences (accessed from the same menu as Zotero's preferences), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
 * __Copy tags:__
@@ -100,6 +100,20 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
 
 * __Paste all items fields__
     (Paste-all): paste all fields from source, even if they are empty.
+
+### Collection menu functions
+Each of the functions below can be called from the Zotero collection context menu (accessed by right-clicking on a collection in the collections pane at the right of Zotero where all the collections are listed).
+In the Zutilo preferences (accessed from the same menu as Zotero's preferences), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
+
+* __Copy select collection links:__
+	Copy links of the form "zotero://select/groups/LIBRARY_ID/collections/COLLECTION_ID" to the clipboard for each selected item.
+	Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin.
+	Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.
+
+* __Copy Zotero URIs:__
+	Copy (www.zotero.org) links to the clipboard for the selected collection.
+	If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
+	If you do not have a (www.zotero.org) profile, a placeholder link may be generated but might not be useful.
 
 ### Navigating the UI and editing items via keyboard shortcuts
 
