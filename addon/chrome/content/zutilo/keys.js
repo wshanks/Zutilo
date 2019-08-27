@@ -13,7 +13,7 @@
 /********************************************/
 Components.utils.import('resource://gre/modules/AddonManager.jsm');
 Components.utils.import('resource://gre/modules/Services.jsm');
-Components.utils.import('chrome://zutilo/content/zutilo.jsm');
+Components.utils.import('chrome://zutilo/content/zutilo.js');
 
 /********************************************/
 // Define keys object

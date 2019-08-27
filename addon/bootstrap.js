@@ -17,7 +17,7 @@ function install(data, reason) {
 
 // eslint-disable-next-line no-unused-vars
 function startup(data, reason) {
-    Cu.import("chrome://zutilo/content/zutilo.jsm");
+    Cu.import("chrome://zutilo/content/zutilo.js");
     Zutilo.init();
 }
 
@@ -47,7 +47,7 @@ function shutdown(data, reason) {
     Cc["@mozilla.org/intl/stringbundle;1"].
         getService(Components.interfaces.nsIStringBundleService).flushBundles();
 
-    Cu.unload("chrome://zutilo/content/zutilo.jsm");
+    Cu.unload("chrome://zutilo/content/zutilo.js");
 }
 
 // eslint-disable-next-line no-unused-vars

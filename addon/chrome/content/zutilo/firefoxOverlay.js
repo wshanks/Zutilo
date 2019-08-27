@@ -11,7 +11,7 @@ Components.utils.import('resource://gre/modules/Services.jsm');
 /******************************************/
 // Include core modules
 /******************************************/
-Components.utils.import('chrome://zutilo/content/zutilo.jsm');
+Components.utils.import('chrome://zutilo/content/zutilo.js');
 
 /******************************************/
 // Firefox overlay

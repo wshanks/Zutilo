@@ -15,7 +15,7 @@ The `make` machinery is mainly used for converting the README files from `markdo
 Most of the Zutilo logic is contained in the files in `addon/chrome/content/zutilo`.
 The highlights are:
 
-* `zutilo.jsm`
+* `zutilo.js`
   - `addon/bootstrap.js` loads this file when Zutilo starts up and it handles the rest of the Zutilo setup.
   - This file defines the `Zutilo` module.
   - The `Zutilo` module contains properties about Zutilo that are window independent.

@@ -5,7 +5,7 @@
 
 'use strict';
 /* global window, document, Components */
-Components.utils.import('chrome://zutilo/content/zutilo.jsm');
+Components.utils.import('chrome://zutilo/content/zutilo.js');
 
 function upgradeInit() {
     var upgradeDescription = document.

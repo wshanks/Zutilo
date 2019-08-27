@@ -6,7 +6,7 @@
 'use strict';
 /* global window, document, Components */
 /* global Zutilo */
-Components.utils.import('chrome://zutilo/content/zutilo.jsm');
+Components.utils.import('chrome://zutilo/content/zutilo.js');
 
 // eslint-disable-next-line no-unused-vars
 function onAccept() {

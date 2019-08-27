@@ -13,7 +13,7 @@ var Ci = Components.interfaces
 var Cu = Components.utils
 Cu.import('resource://gre/modules/AddonManager.jsm');
 Cu.import('resource://gre/modules/Services.jsm');
-Cu.import('chrome://zutilo/content/zutilo.jsm');
+Cu.import('chrome://zutilo/content/zutilo.js');
 
 /******************************************/
 // Initialization

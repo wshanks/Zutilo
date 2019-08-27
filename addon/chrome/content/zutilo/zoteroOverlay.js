@@ -8,7 +8,7 @@
 /* global Zotero, ZoteroPane, ZOTERO_CONFIG */
 /* global Zutilo, ZutiloChrome */
 Components.utils.import('resource://gre/modules/Services.jsm');
-Components.utils.import('chrome://zutilo/content/zutilo.jsm');
+Components.utils.import('chrome://zutilo/content/zutilo.js');
 Components.utils.import('resource://zotero/config.js');
 
 function debug(msg, err) {
