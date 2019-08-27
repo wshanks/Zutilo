@@ -155,6 +155,18 @@ keys.shortcuts.pasteJSONAll = function(win) {
     win.ZutiloChrome.zoteroOverlay.pasteJSONAll()
 }
 
+/********************************************/
+// Zutilo's Zotero collection menu functions
+/********************************************/
+keys.categories.copyZoteroCollectionSelectLink = 'copying'
+keys.shortcuts.copyZoteroCollectionSelectLink = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyZoteroCollectionSelectLink()
+}
+keys.categories.copyZoteroCollectionURI = 'copying'
+keys.shortcuts.copyZoteroCollectionURI = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyZoteroCollectionURI()
+}
+
 /***********************************************/
 // Zutilo's Zotero item pane editing functions
 /***********************************************/
