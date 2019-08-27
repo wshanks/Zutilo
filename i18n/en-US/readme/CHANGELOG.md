@@ -1,5 +1,6 @@
 * In version 3.2.0b:
 
+    + Drop support for Zotero as a Firefox addon and for Zotero 4.x
     + Update item select link to newer format used by recent version of Zotero
     + Add functions to copy select links and web links to collections
     + Add copy/paste item field functions

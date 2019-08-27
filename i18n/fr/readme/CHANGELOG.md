@@ -1,5 +1,6 @@
 * In version 3.0.3:
 
+    + Drop support for Zotero as a Firefox addon and for Zotero 4.x
     + Add functions to copy select links and web links to collections
 	+ Fix French locale
 
