@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 'use strict';
-/* global gBrowser, window, document, AddonManager, Components, Services */
+/* global window, document, AddonManager, Components, Services */
 /* global Zutilo, ZutiloChrome */
 /******************************************/
 // Include core modules and built-in modules
@@ -100,20 +100,6 @@ ZutiloChrome.registerXUL = function(elementIDs, doc) {
 // Remove all root XUL elements from main document and any Zotero tab documents
 ZutiloChrome.removeXUL = function() {
     this.removeDocumentXUL(document, this.XULRootElements);
-
-    if (Zutilo.appName == 'Firefox') {
-        for (let ii = 0; ii < gBrowser.browsers.length; ii++) {
-            let tmpBrowser = gBrowser.getBrowserAtIndex(ii);
-
-            if (tmpBrowser.contentDocument.location == Zutilo.zoteroTabURL &&
-                    typeof tmpBrowser.contentDocument.ZutiloXULRootElements !=
-                    'undefined') {
-                this.removeDocumentXUL(tmpBrowser.contentDocument,
-                    tmpBrowser.contentDocument.ZutiloXULRootElements);
-                delete tmpBrowser.contentDocument.ZutiloXULRootElements;
-            }
-        }
-    }
 };
 
 ZutiloChrome.removeDocumentXUL = function(doc, XULRootElementIDs) {
@@ -122,23 +108,6 @@ ZutiloChrome.removeDocumentXUL = function(doc, XULRootElementIDs) {
 
         if (elem) {
             elem.parentNode.removeChild(elem);
-        }
-    }
-};
-
-// documentFunction is a function that takes a DOM document as its argument.
-// Call that function for window.document and for any Zotero tab
-// contentDocument that is currently loaded.
-ZutiloChrome.actOnAllDocuments = function(documentFunction) {
-    documentFunction(document);
-
-    if (Zutilo.appName == 'Firefox') {
-        for (let ii = 0; ii < gBrowser.browsers.length; ii++) {
-            let tmpBrowser = gBrowser.getBrowserAtIndex(ii);
-
-            if (tmpBrowser.contentDocument.location == Zutilo.zoteroTabURL) {
-                documentFunction(tmpBrowser.contentDocument);
-            }
         }
     }
 };

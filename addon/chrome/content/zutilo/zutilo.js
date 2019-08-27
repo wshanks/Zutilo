@@ -49,31 +49,6 @@ var Zutilo = {
 
     itemClipboard: [],
 
-    appName: (function() {
-        var appInfo = Cc['@mozilla.org/xre/app-info;1'].
-            getService(Ci.nsIXULAppInfo);
-        var appName;
-        switch (appInfo.ID) {
-            case '{ec8030f7-c20a-464f-9b0e-13a3a9e97384}':
-                // Firefox
-                appName = 'Firefox';
-                break;
-            case 'zotero@chnm.gmu.edu':
-                // Zotero Standalone
-                appName = 'Zotero';
-                break;
-            case 'juris-m@juris-m.github.io':
-                // Juris-M Standalone
-                appName = 'Zotero';
-                break;
-            default:
-                // Unknown app -- assume it is a Firefox variant...
-                appName = 'Firefox';
-        }
-
-        return appName;
-    }()),
-
     /********************************************/
     // Zutilo setup functions
     /********************************************/
@@ -86,17 +61,9 @@ var Zutilo = {
         // Zutilo.ZoteroPrefs.init();
 
         this.prepareWindows();
-
-        if (this.appName == 'Firefox') {
-            Cu.import('resource:///modules/CustomizableUI.jsm')
-            CustomizableUI.addListener(saveIconListener)
-        }
     },
 
     cleanup: function() {
-        if (this.appName == 'Firefox') {
-            CustomizableUI.removeListener(saveIconListener)
-        }
         Zutilo.Prefs.unregister();
         Zutilo.observers.unregister();
         Services.wm.removeListener(Zutilo.windowListener);
@@ -143,26 +110,9 @@ var Zutilo = {
                 'chrome://zutilo/content/zutiloChrome.js', scope);
         scope.ZutiloChrome.init();
 
-        // Firefox specific setup
-        if (Zutilo.appName == 'Firefox') {
-            Services.scriptloader.loadSubScript(
-                'chrome://zutilo/content/firefoxOverlay.js', scope);
-            scope.ZutiloChrome.firefoxOverlay.init();
-        }
-
-        var doZoteroOverlay = function() {
-            Services.scriptloader.loadSubScript(
-                    'chrome://zutilo/content/zoteroOverlay.js', scope);
-            scope.ZutiloChrome.zoteroOverlay.init();
-        };
-
-        // Zotero specific setup (only run if Zotero is active)
-        if (Zutilo.appName == 'Zotero') {
-            doZoteroOverlay();
-        } else {
-            // Only overlay Zotero in Firefox if it is installed and active
-            this.checkZoteroActiveAndCallIf(true, this, doZoteroOverlay);
-        }
+        Services.scriptloader.loadSubScript(
+                'chrome://zutilo/content/zoteroOverlay.js', scope);
+        scope.ZutiloChrome.zoteroOverlay.init();
     },
 
     observers: {
@@ -180,9 +130,7 @@ var Zutilo = {
                                 'undefined' !=
                                 typeof tmpWin.ZutiloChrome.zoteroOverlay) {
 
-                            tmpWin.ZutiloChrome.actOnAllDocuments(
-                                tmpWin.ZutiloChrome.zoteroOverlay.
-                                refreshZoteroPopup.bind(tmpWin.ZutiloChrome.zoteroOverlay, menuName));
+                            tmpWin.ZutiloChrome.zoteroOverlay.refreshZoteroPopup(menuName)
                         }
                     }
                     break;
@@ -222,24 +170,6 @@ var Zutilo = {
     /********************************************/
     // General use utility functions
     /********************************************/
-    checkZoteroActiveAndCallIf: function(stateBool, scope, func) {
-        // stateBool: func is called if Zotero's isActive bool matches stateBool
-        // scope: scope that func is called in
-        // func: function to be called if Zotero is active
-        // Additional arguments of doIfZoteroActive are passed to func
-
-        var args = [];
-        for (var i = 3, len = arguments.length; i < len; ++i) {
-            args.push(arguments[i]);
-        }
-
-        AddonManager.getAddonByID(Zutilo.zoteroID, function(aAddon) {
-            if (aAddon && (aAddon.isActive == stateBool)) {
-                func.apply(scope, args);
-            }
-        });
-    },
-
     openLink: function(url) {
         // first construct an nsIURI object using the ioservice
         var ioservice = Cc['@mozilla.org/network/io-service;1']
@@ -404,22 +334,6 @@ Zutilo.Prefs = {
     }
 };
 
-
-/* Zotero save button methods */
-
-var saveIconListener = {
-    onWidgetAdded: function(widgetID, _area, _position) {
-        if (widgetID == 'zotero-toolbar-buttons' ||
-                widgetID == 'zotero-toolbar-save-button-single') {
-            var windows = Services.wm.getEnumerator('navigator:browser')
-            let win
-            while (windows.hasMoreElements()) {
-                win = windows.getNext()
-                win.ZutiloChrome.firefoxOverlay.setupStatusPopup()
-            }
-        }
-    }
-}
 
 // This object was used to watch a Zotero pref, but it's not necessary now.
 // Leaving Zutilo.ZoteroPrefs code here for possible future use

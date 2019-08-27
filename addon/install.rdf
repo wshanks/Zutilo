@@ -29,15 +29,6 @@
         <em:translator>es: Will Shanks and Urko</em:translator>
         <em:translator>zh-CN: Wang H. K. and Liu K.</em:translator>
 
-        <!-- Requires Firefox -->
-        <em:targetApplication>
-            <Description>
-                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-                <em:minVersion>16.0a1</em:minVersion>
-                <em:maxVersion>56.*</em:maxVersion>
-            </Description>
-        </em:targetApplication>
-
         <!-- Or requires Zotero Standalone -->
         <em:targetApplication>
             <Description>

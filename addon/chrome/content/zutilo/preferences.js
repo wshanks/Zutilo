@@ -10,18 +10,6 @@ Components.utils.import('chrome://zutilo/content/zutilo.js');
 
 // eslint-disable-next-line no-unused-vars
 function initializePrefWindow() {
-    if (Zutilo.appName == 'Firefox') {
-        // Hide Zotero Standalone specific preference window elements
-        document.getElementById('general-standalone-label').
-            setAttribute('hidden', true);
-    } else {
-        // Hide Firefox specific preference window elements
-        document.getElementById('general-checkbox-zoteroNotActive').
-            setAttribute('hidden', true);
-        document.getElementById('zutilo-prefpane-ui-browser-menus').
-            setAttribute('hidden', true);
-    }
-
     keyconfigOnLoad();
 }
 

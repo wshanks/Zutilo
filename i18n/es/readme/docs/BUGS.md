@@ -19,18 +19,13 @@ When submitting bug reports, please include the following:
 
 1. Version of Zutilo used
 2. Version of Zotero used
-3. Version of Firefox used (if applicable)
-4. Step-by-step instructions to reproduce the bug
+3. Step-by-step instructions to reproduce the bug
 
-The versions of Zutilo and Zotero can be looked up in the Addons Manager (`about:addons`) in Firefox.
-The version of Firefox can be found in `Help->About Firefox`.
 For Zotero Standalone, the version of Zutilo can be found in `Tools->Addons` and the version of Zotero in `Help->About Zotero`.
 
-Additionally, if possible please provide any javascript errors that appear in the Browser Console when the bug occurs.
-The Browser Console can be opened with `Ctrl+Shift+J` (`Cmd+Shift+J` on OS X).
-Try to clear the output, reproduce the bug, and then check the Browswer Console to see if any messages related to Zutilo or Zotero appeared.
-While it is technically possible to open the Browser Console in Zotero Standalone, it is quite difficult to do.
-It is recommended to try to reproduce the bug in Firefox in order to check for Browser Console messages.
+Additionally, if possible please provide any javascript errors that appear in the Error Console when the bug occurs.
+The Error Console can be opened from the Tools->Developer menu.
+Try to clear the output, reproduce the bug, and then check the Error Console to see if any messages related to Zutilo or Zotero appeared.
 
 # Feature requests
 

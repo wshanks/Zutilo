@@ -2,38 +2,11 @@
 
 <!ENTITY zutilo.startup.upgradetitle    "Zutilo: 升级消息">
 
-<!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero 未激活！">
-<!ENTITY zutilo.zoteronotactive.infomessage "Zutilo 是 Zotero 的 Firefox 扩展的一个插件，Zotero 目前已被禁用或未安装。Zetero 可以从 Zetero 主页上下载。Zutilo 可以从附加组件管理器中卸载。">
-<!ENTITY zutilo.zoteronotactive.actionmessage "当下面的按钮被按下时，会关掉窗口并进行如下动作: ">
-<!ENTITY zutilo.zoteronotactive.zoteropage "打开 Zotero 主页">
-<!ENTITY zutilo.zoteronotactive.addonmanager "打开附加组件管理器">
-<!ENTITY zutilo.zoteronotactive.dontshow "以后不再显示此窗口">
-
 <!ENTITY zutilo.preferences.title    "Zutilo 首选项">
-
-<!ENTITY zutilo.preferences.general "常规">
-<!ENTITY zutilo.preferences.general.standalonemessage "目前没有关于 Zotero 独立版的首选项。">
-<!ENTITY zutilo.preferences.general.zoteronotactive "启动时，如果 Zotero 未启用或未安装发出警告。">
 
 <!ENTITY zutilo.preferences.userInterface "用户界面">
 <!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero 选项菜单">
 <!ENTITY zutilo.preferences.ui.collectionmenuLabel "Zotero collection menu">
-<!ENTITY zutilo.preferences.ui.browserLabel "浏览器上下文菜单">
-
-<!ENTITY zutilo.preferences.ui.statusbar.label "地址栏">
-<!ENTITY zutilo.preferences.ui.statuspopup.label "地址栏按钮菜单">
-<!ENTITY zutilo.preferences.ui.statuspopup.checkbox "转换有/无附件时显示菜单项">
-
-<!ENTITY zutilo.preferences.ui.ffcacm.label "Firefox 内容区域上下文菜单">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.label "创建附件的方法: ">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.Zotero "导入">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.prompt "提示输入连接的文件">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.promptAfterOne "首次后提示">
-<!ENTITY zutilo.preferences.ui.attachPage.label "显示附加页面菜单项在: ">
-<!ENTITY zutilo.preferences.ui.attachLink.label "显示附件链接菜单项在: ">
-<!ENTITY zutilo.preferences.ui.ffcacm.Firefox "Firefox 上下文菜单">
-<!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Zotero 子菜单">
-<!ENTITY zutilo.preferences.ui.ffcacm.hide "不要显示">
 
 <!ENTITY zutilo.preferences.shortcuts "快捷键列表">
 <!ENTITY zutilo.preferences.shortcuts.labels "名称">
@@ -46,5 +19,4 @@
 <!ENTITY zutilo.preferences.readme.caption "关于 Zutilo">
 <!ENTITY zutilo.preferences.readme.button "显示自述文档">
 <!ENTITY zutilo.readme.title "关于 Zutilo...">
-<!ENTITY zutilo.about.openaddon "打开附加组件页面">
 <!ENTITY zutilo.about.opengithub "打开 GitHub 页面">

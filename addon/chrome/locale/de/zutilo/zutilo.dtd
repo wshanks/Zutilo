@@ -2,40 +2,13 @@
 
 <!ENTITY zutilo.startup.upgradetitle    "Zutilo: Upgrademeldung">
 
-<!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero nicht aktiv!">
-<!ENTITY zutilo.zoteronotactive.infomessage "Zutilo ist ein Plug-in für die Zotero Firefox Erweiterung, die derzeit entweder deaktiviert oder nicht installiert ist.  Zotero kann von der Zotero Homepage heruntergeladen werden. Zutilo kann über den Add-ons-Manager deinstalliert werden.">
-<!ENTITY zutilo.zoteronotactive.actionmessage "Wenn die Schaltfläche unten gedrückt wird, schließen Sie das Fenster und führen Sie die folgenden zusätzliche Maßnahmen aus:">
-<!ENTITY zutilo.zoteronotactive.zoteropage "Zotero Homepage öffnen">
-<!ENTITY zutilo.zoteronotactive.addonmanager "Add-ons Manager öffnen">
-<!ENTITY zutilo.zoteronotactive.dontshow "In Zukunft dieses Fenster nicht mehr anzeigen">
+<!ENTITY zutilo.preferences.title    "Zutilo Preferences">
 
-<!ENTITY zutilo.preferences.title    "Zutilo Einstellungen">
-
-<!ENTITY zutilo.preferences.general "Allgemein">
-<!ENTITY zutilo.preferences.general.standalonemessage "Derzeit gibt es keine allgemeinen Einstellungen für Zotero Standalone.&quot;">
-<!ENTITY zutilo.preferences.general.zoteronotactive "Beim Start warnen, wenn Zotero nicht aktiviert oder nicht installiert ist.">
-
-<!ENTITY zutilo.preferences.userInterface "Benutzerschnittstelle">
-<!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero Eintragmenü">
+<!ENTITY zutilo.preferences.userInterface "User Interface">
+<!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero item menu">
 <!ENTITY zutilo.preferences.ui.collectionmenuLabel "Zotero collection menu">
-<!ENTITY zutilo.preferences.ui.browserLabel "Browserkontextmenü">
 
-<!ENTITY zutilo.preferences.ui.statusbar.label "Addressleiste">
-<!ENTITY zutilo.preferences.ui.statuspopup.label "Addressleiste Icon Menü">
-<!ENTITY zutilo.preferences.ui.statuspopup.checkbox "Menüpunkte für Übersetzung mit/ohne Anhängen zeigen">
-
-<!ENTITY zutilo.preferences.ui.ffcacm.label "Firefox Navigationsbereich Kontextmenü">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.label "Verfahren zum Erstellen von Anhängen:">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.Zotero "Import">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.prompt "Für verlinkte Datei zur Eingabe auffordern">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.promptAfterOne "Nach dem ersten auffordern">
-<!ENTITY zutilo.preferences.ui.attachPage.label "Seite anhängen Menüpunkte zeigen in:">
-<!ENTITY zutilo.preferences.ui.attachLink.label "Link anhängen Menüpunkte zeigen in:">
-<!ENTITY zutilo.preferences.ui.ffcacm.Firefox "Firefox Kontextmenü">
-<!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Zotero Unter-Menü">
-<!ENTITY zutilo.preferences.ui.ffcacm.hide "Verdecken">
-
-<!ENTITY zutilo.preferences.shortcuts "Tastenkombinationen">
+<!ENTITY zutilo.preferences.shortcuts "Shortcuts">
 <!ENTITY zutilo.preferences.shortcuts.labels "Name">
 <!ENTITY zutilo.preferences.shortcuts.categories "Category">
 <!ENTITY zutilo.preferences.shortcuts.keys "Tastenkombination">
@@ -46,5 +19,4 @@
 <!ENTITY zutilo.preferences.readme.caption "Über Zutilo">
 <!ENTITY zutilo.preferences.readme.button "Liesmich Dokument zeigen">
 <!ENTITY zutilo.readme.title "Über Zutilo...">
-<!ENTITY zutilo.about.openaddon "Add-on Seite öffnen">
 <!ENTITY zutilo.about.opengithub "GitHub Seite öffnen">

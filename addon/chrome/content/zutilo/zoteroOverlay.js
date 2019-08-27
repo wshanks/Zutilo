@@ -34,20 +34,11 @@ ZutiloChrome.zoteroOverlay = {
     init: function() {
         this.fullOverlay();
 
-        if (Zutilo.appName == 'Firefox') {
-            gBrowser.addEventListener('load',
-                ZutiloChrome.zoteroOverlay.pageloadListener, true);
-        }
-
         document.getElementById('zotero-itemmenu').addEventListener('popupshowing', refreshZoteroItemPopup, false)
         document.getElementById('zotero-collectionmenu').addEventListener('popupshowing', refreshZoteroCollectionPopup, false)
     },
 
     unload: function() {
-        if (Zutilo.appName == 'Firefox') {
-            gBrowser.removeEventListener('load',
-                ZutiloChrome.zoteroOverlay.pageloadListener, true);
-        }
         if (Zotero.version.split('.')[0] > 4) {
             // XXX: Legacy 4.0
             var toolsPopup = document.getElementById('menu_ToolsPopup')
@@ -1034,8 +1025,7 @@ ZutiloChrome.zoteroOverlay = {
     /******************************************/
     fullOverlay: function() {
         // Add all Zutilo overlay elements to the window
-        ZutiloChrome.actOnAllDocuments(ZutiloChrome.zoteroOverlay.
-                                       overlayZoteroPane);
+        ZutiloChrome.zoteroOverlay.overlayZoteroPane(document)
         this.initKeys();
 
         if (Zotero.version.split('.')[0] > 4) {

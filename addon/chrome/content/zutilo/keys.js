@@ -353,67 +353,6 @@ keys.shortcuts.toggleZoteroItemPaneStickySplitter = function(win) {
                                                         'toggle', true)
 };
 
-/********************************************/
-// Firefox only shortcuts
-/********************************************/
-if (Zutilo.appName == 'Firefox') {
-
-    /********************************************/
-    // Zutilo's Firefox scraping functions
-    /********************************************/
-    keys.categories.attachPage = 'attachments'
-    keys.shortcuts.attachPage = function(win) {
-        win.ZutiloChrome.firefoxOverlay.attachURLToCurrentItem(
-            win.content.location.href)
-    };
-
-    keys.categories.saveItemZutilo = 'itemcreation'
-    keys.shortcuts.saveItemZutilo = function(win) {
-        win.ZutiloChrome.firefoxOverlay.scrapeThisPage('opposite')
-    };
-
-    keys.categories.saveItemWithAttachments = 'itemcreation'
-    keys.shortcuts.saveItemWithAttachments = function(win) {
-        win.ZutiloChrome.firefoxOverlay.scrapeThisPage('with')
-    };
-
-    keys.categories.saveItemWithoutAttachments = 'itemcreation'
-    keys.shortcuts.saveItemWithoutAttachments = function(win) {
-        win.ZutiloChrome.firefoxOverlay.scrapeThisPage('without')
-    };
-
-    /***********************************************/
-    // Zotero functions (i.e. not Zutilo functions)
-    /***********************************************/
-    keys.categories.toggleZotero = 'uinavigation'
-    keys.shortcuts.toggleZotero = function(win) {
-        win.ZoteroOverlay.toggleDisplay()
-    };
-
-    keys.categories.focusZotero = 'uinavigation'
-    keys.shortcuts.focusZotero = function(win) {
-        win.ZoteroOverlay.toggleDisplay(true)
-    };
-
-    keys.categories.hideZotero = 'uinavigation'
-    keys.shortcuts.hideZotero = function(win) {
-        win.ZoteroOverlay.toggleDisplay(false)
-    };
-
-    keys.categories.saveItemZotero = 'itemcreation'
-    keys.shortcuts.saveItemZotero = function(win) {
-        // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-        win.Zotero_Browser.scrapeThisPage()
-        // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
-    };
-
-    keys.categories.websiteItem = 'itemcreation'
-    keys.shortcuts.websiteItem = function(win) {
-        win.ZoteroPane.addItemFromPage()
-    };
-
-}
-
 AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
     if (aAddon === null || !aAddon.isActive) {
         return

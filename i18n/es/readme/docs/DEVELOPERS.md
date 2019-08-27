@@ -27,9 +27,6 @@ The highlights are:
 * `zoteroOverlay.js`
   - Contains all of the functions that extend Zotero's UI and all of the Zutilo defined functions that interact with Zotero data
 
-* `firefoxOverlay.js`
-  - Contains all of the functions that are specific to the Firefox version of Zotero (e.g. functions that interact with the browser content)
-
 * `keys.js`
   - Defines all of Zutilo's keyboard shortcut functions
   - To define a new shortcut:

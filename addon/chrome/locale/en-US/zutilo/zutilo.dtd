@@ -2,38 +2,11 @@
 
 <!ENTITY zutilo.startup.upgradetitle    "Zutilo: Upgrade message">
 
-<!ENTITY zutilo.zoteronotactive.title "Zutilo: Zotero not active!">
-<!ENTITY zutilo.zoteronotactive.infomessage "Zutilo is a plugin for the Zotero Firefox extension which is currently either disabled or not installed. Zotero can be downloaded from the Zotero home page.  Zutilo can be uninstalled from the Add-ons Manager.">
-<!ENTITY zutilo.zoteronotactive.actionmessage "When the button below is pressed, close the window and take the additional following actions:">
-<!ENTITY zutilo.zoteronotactive.zoteropage "Open Zotero home page">
-<!ENTITY zutilo.zoteronotactive.addonmanager "Open Add-ons Manager">
-<!ENTITY zutilo.zoteronotactive.dontshow "Suppress this window in the future">
-
 <!ENTITY zutilo.preferences.title    "Zutilo Preferences">
-
-<!ENTITY zutilo.preferences.general "General">
-<!ENTITY zutilo.preferences.general.standalonemessage "Currently there are no general preferences for Zotero Standalone.">
-<!ENTITY zutilo.preferences.general.zoteronotactive "Warn on startup when Zotero is not enabled or not installed.">
 
 <!ENTITY zutilo.preferences.userInterface "User Interface">
 <!ENTITY zutilo.preferences.ui.itemmenuLabel "Zotero item menu">
 <!ENTITY zutilo.preferences.ui.collectionmenuLabel "Zotero collection menu">
-<!ENTITY zutilo.preferences.ui.browserLabel "Browser context menus">
-
-<!ENTITY zutilo.preferences.ui.statusbar.label "Address bar">
-<!ENTITY zutilo.preferences.ui.statuspopup.label "Address bar icon menu">
-<!ENTITY zutilo.preferences.ui.statuspopup.checkbox "Show menu items for translating with(out) attachments">
-
-<!ENTITY zutilo.preferences.ui.ffcacm.label "Firefox content area context menu">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.label "Method for creating attachments:">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.Zotero "Import">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.prompt "Prompt for linked file">
-<!ENTITY zutilo.preferences.ui.ffcacm.attachmentProcessType.promptAfterOne "Prompt after first">
-<!ENTITY zutilo.preferences.ui.attachPage.label "Show attach page menu item in:">
-<!ENTITY zutilo.preferences.ui.attachLink.label "Show attach link menu item in:">
-<!ENTITY zutilo.preferences.ui.ffcacm.Firefox "Firefox context menu">
-<!ENTITY zutilo.preferences.ui.ffcacm.Zotero "Zotero submenu">
-<!ENTITY zutilo.preferences.ui.ffcacm.hide "Do not show">
 
 <!ENTITY zutilo.preferences.shortcuts "Shortcuts">
 <!ENTITY zutilo.preferences.shortcuts.labels "Name">
@@ -46,5 +19,4 @@
 <!ENTITY zutilo.preferences.readme.caption "About Zutilo">
 <!ENTITY zutilo.preferences.readme.button "Show readme document">
 <!ENTITY zutilo.readme.title "About Zutilo...">
-<!ENTITY zutilo.about.openaddon "Open Add-on page">
 <!ENTITY zutilo.about.opengithub "Open GitHub page">
