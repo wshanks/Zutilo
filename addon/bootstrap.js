@@ -5,22 +5,10 @@
 
 "use strict";
 /* global Components, Services */
-/* global Zutilo */
+/* global Zutilo, APP_SHUTDOWN */
 const {classes: Cc, utils: Cu} = Components;
 
 Cu.import("resource://gre/modules/Services.jsm");
-
-const BOOTSTRAP_REASONS = [
-    "", // the bootstrap reason is 1 based
-    "APP_STARTUP",
-    "APP_SHUTDOWN",
-    "ADDON_ENABLE",
-    "ADDON_DISABLE",
-    "ADDON_INSTALL",
-    "ADDON_UNINSTALL",
-    "ADDON_UPGRADE",
-    "ADDON_DOWNGRADE"
-];
 
 // eslint-disable-next-line no-unused-vars
 function install(data, reason) {
