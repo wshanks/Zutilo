@@ -339,26 +339,28 @@ ZutiloChrome.zoteroOverlay = {
             this.ready = new Zotero.Promise((resolve, reject) => {
                 this._init()
                     .then(() => resolve(true))
-                    .catch(err => {
+                    .catch((err) => {
                         debug('CopyItems._init', err)
                         reject(err)
                     })
             })
         }
+
         async _init() {
             await Zotero.Schema.schemaUpdatePromise
-    
+
             const baseMapped = Zotero.ItemFields.getBaseMappedFields()
-            this.fields = Zotero.ItemFields.getAll().filter(field => !baseMapped.includes(field.id)).map(field => field.name)
+            this.fields = Zotero.ItemFields.getAll().filter((field) => !baseMapped.includes(field.id))
+.map((field) => field.name)
         }
-    
+
         sourceItem() {
             const items = ZutiloChrome.zoteroOverlay.getSelectedItems() || []
             return items.length === 1 && items[0].isRegularItem() ? items[0] : null
         }
-    
+
         targetItems() {
-            const items = (ZutiloChrome.zoteroOverlay.getSelectedItems() || []).filter(item => item.isRegularItem())
+            const items = (ZutiloChrome.zoteroOverlay.getSelectedItems() || []).filter((item) => item.isRegularItem())
             debug(`targetItems: ${items.length}`)
             return items
         }
@@ -371,12 +373,12 @@ ZutiloChrome.zoteroOverlay = {
                 return false
             }
         }
-    
+
         clipboard() {
             const clipboard = ZutiloChrome.getFromClipboard(true).trim()
             debug(`clipboard: ${clipboard}`)
             if (!clipboard || !clipboard.startsWith('{')) return null
-    
+
             try {
                 const item = JSON.parse(clipboard)
                 if (!item.itemType) throw new Error(`${clipboard} does not look like a Zotero item`)
@@ -389,7 +391,7 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     copyJSON: function() {
-        this._copyJSON().catch(err => debug('copyJSON', err))
+        this._copyJSON().catch((err) => debug('copyJSON', err))
     },
     _copyJSON: async function() {
         await this.CopyItems.ready
@@ -433,15 +435,15 @@ ZutiloChrome.zoteroOverlay = {
 
     pasteJSONIntoEmptyFields: function() {
         debug('pasteJSONIntoEmptyFields')
-        this.pasteJSON('into-empty-fields').catch(err => debug('pasteJSONIntoEmptyFields', err))
+        this.pasteJSON('into-empty-fields').catch((err) => debug('pasteJSONIntoEmptyFields', err))
     },
     pasteJSONFromNonEmptyFields: function() {
         debug('pasteJSONFromNonEmptyFields')
-        this.pasteJSON('from-non-empty-fields').catch(err => debug('pasteJSONFromNonEmptyFields', err))
+        this.pasteJSON('from-non-empty-fields').catch((err) => debug('pasteJSONFromNonEmptyFields', err))
     },
     pasteJSONAll: function() {
         debug('pasteJSONAll')
-        this.pasteJSON('all').catch(err => debug('pasteJSONAll', err))
+        this.pasteJSON('all').catch((err) => debug('pasteJSONAll', err))
     },
     pasteJSON: async function(mode) {
         await this.CopyItems.ready
@@ -458,7 +460,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         function creatorID(creator) {
-            return JSON.stringify(['creatorType', 'name', 'firstName', 'lastName'].map(field => creator[field] || ''))
+            return JSON.stringify(['creatorType', 'name', 'firstName', 'lastName'].map((field) => creator[field] || ''))
         }
 
         for (const item of items) {
@@ -467,28 +469,28 @@ ZutiloChrome.zoteroOverlay = {
             for (const [field, value] of Object.entries(copiedItem)) {
                 const fieldID = this.CopyItems.getFieldIDFromTypeAndBase(item.itemTypeID, field)
                 debug(`${item.itemTypeID}.${field} = ${value}: valid = ${fieldID}`)
-                
+
                 if (field ===  'creators') {
                     let creators
                     let creatorIDs
                     let newCreators
                     switch (mode) {
                         case 'into-empty-fields':
-                            creators = item.getCreators().map(creator => {
+                            creators = item.getCreators().map((creator) => {
                               if (creator.fieldMode === 1) {
                                 return {
                                   creatorType: Zotero.CreatorTypes.getName(creator.creatorTypeID),
-                                  name: creator.name || creator.lastName || '',
+                                  name: creator.name || creator.lastName || ''
                                 }
                               }
                               return {
                                 creatorType: Zotero.CreatorTypes.getName(creator.creatorTypeID),
                                 firstName: creator.firstName || '',
-                                lastName: creator.lastName || '',
+                                lastName: creator.lastName || ''
                               }
                             })
                             creatorIDs = (creators || []).map(creatorID)
-                            newCreators = value.filter(creator => !creatorIDs.includes(creatorID(creator)))
+                            newCreators = value.filter((creator) => !creatorIDs.includes(creatorID(creator)))
 
                             if (!newCreators.length) continue
 
@@ -517,7 +519,7 @@ ZutiloChrome.zoteroOverlay = {
 
                     const isEmpty = {
                         source: typeof value !== 'number' && typeof value !== 'boolean' && !value,
-                        target: typeof currentValue !== 'number' && typeof value !== 'boolean' && !currentValue,
+                        target: typeof currentValue !== 'number' && typeof value !== 'boolean' && !currentValue
                     }
 
                     switch (mode) {
@@ -635,7 +637,6 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Loop through attachments and replace partial paths
-        var attachmentPath;
         var newFullPath
         for (var index = 0; index < attachmentArray.length; index++) {
             // Only modify linked file attachments since paths for the other
@@ -821,7 +822,6 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        var libraryID;
         var libraryType
         var path
         for (var ii = 0; ii < zitems.length; ii++) {
@@ -1047,7 +1047,6 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     overlayZoteroPane: function(doc) {
-        var prefsId
         var menuPopup
         if (Zotero.version.split('.')[0] < 5) {
             // XXX: Legacy 4.0
@@ -1165,12 +1164,15 @@ ZutiloChrome.zoteroOverlay = {
         pasteJSON() {
             return !ZutiloChrome.zoteroOverlay.CopyItems.ready.isPending() && ZutiloChrome.zoteroOverlay.CopyItems.targetItems().length && ZutiloChrome.zoteroOverlay.CopyItems.clipboard()
         }
+
         pasteJSONIntoEmptyFields() {
             return this.pasteJSON()
         }
+
         pasteJSONFromNonEmptyFields() {
             return this.pasteJSON()
         }
+
         pasteJSONAll() {
             return this.pasteJSON()
         }
@@ -1424,7 +1426,6 @@ ZutiloChrome.zoteroOverlay = {
     siftItems: function(itemArray, itemTypeArray) {
         var matchedItems = [];
         var unmatchedItems = [];
-        var numItems = itemArray.length;
         while (itemArray.length > 0) {
             if (this.checkItemType(itemArray[0], itemTypeArray)) {
                 matchedItems.push(itemArray.shift());

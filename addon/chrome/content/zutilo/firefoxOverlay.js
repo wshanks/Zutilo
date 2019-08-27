@@ -5,7 +5,7 @@
 
 'use strict';
 /* global gBrowser, window, document, Components, Services */
-/* global Zotero, Zotero_Browser, ZoteroPane */
+/* global Zotero, Zotero_Browser */
 /* global Zutilo, ZutiloChrome */
 Components.utils.import('resource://gre/modules/Services.jsm');
 /******************************************/
@@ -119,7 +119,7 @@ ZutiloChrome.firefoxOverlay = {
             }
         }
 
-        function mimeCallback(mimeType, hasNativeHandler) {
+        function mimeCallback(mimeType, _hasNativeHandler) {
             function zoteroImport(attachmentCallback) {
                 if (Zotero.version.split('.')[0] < 5) {
                     // XXX: Legacy 4.0
@@ -470,7 +470,7 @@ function scrapeThisPage(filesBehavior, entry) {
             Zutilo._bundle.
                 GetStringFromName(strRoot + 'body'))
         return
-    } 
+    }
 
     // Default to default translator
     if (typeof entry === 'undefined') {

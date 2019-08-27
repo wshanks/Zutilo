@@ -5,11 +5,10 @@
 
  // Note: this code has been adapted from dorando's Keyconfig extension.
  'use strict';
-/* global gBrowser, window, document, Components, KeyEvent, Services */
-/* global Zutilo, ZutiloChrome */
+/* global window, document, Components, KeyEvent, Services */
+/* global Zutilo */
 var Cc = Components.classes
 var Ci = Components.interfaces
-var Cu = Components.utils
 Components.utils.import('resource://gre/modules/Services.jsm');
 
 var gPrefService = Components.classes['@mozilla.org/preferences-service;1'].
@@ -42,6 +41,7 @@ if (gPrefService.getPrefType('browser.backspace_action')) {
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 function keyconfigOnLoad() {
     keyTree = document.getElementById('key-tree');
     gEditbox = document.getElementById('editbox');
@@ -141,6 +141,7 @@ function getFormattedKey(keyLabel) {
     return formatKey(Zutilo.keys.getKey(keyLabel))
 }
 
+// eslint-disable-next-line no-unused-vars
 function Recognize(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -194,6 +195,7 @@ function applyShortcut() {
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 function Disable() {
     gEdit.value = Zutilo._bundle.GetStringFromName('zutilo.shortcuts.disabled');
     gEdit.key = {modifiers: '', key: '', keycode: ''};
@@ -408,9 +410,9 @@ var keyView = {
                 return Zutilo.keys.keyName(gKeys[row])
             case 'shortcut-value':
                 return getFormattedKey(gKeys[row])
-			case 'shortcut-category':
-				return Zutilo.keys.categoryName(
-					Zutilo.keys.categories[gKeys[row]])
+            case 'shortcut-category':
+                return Zutilo.keys.categoryName(
+                    Zutilo.keys.categories[gKeys[row]])
         }
     },
     setTree: function(treebox) {
@@ -431,7 +433,7 @@ var keyView = {
     getImageSrc: function() {
         return null;
     },
-    getRowProperties: function(row, prop) {},
+    getRowProperties: function(_row, _prop) {},
     canDropBeforeAfter: function() {
         return false;
     },
@@ -442,7 +444,7 @@ var keyView = {
         return -1;
     },
 
-    getCellProperties: function(row, col, props) {},
+    getCellProperties: function(_row, _col, _props) {},
     getColumnProperties: function() {},
     selectionChanged: function() {
         var keyLabel = gKeys[this.selection.currentIndex];

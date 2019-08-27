@@ -1,0 +1,28 @@
+{
+  "name": "zutilo",
+  "version": "3.1.1",
+  "description": "Zotero plugin providing some additional editing features",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "eslint addon/*.js addon/chrome/content/zutilo/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willsALMANJ/Zutilo.git"
+  },
+  "keywords": [
+    "Zotero"
+  ],
+  "author": "Will Shanks",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/willsALMANJ/Zutilo/issues"
+  },
+  "homepage": "https://github.com/willsALMANJ/Zutilo#readme",
+  "devDependencies": {
+    "eslint": "^6.1.0"
+  }
+}

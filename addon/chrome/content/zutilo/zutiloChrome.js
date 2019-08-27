@@ -60,7 +60,7 @@ ZutiloChrome.showUpgradeMessage = function() {
 // Open Zutilo preferences window
 ZutiloChrome.openPreferences = function() {
     if (!('_preferencesWindow' in this) || this._preferencesWindow === null ||
-		this._preferencesWindow.closed) {
+        this._preferencesWindow.closed) {
         var featureStr = 'chrome, titlebar, toolbar=yes, resizable, ' +
             'centerscreen, ';
         var modalStr = Services.prefs.

@@ -1,6 +1,6 @@
-<!ENTITY zutilo.name			"Zutilo">
+<!ENTITY zutilo.name            "Zutilo">
 
-<!ENTITY zutilo.startup.upgradetitle	"Zutilo : message de mise à jour">
+<!ENTITY zutilo.startup.upgradetitle    "Zutilo : message de mise à jour">
 
 <!ENTITY zutilo.zoteronotactive.title "Zutilo : Zotero n'est pas activé">
 <!ENTITY zutilo.zoteronotactive.infomessage "Zutilo est un module pour l'extension Zotero">
@@ -9,7 +9,7 @@
 <!ENTITY zutilo.zoteronotactive.addonmanager "ouvrir le gestionnaire de modules complémentaires">
 <!ENTITY zutilo.zoteronotactive.dontshow "Supprimer la fenêtre à l'avenir">
 
-<!ENTITY zutilo.preferences.title	"Préférences de l'extension Zutilo">
+<!ENTITY zutilo.preferences.title    "Préférences de l'extension Zutilo">
 
 <!ENTITY zutilo.preferences.general "Générales">
 <!ENTITY zutilo.preferences.general.standalonemessage "Pour l'instant il n'existe pas de préférences générales pour Zutilo">
