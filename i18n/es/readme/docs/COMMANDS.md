@@ -42,34 +42,34 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
     Set all selected items to be related to each other.
 
 * __QuickCopy items:__
-	Copy selected items to the clipboard using the "Default output format" specified in the "Export" section of Zotero's preferences.
-	There are also two alternative QuickCopy items (labeled "alt 1" and "alt 2").
-	These items will copy to the clipboard using alternative export translators.
-	To select the translators used by these functions, the corresponding preferences `extensions.zutilo.quickcopy_alt1` and `extensions.zutilo.quickcopy_alt2` must be set in the config editor.
-	Each preference should be set to whatever appears in the config editor for the `export.quickCopy.setting` preference when the desired translator is set as the "Default output format" in Zotero's preferences.
+    Copy selected items to the clipboard using the "Default output format" specified in the "Export" section of Zotero's preferences.
+    There are also two alternative QuickCopy items (labeled "alt 1" and "alt 2").
+    These items will copy to the clipboard using alternative export translators.
+    To select the translators used by these functions, the corresponding preferences `extensions.zutilo.quickcopy_alt1` and `extensions.zutilo.quickcopy_alt2` must be set in the config editor.
+    Each preference should be set to whatever appears in the config editor for the `export.quickCopy.setting` preference when the desired translator is set as the "Default output format" in Zotero's preferences.
         The config editor can be opened from the Advanced pane of Zotero's preferences window (or by visiting `about:config` if using Zotero as a Firefox add-on).
 
 * __Copy select item links:__
-	Copy links of the form "zotero://select/items/ITEM_ID" to the clipboard for each selected item.
-	Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin.
-	Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.
+    Copy links of the form "zotero://select/items/ITEM_ID" to the clipboard for each selected item.
+    Pasting such a link into the Firefox address bar will select the corresponding item in the Zotero Firefox plugin.
+    Following links from other applications and having the links select items in the Zotero Standalone client may also be achievable but might require additional set up.
 
 * __Copy Zotero URIs:__
-	Copy (www.zotero.org) links to the clipboard for each selected item.
-	If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
-	If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
+    Copy (www.zotero.org) links to the clipboard for each selected item.
+    If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
+    If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
 
 * __Create book section:__
-	Create a book section item from the currently selected book item.
+    Create a book section item from the currently selected book item.
 
-	The new item is created by duplicating the book item and changing its type to book section.
-	Author entries for the book item are converted to "book author" entries for the new book section item.
-	The new book section item is added as a related item to the original book item.
-	Finally, the title textbox for the new item is focused so that a new title for the book section may be entered.
+    The new item is created by duplicating the book item and changing its type to book section.
+    Author entries for the book item are converted to "book author" entries for the new book section item.
+    The new book section item is added as a related item to the original book item.
+    Finally, the title textbox for the new item is focused so that a new title for the book section may be entered.
 
-	This function only works when a single book item is selected.
-	Note that some fields (number of pages and short title, as of late 2014) apply only to book items and not book section items.
-	There is no prompt to confirm this loss of fields from the created book section item.
+    This function only works when a single book item is selected.
+    Note that some fields (number of pages and short title, as of late 2014) apply only to book items and not book section items.
+    There is no prompt to confirm this loss of fields from the created book section item.
 
 * __Create book item:__
     Create a book item from teh currently selected book section item.
@@ -100,6 +100,17 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
 
 * __Paste all items fields__
     (Paste-all): paste all fields from source, even if they are empty.
+
+### Collection menu functions
+
+* __Copy select collection link:__
+    Copy links of the form "zotero://select/library/collections/ITEM_ID" to the clipboard for the selected collection.
+    Following links from other applications can select the collection in the Zotero Standalone client but might require additional set up.
+
+* __Copy Zotero URI:__
+    Copy (www.zotero.org) link to the clipboard for the selected collection.
+    If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
+    If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
 
 ### Navigating the UI and editing items via keyboard shortcuts
 
