@@ -1,5 +1,5 @@
 ### Item menu functions
-Each of the functions below can be called from the Zotero item menu (accessed by right-clicking in the items pane in the middle of Zotero where all of a collection's items are listed).
+Each of the functions below can be called from the Zotero item context menu (accessed by right-clicking in the items pane in the middle of Zotero where all of a collection's items are listed).
 In the Zutilo preferences (accessed from the same menu as Zotero's preferences), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
 * __Copy tags:__
@@ -101,6 +101,8 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
     (Paste-all): paste all fields from source, even if they are empty.
 
 ### Collection menu functions
+Each of the functions below can be called from the Zotero collection context menu (accessed by right-clicking on a collection in the collections pane at the right of Zotero where all the collections are listed).
+In the Zutilo preferences (accessed from the same menu as Zotero's preferences), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
 * __Copy select collection link:__
     Copy links of the form "zotero://select/library/collections/ITEM_ID" to the clipboard for the selected collection.
