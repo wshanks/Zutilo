@@ -3,14 +3,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 'use strict'
-/* global gBrowser, window, document, AddonManager, Components, Services */
+/* global AddonManager, Components, Services */
 /* global CustomizableUI */
 
+// eslint-disable-next-line no-unused-vars
 var EXPORTED_SYMBOLS = ['Zutilo'];
 
-var Cc = Components.classes
-var Ci = Components.interfaces
-var Cu = Components.utils
+const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 Cu.import('resource://gre/modules/AddonManager.jsm');
 Cu.import('resource://gre/modules/Services.jsm');
 
@@ -34,9 +33,9 @@ var Zutilo = {
             'copyCreators', 'copyItems', 'copyItems_alt1', 'copyItems_alt2',
             'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
             'createBookItem', 'copyChildIDs', 'relocateChildren',
-            'copyJSON', 'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields', 'pasteJSONAll',
+            'copyJSON', 'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields', 'pasteJSONAll'
         ],
-        collection: ['copyZoteroCollectionSelectLink', 'copyZoteroCollectionURI'],
+        collection: ['copyZoteroCollectionSelectLink', 'copyZoteroCollectionURI']
     },
     ffcacmFunctions: [
         {name: 'attachPage',
@@ -50,7 +49,7 @@ var Zutilo = {
 
     itemClipboard: [],
 
-    appName: function() {
+    appName: (function() {
         var appInfo = Cc['@mozilla.org/xre/app-info;1'].
             getService(Ci.nsIXULAppInfo);
         var appName;
@@ -73,7 +72,7 @@ var Zutilo = {
         }
 
         return appName;
-    }(),
+    }()),
 
     /********************************************/
     // Zutilo setup functions
@@ -130,9 +129,9 @@ var Zutilo = {
             }, false)
         },
 
-        onCloseWindow: function(xulWindow) {},
+        onCloseWindow: function(_xulWindow) {},
 
-        onWindowTitleChange: function(xulWindow, newTitle) {}
+        onWindowTitleChange: function(_xulWindow, _newTitle) {}
     },
 
     loadWindowChrome: function(scope) {
@@ -173,7 +172,7 @@ var Zutilo = {
 
             switch (topic) {
                 case 'zutilo-zoteroitemmenu-update':
-                case 'zutilo-zoterocollectionmenu-update':
+                case 'zutilo-zoterocollectionmenu-update': {
                     const menuName = (topic.includes('item') ? 'item' : 'collection')
                     while (windows.hasMoreElements()) {
                         tmpWin = windows.getNext();
@@ -187,7 +186,7 @@ var Zutilo = {
                         }
                     }
                     break;
-
+                }
                 case 'zutilo-shortcut-update':
                     while (windows.hasMoreElements()) {
                         tmpWin = windows.getNext();
@@ -258,7 +257,7 @@ var Zutilo = {
     escapeForRegExp: function(str) {
         // Escape all symbols with special regular expression meanings
         // Function taken from http://stackoverflow.com/a/6969486
-        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+        return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
     }
 };
 
@@ -327,27 +326,22 @@ Zutilo.Prefs = {
             }
         }
         catch (e) {
-            throw ('Invalid Zutilo pref call for ' + pref);
+            throw new Error('Invalid Zutilo pref call for ' + pref);
         }
 
         return prefVal;
     },
 
     set: function(pref, value) {
-        try {
-            switch (this.prefBranch.getPrefType(pref)){
-                case this.prefBranch.PREF_BOOL:
-                    return this.prefBranch.setBoolPref(pref, value);
-                case this.prefBranch.PREF_STRING:
-                    return this.prefBranch.setCharPref(pref, value);
-                case this.prefBranch.PREF_INT:
-                    return this.prefBranch.setIntPref(pref, value);
-            }
+        switch (this.prefBranch.getPrefType(pref)){
+            case this.prefBranch.PREF_BOOL:
+                return this.prefBranch.setBoolPref(pref, value);
+            case this.prefBranch.PREF_STRING:
+                return this.prefBranch.setCharPref(pref, value);
+            case this.prefBranch.PREF_INT:
+                return this.prefBranch.setIntPref(pref, value);
         }
-        catch (e) {
-            throw(e);
-            // throw ('Invalid preference "' + pref + '"');
-        }
+
         return false;
     },
 
@@ -356,7 +350,7 @@ Zutilo.Prefs = {
             this.prefBranch.clearUserPref(pref);
         }
         catch (e) {
-            throw ('Invalid preference "' + pref + '"');
+            throw new Error('Invalid preference "' + pref + '"');
         }
     },
 
@@ -414,7 +408,7 @@ Zutilo.Prefs = {
 /* Zotero save button methods */
 
 var saveIconListener = {
-    onWidgetAdded: function(widgetID, area, position) {
+    onWidgetAdded: function(widgetID, _area, _position) {
         if (widgetID == 'zotero-toolbar-buttons' ||
                 widgetID == 'zotero-toolbar-save-button-single') {
             var windows = Services.wm.getEnumerator('navigator:browser')
