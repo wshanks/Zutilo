@@ -10,6 +10,7 @@
 <!DOCTYPE prefwindow SYSTEM "chrome://zutilo/locale/zutilo.dtd">
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://zotero-platform/content/preferences.css"?>
 
 <prefwindow id="zutilo-prefs" 
             title="&zutilo.preferences.title;" 
