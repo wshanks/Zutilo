@@ -1,7 +1,23 @@
-* In version 3.0.3:
+* In version 3.2.1:
+
+    + Compatibility updates for Zotero 5.0.75
+
+* In version 3.2.0:
 
     + Drop support for Zotero as a Firefox addon and for Zotero 4.x
+    + Update item select link to newer format used by recent version of Zotero
     + Add functions to copy select links and web links to collections
+    + Add copy/paste item field functions
+
+* In version 3.1.0:
+
+    + Update Chinese translation
+    + Add "Link to File..." shortcut
+    + Add "Show file" shortcut
+    + Add "Attach new file" shortcut for ZotFile
+
+* In version 3.0.3:
+
 	+ Fix French locale
 
 * In version 3.0.2:

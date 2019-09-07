@@ -1,4 +1,8 @@
-* In version 3.2.0b:
+* In version 3.2.1:
+
+    + Compatibility updates for Zotero 5.0.75
+
+* In version 3.2.0:
 
     + Drop support for Zotero as a Firefox addon and for Zotero 4.x
     + Update item select link to newer format used by recent version of Zotero
