@@ -1,6 +1,6 @@
 {
   "name": "zutilo",
-  "version": "3.2.1a1",
+  "version": "3.2.1",
   "description": "Zotero plugin providing some additional editing features",
   "main": "index.js",
   "directories": {
