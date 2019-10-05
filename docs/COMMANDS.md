@@ -225,7 +225,7 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
 
 ### Better BibTeX functions
 
-The following functions are only available when [Better BibTeX](https://github.com/retorquere/zotero-better-bibtex) is installed (and only for Zotero version 5.0 or higher).
+The following functions are only available when [Better BibTeX](https://github.com/retorquere/zotero-better-bibtex) is installed.
 
 * __Pin key:__ Pin the key for the currently selected items.
 
@@ -233,4 +233,10 @@ The following functions are only available when [Better BibTeX](https://github.c
 
 * __Force-refresh key:__ Force-refresh the key for the currently selected items.
 
+### ZotFile functions
 
+The following functions are only available when [ZotFile](zotfile.com) is installed.
+
+* __Attach new file:__ Attach the newest file in the ZotFile source directory to the currently selected item.
+
+* __Move and rename attachments:__ Move and rename the files associated with the currently selected attachments to following the format configured in ZotFile's preferences.

@@ -1,3 +1,7 @@
+* In version 3.3.0:
+
+    + Added shortcut for ZotFile's move and rename attachment
+
 * In version 3.2.1:
 
     + Compatibility updates for Zotero 5.0.75
