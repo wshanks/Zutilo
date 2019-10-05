@@ -419,5 +419,10 @@ AddonManager.getAddonByID('zotfile@columbia.edu', function(aAddon) {
         win.Zotero.ZotFile.attachFileFromSourceDirectory()
     }
 
+    keys.categories.ZotFileRename = 'ZotFile'
+    keys.shortcuts.ZotFileRename = function(win) {
+        win.Zotero.ZotFile.renameSelectedAttachments()
+    }
+
     Zutilo.Prefs.setDefaults()
 })
