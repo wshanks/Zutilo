@@ -1,3 +1,7 @@
+* In version 3.3.1:
+
+    + Fix add tag shortcut for Zotero 5.0.78
+
 * In version 3.3.0:
 
     + Added shortcut for ZotFile's move and rename attachment
