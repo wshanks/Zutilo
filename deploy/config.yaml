@@ -4,7 +4,7 @@ github:
     token: deploy/github.token
     assets:
     - path: build/zutilo.xpi
-      type: application/x-xpinstall
+      type: application/vnd.zotero.plugin
 
 git_release:
     remote: origin
