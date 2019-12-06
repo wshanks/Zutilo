@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 'use strict';
-/* global gBrowser, window, document, Components */
+/* global window, document, Components */
 /* global Zotero, ZoteroPane, ZOTERO_CONFIG */
 /* global Zutilo, ZutiloChrome */
 Components.utils.import('resource://gre/modules/Services.jsm');
@@ -92,16 +92,22 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select tag tab of item pane
-        var tabIndex = 2;
+        var tabIndex = 2
         ZoteroPane.document.getElementById('zotero-view-tabbox').
             tabs.selectedIndex = tabIndex
         // Focus new tag entry textbox
-        let tagPane =
-            ZoteroPane.document.getElementById('zotero-editpane-tags')
-        if (tagPane._tagColors === undefined) {
-            window.setTimeout(function() {tagPane.new()}, 200)
+        let header = ZoteroPane.document.querySelector(".tags-box-header")
+        if (header === null) {
+            // Zotero version < 5.0.78
+            let tagPane = ZoteroPane.document.getElementById('zotero-editpane-tags')
+            if (tagPane._tagColors === undefined) {
+                window.setTimeout(function() {tagPane.new()}, 200)
+            } else {
+                tagPane.newTag()
+            }
         } else {
-            tagPane.newTag()
+            let addButton = header.querySelector("button")
+            addButton.click()
         }
 
         return true;
