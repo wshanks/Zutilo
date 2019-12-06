@@ -539,7 +539,7 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     _modifyAttachmentPaths: function(mode) {
-        var attachmentArray = this.getSelectedAttachments();
+        var attachmentArray = this.getSelectedAttachments(mode);
 
         if (!this.checkItemNumber(attachmentArray, 'attachment1')) {
             return false;
@@ -1220,7 +1220,7 @@ ZutiloChrome.zoteroOverlay = {
     // all selected regular items.
     // To get just the selected attachment items, use
     // Zutilo.siftItems(inputArray, 'attachment') instead.
-    getSelectedAttachments: function() {
+    getSelectedAttachments: function(mode) {
 
         var zitems = this.getSelectedItems();
         if (!zitems) {
@@ -1241,6 +1241,12 @@ ZutiloChrome.zoteroOverlay = {
             } else if (zitem.isAttachment()) {
                 attachmentItems.push(zitem);
             }
+        }
+
+        if (mode !== undefined) {
+            attachmentItems = attachmentItems.filter(
+                (item) => item.attachmentLinkMode == mode
+            )
         }
 
         // Return attachments after removing duplicate items (when parent and
