@@ -1,3 +1,7 @@
+* In version 3.3.2:
+
+    + Fix mishandling of attachments with paths that did not match the old path pattern in the modify attachments function.
+
 * In version 3.3.1:
 
     + Fix add tag shortcut for Zotero 5.0.78

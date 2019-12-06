@@ -618,6 +618,8 @@ ZutiloChrome.zoteroOverlay = {
                 if (oldFullPath.substr(0, oldPath.length) == oldPath) {
                     newFullPath =
                         newPath + oldFullPath.substr(oldPath.length);
+                } else {
+                    newFullPath = oldFullPath
                 }
             }
             // attachmentPath stores the unmodified path
