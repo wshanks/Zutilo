@@ -1,3 +1,7 @@
+* In version 3.4.0:
+
+    + Added shortcut for pushing reference to TeXstudio with Better BibTeX
+
 * In version 3.3.3:
 
     + Filter attachments by mode before trying to modify paths

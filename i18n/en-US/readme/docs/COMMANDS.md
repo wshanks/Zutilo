@@ -233,6 +233,8 @@ The following functions are only available when [Better BibTeX](https://github.c
 
 * __Force-refresh key:__ Force-refresh the key for the currently selected items.
 
+* __Push to TeXstudio:__ Push references to TeXstudio.
+
 ### ZotFile functions
 
 The following functions are only available when [ZotFile](zotfile.com) is installed.

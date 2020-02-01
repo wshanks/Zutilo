@@ -403,6 +403,12 @@ AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
         win.Zotero.BetterBibTeX.ready.then(function() {
             win.Zotero.BetterBibTeX.KeyManager.refresh('selected', true)})
     }
+
+    keys.categories.BBTtoTeXstudio = 'bbt'
+    keys.shortcuts.BBTtoTeXstudio = function(win) {
+        win.Zotero.BetterBibTeX.ready.then(function() {
+            win.Zotero.BetterBibTeX.ZoteroPane.toTeXstudio()})
+    }
     // Call setDefaults again so it generates defaults for these shortcuts
     // created in the getAddonByID callback.
     // TODO: Only add defaults for the shortcuts generated here.
