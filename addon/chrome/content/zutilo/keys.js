@@ -285,11 +285,6 @@ keys.shortcuts.advancedSearch = function(win) {
     win.ZoteroPane_Local.openAdvancedSearchWindow()
 };
 
-keys.categories.locateMenu = 'uinavigation'
-keys.shortcuts.locateMenu = function(win) {
-    win.document.getElementById('zotero-tb-locate-menu').showPopup();
-};
-
 keys.categories.duplicateItem = 'itemcreation'
 keys.shortcuts.duplicateItem = function(win) {
     win.ZoteroPane.duplicateSelectedItem();
