@@ -1,6 +1,7 @@
 * In version 3.4.0:
 
     + Added shortcut for pushing reference to TeXstudio with Better BibTeX
+    + Add "Advanced search" shortcut
 
 * In version 3.3.3:
 

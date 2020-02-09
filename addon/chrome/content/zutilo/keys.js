@@ -280,6 +280,11 @@ keys.shortcuts.showFile = function(win) {
 // Zotero functions (i.e. not Zutilo functions)
 // Focus selection
 /***********************************************/
+keys.categories.advancedSearch = 'uinavigation'
+keys.shortcuts.advancedSearch = function(win) {
+    win.ZoteroPane_Local.openAdvancedSearchWindow()
+};
+
 keys.categories.duplicateItem = 'itemcreation'
 keys.shortcuts.duplicateItem = function(win) {
     win.ZoteroPane.duplicateSelectedItem();
