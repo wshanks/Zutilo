@@ -386,6 +386,11 @@ keys.shortcuts.toggleZoteroItemPaneStickySplitter = function(win) {
                                                         'toggle', true)
 };
 
+keys.categories.locateMenu = 'uinavigation'
+keys.shortcuts.locateMenu = function(win) {
+    win.document.getElementById('zotero-tb-locate-menu').showPopup();
+};
+
 keys.categories.locateGoogleScholar = 'uinavigation'
 keys.shortcuts.locateGoogleScholar = function(_win) {
     Zotero_LocateMenu.locateItem({"target": {"label": "Google Scholar Search"}})

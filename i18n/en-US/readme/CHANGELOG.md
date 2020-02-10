@@ -3,6 +3,7 @@
     + Added shortcut for pushing reference to TeXstudio with Better BibTeX
     + Add "Advanced search" shortcut
     + Add "Locate with Google Scholar" shortcut
+    + Add "Locate menu" shortcut
 
 * In version 3.3.3:
 
