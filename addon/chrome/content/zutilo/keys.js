@@ -5,7 +5,7 @@
 
 'use strict';
 /* global Components, AddonManager, Services */
-/* global Zotero */
+/* global Zotero, Zotero_LocateMenu */
 /* global Zutilo, gKeys */
 
 /********************************************/
@@ -384,6 +384,11 @@ keys.categories.toggleZoteroItemPaneStickySplitter = 'uinavigation'
 keys.shortcuts.toggleZoteroItemPaneStickySplitter = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item',
                                                         'toggle', true)
+};
+
+keys.categories.locateGoogleScholar = 'uinavigation'
+keys.shortcuts.locateGoogleScholar = function(_win) {
+    Zotero_LocateMenu.locateItem({"target": {"label": "Google Scholar Search"}})
 };
 
 AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
