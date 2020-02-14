@@ -4,6 +4,11 @@
     + Add "Advanced search" shortcut
     + Add "Locate item" shortcut
     + Add "Show Locate menu" shortcut
+    + Add tag selector shortcuts:
+        - Toggle displaying automatic tags
+        - Toggle displaying all tags
+        - Deselect all tags
+        - Focus search box
 
 * In version 3.3.3:
 

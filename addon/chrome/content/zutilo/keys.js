@@ -359,6 +359,37 @@ keys.shortcuts.selectTabboxTab3 = function(win) {
     win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 3;
 };
 
+keys.categories.locateMenu = 'uinavigation'
+keys.shortcuts.locateMenu = function(win) {
+    win.document.getElementById('zotero-tb-locate-menu').showPopup();
+};
+
+keys.categories.locateItem = 'uinavigation'
+keys.shortcuts.locateItem = function(win) {
+    let label = Zutilo.Prefs.get("locateItemEngine")
+    win.Zotero_LocateMenu.locateItem({"target": {"label": label}})
+};
+
+keys.categories.toggleAutomaticTags  = 'uinavigation'
+keys.shortcuts.toggleAutomaticTags = function(win) {
+    win.ZoteroPane.tagSelector.toggleShowAutomatic()
+};
+
+keys.categories.toggleAllTags = 'uinavigation'
+keys.shortcuts.toggleAllTags = function(win) {
+    win.ZoteroPane.tagSelector.toggleDisplayAllTags()
+};
+
+keys.categories.deselectTags = 'uinavigation'
+keys.shortcuts.deselectTags = function(win) {
+    win.ZoteroPane.tagSelector.deselectAll()
+};
+
+keys.categories.focusTagSelector = 'uinavigation'
+keys.shortcuts.focusTagSelector = function(win) {
+    win.ZoteroPane.tagSelector.searchBoxRef.current.focus()
+};
+
 /***********************************************/
 // Zotero functions (i.e. not Zutilo functions)
 // Hide/show left/right pane
@@ -384,17 +415,6 @@ keys.categories.toggleZoteroItemPaneStickySplitter = 'uinavigation'
 keys.shortcuts.toggleZoteroItemPaneStickySplitter = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item',
                                                         'toggle', true)
-};
-
-keys.categories.locateMenu = 'uinavigation'
-keys.shortcuts.locateMenu = function(win) {
-    win.document.getElementById('zotero-tb-locate-menu').showPopup();
-};
-
-keys.categories.locateItem = 'uinavigation'
-keys.shortcuts.locateItem = function(win) {
-    let label = Zutilo.Prefs.get("locateItemEngine")
-    win.Zotero_LocateMenu.locateItem({"target": {"label": label}})
 };
 
 AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
