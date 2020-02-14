@@ -224,6 +224,8 @@ Zutilo.Prefs = {
         // Alternative QuickCopy translators
         defaults.setCharPref('quickCopy_alt1', '')
         defaults.setCharPref('quickCopy_alt2', '')
+        // locateItem engine label
+        defaults.setCharPref('locateItemEngine', 'Google Scholar Search')
         // Other preferences
         defaults.setCharPref('attachLinkAppearance', 'Zotero');
         defaults.setCharPref('attachmentImportProcessType', 'Zotero');

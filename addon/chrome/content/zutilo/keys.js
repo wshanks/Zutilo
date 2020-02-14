@@ -391,9 +391,10 @@ keys.shortcuts.locateMenu = function(win) {
     win.document.getElementById('zotero-tb-locate-menu').showPopup();
 };
 
-keys.categories.locateGoogleScholar = 'uinavigation'
-keys.shortcuts.locateGoogleScholar = function(_win) {
-    Zotero_LocateMenu.locateItem({"target": {"label": "Google Scholar Search"}})
+keys.categories.locateItem = 'uinavigation'
+keys.shortcuts.locateItem = function(win) {
+    let label = Zutilo.Prefs.get("locateItemEngine")
+    win.Zotero_LocateMenu.locateItem({"target": {"label": label}})
 };
 
 AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
