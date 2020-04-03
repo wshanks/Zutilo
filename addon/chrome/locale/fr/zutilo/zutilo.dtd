@@ -5,8 +5,8 @@
 <!ENTITY zutilo.preferences.title    "Préférences de l'extension Zutilo">
 
 <!ENTITY zutilo.preferences.userInterface "Interface utilisateur">
-<!ENTITY zutilo.preferences.ui.itemmenuLabel "Dans Zotero">
-<!ENTITY zutilo.preferences.ui.collectionmenuLabel "Zotero collection menu">
+<!ENTITY zutilo.preferences.ui.itemmenuLabel "Menu des documents Zotero">
+<!ENTITY zutilo.preferences.ui.collectionmenuLabel "Menu des collections Zotero">
 
 <!ENTITY zutilo.preferences.shortcuts "Raccourcis-clavier">
 <!ENTITY zutilo.preferences.shortcuts.labels "Nom">
