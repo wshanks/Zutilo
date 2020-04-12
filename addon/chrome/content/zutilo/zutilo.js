@@ -29,11 +29,14 @@ var Zutilo = {
     _menuFunctions: {
         item: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
             'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
-            'copyAttachmentPaths',
-            'copyCreators', 'copyItems', 'copyItems_alt1', 'copyItems_alt2',
+            'copyAttachmentPaths', 'copyCreators', 'copyItems',
+            'copyItems_alt1', 'copyItems_alt2', 'copyItems_alt3',
+            'copyItems_alt4', 'copyItems_alt5', 'copyItems_alt6',
+            'copyItems_alt7', 'copyItems_alt8', 'copyItems_alt9',
             'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
-            'createBookItem', 'copyChildIDs', 'relocateChildren',
-            'copyJSON', 'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields', 'pasteJSONAll'
+            'createBookItem', 'copyChildIDs', 'relocateChildren', 'copyJSON',
+            'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields',
+            'pasteJSONAll'
         ],
         collection: ['copyZoteroCollectionSelectLink', 'copyZoteroCollectionURI']
     },
@@ -224,6 +227,13 @@ Zutilo.Prefs = {
         // Alternative QuickCopy translators
         defaults.setCharPref('quickCopy_alt1', '')
         defaults.setCharPref('quickCopy_alt2', '')
+        defaults.setCharPref('quickCopy_alt3', '')
+        defaults.setCharPref('quickCopy_alt4', '')
+        defaults.setCharPref('quickCopy_alt5', '')
+        defaults.setCharPref('quickCopy_alt6', '')
+        defaults.setCharPref('quickCopy_alt7', '')
+        defaults.setCharPref('quickCopy_alt8', '')
+        defaults.setCharPref('quickCopy_alt9', '')
         // locateItem engine label
         defaults.setCharPref('locateItemEngine', 'Google Scholar Search')
         // Other preferences

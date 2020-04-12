@@ -737,6 +737,76 @@ ZutiloChrome.zoteroOverlay = {
         return true
     },
 
+    copyItems_alt3: function() {
+        var pref = 'export.quickCopy.setting'
+        var origSetting = Zotero.Prefs.get(pref)
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt3')
+        Zotero.Prefs.set(pref, newSetting)
+        ZoteroPane.copySelectedItemsToClipboard(false)
+        Zotero.Prefs.set(pref, origSetting)
+        return true
+    },
+
+    copyItems_alt4: function() {
+        var pref = 'export.quickCopy.setting'
+        var origSetting = Zotero.Prefs.get(pref)
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt4')
+        Zotero.Prefs.set(pref, newSetting)
+        ZoteroPane.copySelectedItemsToClipboard(false)
+        Zotero.Prefs.set(pref, origSetting)
+        return true
+    },
+
+    copyItems_alt5: function() {
+        var pref = 'export.quickCopy.setting'
+        var origSetting = Zotero.Prefs.get(pref)
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt5')
+        Zotero.Prefs.set(pref, newSetting)
+        ZoteroPane.copySelectedItemsToClipboard(false)
+        Zotero.Prefs.set(pref, origSetting)
+        return true
+    },
+
+    copyItems_alt6: function() {
+        var pref = 'export.quickCopy.setting'
+        var origSetting = Zotero.Prefs.get(pref)
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt6')
+        Zotero.Prefs.set(pref, newSetting)
+        ZoteroPane.copySelectedItemsToClipboard(false)
+        Zotero.Prefs.set(pref, origSetting)
+        return true
+    },
+
+    copyItems_alt7: function() {
+        var pref = 'export.quickCopy.setting'
+        var origSetting = Zotero.Prefs.get(pref)
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt7')
+        Zotero.Prefs.set(pref, newSetting)
+        ZoteroPane.copySelectedItemsToClipboard(false)
+        Zotero.Prefs.set(pref, origSetting)
+        return true
+    },
+
+    copyItems_alt8: function() {
+        var pref = 'export.quickCopy.setting'
+        var origSetting = Zotero.Prefs.get(pref)
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt8')
+        Zotero.Prefs.set(pref, newSetting)
+        ZoteroPane.copySelectedItemsToClipboard(false)
+        Zotero.Prefs.set(pref, origSetting)
+        return true
+    },
+
+    copyItems_alt9: function() {
+        var pref = 'export.quickCopy.setting'
+        var origSetting = Zotero.Prefs.get(pref)
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt9')
+        Zotero.Prefs.set(pref, newSetting)
+        ZoteroPane.copySelectedItemsToClipboard(false)
+        Zotero.Prefs.set(pref, origSetting)
+        return true
+    },
+
     copyZoteroCollectionSelectLink: function() {
         const collection = ZutiloChrome.zoteroOverlay.Collection.selected()
         if (!collection) return

@@ -114,6 +114,34 @@ keys.categories.copyItems_alt2 = 'copying'
 keys.shortcuts.copyItems_alt2 = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyItems_alt2()
 };
+keys.categories.copyItems_alt3 = 'copying'
+keys.shortcuts.copyItems_alt3 = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyItems_alt3()
+};
+keys.categories.copyItems_alt4 = 'copying'
+keys.shortcuts.copyItems_alt4 = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyItems_alt4()
+};
+keys.categories.copyItems_alt5 = 'copying'
+keys.shortcuts.copyItems_alt5 = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyItems_alt5()
+};
+keys.categories.copyItems_alt6 = 'copying'
+keys.shortcuts.copyItems_alt6 = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyItems_alt6()
+};
+keys.categories.copyItems_alt7 = 'copying'
+keys.shortcuts.copyItems_alt7 = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyItems_alt7()
+};
+keys.categories.copyItems_alt8 = 'copying'
+keys.shortcuts.copyItems_alt8 = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyItems_alt8()
+};
+keys.categories.copyItems_alt9 = 'copying'
+keys.shortcuts.copyItems_alt9 = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyItems_alt9()
+};
 keys.categories.copyZoteroSelectLink = 'copying'
 keys.shortcuts.copyZoteroSelectLink = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyZoteroSelectLink()
