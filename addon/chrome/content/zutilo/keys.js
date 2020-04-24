@@ -249,7 +249,7 @@ keys.shortcuts.attachLinkFile = function(win) {
 keys.categories.recognizeSelected = 'other'
 keys.shortcuts.recognizeSelected = function(win) {
     // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-    win.Zotero_RecognizePDF.recognizeSelected()
+    win.ZoteroPane_Local.recognizeSelected()
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 keys.categories.createParentItemsFromSelected  = 'itemcreation'
