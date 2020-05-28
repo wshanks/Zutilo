@@ -61,6 +61,13 @@ function addMenuRadiogroup(menuName, menuFunction) {
 
     newRow.appendChild(newRadiogroup);
 
+    // Ugly but this is the only way I have found to put in buffer space for
+    // the vertical scrollbar. Otherwise the scrollbar appears on top of the
+    // "Hide" label.
+    var spacer = document.createElement("label")
+    spacer.setAttribute("value", "   ")
+    newRow.appendChild(spacer)
+
     var menuRows = document.getElementById(`zutilo-prefpane-${menuName}-rows`);
     menuRows.appendChild(newRow);
 }
