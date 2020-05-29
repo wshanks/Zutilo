@@ -22,21 +22,20 @@ var gPlatformKeys = {};
 var gVKNames = [];
 
 var gKeynames = {
-    'BrowserReload();': Zutilo._bundle.
-        GetStringFromName('zutilo.shortcuts.reload'),
-    goBackKb2: Zutilo._bundle.GetStringFromName('zutilo.shortcuts.goBack'),
-    goForwardKb2: Zutilo._bundle.GetStringFromName('zutilo.shortcuts.goForward')
+    'BrowserReload();': Zutilo.getString('zutilo.shortcuts.reload'),
+    goBackKb2: Zutilo.getString('zutilo.shortcuts.goBack'),
+    goForwardKb2: Zutilo.getString('zutilo.shortcuts.goForward')
 }
 gKeynames['BrowserReloadSkipCache();'] =
     gKeynames['Browser:ReloadSkipCache'] =
-    Zutilo._bundle.GetStringFromName('zutilo.shortcuts.reloadSkipCache');
+    Zutilo.getString('zutilo.shortcuts.reloadSkipCache');
 if (gPrefService.getPrefType('browser.backspace_action')) {
     if (gPrefService.getIntPref('browser.backspace_action') === 0) {
         // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
         gKeynames.cmd_handleBackspace =
-            Zutilo._bundle.GetStringFromName('zutilo.shortcuts.goBack');
+            Zutilo.getString('zutilo.shortcuts.goBack');
         gKeynames.cmd_handleShiftBackspace =
-            Zutilo._bundle.GetStringFromName('zutilo.shortcuts.goForward');
+            Zutilo.getString('zutilo.shortcuts.goForward');
         // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
     }
 }
@@ -98,10 +97,10 @@ function keyconfigOnLoad() {
 function formatKey(key) {
     if (key.modifiers == 'shift,alt,control,accel' &&
             key.keycode == 'VK_SCROLL_LOCK') {
-        return Zutilo._bundle.GetStringFromName('zutilo.shortcuts.disabled');
+        return Zutilo.getString('zutilo.shortcuts.disabled');
     }
     if (!key.key && !key.keycode) {
-        return Zutilo._bundle.GetStringFromName('zutilo.shortcuts.disabled');
+        return Zutilo.getString('zutilo.shortcuts.disabled');
     }
 
     var val = '';
@@ -128,8 +127,7 @@ function formatKey(key) {
             val += gLocaleKeys.getString(key.keycode)
         } catch (e) {
             var unrecognizedStr =
-                Zutilo._bundle.
-                    GetStringFromName('zutilo.shortcuts.unrecognized');
+                Zutilo.getString('zutilo.shortcuts.unrecognized');
             val += unrecognizedStr.replace('$1', key.keycode);
         }
     }
@@ -197,7 +195,7 @@ function applyShortcut() {
 
 // eslint-disable-next-line no-unused-vars
 function Disable() {
-    gEdit.value = Zutilo._bundle.GetStringFromName('zutilo.shortcuts.disabled');
+    gEdit.value = Zutilo.getString('zutilo.shortcuts.disabled');
     gEdit.key = {modifiers: '', key: '', keycode: ''};
     applyShortcut();
 }
@@ -247,8 +245,8 @@ function noConflictingKeys(checkKey) {
         // OK = no conflict; cancel = conflict
         var strRoot = 'zutilo.shortcuts.conflicts.'
         noConflict = Services.prompt.confirm(window,
-            Zutilo._bundle.GetStringFromName(strRoot + 'promptTitle'),
-            Zutilo._bundle.GetStringFromName(strRoot + 'promptText') +
+            Zutilo.getString(strRoot + 'promptTitle'),
+            Zutilo.getString(strRoot + 'promptText') +
             nameList.join('\n'));
     }
 
@@ -342,7 +340,7 @@ function getNameForKey(win, keyNode) {
     }
 
     if (!val) {
-        val = Zutilo._bundle.GetStringFromName('zutilo.shortcuts.unlabeled');
+        val = Zutilo.getString('zutilo.shortcuts.unlabeled');
     }
 
     return val

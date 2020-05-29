@@ -39,8 +39,10 @@ function addMenuRadiogroup(menuName, menuFunction) {
     var newHbox = document.createElement('hbox');
     newHbox.setAttribute('align', 'center');
     var newLabel = document.createElement('label');
-    newLabel.setAttribute('value', Zutilo._bundle.GetStringFromName(
-        `zutilo.preferences.${menuName}menu.${menuFunction}`));
+    newLabel.setAttribute(
+        'value',
+        Zutilo.getString(`zutilo.preferences.${menuName}menu.${menuFunction}`)
+    )
     newHbox.appendChild(newLabel);
     newRow.appendChild(newHbox);
 
@@ -53,8 +55,10 @@ function addMenuRadiogroup(menuName, menuFunction) {
     var newRadio;
     for (const label of ['Zotero', 'Zutilo', 'Hide']) {
         newRadio = document.createElement('radio');
-        newRadio.setAttribute('label', Zutilo._bundle.GetStringFromName(
-            `zutilo.preferences.${menuName}menu.${label}`));
+        newRadio.setAttribute(
+            'label',
+            Zutilo.getString(`zutilo.preferences.${menuName}menu.${label}`)
+        )
         newRadio.setAttribute('value', label);
         newRadiogroup.appendChild(newRadio);
     }

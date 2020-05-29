@@ -43,9 +43,11 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
 
 * __QuickCopy items:__
     Copy selected items to the clipboard using the "Default output format" specified in the "Export" section of Zotero's preferences.
-    There are also two alternative QuickCopy items (labeled "alt 1" and "alt 2").
+    It is also possible to set alternative quick copy items.
+    By default, two such items are enabled, labeled "alt 1" and "alt 2".
+    Additional items can be enabled by changing the `extensions.zutilo.copyItems_alt_total` preference in the config editor.
     These items will copy to the clipboard using alternative export translators.
-    To select the translators used by these functions, the corresponding preferences `extensions.zutilo.quickcopy_alt1` and `extensions.zutilo.quickcopy_alt2` must be set in the config editor.
+    To select the translators used by these functions, the corresponding preferences `extensions.zutilo.quickcopy_alt1`, `extensions.zutilo.quickcopy_alt2`, etc. must be set in the config editor.
     Each preference should be set to whatever appears in the config editor for the `export.quickCopy.setting` preference when the desired translator is set as the "Default output format" in Zotero's preferences.
         The config editor can be opened from the Advanced pane of Zotero's preferences window.
 
