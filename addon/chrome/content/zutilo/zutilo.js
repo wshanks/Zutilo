@@ -3,14 +3,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 'use strict'
-/* global AddonManager, Components, Services */
-/* global CustomizableUI */
+/* global Components, Services */
 
 // eslint-disable-next-line no-unused-vars
 var EXPORTED_SYMBOLS = ['Zutilo'];
 
 const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
-Cu.import('resource://gre/modules/AddonManager.jsm');
 Cu.import('resource://gre/modules/Services.jsm');
 
 /**
@@ -27,19 +25,17 @@ var Zutilo = {
     // no argument and that should be able to be called from the Zotero item
     // menu
     _menuFunctions: {
-        item: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
-            'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
-            'copyAttachmentPaths', 'copyCreators', 'copyItems',
-            'copyItems_alt1', 'copyItems_alt2', 'copyItems_alt3',
-            'copyItems_alt4', 'copyItems_alt5', 'copyItems_alt6',
-            'copyItems_alt7', 'copyItems_alt8', 'copyItems_alt9',
-            'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
-            'createBookItem', 'copyChildIDs', 'relocateChildren', 'copyJSON',
-            'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields',
-            'pasteJSONAll'
-        ],
+        item: [],
         collection: ['copyZoteroCollectionSelectLink', 'copyZoteroCollectionURI']
     },
+    _itemMenuItems_static: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
+        'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
+        'copyAttachmentPaths', 'copyCreators', 'copyItems',
+        'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
+        'createBookItem', 'copyChildIDs', 'relocateChildren', 'copyJSON',
+        'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields',
+        'pasteJSONAll'
+    ],
 
     _bundle: Cc['@mozilla.org/intl/stringbundle;1'].
         getService(Components.interfaces.nsIStringBundleService).
@@ -51,20 +47,35 @@ var Zutilo = {
     // Zutilo setup functions
     /********************************************/
     init: function() {
-        this.observers.register();
-        Services.scriptloader.loadSubScript('chrome://zutilo/content/keys.js',
-                                            this);
+        // Must be run before Prefs.init()
+        Services.scriptloader.loadSubScript(
+            'chrome://zutilo/content/keys.js',
+            this
+        )
 
-        Zutilo.Prefs.init();
-        // Zutilo.ZoteroPrefs.init();
+        this.observers.register()
+        Zutilo.Prefs.init()
+        // Zutilo.ZoteroPrefs.init()
 
-        this.prepareWindows();
+
+        this.prepareWindows()
     },
 
     cleanup: function() {
         Zutilo.Prefs.unregister();
         Zutilo.observers.unregister();
         Services.wm.removeListener(Zutilo.windowListener);
+    },
+
+    refreshItemMenuItems: function() {
+        this._menuFunctions.item = []
+        for (let item of this._itemMenuItems_static) {
+            this._menuFunctions.item.push(item)
+        }
+        let numAlts = Zutilo.Prefs.get('copyItems_alt_total')
+        for (let altNum = 1; altNum < numAlts + 1; altNum++) {
+            this._menuFunctions.item.push('copyItems_alt' + altNum)
+        }
     },
 
     prepareWindows: function() {
@@ -186,6 +197,17 @@ var Zutilo = {
         // Escape all symbols with special regular expression meanings
         // Function taken from http://stackoverflow.com/a/6969486
         return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
+    },
+
+    getString: function(name) {
+        let match = name.match(/(.*_alt)(\d+)$/)
+        if (match === null) {
+            return Zutilo._bundle.GetStringFromName(name)
+        } else {
+            let base = match[1]
+            let num = match[2]
+            return Zutilo._bundle.formatStringFromName(base, [num], 1)
+        }
     }
 }
 
@@ -195,13 +217,16 @@ Zutilo.Prefs = {
         this.prefBranch = Services.prefs.getBranch('extensions.zutilo.');
 
         // Register observer to handle pref changes
-        this.register();
-        this.setDefaults();
+        this.setDefaults()
+        this.register()
     },
 
     setDefaults: function() {
         var defaults = Services.prefs.getDefaultBranch('extensions.zutilo.');
+        defaults.setIntPref('copyItems_alt_total', 2)
 
+        Zutilo.refreshItemMenuItems()
+        Zutilo.keys.refreshAlts()
         // Preferences for _menuFunctions
         for (const menuName of ['item', 'collection']) {
             for (let func of Zutilo._menuFunctions[menuName]) {
@@ -220,15 +245,10 @@ Zutilo.Prefs = {
                 JSON.stringify({modifiers: '', key: '', keycode: ''}));
         }
         // Alternative QuickCopy translators
-        defaults.setCharPref('quickCopy_alt1', '')
-        defaults.setCharPref('quickCopy_alt2', '')
-        defaults.setCharPref('quickCopy_alt3', '')
-        defaults.setCharPref('quickCopy_alt4', '')
-        defaults.setCharPref('quickCopy_alt5', '')
-        defaults.setCharPref('quickCopy_alt6', '')
-        defaults.setCharPref('quickCopy_alt7', '')
-        defaults.setCharPref('quickCopy_alt8', '')
-        defaults.setCharPref('quickCopy_alt9', '')
+        let numAlts = Zutilo.Prefs.get('copyItems_alt_total')
+        for (let altNum = 1; altNum < numAlts + 1; altNum++) {
+            defaults.setCharPref('quickCopy_alt' + altNum, '')
+        }
         // locateItem engine label
         defaults.setCharPref('locateItemEngine', 'Google Scholar Search')
         // Other preferences
@@ -312,26 +332,41 @@ Zutilo.Prefs = {
 
         var prefParts;
 
-        // Check for itemmenu preference change.  Refresh item menu if there is
-        // a change
-        if (data.indexOf('itemmenu') === 0) {
+        if  (data === 'copyItems_alt_total') {
+            Zutilo.refreshItemMenuItems()
+            // In case we need to add new defaults
+            Zutilo.Prefs.unregister()
+            Zutilo.Prefs.setDefaults()
+            Zutilo.Prefs.register()
+
+            let windows = Services.wm.getEnumerator('navigator:browser')
+            while (windows.hasMoreElements()) {
+                let tmpWin = windows.getNext()
+
+                if (typeof tmpWin.ZutiloChrome == 'undefined') {
+                    continue
+                }
+                if (typeof tmpWin.ZutiloChrome.zoteroOverlay != 'undefined') {
+                    tmpWin.ZutiloChrome.zoteroOverlay.reloadKeys()
+                    tmpWin.ZutiloChrome.zoteroOverlay.zoteroPopup('item', tmpWin.document)
+                }
+            }
+
+        } else if (data.indexOf('itemmenu') === 0) {
             prefParts = data.split('.');
             if (Zutilo._menuFunctions.item.includes(prefParts[1])) {
                 Services.obs.notifyObservers(null,
                                              'zutilo-zoteroitemmenu-update',
                                              null);
             }
-        }
-        if (data.indexOf('collectionmenu') === 0) {
+        } else if (data.indexOf('collectionmenu') === 0) {
             prefParts = data.split('.');
             if (Zutilo._menuFunctions.collection.includes(prefParts[1])) {
                 Services.obs.notifyObservers(null,
                                              'zutilo-zoterocollectionmenu-update',
                                              null);
             }
-        }
-
-        if (data.indexOf('shortcut') === 0) {
+        } else if (data.indexOf('shortcut') === 0) {
             prefParts = data.split('.');
             if (prefParts[1] in Zutilo.keys.shortcuts) {
                 Services.obs.notifyObservers(null,
@@ -339,7 +374,7 @@ Zutilo.Prefs = {
             }
         }
     }
-};
+}
 
 
 // This object was used to watch a Zotero pref, but it's not necessary now.

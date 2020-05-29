@@ -40,8 +40,7 @@ ZutiloChrome.showUpgradeMessage = function() {
 
                 // lastVersion == '' for new install.  Don't show upgrade
                 // message to new users
-                var upgradeMessageStr = Zutilo._bundle.
-                            GetStringFromName('zutilo.startup.upgrademessage');
+                var upgradeMessageStr = Zutilo.getString('zutilo.startup.upgrademessage');
                 if (lastVersion !== '' && upgradeMessageStr !== '') {
                     window.openDialog(
                         'chrome://zutilo/content/zutiloUpgraded.xul',
@@ -161,10 +160,11 @@ ZutiloChrome.getFromClipboard = function(silent) {
         if (!silent) {
             var prompts = Cc['@mozilla.org/embedcomp/prompt-service;1'].
                 getService(Components.interfaces.nsIPromptService);
-            prompts.alert(null, Zutilo._bundle.
-                GetStringFromName('zutilo.error.pastetitle'),
-                Zutilo._bundle.
-                GetStringFromName('zutilo.error.pastemessage'));
+            prompts.alert(
+                null,
+                Zutilo.getString('zutilo.error.pastetitle'),
+                Zutilo.getString('zutilo.error.pastemessage')
+            )
         }
         return '';
     }

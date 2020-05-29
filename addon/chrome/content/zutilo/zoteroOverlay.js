@@ -185,10 +185,8 @@ ZutiloChrome.zoteroOverlay = {
             var prompts = Components.
                 classes['@mozilla.org/embedcomp/prompt-service;1'].
                 getService(Components.interfaces.nsIPromptService);
-            var title = Zutilo._bundle.
-                GetStringFromName('zutilo.error.copynoitemstitle')
-            var text = Zutilo._bundle.
-                GetStringFromName('zutilo.error.copynoitemstext')
+            var title = Zutilo.getString('zutilo.error.copynoitemstitle')
+            var text = Zutilo.getString('zutilo.error.copynoitemstext')
             prompts.alert(null, title, text)
         }
     },
@@ -549,22 +547,22 @@ ZutiloChrome.zoteroOverlay = {
             getService(Components.interfaces.nsIPromptService);
         var promptTitle
         if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
-            promptTitle = Zutilo._bundle.
-                GetStringFromName('zutilo.attachments.modifyTitle')
+            promptTitle = Zutilo.getString('zutilo.attachments.modifyTitle')
         } else if (mode == Zotero.Attachments.LINK_MODE_LINKED_URL) {
-            promptTitle = Zutilo._bundle.
-                GetStringFromName('zutilo.attachments.modifyURLTitle')
+            promptTitle = Zutilo.getString('zutilo.attachments.modifyURLTitle')
         }
 
         // Prompt for old path
         var promptText = { value: '' };
         var checkGlobal = { value: false };
-        var pressedOK = prompts.prompt(null, promptTitle,
-            Zutilo._bundle.GetStringFromName('zutilo.attachments.oldPath'),
+        var pressedOK = prompts.prompt(
+            null,
+            promptTitle,
+            Zutilo.getString('zutilo.attachments.oldPath'),
             promptText,
-            Zutilo._bundle.
-                GetStringFromName('zutilo.attachments.checkGlobally'),
-                                  checkGlobal);
+            Zutilo.getString('zutilo.attachments.checkGlobally'),
+            checkGlobal
+        )
         var oldPath = promptText.value;
         if (!pressedOK || (oldPath === '')) {
             return false;
@@ -572,9 +570,14 @@ ZutiloChrome.zoteroOverlay = {
 
         // Prompt for new path
         promptText = { value: '' };
-        pressedOK = prompts.prompt(null, promptTitle,
-            Zutilo._bundle.GetStringFromName('zutilo.attachments.newPath'),
-            promptText, null, {});
+        pressedOK = prompts.prompt(
+            null,
+            promptTitle,
+            Zutilo.getString('zutilo.attachments.newPath'),
+            promptText,
+            null,
+            {}
+        )
         var newPath = promptText.value;
         if (!pressedOK) {
             return false;
@@ -717,90 +720,10 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
-    copyItems_alt1: function() {
+    copyItems_alt: function(altNum) {
         var pref = 'export.quickCopy.setting'
         var origSetting = Zotero.Prefs.get(pref)
-        var newSetting = Zutilo.Prefs.get('quickCopy_alt1')
-        Zotero.Prefs.set(pref, newSetting)
-        ZoteroPane.copySelectedItemsToClipboard(false)
-        Zotero.Prefs.set(pref, origSetting)
-        return true
-    },
-
-    copyItems_alt2: function() {
-        var pref = 'export.quickCopy.setting'
-        var origSetting = Zotero.Prefs.get(pref)
-        var newSetting = Zutilo.Prefs.get('quickCopy_alt2')
-        Zotero.Prefs.set(pref, newSetting)
-        ZoteroPane.copySelectedItemsToClipboard(false)
-        Zotero.Prefs.set(pref, origSetting)
-        return true
-    },
-
-    copyItems_alt3: function() {
-        var pref = 'export.quickCopy.setting'
-        var origSetting = Zotero.Prefs.get(pref)
-        var newSetting = Zutilo.Prefs.get('quickCopy_alt3')
-        Zotero.Prefs.set(pref, newSetting)
-        ZoteroPane.copySelectedItemsToClipboard(false)
-        Zotero.Prefs.set(pref, origSetting)
-        return true
-    },
-
-    copyItems_alt4: function() {
-        var pref = 'export.quickCopy.setting'
-        var origSetting = Zotero.Prefs.get(pref)
-        var newSetting = Zutilo.Prefs.get('quickCopy_alt4')
-        Zotero.Prefs.set(pref, newSetting)
-        ZoteroPane.copySelectedItemsToClipboard(false)
-        Zotero.Prefs.set(pref, origSetting)
-        return true
-    },
-
-    copyItems_alt5: function() {
-        var pref = 'export.quickCopy.setting'
-        var origSetting = Zotero.Prefs.get(pref)
-        var newSetting = Zutilo.Prefs.get('quickCopy_alt5')
-        Zotero.Prefs.set(pref, newSetting)
-        ZoteroPane.copySelectedItemsToClipboard(false)
-        Zotero.Prefs.set(pref, origSetting)
-        return true
-    },
-
-    copyItems_alt6: function() {
-        var pref = 'export.quickCopy.setting'
-        var origSetting = Zotero.Prefs.get(pref)
-        var newSetting = Zutilo.Prefs.get('quickCopy_alt6')
-        Zotero.Prefs.set(pref, newSetting)
-        ZoteroPane.copySelectedItemsToClipboard(false)
-        Zotero.Prefs.set(pref, origSetting)
-        return true
-    },
-
-    copyItems_alt7: function() {
-        var pref = 'export.quickCopy.setting'
-        var origSetting = Zotero.Prefs.get(pref)
-        var newSetting = Zutilo.Prefs.get('quickCopy_alt7')
-        Zotero.Prefs.set(pref, newSetting)
-        ZoteroPane.copySelectedItemsToClipboard(false)
-        Zotero.Prefs.set(pref, origSetting)
-        return true
-    },
-
-    copyItems_alt8: function() {
-        var pref = 'export.quickCopy.setting'
-        var origSetting = Zotero.Prefs.get(pref)
-        var newSetting = Zutilo.Prefs.get('quickCopy_alt8')
-        Zotero.Prefs.set(pref, newSetting)
-        ZoteroPane.copySelectedItemsToClipboard(false)
-        Zotero.Prefs.set(pref, origSetting)
-        return true
-    },
-
-    copyItems_alt9: function() {
-        var pref = 'export.quickCopy.setting'
-        var origSetting = Zotero.Prefs.get(pref)
-        var newSetting = Zutilo.Prefs.get('quickCopy_alt9')
+        var newSetting = Zutilo.Prefs.get('quickCopy_alt' + altNum)
         Zotero.Prefs.set(pref, newSetting)
         ZoteroPane.copySelectedItemsToClipboard(false)
         Zotero.Prefs.set(pref, origSetting)
@@ -898,11 +821,11 @@ ZutiloChrome.zoteroOverlay = {
             var prompts =
                 Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
                 getService(Components.interfaces.nsIPromptService);
-            prompts.alert(null,
-                Zutilo._bundle.
-                    GetStringFromName('zutilo.error.bookitemtitle'),
-                Zutilo._bundle.
-                    GetStringFromName('zutilo.error.bookitemmessage'));
+            prompts.alert(
+                null,
+                Zutilo.getString('zutilo.error.bookitemtitle'),
+                Zutilo.getString('zutilo.error.bookitemmessage')
+            )
             return false;
         }
 
@@ -954,11 +877,11 @@ ZutiloChrome.zoteroOverlay = {
             var prompts =
                 Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
                 getService(Components.interfaces.nsIPromptService);
-            prompts.alert(null,
-                Zutilo._bundle.
-                    GetStringFromName('zutilo.error.booksectiontitle'),
-                Zutilo._bundle.
-                    GetStringFromName('zutilo.error.booksectionmessage'));
+            prompts.alert(
+                null,
+                Zutilo.getString('zutilo.error.booksectiontitle'),
+                Zutilo.getString('zutilo.error.booksectionmessage')
+            )
             return false;
         }
 
@@ -1061,9 +984,10 @@ ZutiloChrome.zoteroOverlay = {
         var zutiloMenuItem = doc.createElement('menuitem')
         var zutiloMenuItemID = 'zutilo-preferences'
         zutiloMenuItem.setAttribute('id', zutiloMenuItemID)
-        zutiloMenuItem.setAttribute('label',
-            Zutilo._bundle.
-                GetStringFromName('zutilo.preferences.menuitem'))
+        zutiloMenuItem.setAttribute(
+            'label',
+            Zutilo.getString('zutilo.preferences.menuitem')
+        )
         zutiloMenuItem.addEventListener('command',
             function() {
                 ZutiloChrome.openPreferences()
@@ -1077,12 +1001,21 @@ ZutiloChrome.zoteroOverlay = {
     /******************************************/
     // Item menu functions
     /******************************************/
-    // Create XUL for Zotero item menu elements
+    // Create XUL for Zotero menu elements
     zoteroPopup: function(menuName, doc) {
         var zoteroMenu = doc.getElementById(`zotero-${menuName}menu`);
         if (zoteroMenu === null) {
             // Don't do anything if elements not loaded yet
             return;
+        }
+        let deletions = []
+        for (let child of zoteroMenu.children) {
+            if (child.id.startsWith("zutilo")) {
+                deletions.push(child)
+            }
+        }
+        for (let child of deletions) {
+            zoteroMenu.removeChild(child)
         }
 
         var zutiloSeparator = doc.createElement('menuseparator');
@@ -1098,8 +1031,10 @@ ZutiloChrome.zoteroOverlay = {
         var zutiloSubmenu = doc.createElement('menu');
         var zutiloSubmenuID = `zutilo-${menuName}menu-submenu`;
         zutiloSubmenu.setAttribute('id', zutiloSubmenuID);
-        zutiloSubmenu.setAttribute('label',
-            Zutilo._bundle.GetStringFromName(`zutilo.${menuName}menu.zutilo`));
+        zutiloSubmenu.setAttribute(
+            'label',
+            Zutilo.getString(`zutilo.${menuName}menu.zutilo`)
+        )
         zoteroMenu.appendChild(zutiloSubmenu);
         ZutiloChrome.registerXUL(zutiloSubmenuID, doc);
 
@@ -1183,6 +1118,7 @@ ZutiloChrome.zoteroOverlay = {
     createMenuItems: function(menuName, menuPopup, IDPrefix, elementsAreRoot, doc) {
         var menuFunc;
         for (const functionName of Zutilo._menuFunctions[menuName]) {
+            debug(functionName)
             menuFunc = this.zoteroMenuItem(menuName, functionName, IDPrefix, doc);
             menuPopup.appendChild(menuFunc);
             if (elementsAreRoot) {
@@ -1195,13 +1131,26 @@ ZutiloChrome.zoteroOverlay = {
     zoteroMenuItem: function(menuName, functionName, IDPrefix, doc) {
         var menuFunc = doc.createElement('menuitem');
         menuFunc.setAttribute('id', IDPrefix + functionName);
-        menuFunc.setAttribute('label',
-            Zutilo._bundle.GetStringFromName(`zutilo.${menuName}menu.${functionName}`));
-        menuFunc.addEventListener('command',
-            function(event) {
-                event.stopPropagation();
-                ZutiloChrome.zoteroOverlay[functionName]();
-            }, false);
+        menuFunc.setAttribute(
+            'label',
+            Zutilo.getString(`zutilo.${menuName}menu.${functionName}`)
+        )
+        let match = functionName.match(/(.*_alt)(\d+)$/)
+        if (match === null) {
+            menuFunc.addEventListener('command',
+                function(event) {
+                    event.stopPropagation()
+                    ZutiloChrome.zoteroOverlay[functionName]()
+                }, false)
+        } else {
+            let base = match[1]
+            let num = match[2]
+            menuFunc.addEventListener('command',
+                function(event) {
+                    event.stopPropagation()
+                    ZutiloChrome.zoteroOverlay[base](num)
+                }, false)
+        }
         return menuFunc;
     },
 
@@ -1217,7 +1166,16 @@ ZutiloChrome.zoteroOverlay = {
         ZutiloChrome.XULRootElements.push(this.keyset.id);
 
         for (var keyLabel in Zutilo.keys.shortcuts) {
-            this.createKey(keyLabel);
+            this.createKey(keyLabel)
+        }
+    },
+
+    reloadKeys: function() {
+        for (let key of this.keyset.children) {
+            this.keyset.removeChild(key)
+        }
+        for (var keyLabel in Zutilo.keys.shortcuts) {
+            this.createKey(keyLabel)
         }
     },
 
@@ -1420,22 +1378,27 @@ ZutiloChrome.zoteroOverlay = {
             classes['@mozilla.org/embedcomp/prompt-service;1'].
             getService(Components.interfaces.nsIPromptService);
 
-        var errorTitle = Zutilo._bundle.
-            GetStringFromName('zutilo.checkItems.errorTitle');
+        var errorTitle = Zutilo.getString('zutilo.checkItems.errorTitle')
         switch (checkType) {
             case 'regular1':
             case 'regularOrNote1':
             case 'regularNoteAttachment1':
                 if (!itemArray.length) {
-                    prompts.alert(null, errorTitle, Zutilo._bundle.
-                        GetStringFromName('zutilo.checkItems.' + checkType));
+                    prompts.alert(
+                        null,
+                        errorTitle,
+                        Zutilo.getString('zutilo.checkItems.' + checkType)
+                    )
                     checkBool = false;
                 }
                 break;
             case 'regularSingle':
                 if ((!itemArray.length) || (itemArray.length > 1)) {
-                    prompts.alert(null, errorTitle, Zutilo._bundle.
-                        GetStringFromName('zutilo.checkItems.regularSingle'));
+                    prompts.alert(
+                        null,
+                        errorTitle,
+                        Zutilo.getString('zutilo.checkItems.regularSingle')
+                    )
                     checkBool = false;
                 }
                 break;
@@ -1443,15 +1406,21 @@ ZutiloChrome.zoteroOverlay = {
             case 'regularOrNote2':
             case 'regularNoteAttachment2':
                 if ((!itemArray.length) || (itemArray.length < 2)) {
-                    prompts.alert(null, errorTitle, Zutilo._bundle.
-                        GetStringFromName('zutilo.checkItems.' + checkType));
+                    prompts.alert(
+                        null,
+                        errorTitle,
+                        Zutilo.getString('zutilo.checkItems.' + checkType)
+                    )
                     checkBool = false;
                 }
                 break;
             case 'attachment1':
                 if (!itemArray.length) {
-                    prompts.alert(null, errorTitle, Zutilo._bundle.
-                        GetStringFromName('zutilo.checkItems.attachment1'));
+                    prompts.alert(
+                        null,
+                        errorTitle,
+                        Zutilo.getString('zutilo.checkItems.attachment1')
+                    )
                     checkBool = false;
                 }
                 break;

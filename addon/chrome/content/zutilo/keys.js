@@ -5,7 +5,7 @@
 
 'use strict';
 /* global Components, AddonManager, Services */
-/* global Zotero, Zotero_LocateMenu */
+/* global Zotero */
 /* global Zutilo, gKeys */
 
 /********************************************/
@@ -28,8 +28,7 @@ var keys = {
     },
 
     keyName: function(keyLabel) {
-        var name = Zutilo._bundle.GetStringFromName('zutilo.shortcuts.name.' +
-                                                    keyLabel)
+        var name = Zutilo.getString('zutilo.shortcuts.name.' + keyLabel)
         return name
     },
 
@@ -51,10 +50,31 @@ var keys = {
     },
 
     categoryName: function(categoryLabel) {
-        return Zutilo._bundle.GetStringFromName('zutilo.shortcuts.category.' +
-                                                categoryLabel)
+        return Zutilo.getString('zutilo.shortcuts.category.' + categoryLabel)
     },
 
+    refreshAlts: function() {
+        for (let alt in Zutilo.keys.alts) {
+            let deletions = []
+            for (let shortcut in Zutilo.keys.shortcuts) {
+                if (shortcut.startsWith(alt)) {
+                    deletions.push(shortcut)
+                }
+            }
+            for (let shortcut of deletions) {
+                delete Zutilo.keys.shortcuts[shortcut]
+                delete Zutilo.keys.categories[shortcut]
+            }
+
+            let total = Zutilo.Prefs.get(alt + '_total')
+            for (let altNum = 1; altNum < total + 1; altNum++) {
+                Zutilo.keys.categories[alt + altNum] = Zutilo.keys.alts[alt]['category']
+                Zutilo.keys.shortcuts[alt + altNum] = Zutilo.keys.alts[alt]['generator'](altNum)
+            }
+        }
+    },
+
+    alts: {},
     categories: {},
     shortcuts: {}
 };
@@ -106,42 +126,14 @@ keys.categories.copyItems = 'copying'
 keys.shortcuts.copyItems = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyItems()
 };
-keys.categories.copyItems_alt1 = 'copying'
-keys.shortcuts.copyItems_alt1 = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyItems_alt1()
-};
-keys.categories.copyItems_alt2 = 'copying'
-keys.shortcuts.copyItems_alt2 = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyItems_alt2()
-};
-keys.categories.copyItems_alt3 = 'copying'
-keys.shortcuts.copyItems_alt3 = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyItems_alt3()
-};
-keys.categories.copyItems_alt4 = 'copying'
-keys.shortcuts.copyItems_alt4 = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyItems_alt4()
-};
-keys.categories.copyItems_alt5 = 'copying'
-keys.shortcuts.copyItems_alt5 = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyItems_alt5()
-};
-keys.categories.copyItems_alt6 = 'copying'
-keys.shortcuts.copyItems_alt6 = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyItems_alt6()
-};
-keys.categories.copyItems_alt7 = 'copying'
-keys.shortcuts.copyItems_alt7 = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyItems_alt7()
-};
-keys.categories.copyItems_alt8 = 'copying'
-keys.shortcuts.copyItems_alt8 = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyItems_alt8()
-};
-keys.categories.copyItems_alt9 = 'copying'
-keys.shortcuts.copyItems_alt9 = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyItems_alt9()
-};
+keys.alts.copyItems_alt = {
+    'category': 'copying',
+    'generator': function(altNum) {
+        return function(win) {
+            win.ZutiloChrome.zoteroOverlay.copyItems_alt(altNum)
+        }
+    }
+}
 keys.categories.copyZoteroSelectLink = 'copying'
 keys.shortcuts.copyZoteroSelectLink = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyZoteroSelectLink()
