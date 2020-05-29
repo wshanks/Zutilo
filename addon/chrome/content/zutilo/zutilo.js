@@ -40,11 +40,6 @@ var Zutilo = {
         ],
         collection: ['copyZoteroCollectionSelectLink', 'copyZoteroCollectionURI']
     },
-    ffcacmFunctions: [
-        {name: 'attachPage',
-            condition: ''},
-        {name: 'attachLink',
-            condition: 'onLink'}],
 
     _bundle: Cc['@mozilla.org/intl/stringbundle;1'].
         getService(Components.interfaces.nsIStringBundleService).
@@ -192,7 +187,7 @@ var Zutilo = {
         // Function taken from http://stackoverflow.com/a/6969486
         return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
     }
-};
+}
 
 Zutilo.Prefs = {
 
