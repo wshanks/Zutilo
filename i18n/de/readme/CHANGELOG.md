@@ -1,6 +1,9 @@
 * In version 3.4.1a:
 
     + Add "Open Zotero URI" function
+    + Allow arbitrary number of alt quick copy functions
+    + Fix "Retrieve metadata for PDF" shortcut
+    + Update French locale
 
 * In version 3.4.0:
 
