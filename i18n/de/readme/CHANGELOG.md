@@ -1,4 +1,4 @@
-* In version 3.4.1a:
+* In version 3.5.0:
 
     + Add "Open Zotero URI" function
     + Allow arbitrary number of alt quick copy functions
