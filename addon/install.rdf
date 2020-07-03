@@ -5,7 +5,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>zutilo@www.wesailatdawn.com</em:id>
         <em:name>Zutilo Utility for Zotero</em:name>
-        <em:version>3.4.1a1</em:version>
+        <em:version>3.5.0</em:version>
         <em:multiprocessCompatible>true</em:multiprocessCompatible>
         <em:updateURL>https://raw.githubusercontent.com/willsALMANJ/Zutilo/release/deploy/update.rdf</em:updateURL>
 
