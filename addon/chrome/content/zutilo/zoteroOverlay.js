@@ -783,12 +783,12 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
-    copyZoteroItemURI: function() {
-        var zitems = this.getSelectedItems();
-        var links = [];
+    _getZoteroItemURI: function() {
+        let zitems = this.getSelectedItems();
+        let links = [];
 
         if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
-            return false;
+            return links
         }
 
         var link
@@ -801,11 +801,33 @@ ZutiloChrome.zoteroOverlay = {
             links.push(link)
         }
 
-        var clipboardText = links.join('\r\n');
+        return links
+    },
+
+    openZoteroItemURI: function() {
+        let links = this._getZoteroItemURI()
+        if (links.length == 0) {
+            return false
+        }
+
+        for (let link of links) {
+            Zutilo.openLink(link)
+        }
+
+        return true
+    },
+
+    copyZoteroItemURI: function() {
+        let links = this._getZoteroItemURI()
+        if (links.length == 0) {
+            return false
+        }
+
+        var clipboardText = links.join('\r\n')
 
         this._copyToClipboard(clipboardText)
 
-        return true;
+        return true
     },
 
     createBookSection: function() {

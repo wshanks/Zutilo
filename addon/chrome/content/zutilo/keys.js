@@ -142,6 +142,10 @@ keys.categories.copyZoteroItemURI = 'copying'
 keys.shortcuts.copyZoteroItemURI = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyZoteroItemURI()
 };
+keys.categories.openZoteroItemURI = 'other'
+keys.shortcuts.openZoteroItemURI = function(win) {
+    win.ZutiloChrome.zoteroOverlay.openZoteroItemURI()
+};
 keys.categories.createBookItem = 'itemcreation'
 keys.shortcuts.createBookItem = function(win) {
     win.ZutiloChrome.zoteroOverlay.createBookItem()
