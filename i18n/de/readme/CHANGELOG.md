@@ -1,3 +1,7 @@
+* In version 3.4.1a:
+
+    + Add "Open Zotero URI" function
+
 * In version 3.4.0:
 
     + Added shortcut for pushing reference to TeXstudio with Better BibTeX

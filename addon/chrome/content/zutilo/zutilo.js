@@ -34,7 +34,7 @@ var Zutilo = {
         'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
         'createBookItem', 'copyChildIDs', 'relocateChildren', 'copyJSON',
         'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields',
-        'pasteJSONAll'
+        'pasteJSONAll', 'openZoteroItemURI'
     ],
 
     _bundle: Cc['@mozilla.org/intl/stringbundle;1'].

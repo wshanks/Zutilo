@@ -60,6 +60,10 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
     If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
     If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
 
+* __Open Zotero URIs:__
+    Open (www.zotero.org) links for each selected item.
+    See description for "Copy Zotero URIs".
+
 * __Create book section:__
     Create a book section item from the currently selected book item.
 
