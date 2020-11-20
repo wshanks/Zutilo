@@ -1,256 +1,256 @@
-### Item menu functions
-Each of the functions below can be called from the Zotero item context menu (accessed by right-clicking in the items pane in the middle of Zotero where all of a collection's items are listed).
-In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
-
-* __Copy tags:__
-    Right click items in the Zotero library and copy their tags to the clipboard as a '\r\n' delimited list.
-    Such a list of tags can be pasted into a new tag box to add all of the tags to an item at once.
-
-* __Remove tags:__
-    Right click items in the Zotero library and remove all of their tags.
-
-* __Paste tags:__
-    Right click items in the Zotero library and paste the contents of the clipboard to them.
-    The contents of the clipboard must be a '\r\n' or '\n' delimited list (such as the list created by the copy tags function described above).
-
-* __Copy creators:__
-    Right click items in the Zotero library and copy their creators to the clipboard as a '\r\n' delimited list.
-
-* __View attachment paths:__
-    Display the paths to selected attachment items and to attachments of selected regular items (one by one as separate dialog windows -- you probably don't want to select more than a couple items at a time this way!).
-
-* __Modify attachment paths:__
-    Change the beginning of the path to all eligible selected attachments and to all attachments of selected regular items.
-    Two prompt windows appear.
-    The first asks for the old partial path while the second asks for the new partial path.
-    If you enter "C:/userData/references/" for the first path and "E:/" for the second path, then an attachment file with a path of "C:/userData/references/journals/Nature/2008/coolPaper.pdf" will have its path changed to "E:/journals/Nature/2008/coolPaper.pdf" while an attachment with path "E:/journals/Science/2010/neatPaper.pdf" will be left unchanged.
-    This function is mainly useful for when you change computers or hard drives and break the links to all of your attachments (though note that Zotero has a relative attachment path feature that should address this issue for attachment collections all stored togehter under one parent directory).
-
-    By default, the old partial path is only compared with the beginning of each attachment path.
-    To replace elements of attachment paths not at the beginning, click the "replace all instances" check box in the first prompt window.
-    This option is useful if you want to rename a subfolder or switch between Windows and Unix style paths (replacing `\` and `/`).
-
-* __Modify attached URLs:__
-    This function works the same as `Modify attachment paths` above but modifies the URL of URL attachments instead of the file path of linked file attachments.
-
-* __Copy attachment paths:__
-    Copy to the clipboard the path for each selected attachment and/or each child attachment of each selected item.
-    For file attachments, the full path on the file system is copied.
-    URL link attachments are ignored.
-
-* __Relate items:__
-    Set all selected items to be related to each other.
-
-* __QuickCopy items:__
-    Copy selected items to the clipboard using the "Default output format" specified in the "Export" section of Zotero's preferences.
-    It is also possible to set alternative quick copy items.
-    By default, two such items are enabled, labeled "alt 1" and "alt 2".
-    Additional items can be enabled by changing the `extensions.zutilo.copyItems_alt_total` preference in the config editor.
-    These items will copy to the clipboard using alternative export translators.
-    To select the translators used by these functions, the corresponding preferences `extensions.zutilo.quickcopy_alt1`, `extensions.zutilo.quickcopy_alt2`, etc. must be set in the config editor.
-    Each preference should be set to whatever appears in the config editor for the `export.quickCopy.setting` preference when the desired translator is set as the "Default output format" in Zotero's preferences.
-        The config editor can be opened from the Advanced pane of Zotero's preferences window.
+### Fonctions du menu des documents Zotero
+Chacune des fonctions ci-dessous peut être appelée à partir du menu contextuel d'un document Zotero, accessible par un clic-droit dans le volet des documents, le volet central de Zotero où la liste de tous les documents d'une collection est affichée.
+Dans les préférences de Zutilo (accessibles depuis le menu "Outils" de Zotero), chacune de ces fonctions peut être configurée pour apparaître dans le menu contextuel de Zotero, dans un sous-menu Zutilo du menu contextuel de Zotero, ou pour ne pas apparaître du tout.
+
+* __Copier les marqueurs :__ 
+  A partir d'un clic-droit sur une sélection de documents dans la bibiothèque Zotero, copie les marqueurs de ces documents dans le presse-papiers sous la forme d'une liste délimitée "\r\n". 
+  Une telle liste de marqueurs peut être collée dans la boîte d'ajout de marqueurs d'un document, pour ajouter tous les marqueurs d'un seul coup.
+
+* __Retirer les marqueurs :__ 
+  A partir d'un clic-droit sur une sélection de documents dans la bibiothèque Zotero, retire à ces documents tous les marqueurs.
+
+* __Coller les marqueurs :__ 
+  A partir d'un clic-droit sur une sélection de documents dans la bibiothèque Zotero, colle le contenu du presse-papiers dans ces documents. 
+  Le contenu du presse-papiers doit être une liste délimitée par un "\r\n" ou un "\n", comme la liste créée par la fonction de copie des marqueurs décrite ci-dessus.
+
+* __Copier les créateurs :__ 
+  A partir d'un clic-droit sur une sélection de documents dans la bibiothèque Zotero, copie les créateurs de ces documents dans le presse-papiers sous la forme d'une liste délimitée "\r\n".
+
+* __Afficher les chemins vers les pièces jointes :__
+  Affiche les chemins vers les pièces jointes sélectionnées et vers les pièces jointes aux notices sélectionnées (un par un dans des fenêtres de dialogue séparées -- vous ne sélectionnerez probablement pas plus de deux documents à la fois de cette façon !).
+
+* __Modifier les chemins vers les pièces jointes :__
+  Modifie le début du chemin vers toutes les pièces jointes éligibles sélectionnées et vers toutes les pièces jointes des notices sélectionnées. 
+  Deux fenêtres de dialogue apparaissent. 
+  La première demande l'ancien chemin partiel, tandis que la seconde demande le nouveau chemin partiel. 
+  Si vous saisissez "C:/userData/references/" pour le premier chemin et "E:/" pour le second, le chemin d'accès d'un fichier joint ayant pour chemin d'accès "C:/userData/references/journals/Nature/2008/coolPaper.pdf" sera modifié en "E:/journals/Nature/2008/coolPaper.pdf" . Un fichier joint ayant pour chemin d'accès "E:/journals/Science/2010/neatPaper.pdf" restera inchangé. 
+  Cette fonction est principalement utile lorsque vous changez d'ordinateur ou de disque dur et que vous brisez les liens vers toutes vos pièces jointes. Notez toutefois que Zotero dispose d'une fonction de chemin d'accès relatif aux pièces jointes qui devrait résoudre ce problème pour les ensembles de pièces jointes stockés tous sous un même répertoire parent.
+
+  Par défaut, l'ancien chemin partiel est comparé seulement avec le début du chemin de chaque pièce jointe.
+  Pour remplacer des éléments de chemin de pièces jointes qui ne sont pas au début, cliquez sur la case à cocher "Remplacer toutes les instances du chemin partiel" dans la première fenêtre de dialogue.
+  Cette option est utile si vous souhaitez renommer un sous-dossier ou passer d'un chemin de style Windows à un chemin de style Unix (en remplaçant "\" et "/").
+
+* __Modifier l'URL des pièces jointes :__ 
+  Cette fonction se comporte de la même manière que la fonction "Modifier les chemins vers les pièces jointes" ci-dessus, mais modifie l'URL des pièces jointes au lieu du chemin de fichier vers les pièces jointes liées.
+
+* __Copier les chemins vers les pièces jointes :__
+  Copie dans le presse-papiers le chemin vers chaque pièce jointe sélectionnée et/ou vers chaque pièce jointe enfant de chaque élément sélectionné. 
+  Pour les pièces jointes sous forme de fichier, le chemin complet dans le système de fichiers est copié.
+  Les pièces jointes avec des liens URL sont ignorées.
+
+* __Associer les documents :__ 
+  Etablit des liens de "Document connexe" entre tous les documents sélectionnés.
+
+* __Copie rapide des documents :__ 
+  Copie dans le presse-papiers les documents sélectionnés en utilisant le "Format par défaut" spécifié dans l'onglet "Exportation" des préférences de Zotero. 
+  Il est également possible de définir d'autres paramétrages de copie rapide. 
+  Par défaut, deux de ces paramétrages sont activés, intitulés "alt 1" et "alt 2". 
+  Des paramétrages supplémentaires peuvent être activés en modifiant la préférence `extensions.zutilo.copyItems_alt_total` dans l'éditeur de configuration. 
+  Les documents seront copiés dans le presse-papiers en utilisant d'autres convertisseurs d'export. 
+  Pour sélectionner les convertisseurs utilisés par ces fonctions, les préférences correspondantes `extensions.zutilo.quickcopy_alt1`, `extensions.zutilo.quickcopy_alt2`, etc. doivent être définies dans l'éditeur de configuration. 
+  Chaque préférence doit être réglée sur ce qui apparaît dans l'éditeur de configuration pour la préférence `export.quickCopy.setting` lorsque le convertisseurs souhaité est défini comme le "Format par défaut" dans les préférences de Zotero. 
+  L'éditeur de configuration peut être ouvert à partir de l'onglet "Avancées" de la fenêtre des préférences de Zotero.
 
-* __Copy select item links:__
-    Copy links of the form "zotero://select/library/items/ITEM_ID" to the clipboard for each selected item.
-    Following links from other applications can select items in the Zotero client but might require additional set up.
+* __Copier les liens zotero://… des documents :__ 
+  Copie dans le presse-papiers les liens sous la forme "zotero://select/library/items/ITEM_ID" pour chaque document sélectionné. 
+  Suivre des liens depuis d'autres applications peut sélectionner des documents dans le client Zotero, mais cela peut nécessiter une configuration supplémentaire.
 
-* __Copy Zotero URIs:__
-    Copy (www.zotero.org) links to the clipboard for each selected item.
-    If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
-    If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
+* __Copier les liens zotero.org/… des documents :__
+  Copie dans le presse-papiers les liens (www.zotero.org) pour chaque document sélectionné. 
+  Si vous avez un profil (www.zotero.org), suivre un tel lien ouvrira la page du document correspondant dans le profil sur (www.zotero.org). 
+  Si vous n'avez pas de profil (www.zotero.org), un lien de remplacement est toujours généré mais cela peut s'avérer inutile.
 
-* __Open Zotero URIs:__
-    Open (www.zotero.org) links for each selected item.
-    See description for "Copy Zotero URIs".
+* __Ouvrir les liens zotero://… des documents :__ 
+  Ouvre les liens (www.zotero.org) pour chaque document sélectionné. 
+  Voir la description de "Copier les liens zotero.org/… des documents"
 
-* __Create book section:__
-    Create a book section item from the currently selected book item.
+* __Créer une notice "Chapitre de livre" :__ 
+  Crée une notice de chapitre de livre à partir de la notice de livre sélectionnée.
 
-    The new item is created by duplicating the book item and changing its type to book section.
-    Author entries for the book item are converted to "book author" entries for the new book section item.
-    The new book section item is added as a related item to the original book item.
-    Finally, the title textbox for the new item is focused so that a new title for the book section may be entered.
+  La nouvelle notice est créée en dupliquant la notice de livre et en changeant son type en "Chapitre de livre". 
+  Les entrées d'auteur de la notice de livre sont converties en entrées "auteur de livre" dans la nouvelle notice de chapitre de livre. 
+  La nouvelle notice de chapitre de livre est ajoutée en tant que document connexe à la notice de livre originale. 
+  Enfin, le curseur est positionné dans la zone de texte du champ "Titre" de la nouvelle notice, de manière à ce qu'un nouveau titre pour le chapitre de livre puisse être saisi.
 
-    This function only works when a single book item is selected.
-    Note that some fields (number of pages and short title, as of late 2014) apply only to book items and not book section items.
-    There is no prompt to confirm this loss of fields from the created book section item.
+  Cette fonction n'est effective que lorsqu'une seule notice de livre est sélectionnée. 
+  Notez que certains champs (nombre de pages et titre court, à partir de fin 2014) ne s'appliquent qu'aux notices de livre et non aux notices de chapitre de livre.
+  Il n'y a pas de boîte de dialogue pour confirmer la perte de ces champs à partir de la notice de chapitre de livre créée.
 
-* __Create book item:__
-    Create a book item from teh currently selected book section item.
+* __Créer une notice "Livre" :__ 
+  Crée une notice de livre à partir de la notice de chapitre de livre sélectionnée.
 
-    First the book section item is duplicated and converted to a book item.
-    Then the item's title is set to the "Book title" of the book section item and its abstract is deleted.
-    The new book item is set as a related item of the book section item.
-    Finally the title field of the new book item is selected for editing.
+  La notice de chapitre de livre est d'abord dupliquée et convertie en une notice de livre. 
+  Ensuite, le "Titre du livre" de la notice de chapitre de livre est utilisé comme titre pour cette nouvelle notice et le résumé est supprimé. 
+  La nouvelle notice de livre est liée en tant que document connexe à la notice de chapitre de livre.
+  Enfin, le champ "Titre" de la nouvelle notice est sélectionné, de manière à ce que le titre du livre puisse être modifié.
 
-* __Copy child items:__
-    Copy the child items of a selected item to an internal Zutilo clipboard (not the desktop clipboard).
-    This function is meant to be used in conjunction with the "Relocate child items" function.
+* __Copier les documents enfants :__ 
+  Copie dans un presse-papiers interne de Zutilo (et non dans le presse-papiers du bureau) les documents enfants d'un document sélectionné. 
+  Cette fonction est conçue pour être utilisée conjointement avec la fonction "Déplacer les documents enfants".
 
-* __Relocate child items:__
-    Move all items stored in Zutilo's internal clipboard (put there by the "Copy child items" function) to the currently selected item.
+* __Déplacer les documents enfants :__ 
+  Déplace tous les documents stockés dans le presse-papiers interne de Zutilo par la fonction "Copier les documents enfants" vers le document sélectionné.
 
-* __Copy item fields:__
-    Copies all source-item metadata fields to the clipboard.
-    The data copied is all data visible in the right panel only (not tags, not notes).
+* __Copier les champs de la notice :__ 
+  Copie dans le presse-papiers tous les champs de métadonnées d'une notice source. 
+  Les données copiées sont toutes les données visibles dans le volet du document Zotero uniquement (pas les marqueurs ni les notes).
 
-* __Paste into empty item fields:__
-    (‘Paste-into-empty’) paste where source has value and target has none/empty.
-    Authors from the source are merged in even if the target already has authors.
+* __Coller dans les champs vides  :__ 
+  (Compléter les champs vides de la notice par les champs copiés) Colle les champs de la source si les champs de la cible sont vides. 
+  Les auteurs sont fusionnés : les auteurs de la source sont ajoutés, même si la cible a déjà des auteurs.
 
-* __Paste non-empty item fields__
-    (‘Paste-non-empty’): paste where source has value.
-    Replaces authors if there is an author field in the pasted data.
+* __Remplacer les champs :__ 
+  (Remplacer les champs de la notice par les champs non-vides copiés) Colle les champs de la source qui ont une valeur. 
+  Les auteurs sont remplacés dans la cible s'il y a un champ auteur dans les données sources collées.
 
-* __Paste all items fields__
-    (Paste-all): paste all fields from source, even if they are empty.
+* __Coller tout :__ 
+  (Remplacer tous les champs de la notice par tous les champs copiés) Colle tous les champs de la source, même s'ils sont vides.
 
-### Collection menu functions
-Each of the functions below can be called from the Zotero collection context menu (accessed by right-clicking on a collection in the collections pane at the right of Zotero where all the collections are listed).
-In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
+### Fonctions du menu des collections Zotero
+Chacune des fonctions ci-dessous peut être appelée à partir du menu contextuel de la collection Zotero, accessible par un clic droit sur une collection dans le volet des collections, le volet de gauche de Zotero où la liste de toutes les collections est affichée.
+Dans les préférences de Zutilo (accessibles depuis le menu "Outils de Zotero"), chacune de ces fonctions peut être configurée pour apparaître dans le menu contextuel de Zotero, dans un sous-menu Zutilo du menu contextuel de Zotero, ou pour ne pas apparaître du tout.
 
-* __Copy select collection link:__
-    Copy links of the form "zotero://select/library/collections/ITEM_ID" to the clipboard for the selected collection.
-    Following links from other applications can select the collection in the Zotero client but might require additional set up.
+* __Copier le lien zotero://… de la collection:__ 
+  Copie dans le presse-papiers le lien de la collection sélectionnée sous la forme "zotero://select/library/collections/ITEM_ID". 
+  Suivre des liens depuis d'autres applications peut sélectionner la collection dans le client Zotero, mais cela peut nécessiter une configuration supplémentaire.
 
-* __Copy Zotero URI:__
-    Copy (www.zotero.org) link to the clipboard for the selected collection.
-    If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
-    If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
+* __Copier le lien zotero.org/…de la collection:__
+  Copie dans le presse-papiers le lien (www.zotero.org) de la collection sélectionnée. 
+  Si vous avez un profil (www.zotero.org), suivre un tel lien ouvrira la page du document correspondant dans le profil sur (www.zotero.org). 
+  Si vous n'avez pas de profil (www.zotero.org), un lien de remplacement est toujours généré mais cela peut s'avérer inutile.
 
-### Navigating the UI and editing items via keyboard shortcuts
+### Navigation dans l'interface utilisateur et modification de documents via des raccourcis clavier
 
-Zutilo currently implements several keyboard shortcuts that are useful for editing Zotero items.
-The following functions work when only a single Zotero item is selected:
+Zutilo met actuellement en place plusieurs raccourcis clavier utiles pour modifier les éléments Zotero. 
+Les fonctions suivantes sont effectives lorsqu'un seul document Zotero est sélectionné.
 
-* __Edit item info:__
-    Select the "Info" tab in the item pane.
-    Set the focus to the first editable field of the item's info.
+* __Modifier Info :__ 
+  Sélectionne l'onglet "Info" dans le volet du document.
+  Le curseur est positionné sur le premier champ modifiable du document.
 
-* __Add note:__
-    Select the "Notes" tab of the item pane.
-    Create a new note.
-    Added for completeness, but Zotero already has a keyboard shortcut that does this.
-    It can be set in Zotero's preferences.
+* __Ajouter une note :__ 
+  Sélectionne l'onglet "Notes" dans le volet du document. 
+  Crée une nouvelle note. 
+  Ajouté pour être complet, mais Zotero a déjà un raccourci clavier pour cela. 
+  Il peut être défini dans les préférences de Zotero.
 
-* __Add tag:__
-    Select the "Tags" tab of the item pane.
-    Open a textbox for creating a new tag.
+* __Ajouter un marqueur :__ 
+  Sélectionne l'onglet "Marqueurs" du volet du document.
+  Ouvre une zone de texte pour créer un nouveau marqueur.
 
-* __Add related item:__
-    Select the "Related" tab of the item pane.
-    Open the dialog for adding related items.
+* __Ajouter un document connexe :__ 
+  Sélectionne l'onglet "Connexe" du volet du document.
+  Ouvre la boîte de dialogue pour ajouter des documents liés.
 
-The following four functions are similar to the four item editing functions above, except that they just set focus on the respective tab in the item pane.
+Les quatre fonctions suivantes sont similaires aux quatre fonctions d'édition des documents ci-dessus, excepté le fait qu'elles se concentrent sur l'onglet correspondant dans le volet du document.
 
-* __Focus item pane: Info tab:__
-    Select the "Info" tab in the item pane.
+* __Curseur dans le volet du document : onglet Info :__
+  Sélectionne l'onglet "Info" dans le volet du document.
 
-* __Focus item pane: Notes tab:__
-    Select the "Notes" tab of the item pane.
+* __Curseur dans le volet du document : onglet Notes :__ 
+  Sélectionne l'onglet "Notes" dans le volet du document.
 
-* __Focus item pane: Tags tab:__
-    Select the "Tags" tab of the item pane.
+* __Curseur dans le volet du document : onglet Marqueurs :__ 
+  Sélectionne l'onglet "Marqueurs" du volet du document.
 
-* __Focus item pane: Related tab:__
-    Select the "Related" tab of the item pane.
+* __Curseur dans le volet du document : onglet Connexe :__ 
+  Sélectionne l'onglet "Connexe" du volet du document.
 
-The following two functions allow you to cycle through the same four tabs in the item pane.
+Les deux fonctions suivantes vous permettent de faire défiler les quatre mêmes onglets dans le volet du document.
 
-* __Focus item pane: next tab:__
-    Select next tab in item pane.
+* __Curseur dans le volet du document : onglet suivant :__ 
+  Sélectionne l'onglet suivant dans le volet du document.
 
-* __Focus item pane: previous tab:__
-    Select previous tab in item pane.
+* __Curseur dans le volet du document : onglet précédent :__ 
+  Sélectionne l'onglet précédent dans le volet du document.
 
-Zutilo implements several keyboard shortcuts that are useful for navigating between and within the three main panes.
-If the relevant pane is hidden, the following functions will show it.
+Zutilo dispose de plusieurs raccourcis clavier utiles pour naviguer entre et dans les trois volets principaux.
+Si le volet concerné est masqué, les fonctions suivantes l'affichent.
 
-* __Focus collections pane:__
-    Set the focus to the collections pane (left pane, Libraries pane).
-    Similar to the existing Zotero shortcut, except that this function also shows the pane if it's hidden.
+* __Curseur dans le volet des collections :__ 
+  Positionne le curseur dans le volet des collections (volet de gauche, volet des bibliothèques). 
+  Similaire au raccourci Zotero existant, sauf que cette fonction affiche le volet également s'il est caché.
 
-* __Focus items pane:__
-    Set the focus to the items pane (middle pane).
+* __Curseur dans le volet des documents :__ 
+  Positionne le curseur dans le volet des documents (volet central).
 
-The following two functions allow you to easily show or hide the collections pane (left pane) and the item pane (right pane).
+Les deux fonctions suivantes vous permettent d'afficher ou de masquer facilement le volet des collections (volet de gauche) et le volet du document (volet de droite).
 
-* __Item pane: Show / hide:__
-    Show or hide the item pane.
+* __Volet du document : afficher / cacher :__ 
+  Affiche ou cache le volet du document.
 
-* __Collections pane: Show / hide:__
-    Show or hide the collections pane.
+* __Volet des collections : afficher / cacher :__
+  Affiche ou cache le volet des collections.
 
-Like the functions above, the following two functions allow you to easily show or hide the collections pane (left pane) and the item pane (right pane).
-However, when the pane is shown, the thicker vertical divider ("splitter", "grippy", appears when the pane is hidden) remains visible until the width of the pane is adjusted. 
+Comme les fonctions ci-dessus, les deux fonctions suivantes vous permettent d'afficher ou de masquer facilement le volet des collections (volet de gauche) et le volet du document (volet de droite).
+Toutefois, lorsque le volet est affiché, le séparateur vertical plus épais (ou diviseur, qui apparaît lorsque le volet est caché) reste visible jusqu'à ce que la largeur du volet soit ajustée.
 
-* __Item pane: Show / hide (sticky):__
-    Show or hide the item pane.
-    When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.
+* __Volet du document : afficher / cacher (avec diviseur) :__ 
+  Affiche ou cache le volet du document. 
+  Lorsque le volet est affiché, le séparateur vertical plus épais reste visible jusqu'à ce que la largeur du volet soit ajustée.
 
-* __Collections pane: Show / hide (sticky):__
-    Show or hide the collections pane.
-    When the pane is show, the thicker vertical divider remains visible until the width of the pane is adjusted.
+* __Volet des collections : Afficher / Cacher (avec diviseur) :__ 
+  Affiche ou cache le volet des collections. 
+  Lorsque le volet est affiché, le séparateur vertical plus épais reste visible jusqu'à ce que la largeur du volet soit ajustée.
 
-### Attachment functions
+### Fonctions des pièces jointes
 
-* __Attach link to file:__
-    Open a file picker dialog for selecting a file to attach to the currently selected item as a linked file attachment.
+* __Joindre un lien vers un fichier :__ 
+  Ouvre une boîte de dialogue de sélection de fichier pour choisir un fichier à joindre en tant que fichier lié au document sélectionné.
 
-* __Attach uri:__
-    Open a textbox dialog for adding a URI attachment to the current item.
+* __Joindre un lien vers un URI :__ 
+  Ouvre une boîte de dialogue de texte pour joindre au document sélectionné un lien vers un URI.
 
-* __Attach stored copy:__
-    Open a file picker dialog for selecting a file to attach to the currently selected item as a stored attachment.
+* __Joindre une copie enregistrée d'un fichier :__
+  Ouvre une boîte de dialogue de sélection de fichier pour choisir un fichier à joindre en tant que fichier importé au document sélectionné.
 
-* __Create parent item:__
-    Create a parent item for the currently selected attachment item that does not have a parent.
+* __Créer un document parent :__ 
+  Crée un document parent pour le document de type pièce jointe sélectionné qui n'a pas de parent.
 
-* __Rename attachments:__
-    Use the parent item's metadata to rename its attachments.
+* __Renommer les fichiers à partir des métadonnées du parent :__ 
+  Utilise les métadonnées du document parent pour renommer ses pièces jointes.
 
-* __Retrieve metadata for pdf:__
-    Try to look up the metadata for the selected stored pdf attachment.
+* __Récupérer les métadonnées des PDF :__ 
+  Essaye de rechercher les métadonnées de la pièce jointe en tant que fichier importé au format PDF.
 
-### Miscellaneous functions
+### Fonctions diverses
 
-* __Duplicate item:__
-    Create a duplicate of the selected item
+* __Dupliquer le document :__ 
+  Crée un duplicat du document sélectionné.
 
-* __Generate report:__
-    Generate Zotero report from selected items or collection.
-    If the Collections pane has focus, a report is generated for the selected collection.
-    Otherwise, a report is generated for the currently selected items.
+* __Établir un rapport :__ 
+  Génére un rapport Zotero à partir d'une sélection de documents ou d'une collection. 
+Si le curseur est positionné dans le volet des collections, le rapport est généré pour la collection sélectionnée. 
+Sinon, le rapport est généré pour les documents sélectionnés.
 
-* __Open New Item menu:__
-    Open the new item menu so that the type of new item to create can be selected from it.
-* __Open style editor:__
-    Open the style editor window (normally accessible from the "Cite" tab of Zotero's preferences).
+* __Ouvrir le menu "Nouveau document" :__ 
+  Ouvre le menu "Nouveau document" afin de pouvoir sélectionner le type du nouveau document à créer.
+* __Ouvrir l'Éditeur de style :__ 
+  Ouvre la fenêtre de l'éditeur de style, normalement accessible depuis l'onglet "Citer" des préférences de Zotero.
 
-* __Locate item:__
-    Equivalent to using one of the Lookup engines from the Locate menu accessed from the top of the item pane.
-    The default engine is "Google Scholar Search".
-    To change the engine, modify the `extensions.zutilo.locateItemEngine` preference in the config editor.
-    The config editor can be opened from the Advanced pane of Zotero's preferences window.
-    For a list of valid engine names, select "Developer->Run JavaScript" from Zotero's "Tools" menu and enter and run this command: `Zotero.LocateManager.getVisibleEngines().map(engine => engine.name)`.
+* __Localiser avec Google Scholar :__ 
+  Cela équivaut à utiliser l'un des moteurs de recherche du menu de localisation accessible en haut du volet du document. 
+  Le moteur par défaut est "Google Scholar Search". 
+  Pour changer le moteur, modifiez la préférence `extensions.zutilo.locateItemEngine` dans l'éditeur de configuration. 
+  L'éditeur de configuration peut être ouvert à partir de l'onglet "Avancées" de la fenêtre des préférences de Zotero. 
+  Pour obtenir une liste des moteurs installés dans votre client Zotero, sélectionnez "Développeur->Run JavaScript" dans le menu "Outils" de Zotero, puis entrez et exécutez cette commande : `Zotero.LocateManager.getVisibleEngines().map(engine => engine.name)`.
 
-### Better BibTeX functions
+### Fonctions de Better BibTeX
 
-The following functions are only available when [Better BibTeX](https://github.com/retorquere/zotero-better-bibtex) is installed.
+Les fonctions suivantes sont disponibles seulement lorsque [Better BibTeX](https://github.com/retorquere/zotero-better-bibtex) est installé.
 
-* __Pin key:__ Pin the key for the currently selected items.
+* __Verrouiller la clé de citation :__ Verrouille la clé pour les documents sélectionnés.
 
-* __Unpin key:__ Unpin the key for the currently selected items.
+* __Déverrouiller la clé de citation :__ Déverrouille la clé pour les documents sélectionnés.
 
-* __Force-refresh key:__ Force-refresh the key for the currently selected items.
+* __Rafraîchir la clé de citation :__ Force à rafraîchir la clé pour les documents sélectionnés.
 
-* __Push to TeXstudio:__ Push references to TeXstudio.
+* __Pousser les références vers TeXstudio :__ Pousse les références vers TeXstudio.
 
-### ZotFile functions
+### Fonctions de ZotFile
 
-The following functions are only available when [ZotFile](zotfile.com) is installed.
+Les fonctions suivantes sont disponibles seulement lorsque [ZotFile](zotfile.com) est installé.
 
-* __Attach new file:__ Attach the newest file in the ZotFile source directory to the currently selected item.
+* __ZotFile : joindre un nouveau fichier :__ Attache au document sélectionné le fichier le plus récent dans le répertoire source de ZotFile.
 
-* __Move and rename attachments:__ Move and rename the files associated with the currently selected attachments to following the format configured in ZotFile's preferences.
+* __ZotFile : déplacer et renommer les pièces jointes :__ Déplace et renomme les fichiers associés aux pièces jointes sélectionnées pour suivre le format configuré dans les préférences de ZotFile.
