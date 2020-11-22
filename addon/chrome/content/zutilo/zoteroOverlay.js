@@ -407,6 +407,10 @@ ZutiloChrome.zoteroOverlay = {
         debug('pasteJSONAll')
         this.pasteJSON('all').catch((err) => debug('pasteJSONAll', err))
     },
+    pasteJSONItemType: function() {
+        debug('pasteJSONItemType')
+        this.pasteJSON('item-type').catch((err) => debug('pasteJSONItemType', err))
+    },
     pasteJSON: async function(mode) {
         await this.CopyItems.ready
 
@@ -432,7 +436,13 @@ ZutiloChrome.zoteroOverlay = {
                 const fieldID = this.CopyItems.getFieldIDFromTypeAndBase(item.itemTypeID, field)
                 debug(`${item.itemTypeID}.${field} = ${value}: valid = ${fieldID}`)
 
-                if (field ===  'creators') {
+                if (mode === 'item-type') {
+                    if (field === 'itemType') {
+                        item.setType(Zotero.ItemTypes.getID(value))
+                        save = true
+                    }
+
+                } else if (field === 'creators') {
                     let creators
                     let creatorIDs
                     let newCreators
@@ -1089,6 +1099,10 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         pasteJSONAll() {
+            return this.pasteJSON()
+        }
+
+        pasteJSONItemType() {
             return this.pasteJSON()
         }
 
