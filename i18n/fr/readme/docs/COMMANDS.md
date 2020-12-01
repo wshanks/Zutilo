@@ -106,7 +106,7 @@ Dans les préférences de Zutilo (accessibles depuis le menu "Outils" de Zotero)
     To edit specific item fields, select a source item and use "Copy item fields".
     Paste to a text editor, edit the JSON text, then copy the modified text back to the clipboard.
     Finally, select the target items and use "Paste all item fields".
-    For technical reasons, the `itemType` name/value pair needs to be kept in the JSON text; its value is irrelevant for this function.
+    The `itemType` name/value pair needs to be kept in the JSON text because Zutilo uses its presence to decide whether to use the paste JSON commands in the context menu; its value is irrelevant for this function.
     You can, e.g., clear the URL field in multiple items by pasting `{"itemType": "book", "url": ""}`, which will not change any item types.
 
 * __Coller tout :__ 
