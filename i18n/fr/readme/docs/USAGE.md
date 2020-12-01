@@ -1,124 +1,124 @@
-### Attachments
+### Pièces jointes
 
-#### Linked file attachments (relative paths)
+#### Pièces jointes liées (chemins relatifs)
 
-Zotero can work with either imported attachments, stored in Zotero's storage and able to be sync'ed to Zotero's servers, or linked file attachments, stored as file system paths to the location of the attachment files.
-When storing attachments as linked files, the relative attachment paths feature in Zotero can be useful.
-With this feature, a base attachment directory is selected and then any linked file attachments in this directory are saved with paths relative to this path.
-Because these paths are relative, you can move all your attachments to a new directory and all you have to do is update this base directory setting in Zotero rather than updating the path to each individual attachment.
-If you use more than computer, you can set the base attachment directory to a different location on each machine (e.g. a DropBox or SyncThing folder) and still have all of the links to attachments work by setting this preference to the right location on each machine.
-Relative attachment paths can be configured under the "Files and Folders" tab of the Advanced Section of Zotero's preferences.
+Zotero peut fonctionner soit avec des pièces jointes importées, stockées dans le répertoire "storage" de Zotero et pouvant être synchronisées avec les serveurs de Zotero, soit avec des pièces jointes liées, stockées en tant que chemins vers l'emplacement des fichiers joints dans le  système de fichiers.
+Lorsque les pièces jointes sont stockées sous forme de fichiers liés, la fonctionnalité de chemin relatif intégrée à Zotero peut être utile.
+Grâce à cette fonctionnalité, un répertoire de base pour les pièces jointes est sélectionné, et toutes les pièces jointes liées sont enregistrées dans ce répertoire avec des chemins relatifs à ce chemin.
+Comme ces chemins sont relatifs, vous pouvez aisément déplacer toutes vos pièces jointes vers un nouveau répertoire : il vous suffit de mettre à jour le paramètre de répertoire de base dans Zotero, plutôt que de mettre à jour le chemin de chaque pièce jointe individuelle.
+Si vous utilisez plus d'un ordinateur, vous pouvez paramétrer le répertoire de base des pièces jointes pour un emplacement différent sur chaque machine (par exemple, un dossier DropBox ou SyncThing). Vous serez assuré que tous les liens vers les pièces jointes fonctionnent en paramétrant cette préférence pour le bon emplacement sur chaque machine.
+Les chemins relatifs des pièces jointes peuvent être configurés sous l'onglet "Fichiers et dossiers" de la section "Avancées" des préférences de Zotero.
 
-#### Linked file attachment organization (ZotFile)
+#### Organisation des pièces jointes liées (ZotFile)
 
-The [ZotFile extension](http://www.columbia.edu/~jpl2136/zotfile.html) provides extra support for linked file attachments in Zotero.
-ZotFile can be set to automatically convert new imported file attachments to linked file attachments and rename and move the attachment files to a file location based on the attachment parent's metadata.
-This feature makes maintaining a directory of linked file attachments as easy as using Zotero's imported attachments.
-You can, for example, have ZotFile store attachments in directories named after the journal with a subfolder for the publication year and then name the attachment file after the author and title of the work.
-ZotFile has several other features for working with attachments that are worth investigating in its documentation.
+L'extension [ZotFile](http://www.columbia.edu/~jpl2136/zotfile.html) fournit des fonctionnalités supplémentaires pour les pièces jointes liées dans Zotero.
+ZotFile peut être configuré pour convertir automatiquement les nouvelles pièces jointes importées en pièces jointes liées, et pour renommer et déplacer les fichiers joints vers un emplacement de fichier basé sur les métadonnées de leur document parent.
+Cette fonctionnalité rend la maintenance d'un répertoire de pièces jointes liées aussi facile que l'utilisation des pièces jointes importées  dans Zotero.
+Vous pouvez, par exemple, faire en sorte que ZotFile stocke les pièces jointes dans des répertoires portant le nom de la revue avec un sous-dossier pour l'année de publication, puis nommer le fichier joint en fonction de l'auteur et du titre de l'article.
+ZotFile dispose de plusieurs autres fonctionnalités pour travailler avec des pièces jointes, qui méritent d'être étudiées dans sa documentation.
 
-#### Attaching browser content to item
+#### Joindre du contenu à un document à partir du navigateur
 
-Zutilo provides functions for attaching a web link or the current web page to the currently selected item.
-In Zutilo's preferences, these functions can be set to create either imported or linked file attachments, or to import the first attachment for an item and then prompt for linked files after that.
-Note that Zutilo's linked file attachment method triggers ZotFile, so, if ZotFile is set up to rename and move attachments, it will rename and move the ones saved this way no matter where you choose to save them with Zutilo's prompt.
-ZotFile has a "only ask if item has other attachments" option.
-This option works well with the Zutilo option to prompt for the location of attachments after the first.
+Zutilo fournit des fonctionnalités permettant de joindre un lien web ou la page web en cours au document en cours de sélection.
+Dans les préférences de Zutilo, ces fonctionnalités peuvent être configurées soit pour créer des pièces jointes liées ou importées, soit pour importer la première pièce jointe à un document  et proposer ensuite de lier les fichiers.
+Notez que la méthode de Zutilo pour les fichiers liés déclenche ZotFile. Aussi, si ZotFile est configuré pour renommer et déplacer les pièces jointes, il renommera et déplacera celles enregistrées de cette façon, peu importe où vous choisissez de les enregistrer avec l'invite de Zutilo.
+ZotFile dispose d'une option "Demander seulement si le doc. a d'autres PJ".
+Cette option fonctionne bien avec l'option de Zutilo qui demande l'emplacement des pièces jointes après la première.
 
-### Item field modification functions
+### Fonctionnalités de modification des champs d'un document
 
-Zutilo provides several functions for copying and pasting item fields.
-The functions are meant to help completing metadata manually. Here are some use cases.
+Zutilo dispose de plusieurs fonctionnalités pour copier et coller les champs d'un document.
+Ces fonctionnalités sont destinées à aider la complétion manuelle des métadonnées. Voici quelques cas d'usage.
 
-#### Copy + Paste-into-empty: Completing records
+#### Copier + Coller dans les champs vides : Compléter des notices
 
-You have a series of PDFs, for which metadata is not recognised automatically, such as the chapters of a book.  
-You want to copy a set of metadata from the ‘source record’ to ‘target records’, without overwritten the information already available in the target records.
+Vous avez une série de PDF pour lesquels les métadonnées ne sont pas reconnues automatiquement, comme les chapitres d'un livre.
+Vous souhaitez copier un ensemble de métadonnées de la "notice source" vers les "notices cibles", sans écraser les informations déjà disponibles dans les notices cibles.
 
-1. You complete a ‘book section’ record for the first PDF (including editors, book title, publication year, etc).
+1. Vous complétez une notice "Chapitre de livre" pour le premier PDF (y compris les éditeurs, le titre du livre, l'année de publication, etc.)
 
-2. You then use Copy on this record, and Paste-into-empty onto all of the other records.
-  In this, you don’t need to worry about existing metadata (in the target records) as this is not overwritten.
+2. Vous utilisez ensuite la fonction "Copier les champs de la notice" pour cette notice, et "Coller dans les champs vides" pour toutes les autres notices.
+ Dans ce cas, vous n'avez pas à vous préoccuper des métadonnées existantes dans les notices cibles, car elles ne sont pas écrasées.
 
-For example, if the target records already have titles and authors, those titles are kept while  editors, book title, publication year, etc is merged into the record.
-You can be sure that no information from the target records is lost.
+Par exemple, si les notices cibles comportent déjà des titres et des auteurs, ces titres sont conservés tandis que les éditeurs, le titre du livre, l'année de publication, etc. sont introduits à partir de la notice source.
+Vous pouvez être sûr qu'aucune information des notices cibles n'est perdue. Avec cette option, vous complétez en effet les champs vides de la notice cible par les champs copiés de la notice source.
 
-#### Copy + Paste-non-empty: Conforming records
+#### Copier + Remplacer les champs : Rendre conformes des notices
 
-You have a series of PDFs for which metadata was recognised, such as papers contained in a journal volume.
-However, the name of the journal and the year of the volume are incorrect.
+Vous avez une série de PDF pour lesquels les métadonnées ont été reconnues, comme les articles contenus dans un même volume de revue.
+Cependant, le nom de la revue et l'année du volume sont incorrects.
 
-1. Create a new journal paper record and enter the required information (name of the journal and year).
+1. Créez une nouvelle notice d'article de revue et saisissez les informations requises (nom de la revue et année).
 
-2. Copy the record.
+2. Utilisez ensuite la fonction "Copier les champs de la notice" pour cette notice.
 
-3. Paste-non-empty the target records. This copies all non-empty fields from the source onto the target.
+3.  Pour les notices cibles, utilisez la fonction "Remplacer les champs". Cela copie tous les champs non-vides de la source vers la cible.
 
-As a result, the target records now all have the same Journal name and the same year (irrespective of the prior setting).
+En conséquence, les notices cibles ont maintenant tous le même nom de journal et la même année, indépendamment des paramétrages précédents. Avec cette option, vous remplacez en effet les champs de la notice cible par les champs non-vides copiés de la notice source.
 
-#### Copying authors
+#### Copie des auteurs
 
-Copy+Paste-into-empty, Copy+Paste-non-empty and Copy+Paste-all behave differently with regard to copying authors.
+"Copier + Coller dans les champs vides", "Copier + Remplacer les champs" et "Copier + Coller tout" se comportent différemment s'agissant de la copie des auteurs.
 
-* Copy+Paste-into-empty merges additional authors: Authors present in the source are added to the target.
+* "Copier + Coller dans les champs vides" fusionne les auteurs supplémentaires : les auteurs présents dans la source sont conservés et sont ajoutés à ceux de la cible.
 
-* Copy+Paste-non-empty replaces authors: Authors present in the source replace authors present in the target.
-In other words, the authors in the target are removed, and the authors from the source are added to the target.
+*  "Copier + Remplacer les champs" remplace les auteurs : les auteurs présents dans la source remplacent les auteurs présents dans la cible.
+En d'autres termes, les auteurs présents dans la cible sont supprimés, et les auteurs de la source sont ajoutés à la cible.
 
-* Copy+Paste-all replaces authors; if the author field in the source is empty, then authors in the target are also cleared.
+* "Copier + Coller tout" : si le champ auteur dans la source est vide, alors les auteurs dans la cible sont également effacés.
 
-The above option offer some likely scenarios, while keeping the number of paste-options to just three.
-Three examples which aren’t covered are
+L'option ci-dessus propose plusieurs cas d'usage potentiels, tout en limitant le nombre d'options de collage à trois seulement.
+Voici trois exemples qui ne sont pas couverts.
 
-1.  Completing records but not adding to authors.
-  To do this, duplicate the source record, remove the authors and then do a Paste-into-empty.
+1.  Compléter des notices mais ne pas ajouter d'auteurs.
+ Pour ce faire, dupliquez la notice source, supprimez les auteurs, puis effectuez un "Copier + Coller dans les champs vides".
 
-2. Conforming records but not replacing authors.
-  To do this, duplicate the source record, remove the authors and then do a Paste-non-empty.
+2. Rendre conformes des notices mais ne pas remplacer les auteurs.
+ Pour ce faire, dupliquez la notice source, supprimez les auteurs, puis effectuez un "Copier + Remplacer les champs".
 
-3. Conforming records but merging authors.
-  To do this, duplicate the source record, remove the authors and then do a Paste-non-empty.
-Then copy the original source record, and do a Paste-into-empty.
+3. Rendre conformes des notices mais fusionner les auteurs.
+ Pour ce faire, dupliquez la notice source, supprimez les auteurs et effectuez un "Copier + Remplacer les champs".
+ Ensuite, copiez la notice source originale et effectuez un "Coller dans les champs vides".
 
-#### Copy + Paste-all: Copying item metadata between libraries
+#### Copier + Coller tout : Copier des documents entre plusieurs bibliothèques
 
-If you are using copy + Paste-all, in sequence and onto the same item type, you are setting all source fields to the target (in a sense, duplicating the item).
-A use case for this is this is to easily sync items across two libraries.
-You have an item with correct metadata in one library, but with incorrect metadata in another library.
-Copy + Paste-all command copies all metadata from the item in one library onto the other.
-It updates fields on the target from the source.
-This also clears all fields in the target that are empty in the source.
+Si vous utilisez "Copier + Coller tout" de façon consécutive et sur le même type de document, vous reportez tous les champs sources dans la cible ;  vous dupliquez en quelque sorte le document.
+Un cas d'usage pour cela est de synchroniser facilement des documents entre deux bibliothèques.
+Vous avez un document avec des métadonnées correctes dans une bibliothèque, mais avec des métadonnées incorrectes dans une autre bibliothèque.
+La commande "Copier + Coller tout" copie toutes les métadonnées du document d'une des bibliothèques vers l'autre.
+Elle met à jour les champs de la cible à partir de la source.
+Elle efface également tous les champs de la cible qui sont vides dans la source. Avec cette option, vous remplacez en effet tous les champs de la notice cible par tous les champs copiés de la notice source.
 
-1. An item was copied from library A to B.
-  The metadata in A is subsequently corrected, and now needs to be copied onto the target item in library B.
+1. Un document a été copié de la bibliothèque A vers la bibliothèque B.
+ Les métadonnées de la bibliothèque A sont ensuite corrigées et doivent maintenant être copiées sur le document cible de la bibliothèque B.
 
-2. Copy the source item in library A
+2. Copier le document source dans la bibliothèque A en utilisant "Copier les champs de la notice"
 
-3. Paste-all onto the target item in library B
+3. Coller tout dans le document cible dans la bibliothèque B en utilisant "Coller tout"
 
-4. The metadata of the target item is now identical to the source item.
+4. Les métadonnées du document cible sont désormais identiques à celles du document source.
 
-Note that effectively Copy+Paste-all is similar to a duplicate.
-However, in some circumstances it’s easier to do.
+Notez que "Copier + Coller tout" est de fait similaire à dupliquer.
+Cependant, dans certaines circonstances, il est plus facile de procéder ainsi.
 
-* For example, between libraries you’d first have to duplicate, then drag the item, then move attachments in the new library.
-  Creation time would also not be preserved.
+* Par exemple, entre des bibliothèques, vous devriez d'abord dupliquer le document, puis faire glisser le document ainsi créé, puis déplacer les pièces jointes dans la nouvelle bibliothèque.
+ La date de création ne serait pas non plus conservée.
 
-* Suppose you create one item, you duplicate it.
-  You move all the PDFs to the duplicates as needed.
-Now you notice a mistake (involving an empty field, e.g. moving Series to Series Title, while clearing Series).
-You just correct the original record, and use Paste-all.
-The Series filled is cleared, and Series TItle is filled.
+* Supposons que vous créez un document, puis que vous le dupliquez.
+Vous déplacez tous les PDF vers le duplicat selon les besoins.
+Vous remarquez alors une erreur impliquant un champ vide, par exemple déplacer le contenu de "Collection" vers "Titre de la coll.", tout en effaçant la "Collection".
+Il vous suffit de corriger la notice originale et d'utiliser la fonction "Coller tout".
+Dans la notice cible, le champ  "Collection" est vidé, tandis que le champ "Titre de la coll." est complété.
 
-#### Copy + edit + Paste-all: Clearing certain item fields in a large number of records
+#### Copier + modifier + Coller tout : Effacer le contenu de certains champs dans un grand nombre de notices
 
-You are creating a public library B from a library A.
-In this process, you want to clear some fields from a set of items in library B.
-For example, you may wish to remove a set of archive locations, or extras, or similar.
+Vous créez une bibliothèque publique B à partir d'une bibliothèque A.
+Dans ce processus, vous voulez effacer certains champs d'un ensemble de documents de la bibliothèque B.
+Par exemple, vous pouvez souhaiter supprimer pour un ensemble de notice le contenu du champ "Loc. dans l'archive", "Extra", ou similaire.
 
-1. Create a blank item (of the same type), copy it.
+1. Créez un document vierge (du même type), copiez-le.
 
-2. Edit the JSON on the clipboard to keep only fields to be cleared.
+2. Modifiez le JSON du presse-papiers pour ne conserver que les champs à effacer, en supprimant tous les autres champs.
 
-3. Then use Paste-all to clear those fields in a number of source items.
+3. Utilisez ensuite la fonction "Coller tout" pour effacer ces champs dans les notices.
 
