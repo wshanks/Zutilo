@@ -1,6 +1,6 @@
 ### Item menu functions
 Each of the functions below can be called from the Zotero item context menu (accessed by right-clicking in the items pane in the middle of Zotero where all of a collection's items are listed).
-In the Zutilo preferences (accessed from the same menu as Zotero's preferences), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
+In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
 * __Copy tags:__
     Right click items in the Zotero library and copy their tags to the clipboard as a '\r\n' delimited list.
@@ -53,7 +53,7 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
 
 * __Copy select item links:__
     Copy links of the form "zotero://select/library/items/ITEM_ID" to the clipboard for each selected item.
-    Following links from other applications can select items in the Zotero Standalone client but might require additional set up.
+    Following links from other applications can select items in the Zotero client but might require additional set up.
 
 * __Copy Zotero URIs:__
     Copy (www.zotero.org) links to the clipboard for each selected item.
@@ -108,11 +108,11 @@ In the Zutilo preferences (accessed from the same menu as Zotero's preferences),
 
 ### Collection menu functions
 Each of the functions below can be called from the Zotero collection context menu (accessed by right-clicking on a collection in the collections pane at the right of Zotero where all the collections are listed).
-In the Zutilo preferences (accessed from the same menu as Zotero's preferences), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
+In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
 * __Copy select collection link:__
     Copy links of the form "zotero://select/library/collections/ITEM_ID" to the clipboard for the selected collection.
-    Following links from other applications can select the collection in the Zotero Standalone client but might require additional set up.
+    Following links from other applications can select the collection in the Zotero client but might require additional set up.
 
 * __Copy Zotero URI:__
     Copy (www.zotero.org) link to the clipboard for the selected collection.
@@ -156,7 +156,7 @@ The following four functions are similar to the four item editing functions abov
 * __Focus item pane: Related tab:__
     Select the "Related" tab of the item pane.
 
-The following two functions allow you to cycle through the same four tags in the item pane.
+The following two functions allow you to cycle through the same four tabs in the item pane.
 
 * __Focus item pane: next tab:__
     Select next tab in item pane.
@@ -211,7 +211,7 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
     Use the parent item's metadata to rename its attachments.
 
 * __Retrieve metadata for pdf:__
-    Try to look up the metadata for the selected stored pdf attachment in Google Scholar.
+    Try to look up the metadata for the selected stored pdf attachment.
 
 ### Miscellaneous functions
 
@@ -226,7 +226,7 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
 * __Open New Item menu:__
     Open the new item menu so that the type of new item to create can be selected from it.
 * __Open style editor:__
-    Open the style editor window (normally accessible from the advanced section of Zotero's preferences).
+    Open the style editor window (normally accessible from the "Cite" tab of Zotero's preferences).
 
 * __Locate item:__
     Equivalent to using one of the Lookup engines from the Locate menu accessed from the top of the item pane.

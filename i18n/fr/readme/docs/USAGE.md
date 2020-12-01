@@ -54,11 +54,11 @@ However, the name of the journal and the year of the volume are incorrect.
 
 3. Paste-non-empty the target records. This copies all non-empty fields from the source onto the target.
 
-As a result, the target records now all have the same Journal name and the same name (irrespective of the prior setting).
+As a result, the target records now all have the same Journal name and the same year (irrespective of the prior setting).
 
 #### Copying authors
 
-Copy+Paste-into-empty, Copy+Paste-non-empty and Copy+Paste-non-empty behave differently with regard to copying authors.
+Copy+Paste-into-empty, Copy+Paste-non-empty and Copy+Paste-all behave differently with regard to copying authors.
 
 * Copy+Paste-into-empty merges additional authors: Authors present in the source are added to the target.
 
