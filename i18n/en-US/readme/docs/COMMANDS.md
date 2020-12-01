@@ -103,8 +103,14 @@ In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these fun
     (‘Paste-non-empty’): paste where source has value.
     Replaces authors if there is an author field in the pasted data.
 
-* __Paste all items fields__
-    (Paste-all): paste all fields from source, even if they are empty.
+* __Paste all item fields__
+    (‘Paste-all’): Paste all item fields from source, even if they are empty.
+
+    To edit specific item fields, select a source item and use "Copy item fields".
+    Paste to a text editor, edit the JSON text, then copy the modified text back to the clipboard.
+    Finally, select the target items and use "Paste all item fields".
+    The `itemType` name/value pair needs to be kept in the JSON text because Zutilo uses its presence to decide whether to use the paste JSON commands in the context menu; its value is irrelevant for this function.
+    You can, e.g., clear the URL field in multiple items by pasting `{"itemType": "book", "url": ""}`, which will not change any item types.
 
 ### Collection menu functions
 Each of the functions below can be called from the Zotero collection context menu (accessed by right-clicking on a collection in the collections pane at the right of Zotero where all the collections are listed).

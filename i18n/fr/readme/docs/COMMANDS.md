@@ -103,6 +103,12 @@ Dans les préférences de Zutilo (accessibles depuis le menu "Outils" de Zotero)
   (Remplacer les champs de la notice par les champs non-vides copiés) Colle les champs de la source qui ont une valeur. 
   Les auteurs sont remplacés dans la cible s'il y a un champ auteur dans les données sources collées.
 
+    To edit specific item fields, select a source item and use "Copy item fields".
+    Paste to a text editor, edit the JSON text, then copy the modified text back to the clipboard.
+    Finally, select the target items and use "Paste all item fields".
+    The `itemType` name/value pair needs to be kept in the JSON text because Zutilo uses its presence to decide whether to use the paste JSON commands in the context menu; its value is irrelevant for this function.
+    You can, e.g., clear the URL field in multiple items by pasting `{"itemType": "book", "url": ""}`, which will not change any item types.
+
 * __Coller tout :__ 
   (Remplacer tous les champs de la notice par tous les champs copiés) Colle tous les champs de la source, même s'ils sont vides.
 
