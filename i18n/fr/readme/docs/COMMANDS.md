@@ -112,6 +112,12 @@ Dans les préférences de Zutilo (accessibles depuis le menu "Outils" de Zotero)
 * __Coller tout :__ 
   (Remplacer tous les champs de la notice par tous les champs copiés) Colle tous les champs de la source, même s'ils sont vides.
 
+* __Paste item type__
+    (‘Paste-type’): Paste the item type of the source item to the target items.
+    This will not change item field values.
+    However, changing the type of a Zotero item modifies the list of its valid fields.
+    It's important to realize that data in invalid fields will be lost!
+
 ### Fonctions du menu des collections Zotero
 Chacune des fonctions ci-dessous peut être appelée à partir du menu contextuel de la collection Zotero, accessible par un clic droit sur une collection dans le volet des collections, le volet de gauche de Zotero où la liste de toutes les collections est affichée.
 Dans les préférences de Zutilo (accessibles depuis le menu "Outils de Zotero"), chacune de ces fonctions peut être configurée pour apparaître dans le menu contextuel de Zotero, dans un sous-menu Zutilo du menu contextuel de Zotero, ou pour ne pas apparaître du tout.

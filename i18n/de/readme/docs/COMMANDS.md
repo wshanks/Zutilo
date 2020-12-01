@@ -112,6 +112,12 @@ In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these fun
     The `itemType` name/value pair needs to be kept in the JSON text because Zutilo uses its presence to decide whether to use the paste JSON commands in the context menu; its value is irrelevant for this function.
     You can, e.g., clear the URL field in multiple items by pasting `{"itemType": "book", "url": ""}`, which will not change any item types.
 
+* __Paste item type__
+    (‘Paste-type’): Paste the item type of the source item to the target items.
+    This will not change item field values.
+    However, changing the type of a Zotero item modifies the list of its valid fields.
+    It's important to realize that data in invalid fields will be lost!
+
 ### Collection menu functions
 Each of the functions below can be called from the Zotero collection context menu (accessed by right-clicking on a collection in the collections pane at the right of Zotero where all the collections are listed).
 In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
