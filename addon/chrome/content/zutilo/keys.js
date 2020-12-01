@@ -178,6 +178,10 @@ keys.categories.pasteJSONAll = 'itemediting'
 keys.shortcuts.pasteJSONAll = function(win) {
     win.ZutiloChrome.zoteroOverlay.pasteJSONAll()
 }
+keys.categories.pasteJSONItemType = 'itemediting'
+keys.shortcuts.pasteJSONItemType = function(win) {
+    win.ZutiloChrome.zoteroOverlay.pasteJSONItemType()
+}
 
 /********************************************/
 // Zutilo's Zotero collection menu functions
