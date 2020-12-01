@@ -1,7 +1,7 @@
 # Bugs
 
-The latest source code for Zutilo is maintained on [GitHub](https://github.com/willsALMANJ/Zutilo "Zutilo's GitHub page").
-Bugs can be reported by clicking on the "New Issue" button under [the Issues section](https://github.com/willsALMANJ/Zutilo/issues "GitHub Issues page") of the GitHub site.
+The latest source code for Zutilo is maintained on [GitHub](https://github.com/wshanks/Zutilo "Zutilo's GitHub page").
+Bugs can be reported by clicking on the "New Issue" button under [the Issues section](https://github.com/wshanks/Zutilo/issues "GitHub Issues page") of the GitHub site.
 You can also check there to see if a bug you experience has already been reported by another user.
 Make sure to check the "closed" tab of the Issues section to see if the bug has already been addressed.
 
@@ -31,7 +31,7 @@ Try to clear the output, reproduce the bug, and then check the Error Console to 
 
 Feature requests may also be submitted by opening a new issue.
 If you would like to contribute a patch, please open a new issue before submitting your code.
-A description of the kinds of features that are appropriate for Zutilo can be found on [the Zutilo wiki page](https://github.com/willsALMANJ/Zutilo/wiki).
+A description of the kinds of features that are appropriate for Zutilo can be found on [the Zutilo wiki page](https://github.com/wshanks/Zutilo/wiki).
 A roadmap of planned features is also available on the wiki.
 
 # Translation

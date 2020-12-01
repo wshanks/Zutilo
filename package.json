@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/willsALMANJ/Zutilo.git"
+    "url": "git+https://github.com/wshanks/Zutilo.git"
   },
   "keywords": [
     "Zotero"
@@ -19,9 +19,9 @@
   "author": "Will Shanks",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/willsALMANJ/Zutilo/issues"
+    "url": "https://github.com/wshanks/Zutilo/issues"
   },
-  "homepage": "https://github.com/willsALMANJ/Zutilo#readme",
+  "homepage": "https://github.com/wshanks/Zutilo#readme",
   "devDependencies": {
     "eslint": "^6.1.0"
   }

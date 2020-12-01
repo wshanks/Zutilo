@@ -12,13 +12,13 @@ Here are some of Zutilo's features:
 Zutilo strives to enable whatever Zotero workflow is desired and otherwise to get out of the way.
 All of Zutilo's graphical elements can be disabled individually, so that unwanted features do not clutter the user interface.
 
-**NOTE:** As of version 3.0, Zutilo is distributed from the [GitHub releases page](https://github.com/willsALMANJ/Zutilo/releases).
+**NOTE:** As of version 3.0, Zutilo is distributed from the [GitHub releases page](https://github.com/wshanks/Zutilo/releases).
 New updates will not be published to the location checked by previous versions of Zutilo (the Mozilla Add-ons page).
 To receive new Zutilo updates, please update to the latest version of Zutilo.
 
 ## Installation
 
-Download the Zutilo `zutilo.xpi` file from [Zutilo's GitHub releases page](https://github.com/willsALMANJ/Zutilo/releases).
+Download the Zutilo `zutilo.xpi` file from [Zutilo's GitHub releases page](https://github.com/wshanks/Zutilo/releases).
 Then go to Tools->Add-ons in Zotero Standalone.
 Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File."
 Then select the downloaded `zutilo.xpi` file.

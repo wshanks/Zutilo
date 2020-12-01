@@ -107,12 +107,12 @@
                         label="&zutilo.preferences.readme.button;" 
                         oncommand="showReadme();"/>
                     <button label="&zutilo.about.opengithub;" 
-                        oncommand="Zutilo.openLink('https://github.com/willsALMANJ/Zutilo');"/>
+                        oncommand="Zutilo.openLink('https://github.com/wshanks/Zutilo');"/>
                     
                     <!-- If openLink() ever breaks with an update to Gecko, this code can 
                     be used instead (does not open links in default browser).
                     <button label="&zutilo.about.opengithub;" oncommand="document.getElementById('zutilo-github-label').click();"/>
-                    <label id="zutilo-opengithub-label" href="https://github.com/willsALMANJ/Zutilo" class="text-link" value="&zutilo.about.openaddon;" hidden="true"/>
+                    <label id="zutilo-opengithub-label" href="https://github.com/wshanks/Zutilo" class="text-link" value="&zutilo.about.openaddon;" hidden="true"/>
                     -->
                 </hbox>
             </groupbox>             
