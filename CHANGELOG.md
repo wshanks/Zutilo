@@ -1,3 +1,9 @@
+* In version 3.6.0:
+
+    + Add "Paste item type" function for batch item type changes
+    + Update French locale
+    + Documentation updates
+
 * In version 3.5.0:
 
     + Add "Open Zotero URI" function
