@@ -103,30 +103,30 @@ Dans les préférences de Zutilo (accessibles depuis le menu "Outils" de Zotero)
   (Remplacer les champs de la notice par les champs non-vides copiés) Colle les champs de la source qui ont une valeur. 
   Les auteurs sont remplacés dans la cible s'il y a un champ auteur dans les données sources collées.
 
-    To edit specific item fields, select a source item and use "Copy item fields".
-    Paste to a text editor, edit the JSON text, then copy the modified text back to the clipboard.
-    Finally, select the target items and use "Paste all item fields".
-    The `itemType` name/value pair needs to be kept in the JSON text because Zutilo uses its presence to decide whether to use the paste JSON commands in the context menu; its value is irrelevant for this function.
-    You can, e.g., clear the URL field in multiple items by pasting `{"itemType": "book", "url": ""}`, which will not change any item types.
-
 * __Coller tout :__ 
   (Remplacer tous les champs de la notice par tous les champs copiés) Colle tous les champs de la source, même s'ils sont vides.
+  
+  Pour modifier seulement certains champs, sélectionnez une notice source et utilisez "Copier les champs de la notice".
+  Collez dans un éditeur de texte, modifiez le texte JSON, puis recopiez le texte modifié dans le presse-papiers.
+  Enfin, sélectionnez les notices cibles et utilisez "Coller tout".
+  La paire nom/valeur `itemType` doit être conservée dans le texte JSON car Zutilo utilise sa présence pour décider d'utiliser les commandes JSON de collage dans le menu contextuel ; sa valeur n'est pas pertinente pour cette fonction.
+  Vous pouvez, par exemple, effacer le champ URL dans plusieurs notices en collant `{"itemType" : "book", "url" : ""}`, ce qui ne modifiera pas le type de document dans les notices cibles sélectionnées.
 
-* __Paste item type__
-    (‘Paste-type’): Paste the item type of the source item to the target items.
-    This will not change item field values.
-    However, changing the type of a Zotero item modifies the list of its valid fields.
-    It's important to realize that data in invalid fields will be lost!
+* __Coller le type de document :__
+  (Remplacer le type de document de la notice par le type de document de la notice copiée) Colle le type de document de la notice source dans les notices cibles.
+  Cela ne change pas la valeur des autres champs dans les notices cibles.
+  Cependant, changer le type d'un document Zotero modifie la liste des champs valides.
+  Il est important de réaliser que les données saisies dans des champs non valides pour le type de document cible seront perdues !
 
 ### Fonctions du menu des collections Zotero
 Chacune des fonctions ci-dessous peut être appelée à partir du menu contextuel de la collection Zotero, accessible par un clic droit sur une collection dans le volet des collections, le volet de gauche de Zotero où la liste de toutes les collections est affichée.
 Dans les préférences de Zutilo (accessibles depuis le menu "Outils de Zotero"), chacune de ces fonctions peut être configurée pour apparaître dans le menu contextuel de Zotero, dans un sous-menu Zutilo du menu contextuel de Zotero, ou pour ne pas apparaître du tout.
 
-* __Copier le lien zotero://… de la collection:__ 
+* __Copier le lien zotero://… de la collection :__ 
   Copie dans le presse-papiers le lien de la collection sélectionnée sous la forme "zotero://select/library/collections/ITEM_ID". 
   Suivre des liens depuis d'autres applications peut sélectionner la collection dans le client Zotero, mais cela peut nécessiter une configuration supplémentaire.
 
-* __Copier le lien zotero.org/…de la collection:__
+* __Copier le lien zotero.org/…de la collection :__
   Copie dans le presse-papiers le lien (www.zotero.org) de la collection sélectionnée. 
   Si vous avez un profil (www.zotero.org), suivre un tel lien ouvrira la page du document correspondant dans le profil sur (www.zotero.org). 
   Si vous n'avez pas de profil (www.zotero.org), un lien de remplacement est toujours généré mais cela peut s'avérer inutile.
