@@ -1,3 +1,7 @@
+* In version 3.6.1:
+
+    + Update French locale
+
 * In version 3.5.0:
 
     + Add "Open Zotero URI" function

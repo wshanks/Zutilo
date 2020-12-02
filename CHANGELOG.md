@@ -1,3 +1,7 @@
+* In version 3.6.1:
+
+    + Update French locale
+
 * In version 3.6.0:
 
     + Add "Paste item type" function for batch item type changes
