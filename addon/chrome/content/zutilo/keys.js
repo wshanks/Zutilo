@@ -494,7 +494,7 @@ AddonManager.getAddonByID('zotfile@columbia.edu', function(aAddon) {
         win.Zotero.ZotFile.renameSelectedAttachments()
     }
     
-    keys.categories.ZotFileExtractAnnotations = 'Zotfile'
+    keys.categories.ZotFileExtractAnnotations = 'ZotFile'
     keys.shortcuts.ZotFileExtractAnnotations = function(win) {
         win.Zotero.Zotfile.pdfAnnotations.getAnnotations()
     }
