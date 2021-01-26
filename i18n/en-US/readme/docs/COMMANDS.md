@@ -266,3 +266,5 @@ The following functions are only available when [ZotFile](zotfile.com) is instal
 * __Attach new file:__ Attach the newest file in the ZotFile source directory to the currently selected item.
 
 * __Move and rename attachments:__ Move and rename the files associated with the currently selected attachments to following the format configured in ZotFile's preferences.
+
+* __Extract annotations:__ Trigger ZotFile's "Extract Annotations" function.
