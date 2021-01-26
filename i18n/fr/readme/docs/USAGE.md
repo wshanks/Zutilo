@@ -17,14 +17,6 @@ Cette fonctionnalité rend la maintenance d'un répertoire de pièces jointes li
 Vous pouvez, par exemple, faire en sorte que ZotFile stocke les pièces jointes dans des répertoires portant le nom de la revue avec un sous-dossier pour l'année de publication, puis nommer le fichier joint en fonction de l'auteur et du titre de l'article.
 ZotFile dispose de plusieurs autres fonctionnalités pour travailler avec des pièces jointes, qui méritent d'être étudiées dans sa documentation.
 
-#### Joindre du contenu à un document à partir du navigateur
-
-Zutilo fournit des fonctionnalités permettant de joindre un lien web ou la page web en cours au document en cours de sélection.
-Dans les préférences de Zutilo, ces fonctionnalités peuvent être configurées soit pour créer des pièces jointes liées ou importées, soit pour importer la première pièce jointe à un document  et proposer ensuite de lier les fichiers.
-Notez que la méthode de Zutilo pour les fichiers liés déclenche ZotFile. Aussi, si ZotFile est configuré pour renommer et déplacer les pièces jointes, il renommera et déplacera celles enregistrées de cette façon, peu importe où vous choisissez de les enregistrer avec l'invite de Zutilo.
-ZotFile dispose d'une option "Demander seulement si le doc. a d'autres PJ".
-Cette option fonctionne bien avec l'option de Zutilo qui demande l'emplacement des pièces jointes après la première.
-
 ### Fonctionnalités de modification des champs d'un document
 
 Zutilo dispose de plusieurs fonctionnalités pour copier et coller les champs d'un document.

@@ -17,14 +17,6 @@ This feature makes maintaining a directory of linked file attachments as easy as
 You can, for example, have ZotFile store attachments in directories named after the journal with a subfolder for the publication year and then name the attachment file after the author and title of the work.
 ZotFile has several other features for working with attachments that are worth investigating in its documentation.
 
-#### Attaching browser content to item
-
-Zutilo provides functions for attaching a web link or the current web page to the currently selected item.
-In Zutilo's preferences, these functions can be set to create either imported or linked file attachments, or to import the first attachment for an item and then prompt for linked files after that.
-Note that Zutilo's linked file attachment method triggers ZotFile, so, if ZotFile is set up to rename and move attachments, it will rename and move the ones saved this way no matter where you choose to save them with Zutilo's prompt.
-ZotFile has a "only ask if item has other attachments" option.
-This option works well with the Zutilo option to prompt for the location of attachments after the first.
-
 ### Item field modification functions
 
 Zutilo provides several functions for copying and pasting item fields.
