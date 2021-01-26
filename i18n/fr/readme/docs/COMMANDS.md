@@ -266,3 +266,5 @@ Les fonctions suivantes sont disponibles seulement lorsque [ZotFile](zotfile.com
 * __ZotFile : joindre un nouveau fichier :__ Attache au document sélectionné le fichier le plus récent dans le répertoire source de ZotFile.
 
 * __ZotFile : déplacer et renommer les pièces jointes :__ Déplace et renomme les fichiers associés aux pièces jointes sélectionnées pour suivre le format configuré dans les préférences de ZotFile.
+
+* __Extract annotations:__ Trigger ZotFile's "Extract Annotations" function.
