@@ -1,3 +1,11 @@
+* In version 3.8.0:
+
+    + Add find available PDFs shortcut
+
+* In version 3.7.0:
+
+    + Add ZotFile Quick Extract shortcut
+
 * In version 3.6.1:
 
     + Update French locale

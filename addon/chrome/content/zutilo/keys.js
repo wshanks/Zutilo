@@ -265,6 +265,15 @@ keys.shortcuts.renameSelectedAttachmentsFromParents = function(win) {
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 
+keys.categories.findPDF = 'attachments'
+keys.shortcuts.findPDF = function(win)
+{
+    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
+    let items = win.ZoteroPane_Local.getSelectedItems();
+    win.Zotero.Attachments.addAvailablePDFs(items);
+    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
+};
+
 keys.categories.attachURI = 'attachments'
 keys.shortcuts.attachURI = function(win) {
     // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
@@ -493,7 +502,7 @@ AddonManager.getAddonByID('zotfile@columbia.edu', function(aAddon) {
     keys.shortcuts.ZotFileRename = function(win) {
         win.Zotero.ZotFile.renameSelectedAttachments()
     }
-    
+
     keys.categories.ZotFileExtractAnnotations = 'ZotFile'
     keys.shortcuts.ZotFileExtractAnnotations = function(win) {
         win.Zotero.Zotfile.pdfAnnotations.getAnnotations()

@@ -219,6 +219,9 @@ Toutefois, lorsque le volet est affiché, le séparateur vertical plus épais (o
 * __Créer un document parent :__ 
   Crée un document parent pour le document de type pièce jointe sélectionné qui n'a pas de parent.
 
+* __Find available PDFs:__
+    Find available PDFs for selected items.
+
 * __Renommer les fichiers à partir des métadonnées du parent :__ 
   Utilise les métadonnées du document parent pour renommer ses pièces jointes.
 
