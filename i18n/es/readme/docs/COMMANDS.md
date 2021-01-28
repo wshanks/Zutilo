@@ -219,6 +219,9 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
 * __Create parent item:__
     Create a parent item for the currently selected attachment item that does not have a parent.
 
+* __Find available PDFs:__
+    Find available PDFs for selected items.
+
 * __Rename attachments:__
     Use the parent item's metadata to rename its attachments.
 
