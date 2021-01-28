@@ -6,13 +6,13 @@
             <rdf:Seq>
                 <rdf:li>
                     <rdf:Description>
-                        <em:version>3.7.1a1</em:version>
+                        <em:version>3.8.0</em:version>
                         <em:targetApplication>
                             <rdf:Description>
                                 <em:id>zotero@chnm.gmu.edu</em:id>
                                 <em:minVersion>3.0b1</em:minVersion>
                                 <em:maxVersion>*</em:maxVersion>
-                                <em:updateLink>https://github.com/wshanks/Zutilo/releases/download/v3.7.1a1/zutilo.xpi</em:updateLink>
+                                <em:updateLink>https://github.com/wshanks/Zutilo/releases/download/v3.8.0/zutilo.xpi</em:updateLink>
                             </rdf:Description>
                         </em:targetApplication> 
 
@@ -21,7 +21,7 @@
                                 <em:id>juris-m@juris-m.github.io</em:id>
                                 <em:minVersion>4.0</em:minVersion>
                                 <em:maxVersion>*</em:maxVersion>
-                                <em:updateLink>https://github.com/wshanks/Zutilo/releases/download/v3.7.1a1/zutilo.xpi</em:updateLink>
+                                <em:updateLink>https://github.com/wshanks/Zutilo/releases/download/v3.8.0/zutilo.xpi</em:updateLink>
                             </rdf:Description>
                         </em:targetApplication>
 
