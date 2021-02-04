@@ -219,8 +219,8 @@ Toutefois, lorsque le volet est affiché, le séparateur vertical plus épais (o
 * __Créer un document parent :__ 
   Crée un document parent pour le document de type pièce jointe sélectionné qui n'a pas de parent.
 
-* __Find available PDFs:__
-    Find available PDFs for selected items.
+* __Trouver un PDF disponible :__
+  Trouve les PDF disponibles pour les documents sélectionnés.
 
 * __Renommer les fichiers à partir des métadonnées du parent :__ 
   Utilise les métadonnées du document parent pour renommer ses pièces jointes.
@@ -270,4 +270,4 @@ Les fonctions suivantes sont disponibles seulement lorsque [ZotFile](zotfile.com
 
 * __ZotFile : déplacer et renommer les pièces jointes :__ Déplace et renomme les fichiers associés aux pièces jointes sélectionnées pour suivre le format configuré dans les préférences de ZotFile.
 
-* __Extract annotations:__ Trigger ZotFile's "Extract Annotations" function.
+* __ZotFile : Extraire les annotations :__ Déclenche la fonction "Extraire les annotations" de ZotFile.
