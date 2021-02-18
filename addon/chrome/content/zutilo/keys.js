@@ -505,7 +505,7 @@ AddonManager.getAddonByID('zotfile@columbia.edu', function(aAddon) {
 
     keys.categories.ZotFileExtractAnnotations = 'ZotFile'
     keys.shortcuts.ZotFileExtractAnnotations = function(win) {
-        win.Zotero.Zotfile.pdfAnnotations.getAnnotations()
+        win.Zotero.ZotFile.pdfAnnotations.getAnnotations()
     }
 
     Zutilo.Prefs.setDefaults()
