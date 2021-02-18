@@ -1,3 +1,9 @@
+* In version 3.8.1:
+
+    + Update French translations
+    + Fix ZotFile Quick Extract shortcut
+    + Fix show file shortcut
+
 * In version 3.8.0:
 
     + Add find available PDFs shortcut
