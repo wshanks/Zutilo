@@ -296,7 +296,7 @@ keys.shortcuts.showFile = function(win) {
 
     var _getBestFile = win.Zotero.Promise.coroutine(function* (item) {
         if(item.isAttachment()) {
-            if(item.attachmentLinkMode === Zotero.Attachments.LINK_MODE_LINKED_URL) return false;
+            if(item.attachmentLinkMode === win.Zotero.Attachments.LINK_MODE_LINKED_URL) return false;
             return item;
         } else {
             return yield item.getBestAttachment();
