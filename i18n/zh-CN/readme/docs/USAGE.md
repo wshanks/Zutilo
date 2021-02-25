@@ -6,7 +6,7 @@ Zotero can work with either imported attachments, stored in Zotero's storage and
 When storing attachments as linked files, the relative attachment paths feature in Zotero can be useful.
 With this feature, a base attachment directory is selected and then any linked file attachments in this directory are saved with paths relative to this path.
 Because these paths are relative, you can move all your attachments to a new directory and all you have to do is update this base directory setting in Zotero rather than updating the path to each individual attachment.
-If you use more than computer, you can set the base attachment directory to a different location on each machine (e.g. a DropBox or SyncThing folder) and still have all of the links to attachments work by setting this preference to the right location on each machine.
+If you use more than one computer, you can set the base attachment directory to a different location on each machine (e.g. a DropBox or SyncThing folder) and still have all of the links to attachments work by setting this preference to the right location on each machine.
 Relative attachment paths can be configured under the "Files and Folders" tab of the Advanced Section of Zotero's preferences.
 
 #### Linked file attachment organization (ZotFile)
