@@ -240,6 +240,10 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
 
 * __Open New Item menu:__
     Open the new item menu so that the type of new item to create can be selected from it.
+
+* __Open Run JavaScript window:__
+    Open the Run JavaScript window, which is also accessible through Zotero's "Tools" menu, by selecting "Developer" -> "Run JavaScript".
+
 * __Open style editor:__
     Open the style editor window (normally accessible from the "Cite" tab of Zotero's preferences).
 

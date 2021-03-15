@@ -1,3 +1,8 @@
+* In version 3.9.0:
+
+    + Fix Open Style Editor shortcut
+    + Add Open Run JavaScript window shortcut
+
 * In version 3.8.1:
 
     + Update French translations

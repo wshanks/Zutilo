@@ -240,6 +240,10 @@ Sinon, le rapport est généré pour les documents sélectionnés.
 
 * __Ouvrir le menu "Nouveau document" :__ 
   Ouvre le menu "Nouveau document" afin de pouvoir sélectionner le type du nouveau document à créer.
+
+* __Open Run JavaScript window:__
+    Open the Run JavaScript window, which is also accessible through Zotero's "Tools" menu, by selecting "Developer" -> "Run JavaScript".
+
 * __Ouvrir l'Éditeur de style :__ 
   Ouvre la fenêtre de l'éditeur de style, normalement accessible depuis l'onglet "Citer" des préférences de Zotero.
 

@@ -327,6 +327,11 @@ keys.shortcuts.duplicateItem = function(win) {
     win.ZoteroPane.duplicateSelectedItem();
 };
 
+keys.categories.openRunJSWindow = 'uinavigation'
+keys.shortcuts.openRunJSWindow = function(win) {
+    win.openRunJSWindow();
+}
+
 keys.categories.openStyleEditor = 'uinavigation'
 keys.shortcuts.openStyleEditor = function(win) {
     win.openStyleEditor();
