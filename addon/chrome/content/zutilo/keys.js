@@ -328,15 +328,8 @@ keys.shortcuts.duplicateItem = function(win) {
 };
 
 keys.categories.openStyleEditor = 'uinavigation'
-keys.shortcuts.openStyleEditor = function(_win) {
-    var prefs_context = {}
-    Services.scriptloader.
-        loadSubScript('chrome://zotero/content/include.js', prefs_context)
-    Services.scriptloader.
-        loadSubScript('chrome://zotero/content/preferences/preferences.js',
-                      prefs_context)
-    prefs_context.Zotero_Preferences.
-        openInViewer('chrome://zotero/content/tools/csledit.xul', true)
+keys.shortcuts.openStyleEditor = function(win) {
+    win.openStyleEditor();
 }
 
 keys.categories.generateReport = 'other'
