@@ -1,78 +1,80 @@
 # Zutilo
 
-Zutilo is a plugin for [Zotero](http://www.zotero.org/).
-Zutilo adds several functions not available in base Zotero through extra menu items and keyboard shortcuts.
-Here are some of Zutilo's features:
+Zutilo est un module complémentaire pour [Zotero](http://www.zotero.org/).
+Par le biais d'options de menu supplémentaires et de raccourcis clavier, Zutilo ajoute des fonctions non disponibles en standard dans Zotero. Voici quelques-unes des fonctionnalités de Zutilo.
 
-* Copy, paste, and remove sets of tags
-* Select and right-click to relate several items
-* Copy items to the clipboard in several formats
-* Keyboard shortcuts for editing items and focusing and hiding different elements of the Zotero user interface
+* Copier, coller et retirer des ensembles de marqueurs.
+* Créer des liens de "Connexe" entre les documents sélectionnés grâce à un clic-droit avec le bouton de la souris.
+* Copier dans le presse-papiers des documents dans plusieurs formats différents.
+* Modifier des documents, définir l'emplacement du curseur et masquer différents éléments de l'interface utilisateur Zotero grâce à des raccourcis clavier.
 
-Zutilo strives to enable whatever Zotero workflow is desired and otherwise to get out of the way.
-All of Zutilo's graphical elements can be disabled individually, so that unwanted features do not clutter the user interface.
+Zutilo s'efforce de réaliser tous vos souhaits en termes de flux de travail Zotero, et de rester à l'écart autrement. Tous les éléments graphiques de Zutilo peuvent être désactivés individuellement, de sorte que les fonctionnalités indésirables n'encombrent pas l'interface utilisateur.
 
-**NOTE:** As of version 3.0, Zutilo is distributed from the [GitHub releases page](https://github.com/wshanks/Zutilo/releases).
-New updates will not be published to the location checked by previous versions of Zutilo (the Mozilla Add-ons page).
-To receive new Zutilo updates, please update to the latest version of Zutilo.
+
+**NOTE :** À partir de la version 3.0, Zutilo est distribué à partir de la [page des versions GitHub](https://github.com/wshanks/Zutilo/releases).
+Les nouvelles mises à jour ne seront pas publiées à l'emplacement vérifié par les versions précédentes de Zutilo (la page des modules complémentaires de Mozilla).
+Pour recevoir les nouvelles mises à jour de Zutilo, veuillez effectuer une mise à jour vers la dernière version de Zutilo.
+
 
 ## Installation
 
-Download the Zutilo `zutilo.xpi` file from [Zutilo's GitHub releases page](https://github.com/wshanks/Zutilo/releases).
-Then go to Tools->Add-ons in Zotero Standalone.
-Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File."
-Then select the downloaded `zutilo.xpi` file.
+Télécharger le fichier `zutilo.xpi` de Zutilo à partir de [la page des versions GitHub de Zutilo](https://github.com/wshanks/Zutilo/releases).
+Dans Zotero, aller dans le menu _Outils_ → _Extensions_.
+Cliquer sur la roue dentée et choisir _Install Add-on From File_.
+Sélectionner et charger le fichier `zutilo.xpi`.
 
-**NOTE for Firefox users:** Firefox treats `.xpi` files as Firefox add-ons and tries to install them.
-Rather than clicking on the `.xpi` file, you can try right-clicking and choosing to save the link as a file.
-In some cases (particularly on Linux), Firefox does not allow right-clicking and saving the `.xpi` link either.
-In that case, you must download it either with a different browser or with a command-line tool like `curl` or `wget`.
 
-## Getting started
+**NOTE pour les utilisateurs de Firefox:** Firefox considère les fichiers `.xpi` comme des modules complémentaires de Firefox et essaie de les installer.
+Plutôt que de cliquer sur le fichier `.xpi`, il est préférable de faire un clic droit et de choisir _Enregistrer la cible du lien sous..._
+Dans certains cas (notamment sous Linux), Firefox ne permet pas non plus de cliquer avec le bouton droit de la souris et d'enregistrer le lien `.xpi`.
+Dans ce cas, vous devez télécharger le fichier`.xpi` soit avec un autre navigateur, soit avec un outil en ligne de commande comme `curl` ou `wget`.
 
-Zutilo can be customized via its preferences window, which can reached via the Zotero Addons Manager or the Tools menu.
+## Démarrer
 
-### Zotero item menu
+Une fois Zutilo installé, il peut être personnalisé via sa fenêtre de préférences, accessible à partir du gestionnaire de modules complémentaires de Zotero ou à partir du menu _Outils_ >_Préférences de Zutilo..._
 
-By default, Zutilo adds a set of menu items to a submenu (named `Zutilo`) of the menu that appears when an item is right-clicked in Zotero.
-Which items appear can be set in Zutilo's preferences window.
-Items can be set to appear in the Zutilo submenu or directly in the Zotero item menu.
-Not all available functions are visible in Zutilo submenu by default.
+### Le menu Zutilo dans Zotero
 
-### Keyboard shortcuts
+Par défaut, Zutilo ajoute un ensemble d'options de menu dans un sous-menu `Zutilo` du menu contextuel d'un document Zotero, affiché par un clic droit sur un document.
+Les options qui apparaissent peuvent être définies dans la fenêtre des préférences de Zutilo.
+Les options peuvent être configurées pour apparaître dans le sous-menu Zutilo ou directement dans le menu contextuel d'un document Zotero.
+Toutes les fonctions disponibles ne sont pas visibles par défaut dans le sous-menu de Zutilo .
 
-All of the functions that can appear in the item menu can also be called by keyboard shortcuts.
-Zutilo also provides some additional keyboard shortcut functions that are not available from the item menu.
-By default, no keyboard shortcuts are defined.
-A shortcut key combination can be set for each function in Zutilo's preferences.
-If the key combination is already assigned for another function, a warning will be displayed.
 
-## Usage notes
+### Raccourcis clavier
 
-For additional notes on usage, see [USAGE](docs/USAGE.md).
+Toutes les fonctions qui peuvent apparaître dans le menu contextuel d'un document Zotero peuvent également être appelées par des raccourcis clavier.
+Zutilo propose également quelques fonctions supplémentaires de raccourcis clavier qui ne sont pas disponibles depuis le menu le menu contextuel d'un document Zotero.
+Par défaut, aucun raccourci clavier n'est défini.
+Une combinaison de touches de raccourci peut être définie pour chaque fonction dans les préférences de Zutilo.
+Si la combinaison de touches est déjà affectée à une autre fonction, un avertissement s'affiche.
 
-## Command reference
+## Notes d'utilisation
 
-For a detailed list of Zutilo's commands, please see the [command reference](docs/COMMANDS.md).
+Pour des notes d'utilisation supplémentaires, voir [USAGE](docs/USAGE.md).
+
+## Liste des commandes
+
+Pour une liste détaillée des commandes de Zutilo, voir la [liste des commandes](docs/COMMANDS.md).
 
 ## Support
 
-For guidelines regarding bug reports, feature requests, and translation help, please see the [feedback page](docs/BUGS.md).
+Pour les recommandations concernant les rapports de bogues, les demandes de fonctionnalités et l'aide à la traduction, veuillez consulter la [page de commentaires](docs/BUGS.md).
 
-## Development
+## Développement
 
-For notes on working with the Zutilo code, please see the [build document](docs/DEVELOPERS.md).
+Pour des notes sur le travail avec le code Zutilo, veuillez consulter le [document de construction](docs/DEVELOPERS.md).
 
-## Credits
+## Crédits
 
-For a list of acknowledgments, please see the [author page](AUTHORS.md).
+Pour une liste des remerciements, veuillez consulter la [page des auteurs](AUTHORS.md).
 
-## Changes
+## Changements
 
-For a summary changes by version number, please see the [changelog](CHANGELOG.md).
+Pour un récapitulatif des changements par numéro de version, veuillez consulter [l'historique des versions](CHANGELOG.md).
 
-## How to Contribute
+## Comment contribuer
 
-1. Star the repository on GitHub. The number of stars on GitHub is one of the most visible metrics for gauging the level of interest in project.
-2. Encourage others to use the project, either directly or by writing a blog post. Besides GitHub stars, the other metric for gauging interest in the project is the total number of downloads of the xpi.
-3. Submit new features or translations. However, keep in mind that new features add to the maintenance burden of the project. So get in contact before putting a lot of time into a new feature.
+1. Étoilez le dépôt sur GitHub. Le nombre d'étoiles sur GitHub est l'une des mesures les plus visibles pour évaluer le niveau d'intérêt pour un projet.
+2. Encouragez les autres à utiliser le projet, soit directement, soit en écrivant un article de blog. Outre les étoiles sur GitHub, l'autre indicateur de l'intérêt pour un projet est le nombre total de téléchargements du fichier xpi.
+3. Soumettez de nouvelles fonctionnalités ou traductions. Toutefois, n'oubliez pas que les nouvelles fonctionnalités alourdissent la charge de maintenance du projet. Aussi prenez ontact avec nous avant de consacrer beaucoup de temps à une nouvelle fonctionnalité.
