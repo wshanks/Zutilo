@@ -516,12 +516,12 @@ AddonManager.getAddonByID('mdnotes@mdnotes.github.io', function (aAddon) {
     
     keys.categories.MdnotesBatchExport = 'mdnotes'
     keys.shortcuts.MdnotesBatchExport = function(win) {
-        win.Zotero.Mdnotes.exportToMarkdownMenu()
+        win.Zotero.Mdnotes.batchExportMenu()
     }
 
     keys.categories.MdnotesExport = 'mdnotes'
     keys.shortcuts.MdnotesExport = function(win) {
-        win.Zotero.Mdnotes.batchExportMenu()
+        win.Zotero.Mdnotes.exportToMarkdownMenu()
     }
 
     keys.categories.MdnotesCreateStandaloneNote = 'mdnotes'
