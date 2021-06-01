@@ -2,6 +2,8 @@
 
     + Fix Open Style Editor shortcut
     + Add Open Run JavaScript window shortcut
+    + Add mdnotes shortcuts
+    + Update French translations
 
 * In version 3.8.1:
 
