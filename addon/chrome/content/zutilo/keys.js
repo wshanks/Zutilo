@@ -508,3 +508,30 @@ AddonManager.getAddonByID('zotfile@columbia.edu', function(aAddon) {
 
     Zutilo.Prefs.setDefaults()
 })
+
+AddonManager.getAddonByID('mdnotes@mdnotes.github.io', function (aAddon) {
+    if (aAddon === null || !aAddon.isActive) {
+        return
+    }
+    
+    keys.categories.MdnotesBatchExport = 'mdnotes'
+    keys.shortcuts.MdnotesBatchExport = function(win) {
+        win.Zotero.Mdnotes.batchExportMenu()
+    }
+
+    keys.categories.MdnotesExport = 'mdnotes'
+    keys.shortcuts.MdnotesExport = function(win) {
+        win.Zotero.Mdnotes.exportToMarkdownMenu()
+    }
+
+    keys.categories.MdnotesCreateStandaloneNote = 'mdnotes'
+    keys.shortcuts.MdnotesCreateStandaloneNote = function(win) {
+        win.Zotero.Mdnotes.createNoteFileMenu(true)
+    }
+
+    keys.categories.MdnotesCreateMdNote = 'mdnotes'
+    keys.shortcuts.MdnotesCreateMdNote = function(win) {
+        win.Zotero.Mdnotes.createNoteFileMenu(false)
+    }
+    Zutilo.Prefs.setDefaults()
+})
