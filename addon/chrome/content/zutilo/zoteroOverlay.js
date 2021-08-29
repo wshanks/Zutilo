@@ -31,7 +31,8 @@ ZutiloChrome.zoteroOverlay = {
     /******************************************/
     // Window load handling
     /******************************************/
-    init: function() {
+    init: async function() {
+        await Zotero.uiReadyPromise;
         this.fullOverlay();
 
         document.getElementById('zotero-itemmenu').addEventListener('popupshowing', refreshZoteroItemPopup, false)

@@ -1,3 +1,7 @@
+* In version 3.10.0:
+
+    + Fixes for Zotero 5.0.97-beta and upcoming Zotero 6
+
 * In version 3.9.0:
 
     + Fix Open Style Editor shortcut
