@@ -340,8 +340,11 @@ keys.shortcuts.openStyleEditor = function(win) {
 keys.categories.generateReport = 'other'
 keys.shortcuts.generateReport = function(win) {
     let context = win.ZoteroPane.document.defaultView
-    if (context.document.activeElement.id == "zotero-collections-tree") {
-            context.Zotero_Report_Interface.loadCollectionReport()
+    // Zotero >=6
+    if (context.document.activeElement.id == win.ZoteroPane.collectionsView.id
+            // Zotero <=5
+            || context.document.activeElement.id == "zotero-collections-tree") {
+        context.Zotero_Report_Interface.loadCollectionReport()
     } else {
         // "zotero-items-tree" whether it is the active element or not
         let zitems = win.ZoteroPane.getSelectedItems()
@@ -355,11 +358,33 @@ keys.categories.focusZoteroCollectionsTree = 'uinavigation'
 keys.shortcuts.focusZoteroCollectionsTree = function(win) {
     win.ZutiloChrome.zoteroOverlay.
         updatePaneVisibility('zotero-collections', 'show');
-    win.document.getElementById('zotero-collections-tree').focus();
+    // Zotero >=6
+    if (win.ZoteroPane.collectionsView.focus) {
+        win.ZoteroPane.collectionsView.focus();
+    }
+    // Zotero 5.0.97-beta.39
+    else if (win.document.getElementById('collection-tree')) {
+        win.document.getElementById('collection-tree').focus();
+    }
+    // Zotero <=5
+    else {
+        win.document.getElementById('zotero-collections-tree').focus();
+    }
 };
 keys.categories.focusZoteroItemsTree = 'uinavigation'
 keys.shortcuts.focusZoteroItemsTree = function(win) {
-    win.document.getElementById('zotero-items-tree').focus();
+    // Zotero >=6
+    if (win.ZoteroPane.itemsView.focus) {
+        win.ZoteroPane.itemsView.focus();
+    }
+    // Zotero 5.0.97-beta.39
+    else if (win.ZoteroPane.itemsView.tree && win.ZoteroPane.itemsView.tree.focus) {
+        win.ZoteroPane.itemsView.tree.focus();
+    }
+    // Zotero <=5
+    else {
+        win.document.getElementById('zotero-items-tree').focus();
+    }
 };
 keys.categories.advanceTabboxTab = 'uinavigation'
 keys.shortcuts.advanceTabboxTab = function(win) {
