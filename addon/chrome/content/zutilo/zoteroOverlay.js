@@ -758,6 +758,59 @@ ZutiloChrome.zoteroOverlay = {
         this._copyToClipboard(Zotero.URI.getCollectionURI(collection))
     },
 
+    copyZoteroSelectMDLink: function(){
+        var zitems = this.getSelectedItems();
+        var links = [];
+
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
+            return false;
+        }
+
+        var collection_uri = ""
+
+        const collection = ZutiloChrome.zoteroOverlay.Collection.selected()
+        if (collection){
+            if (collection.libraryID === Zotero.Libraries.userLibraryID) {
+                collection_uri = `zotero://select/library/collections/${collection.key}`
+            } else {
+                collection_uri = `zotero://select/groups/${Zotero.Groups.getGroupIDFromLibraryID(collection.libraryID)}/collections/${collection.key}`
+            }
+        }
+
+        var libraryType
+        var path
+        for (var ii = 0; ii < zitems.length; ii++) {
+            var item = zitems[ii]
+            var title = item.getField('title');
+            var cite_key = item.getField('citationKey');
+            if(cite_key)
+                cite_key = `[[${cite_key}]]`
+            libraryType = Zotero.Libraries.get(item.libraryID).libraryType;
+
+            switch (libraryType) {
+                case 'group':
+                    path = Zotero.URI.getLibraryPath(item.libraryID)
+                    break;
+                case 'user':
+                    path = 'library'
+                    break;
+                default:
+                    // Feeds?
+                    continue
+            }
+            if(collection)
+                links.push(`[${title}](${collection_uri}/items/${item.key})`)
+            else
+                links.push(`[${title}](zotero://select/${path}/items/${item.key})`)
+        }
+
+        var clipboardText = links.join('\r\n');
+
+        this._copyToClipboard(clipboardText)
+
+        return true;
+    },
+
     copyZoteroSelectLink: function() {
         var zitems = this.getSelectedItems();
         var links = [];
