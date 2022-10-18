@@ -134,6 +134,10 @@ keys.alts.copyItems_alt = {
         }
     }
 }
+keys.categories.copyZoteroSelectPDFLink = 'copying'
+keys.shortcuts.copyZoteroSelectPDFLink = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyZoteroSelectPDFLink()
+};
 keys.categories.copyZoteroSelectMDLink = 'copying'
 keys.shortcuts.copyZoteroSelectMDLink = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyZoteroSelectMDLink()

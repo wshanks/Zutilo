@@ -758,7 +758,15 @@ ZutiloChrome.zoteroOverlay = {
         this._copyToClipboard(Zotero.URI.getCollectionURI(collection))
     },
 
+    copyZoteroSelectPDFLink: function(){
+        this._getZoteroActionLink('open-pdf', true)
+    },
+
     copyZoteroSelectMDLink: function(){
+        this._getZoteroActionLink('select', true)
+    },
+
+    _getZoteroActionLink: function(action, is_markdown_style){
         var zitems = this.getSelectedItems();
         var links = [];
 
@@ -768,13 +776,24 @@ ZutiloChrome.zoteroOverlay = {
 
         var collection_uri = ""
 
-        const collection = ZutiloChrome.zoteroOverlay.Collection.selected()
+        var collection = ZutiloChrome.zoteroOverlay.Collection.selected()
         if (collection){
             if (collection.libraryID === Zotero.Libraries.userLibraryID) {
-                collection_uri = `zotero://select/library/collections/${collection.key}`
+                collection_uri = `zotero://${action}/library/collections/${collection.key}`
             } else {
-                collection_uri = `zotero://select/groups/${Zotero.Groups.getGroupIDFromLibraryID(collection.libraryID)}/collections/${collection.key}`
+                collection_uri = `zotero://${action}/groups/${Zotero.Groups.getGroupIDFromLibraryID(collection.libraryID)}/collections/${collection.key}`
             }
+        }
+
+        if(action == 'open-pdf')
+        {
+            collection = false;
+            var files = this.getSelectedAttachments(/*Zotero.Attachments.LINK_MODE_LINKED_FILE*/);
+            if (!this.checkItemNumber(files, 'attachment1')) {
+                return false;
+            }
+
+            zitems = files;
         }
 
         var libraryType
@@ -801,7 +820,7 @@ ZutiloChrome.zoteroOverlay = {
             if(collection)
                 links.push(`[${title}](${collection_uri}/items/${item.key})`)
             else
-                links.push(`[${title}](zotero://select/${path}/items/${item.key})`)
+                links.push(`[${title}](zotero://${action}/${path}/items/${item.key})`)
         }
 
         var clipboardText = links.join('\r\n');
