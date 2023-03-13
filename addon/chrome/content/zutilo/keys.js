@@ -264,6 +264,10 @@ keys.shortcuts.renameSelectedAttachmentsFromParents = function(win) {
     win.ZoteroPane_Local.renameSelectedAttachmentsFromParents()
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
+keys.categories.addNoteFromAnnotationsFromSelected = 'itemcreation'
+keys.shortcuts.addNoteFromAnnotationsFromSelected = function(win) {
+    win.ZoteroPane.addNoteFromAnnotationsFromSelected();
+};
 
 keys.categories.findPDF = 'attachments'
 keys.shortcuts.findPDF = function(win)
