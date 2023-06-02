@@ -1,0 +1,28 @@
+{
+  "addons": {
+    "zutilo@www.wesailatdawn.com": {
+      "updates": [
+        {
+          "version": "3.10.1",
+          "update_link": "https://github.com/wshanks/Zutilo/releases/download/v3.10.1/zutilo.xpi",
+          "applications": {
+            "gecko": {
+              "strict_min_version": "60.9",
+              "strict_max_version": "60.9"
+            }
+          }
+        },
+        {
+          "version": "4.0.0",
+          "update_link": "https://github.com/wshanks/Zutilo/releases/download/v4.0.0/zutilo.xpi",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "6.999",
+              "strict_max_version": "7.0.*"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

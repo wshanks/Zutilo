@@ -7,6 +7,7 @@
 /* global Components, Services */
 /* global Zutilo, APP_SHUTDOWN */
 const {classes: Cc, utils: Cu} = Components;
+var chromeHandle
 
 Cu.import("resource://gre/modules/Services.jsm");
 
@@ -17,8 +18,19 @@ function install(data, reason) {
 
 // eslint-disable-next-line no-unused-vars
 function startup(data, reason) {
+    let aomStartup = Cc["@mozilla.org/addons/addon-manager-startup;1"].getService(Ci.amIAddonManagerStartup)
+    let manifestURI = Services.io.newURI(data.rootURI + "manifest.json");
+    chromeHandle = aomStartup.registerChrome(manifestURI, [
+        ["content", "zutilo", "chrome/content/zutilo/"],
+        ["locale",  "zutilo", "en-US", "chrome/locale/en-US/zutilo/"],
+        ["locale",  "zutilo", "de", "chrome/locale/de/zutilo/"],
+        ["locale",  "zutilo", "es", "chrome/locale/es/zutilo/"],
+        ["locale",  "zutilo", "fr", "chrome/locale/fr/zutilo/"],
+        ["locale",  "zutilo", "zh-CN", "chrome/locale/zh-CN/zutilo/"]
+    ])
+
     Cu.import("chrome://zutilo/content/zutilo.js");
-    Zutilo.init();
+    Zutilo.init(data.rootURI, Zotero);
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -40,6 +52,8 @@ function shutdown(data, reason) {
     }
 
     Zutilo.cleanup();
+    chromeHandle.destruct()
+    chromeHandle = null
 
     Cc["@mozilla.org/intl/stringbundle;1"].
         getService(Components.interfaces.nsIStringBundleService).flushBundles();

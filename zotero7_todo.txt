@@ -1,0 +1,3 @@
+* Localize name and description in manifest.json
+* Find out if updates.json needs a separate entry for Juris-M
+* Test if deploy/config.yaml changes bump the version numbers properly

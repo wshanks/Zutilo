@@ -22,59 +22,6 @@ Cu.import('chrome://zutilo/content/zutilo.js');
 // elements).
 ZutiloChrome.XULRootElements = [];
 
-ZutiloChrome.init = function() {
-    window.setTimeout(function() {
-            if (typeof ZutiloChrome != 'undefined') {
-                ZutiloChrome.showUpgradeMessage();
-            }
-        }, 500);
-};
-
-ZutiloChrome.showUpgradeMessage = function() {
-    var lastVersion = Zutilo.Prefs.get('lastVersion');
-
-    AddonManager.getAddonByID(Zutilo.id,
-        function(aAddon) {
-            if (lastVersion != aAddon.version) {
-                Zutilo.Prefs.set('lastVersion', aAddon.version);
-
-                // lastVersion == '' for new install.  Don't show upgrade
-                // message to new users
-                var upgradeMessageStr = Zutilo.getString('zutilo.startup.upgrademessage');
-                if (lastVersion !== '' && upgradeMessageStr !== '') {
-                    window.openDialog(
-                        'chrome://zutilo/content/zutiloUpgraded.xul',
-                        'zutilo-startup-upgradewindow', 'chrome, centerscreen',
-                        {upgradeMessage: upgradeMessageStr});
-                }
-            }
-        }
-    );
-};
-
-/******************************************/
-// UI functions
-/******************************************/
-
-// Open Zutilo preferences window
-ZutiloChrome.openPreferences = function() {
-    if (!('_preferencesWindow' in this) || this._preferencesWindow === null ||
-        this._preferencesWindow.closed) {
-        var featureStr = 'chrome, titlebar, toolbar=yes, resizable, ' +
-            'centerscreen, ';
-        var modalStr = Services.prefs.
-            getBoolPref('browser.preferences.instantApply')?
-            'dialog=no' : 'modal';
-        featureStr = featureStr + modalStr;
-
-        this._preferencesWindow =
-            window.openDialog('chrome://zutilo/content/preferences.xul',
-            'zutilo-prefs-window', featureStr);
-    }
-
-    this._preferencesWindow.focus();
-};
-
 /******************************************/
 // XUL related functions
 /******************************************/
@@ -132,50 +79,4 @@ ZutiloChrome.removeLabeledChildren = function(parentElem, childLabel) {
             index++;
         }
     }
-};
-
-/******************************************/
-// Utility functions
-/******************************************/
-
-// Get string from clipboard
-ZutiloChrome.getFromClipboard = function(silent) {
-
-    var trans = Components.classes['@mozilla.org/widget/transferable;1'].
-          createInstance(Components.interfaces.nsITransferable);
-    if ('init' in trans) {
-        trans.init(window.QueryInterface(Ci.nsIInterfaceRequestor).
-            getInterface(Ci.nsIWebNavigation));
-    }
-    trans.addDataFlavor('text/unicode');
-
-    Services.clipboard.getData(trans, Services.clipboard.kGlobalClipboard);
-
-    var str = {}
-    var strLength = {}
-
-    try {
-        trans.getTransferData('text/unicode', str, strLength);
-    } catch (err) {
-        if (!silent) {
-            var prompts = Cc['@mozilla.org/embedcomp/prompt-service;1'].
-                getService(Components.interfaces.nsIPromptService);
-            prompts.alert(
-                null,
-                Zutilo.getString('zutilo.error.pastetitle'),
-                Zutilo.getString('zutilo.error.pastemessage')
-            )
-        }
-        return '';
-    }
-
-    var pasteText
-    if (str) {
-        pasteText = str.value.
-            QueryInterface(Components.interfaces.nsISupportsString).data;
-    } else {
-        pasteText = '';
-    }
-
-    return pasteText;
 };

@@ -10,35 +10,24 @@ Components.utils.import('chrome://zutilo/content/zutilo.js');
 
 // eslint-disable-next-line no-unused-vars
 function initializePrefWindow() {
-    keyconfigOnLoad();
+    // keyconfigOnLoad();
 }
 
 // eslint-disable-next-line no-unused-vars
 function buildMenuPrefs() {
     for (const menuName of ['item', 'collection']) {
         for (const functionName of Zutilo._menuFunctions[menuName]) {
-            addMenuPreference(menuName, functionName);
             addMenuRadiogroup(menuName, functionName);
         }
     }
 }
 
-function addMenuPreference(menuName, menuFunction) {
-    var newPref = document.createElement('preference');
-    newPref.setAttribute('id', `pref-${menuName}menu-${menuFunction}`);
-    newPref.setAttribute('name', `extensions.zutilo.${menuName}menu.${menuFunction}`);
-    newPref.setAttribute('type', 'string');
-
-    var zutiloPrefs = document.getElementById('zutilo-prefpane-ui-preferences');
-    zutiloPrefs.appendChild(newPref);
-}
-
 function addMenuRadiogroup(menuName, menuFunction) {
-    var newRow = document.createElement('row');
+    var newRow = document.createXULElement('groupbox');
 
-    var newHbox = document.createElement('hbox');
+    var newHbox = document.createXULElement('hbox');
     newHbox.setAttribute('align', 'center');
-    var newLabel = document.createElement('label');
+    var newLabel = document.createXULElement('label');
     newLabel.setAttribute(
         'value',
         Zutilo.getString(`zutilo.preferences.${menuName}menu.${menuFunction}`)
@@ -46,15 +35,15 @@ function addMenuRadiogroup(menuName, menuFunction) {
     newHbox.appendChild(newLabel);
     newRow.appendChild(newHbox);
 
-    var newRadiogroup = document.createElement('radiogroup');
+    var newRadiogroup = document.createXULElement('radiogroup');
     newRadiogroup.setAttribute('orient', 'horizontal');
     newRadiogroup.setAttribute('align', 'center');
     newRadiogroup.setAttribute('preference',
-                               `pref-${menuName}menu-${menuFunction}`);
+                               `extensions.zutilo.${menuName}menu.${menuFunction}`);
 
     var newRadio;
     for (const label of ['Zotero', 'Zutilo', 'Hide']) {
-        newRadio = document.createElement('radio');
+        newRadio = document.createXULElement('radio');
         newRadio.setAttribute(
             'label',
             Zutilo.getString(`zutilo.preferences.${menuName}menu.${label}`)
@@ -64,13 +53,6 @@ function addMenuRadiogroup(menuName, menuFunction) {
     }
 
     newRow.appendChild(newRadiogroup);
-
-    // Ugly but this is the only way I have found to put in buffer space for
-    // the vertical scrollbar. Otherwise the scrollbar appears on top of the
-    // "Hide" label.
-    var spacer = document.createElement("label")
-    spacer.setAttribute("value", "   ")
-    newRow.appendChild(spacer)
 
     var menuRows = document.getElementById(`zutilo-prefpane-${menuName}-rows`);
     menuRows.appendChild(newRow);
