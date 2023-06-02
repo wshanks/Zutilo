@@ -960,75 +960,11 @@ ZutiloChrome.zoteroOverlay = {
         // Add all Zutilo overlay elements to the window
         ZutiloChrome.zoteroOverlay.overlayZoteroPane(document)
         this.initKeys();
-
-        var toolsPopup = document.getElementById('menu_ToolsPopup')
-        toolsPopup.addEventListener('popupshowing',
-            ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
     },
 
     overlayZoteroPane: function(doc) {
-        var menuPopup
-        menuPopup = doc.getElementById('menu_ToolsPopup')
-        ZutiloChrome.zoteroOverlay.prefsMenuItem(doc, menuPopup)
         ZutiloChrome.zoteroOverlay.zoteroPopup('item', doc)
         ZutiloChrome.zoteroOverlay.zoteroPopup('collection', doc)
-    },
-
-    prefsSeparatorListener: function() {
-        var addonsMenuItem = document.getElementById('menu_addons')
-        var nextSibling = addonsMenuItem
-        var needSeparator = true
-        while (nextSibling) {
-            if (nextSibling.nodeName == 'menuseparator') {
-                needSeparator = false
-                break
-            }
-            nextSibling = nextSibling.nextSibling
-        }
-        if (needSeparator) {
-            var zutiloSeparator = document.createElement('menuseparator')
-            zutiloSeparator.setAttribute('id', 'zutilo-toolsmenu-separator')
-            var toolsPopup = document.getElementById('menu_ToolsPopup')
-            toolsPopup.insertBefore(zutiloSeparator,
-                addonsMenuItem.nextSibling)
-            var removeListener = function() {
-                toolsPopup.removeChild(zutiloSeparator)
-                toolsPopup.removeEventListener('popuphiding',
-                    removeListener, false)
-            }
-            toolsPopup.addEventListener('popuphiding', removeListener,
-                false)
-        }
-    },
-
-    pageloadListener: function(event) {
-        if (event.originalTarget.location == Zutilo.zoteroTabURL) {
-            ZutiloChrome.zoteroOverlay.overlayZoteroPane(event.originalTarget);
-        }
-    },
-
-    prefsMenuItem: function(doc, menuPopup) {
-        // Add Zutilo preferences item to Tools menu
-        if (menuPopup === null) {
-            // Don't do anything if elements not loaded yet
-            return;
-        }
-
-        var zutiloMenuItem = doc.createElement('menuitem')
-        var zutiloMenuItemID = 'zutilo-preferences'
-        zutiloMenuItem.setAttribute('id', zutiloMenuItemID)
-        zutiloMenuItem.setAttribute(
-            'label',
-            Zutilo.getString('zutilo.preferences.menuitem')
-        )
-        zutiloMenuItem.addEventListener('command',
-            function() {
-                ZutiloChrome.openPreferences()
-            }, false)
-
-        menuPopup.appendChild(zutiloMenuItem)
-
-        ZutiloChrome.registerXUL(zutiloMenuItemID, doc)
     },
 
     /******************************************/

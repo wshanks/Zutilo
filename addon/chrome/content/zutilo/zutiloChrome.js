@@ -53,29 +53,6 @@ ZutiloChrome.showUpgradeMessage = function() {
 };
 
 /******************************************/
-// UI functions
-/******************************************/
-
-// Open Zutilo preferences window
-ZutiloChrome.openPreferences = function() {
-    if (!('_preferencesWindow' in this) || this._preferencesWindow === null ||
-        this._preferencesWindow.closed) {
-        var featureStr = 'chrome, titlebar, toolbar=yes, resizable, ' +
-            'centerscreen, ';
-        var modalStr = Services.prefs.
-            getBoolPref('browser.preferences.instantApply')?
-            'dialog=no' : 'modal';
-        featureStr = featureStr + modalStr;
-
-        this._preferencesWindow =
-            window.openDialog('chrome://zutilo/content/preferences.xul',
-            'zutilo-prefs-window', featureStr);
-    }
-
-    this._preferencesWindow.focus();
-};
-
-/******************************************/
 // XUL related functions
 /******************************************/
 
