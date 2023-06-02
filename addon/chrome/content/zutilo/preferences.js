@@ -17,20 +17,9 @@ function initializePrefWindow() {
 function buildMenuPrefs() {
     for (const menuName of ['item', 'collection']) {
         for (const functionName of Zutilo._menuFunctions[menuName]) {
-            addMenuPreference(menuName, functionName);
             addMenuRadiogroup(menuName, functionName);
         }
     }
-}
-
-function addMenuPreference(menuName, menuFunction) {
-    var newPref = document.createElement('preference');
-    newPref.setAttribute('id', `pref-${menuName}menu-${menuFunction}`);
-    newPref.setAttribute('name', `extensions.zutilo.${menuName}menu.${menuFunction}`);
-    newPref.setAttribute('type', 'string');
-
-    var zutiloPrefs = document.getElementById('zutilo-prefpane-ui-preferences');
-    zutiloPrefs.appendChild(newPref);
 }
 
 function addMenuRadiogroup(menuName, menuFunction) {
@@ -50,7 +39,7 @@ function addMenuRadiogroup(menuName, menuFunction) {
     newRadiogroup.setAttribute('orient', 'horizontal');
     newRadiogroup.setAttribute('align', 'center');
     newRadiogroup.setAttribute('preference',
-                               `pref-${menuName}menu-${menuFunction}`);
+                               `zutilo.preferences.${menuName}menu.${menuFunction}`);
 
     var newRadio;
     for (const label of ['Zotero', 'Zutilo', 'Hide']) {
