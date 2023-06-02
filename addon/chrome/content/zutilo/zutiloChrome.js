@@ -120,10 +120,6 @@ ZutiloChrome.getFromClipboard = function(silent) {
 
     var trans = Components.classes['@mozilla.org/widget/transferable;1'].
           createInstance(Components.interfaces.nsITransferable);
-    if ('init' in trans) {
-        trans.init(window.QueryInterface(Ci.nsIInterfaceRequestor).
-            getInterface(Ci.nsIWebNavigation));
-    }
     trans.addDataFlavor('text/unicode');
 
     Services.clipboard.getData(trans, Services.clipboard.kGlobalClipboard);
