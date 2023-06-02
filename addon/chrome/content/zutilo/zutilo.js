@@ -10,6 +10,7 @@ var EXPORTED_SYMBOLS = ['Zutilo'];
 
 const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 Cu.import('resource://gre/modules/Services.jsm');
+var Zotero = null
 
 /**
  * Zutilo namespace.
@@ -42,11 +43,16 @@ var Zutilo = {
         createBundle('chrome://zutilo/locale/zutilo.properties'),
 
     itemClipboard: [],
+    rootURI: null,
 
     /********************************************/
     // Zutilo setup functions
     /********************************************/
-    init: function() {
+    init: function(rootURI, ZoteroHandle) {
+        // There must be a better way to access Zotero than this
+        Zotero = ZoteroHandle
+        this.rootURI = rootURI
+
         // Must be run before Prefs.init()
         Services.scriptloader.loadSubScript(
             'chrome://zutilo/content/keys.js',
@@ -117,7 +123,6 @@ var Zutilo = {
 
         Services.scriptloader.loadSubScript(
                 'chrome://zutilo/content/zutiloChrome.js', scope);
-        scope.ZutiloChrome.init();
 
         Services.scriptloader.loadSubScript(
                 'chrome://zutilo/content/zoteroOverlay.js', scope);
@@ -219,6 +224,8 @@ Zutilo.Prefs = {
         // Register observer to handle pref changes
         this.setDefaults()
         this.register()
+
+        
     },
 
     setDefaults: function() {
@@ -258,6 +265,15 @@ Zutilo.Prefs = {
         defaults.setCharPref('lastVersion', '');
         defaults.setBoolPref('showStatusPopupItems', true);
         defaults.setBoolPref('warnZoteroNotActive', true);
+
+        Zotero.PreferencePanes.register({
+            pluginID: Zutilo.id,
+            src: Zutilo.rootURI + 'chrome/content/zutilo/preferences.xhtml',
+            scripts: [
+              Zutilo.rootURI + 'chrome/content/zutilo/preferences.js'
+              // Zutilo.rootURI + 'chrome/content/zutilo/keyconfig_adapted.js'
+            ],
+        })
     },
 
     get: function(pref, global) {

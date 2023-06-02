@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Zutilo Utility for Zotero",
+  "version": "3.10.1a1",
+  "description": "A utility adding assorted macros for Zotero",
+  "author": "Will Shanks",
+  "icons": {
+    "48": "zutilo.png",
+    "64": "zutilo64.png"
+  },
+  "applications": {
+    "zotero": {
+      "id": "zutilo@www.wesailatdawn.com",
+      "update_url": "https://raw.githubusercontent.com/wshanks/Zutilo/release/deploy/updates.json",
+      "strict_min_version": "6.999",
+      "strict_max_version": "7.0.*"
+    }
+  }
+}
