@@ -987,7 +987,7 @@ ZutiloChrome.zoteroOverlay = {
             zoteroMenu.removeChild(child)
         }
 
-        var zutiloSeparator = doc.createElement('menuseparator');
+        var zutiloSeparator = doc.createXULElement('menuseparator');
         var zutiloSeparatorID = `zutilo-${menuName}menu-separator`;
         zutiloSeparator.setAttribute('id', zutiloSeparatorID);
         zoteroMenu.appendChild(zutiloSeparator);
@@ -997,7 +997,7 @@ ZutiloChrome.zoteroOverlay = {
                                  true, doc);
 
         // Zutilo submenu
-        var zutiloSubmenu = doc.createElement('menu');
+        var zutiloSubmenu = doc.createXULElement('menu');
         var zutiloSubmenuID = `zutilo-${menuName}menu-submenu`;
         zutiloSubmenu.setAttribute('id', zutiloSubmenuID);
         zutiloSubmenu.setAttribute(
@@ -1008,7 +1008,7 @@ ZutiloChrome.zoteroOverlay = {
         ZutiloChrome.registerXUL(zutiloSubmenuID, doc);
 
         // Zutilo submenu popup
-        var zutiloSubmenuPopup = doc.createElement('menupopup');
+        var zutiloSubmenuPopup = doc.createXULElement('menupopup');
         zutiloSubmenuPopup.setAttribute('id', `zutilo-${menuName}menu-submenupopup`);
         zutiloSubmenu.appendChild(zutiloSubmenuPopup);
 
@@ -1102,7 +1102,7 @@ ZutiloChrome.zoteroOverlay = {
 
     // Create Zotero item menu item
     zoteroMenuItem: function(menuName, functionName, IDPrefix, doc) {
-        var menuFunc = doc.createElement('menuitem');
+        var menuFunc = doc.createXULElement('menuitem');
         menuFunc.setAttribute('id', IDPrefix + functionName);
         menuFunc.setAttribute(
             'label',
@@ -1131,7 +1131,7 @@ ZutiloChrome.zoteroOverlay = {
     // Keyboard shortcut functions
     /******************************************/
     initKeys: function() {
-        var keyset = document.createElement('keyset');
+        var keyset = document.createXULElement('keyset');
         this.keyset = keyset;
         this.keyset.setAttribute('id', 'zutilo-keyset');
         document.getElementById('mainKeyset').parentNode.
@@ -1153,7 +1153,7 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     createKey: function(keyLabel) {
-        var key = document.createElement('key');
+        var key = document.createXULElement('key');
         key.setAttribute('id', Zutilo.keys.keyID(keyLabel));
         this.keyset.appendChild(key);
         // Set label attribute so that keys show up nicely in keyconfig
