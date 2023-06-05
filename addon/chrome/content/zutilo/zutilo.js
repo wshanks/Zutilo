@@ -269,11 +269,12 @@ Zutilo.Prefs = {
 
         Zotero.PreferencePanes.register({
             pluginID: Zutilo.id,
-            src: Zutilo.rootURI + 'chrome/content/zutilo/prefs.xhtml',
+            src: Zutilo.rootURI + 'chrome/content/zutilo/preferences.xhtml',
             scripts: [
-              Zutilo.rootURI + 'chrome/content/zutilo/preferences.js',
-              Zutilo.rootURI + 'chrome/content/zutilo/keyconfig_adapted.js'
-            ]
+              Zutilo.rootURI + 'chrome/content/zutilo/preferences.js'
+              // Zutilo.rootURI + 'chrome/content/zutilo/keyconfig_adapted.js'
+            ],
+            extraDTD: ['chrome://zutilo/locale/zutilo.dtd'],
         })
     },
 
