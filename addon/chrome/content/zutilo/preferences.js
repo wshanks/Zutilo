@@ -23,7 +23,7 @@ function buildMenuPrefs() {
 }
 
 function addMenuRadiogroup(menuName, menuFunction) {
-    var newRow = document.createXULElement('row');
+    var newRow = document.createXULElement('groupbox');
 
     var newHbox = document.createXULElement('hbox');
     newHbox.setAttribute('align', 'center');
@@ -39,7 +39,7 @@ function addMenuRadiogroup(menuName, menuFunction) {
     newRadiogroup.setAttribute('orient', 'horizontal');
     newRadiogroup.setAttribute('align', 'center');
     newRadiogroup.setAttribute('preference',
-                               `zutilo.preferences.${menuName}menu.${menuFunction}`);
+                               `extensions.zutilo.${menuName}menu.${menuFunction}`);
 
     var newRadio;
     for (const label of ['Zotero', 'Zutilo', 'Hide']) {

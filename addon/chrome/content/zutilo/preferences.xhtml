@@ -9,32 +9,12 @@
             onload="initializePrefWindow(); buildMenuPrefs();">
 
      <vbox style="overflow:auto;">
-     <groupbox>
+     <groupbox style="display:grid;" id="zutilo-prefpane-item-rows">
        <caption label='&zutilo.preferences.ui.itemmenuLabel;'/>
-       <grid>
-         <columns>
-           <column/>
-           <column flex="1"/>
-         </columns>
-       
-         <rows id="zutilo-prefpane-item-rows">
-           <!-- rows added dynamically by buildMenuPrefs() -->
-         </rows>
-       </grid>
      </groupbox>
      
-     <groupbox>
+     <groupbox id="zutilo-prefpane-collection-rows">
        <caption label='&zutilo.preferences.ui.collectionmenuLabel;'/>
-       <grid>
-         <columns>
-           <column/>
-           <column flex="1"/>
-         </columns>
-       
-         <rows id="zutilo-prefpane-collection-rows">
-           <!-- rows added dynamically by buildMenuPrefs() -->
-         </rows>
-       </grid>
      </groupbox>
      </vbox>
 
