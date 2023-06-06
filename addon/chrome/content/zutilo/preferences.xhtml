@@ -11,6 +11,16 @@
      <vbox style="overflow:auto;">
      <groupbox style="display:grid;" id="zutilo-prefpane-item-rows">
        <caption label='&zutilo.preferences.ui.itemmenuLabel;'/>
+       <groupbox>
+         <hbox align="center">
+           <label value="Test copy tags"/>
+         </hbox>
+         <radiogroup orient="horizontal" align="center" preference="extensions.zutilo.itemmenu.copyTags">
+           <radio label="Zotero" value="Zotero"/>
+           <radio label="Zutilo" value="Zutilo"/>
+           <radio label="Hide" value="Hide"/>
+         </radiogroup>
+       </groupbox>
      </groupbox>
      
      <groupbox id="zutilo-prefpane-collection-rows">
