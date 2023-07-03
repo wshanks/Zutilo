@@ -26,7 +26,7 @@ var Zutilo = {
     // menu
     _menuFunctions: {
         item: [],
-        collection: ['copyZoteroCollectionSelectLink', 'copyZoteroCollectionURI']
+        collection: ['copyZoteroCollectionSelectLink', 'copyZoteroCollectionURI', 'save_tabs_to_selected_collection']
     },
     _itemMenuItems_static: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
         'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
@@ -34,7 +34,8 @@ var Zutilo = {
         'copyZoteroSelectLink', 'copyZoteroSelectMDLink', 'copyZoteroSelectPDFLink', 'copyZoteroItemURI', 'createBookSection',
         'createBookItem', 'copyChildIDs', 'relocateChildren', 'copyJSON',
         'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields',
-        'pasteJSONAll', 'pasteJSONItemType', 'openZoteroItemURI'
+        'pasteJSONAll', 'pasteJSONItemType', 'openZoteroItemURI', 'load_tabs_from_selected_item',
+        'save_tabs_to_selected_item'
     ],
 
     _bundle: Cc['@mozilla.org/intl/stringbundle;1'].

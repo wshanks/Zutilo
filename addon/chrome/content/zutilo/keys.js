@@ -134,6 +134,19 @@ keys.alts.copyItems_alt = {
         }
     }
 }
+// tab utilities
+keys.categories.load_tabs_from_selected_item = 'attachments'
+keys.shortcuts.load_tabs_from_selected_item = function(win) {
+    win.ZutiloChrome.zoteroOverlay.load_tabs_from_selected_item()
+};
+keys.categories.save_tabs_to_selected_item = 'itemediting'
+keys.shortcuts.save_tabs_to_selected_item = function(win) {
+    win.ZutiloChrome.zoteroOverlay.save_tabs_to_selected_item()
+};
+keys.categories.save_tabs_to_selected_collection = 'other'
+keys.shortcuts.save_tabs_to_selected_collection = function(win) {
+    win.ZutiloChrome.zoteroOverlay.save_tabs_to_selected_collection()
+};
 keys.categories.copyZoteroSelectPDFLink = 'copying'
 keys.shortcuts.copyZoteroSelectPDFLink = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyZoteroSelectPDFLink()
