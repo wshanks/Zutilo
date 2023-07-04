@@ -798,7 +798,7 @@ ZutiloChrome.zoteroOverlay = {
                     if(tab_type == 'reader')
                         tab_type = 'reader-unloaded' // force reload
                     
-                    item_id = Zotero.Items.getIDFromLibraryAndKey(tab['data']['libraryID'], tab['data']['key'])
+                    let item_id = Zotero.Items.getIDFromLibraryAndKey(tab['data']['libraryID'], tab['data']['key'])
                     Zotero_Tabs.add({
                         type: tab_type,
                         title: tab['title'] || '',
