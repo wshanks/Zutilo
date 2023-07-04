@@ -758,6 +758,152 @@ ZutiloChrome.zoteroOverlay = {
         this._copyToClipboard(Zotero.URI.getCollectionURI(collection))
     },
 
+    _save_tabs_to_item: async function (tab_store) {
+        let tabs = Zotero_Tabs._tabs
+            .filter(t => !!t['data'])
+            .map(t => ({
+                'type': t['type'],
+                'title': t['title'],
+                // itemID is not enough, as it is not unique across libraries
+                'data': Zotero.Items.getLibraryAndKeyFromID(t['data']['itemID']),
+            }));
+    
+        let tab_content = JSON.stringify(tabs);
+    
+        tab_store.setField("abstractNote", tabs.map(t => t['title']).join(', '))
+        tab_store.setField("extra", tab_content)
+        return await tab_store.saveTx()
+    },
+
+    load_tabs_from_selected_item: async function(){
+        let opened_items = Zotero_Tabs._tabs.filter(t => !!t['data']).map(t=>t['data']['itemID'])
+        let selectedItems = ZoteroPane.getSelectedItems();
+        if (!selectedItems.length) {
+            throw new Error("Please select an item first.");
+        }
+        
+        for(let item of selectedItems)
+        {
+            if(item.itemType == "document" && item.getField("extra"))
+            {
+                let tabs = JSON.parse(item.getField("extra"))
+                for(let tab of tabs)
+                {
+                    // open tab if not already opened
+                    if(opened_items.indexOf(tab['data']['itemID']) > -1)
+                    {
+                        continue;
+                    }
+                    let tab_type = tab['type']
+                    if(tab_type == 'reader')
+                        tab_type = 'reader-unloaded' // force reload
+                    
+                    let item_id = Zotero.Items.getIDFromLibraryAndKey(tab['data']['libraryID'], tab['data']['key'])
+                    Zotero_Tabs.add({
+                        type: tab_type,
+                        title: tab['title'] || '',
+                        data: {
+                            itemID: item_id
+                        }
+                    });
+                }
+            }
+        }
+    },
+
+    save_tabs_to_selected_item: async function(){
+        let item = ZoteroPane.getSelectedItems()[0];
+        if (!item) {
+            throw new Error("Please select an item first.");
+        }
+        await this._save_tabs_to_item(item)
+    },
+
+    save_tabs_to_selected_collection: async function(){
+        let collection = ZoteroPane.getSelectedCollection();
+        if (!collection) {
+            throw new Error("Please select a collection first.");
+        }
+        let item = new Zotero.Item("document");
+        item.libraryID = collection.libraryID;
+        item.setField("title", "__tab_history_" + new Date().toISOString().replace(/:/g, "_"));
+
+        await this._save_tabs_to_item(item)
+        await Zotero.DB.executeTransaction(async () => { await collection.addItems([item.id]) })
+    },
+
+    copyZoteroSelectPDFLink: function(){
+        this._getZoteroActionLink('open-pdf', true)
+    },
+
+    copyZoteroSelectMDLink: function(){
+        this._getZoteroActionLink('select', true)
+    },
+
+    _getZoteroActionLink: function(action, is_markdown_style){
+        var zitems = this.getSelectedItems();
+        var links = [];
+
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
+            return false;
+        }
+
+        var collection_uri = ""
+
+        var collection = ZutiloChrome.zoteroOverlay.Collection.selected()
+        if (collection){
+            if (collection.libraryID === Zotero.Libraries.userLibraryID) {
+                collection_uri = `zotero://${action}/library/collections/${collection.key}`
+            } else {
+                collection_uri = `zotero://${action}/groups/${Zotero.Groups.getGroupIDFromLibraryID(collection.libraryID)}/collections/${collection.key}`
+            }
+        }
+
+        if(action == 'open-pdf')
+        {
+            collection = false;
+            var files = this.getSelectedAttachments(/*Zotero.Attachments.LINK_MODE_LINKED_FILE*/);
+            if (!this.checkItemNumber(files, 'attachment1')) {
+                return false;
+            }
+
+            zitems = files;
+        }
+
+        var libraryType
+        var path
+        for (var ii = 0; ii < zitems.length; ii++) {
+            var item = zitems[ii]
+            var title = item.getField('title');
+            var cite_key = item.getField('citationKey');
+            if(cite_key)
+                cite_key = `[[${cite_key}]]`
+            libraryType = Zotero.Libraries.get(item.libraryID).libraryType;
+
+            switch (libraryType) {
+                case 'group':
+                    path = Zotero.URI.getLibraryPath(item.libraryID)
+                    break;
+                case 'user':
+                    path = 'library'
+                    break;
+                default:
+                    // Feeds?
+                    continue
+            }
+            if(collection)
+                links.push(`[${title}](${collection_uri}/items/${item.key})`)
+            else
+                links.push(`[${title}](zotero://${action}/${path}/items/${item.key})`)
+        }
+
+        var clipboardText = links.join('\r\n');
+
+        this._copyToClipboard(clipboardText)
+
+        return true;
+    },
+
     copyZoteroSelectLink: function() {
         var zitems = this.getSelectedItems();
         var links = [];
