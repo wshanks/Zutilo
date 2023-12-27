@@ -31,7 +31,7 @@ var Zutilo = {
     _itemMenuItems_static: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
         'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
         'copyAttachmentPaths', 'copyCreators', 'copyItems',
-        'copyZoteroSelectLink', 'copyZoteroItemURI', 'createBookSection',
+        'copyZoteroSelectLink', 'copyZoteroPDFLink', 'copyZoteroItemURI', 'createBookSection',
         'createBookItem', 'copyChildIDs', 'relocateChildren', 'copyJSON',
         'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields',
         'pasteJSONAll', 'pasteJSONItemType', 'openZoteroItemURI'
