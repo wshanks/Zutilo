@@ -183,9 +183,7 @@ ZutiloChrome.zoteroOverlay = {
                 .getService(Components.interfaces.nsIClipboardHelper);
             gClipboardHelper.copyString(clipboardText, document);
         } else {
-            var prompts = Components.
-                classes['@mozilla.org/embedcomp/prompt-service;1'].
-                getService(Components.interfaces.nsIPromptService);
+            var prompts = Services.prompt;
             var title = Zutilo.getString('zutilo.error.copynoitemstitle')
             var text = Zutilo.getString('zutilo.error.copynoitemstext')
             prompts.alert(null, title, text)
@@ -553,9 +551,7 @@ ZutiloChrome.zoteroOverlay = {
         if (!this.checkItemNumber(attachmentArray, 'attachment1')) {
             return false;
         }
-        var prompts = Components.
-            classes['@mozilla.org/embedcomp/prompt-service;1'].
-            getService(Components.interfaces.nsIPromptService);
+        var prompts = Services.prompt;
         var promptTitle
         if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
             promptTitle = Zutilo.getString('zutilo.attachments.modifyTitle')
@@ -663,9 +659,7 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        var prompts = Components.
-            classes['@mozilla.org/embedcomp/prompt-service;1'].
-            getService(Components.interfaces.nsIPromptService);
+        var prompts = Services.prompt;
         for (var index = 0; index < attachmentArray.length; index++) {
             var title = Zutilo._bundle.
                 formatStringFromName('zutilo.attachments.showTitle',
@@ -851,9 +845,7 @@ ZutiloChrome.zoteroOverlay = {
 
         var bookItem = zitems[0];
         if (bookItem.itemTypeID != Zotero.ItemTypes.getID('book')) {
-            var prompts =
-                Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
-                getService(Components.interfaces.nsIPromptService);
+            var prompts = Services.prompt;
             prompts.alert(
                 null,
                 Zutilo.getString('zutilo.error.bookitemtitle'),
@@ -907,9 +899,7 @@ ZutiloChrome.zoteroOverlay = {
 
         var sectionItem = zitems[0];
         if (sectionItem.itemTypeID != Zotero.ItemTypes.getID('bookSection')) {
-            var prompts =
-                Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
-                getService(Components.interfaces.nsIPromptService);
+            var prompts = Services.prompt;
             prompts.alert(
                 null,
                 Zutilo.getString('zutilo.error.booksectiontitle'),
@@ -1347,9 +1337,7 @@ ZutiloChrome.zoteroOverlay = {
     checkItemNumber: function(itemArray, checkType) {
         var checkBool = true;
 
-        var prompts = Components.
-            classes['@mozilla.org/embedcomp/prompt-service;1'].
-            getService(Components.interfaces.nsIPromptService);
+        var prompts = Services.prompt;
 
         var errorTitle = Zutilo.getString('zutilo.checkItems.errorTitle')
         switch (checkType) {
