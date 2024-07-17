@@ -138,6 +138,10 @@ keys.categories.copyZoteroSelectLink = 'copying'
 keys.shortcuts.copyZoteroSelectLink = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyZoteroSelectLink()
 };
+keys.categories.copyZoteroItemID = 'copying'
+keys.shortcuts.copyZoteroItemID = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyZoteroItemID()
+};
 keys.categories.copyZoteroItemURI = 'copying'
 keys.shortcuts.copyZoteroItemURI = function(win) {
     win.ZutiloChrome.zoteroOverlay.copyZoteroItemURI()

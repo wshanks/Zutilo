@@ -794,6 +794,25 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
+    copyZoteroItemID: function() {
+        var zitems = this.getSelectedItems();
+        var ids = [];
+
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
+            return false;
+        }
+
+        for (var ii = 0; ii < zitems.length; ii++) {
+
+            ids.push(zitems[ii].key)
+        }
+
+        var clipboardText = ids.join('\r\n');
+
+        this._copyToClipboard(clipboardText)
+
+        return true;
+    },
     _getZoteroItemURI: function() {
         let zitems = this.getSelectedItems();
         let links = [];
