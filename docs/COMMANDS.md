@@ -55,6 +55,9 @@ In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these fun
     Copy links of the form "zotero://select/library/items/ITEM_ID" to the clipboard for each selected item.
     Following links from other applications can select items in the Zotero client but might require additional set up.
 
+* __Copy Zotero IDs:__
+    Copy the ID of each selected item to the clipboard.
+
 * __Copy Zotero URIs:__
     Copy (www.zotero.org) links to the clipboard for each selected item.
     If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
