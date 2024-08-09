@@ -131,8 +131,7 @@ ZutiloChrome.getFromClipboard = function(silent) {
         trans.getTransferData('text/unicode', str, strLength);
     } catch (err) {
         if (!silent) {
-            var prompts = Cc['@mozilla.org/embedcomp/prompt-service;1'].
-                getService(Components.interfaces.nsIPromptService);
+            let prompts = Services.prompt;
             prompts.alert(
                 null,
                 Zutilo.getString('zutilo.error.pastetitle'),
