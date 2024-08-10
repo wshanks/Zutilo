@@ -31,6 +31,11 @@ function startup(data, reason) {
 
     Cu.import("chrome://zutilo/content/zutilo.js");
     Zutilo.init(data.rootURI, Zotero);
+    Zotero.PreferencePanes.register({
+      pluginID: "zutilo@www.wesailatdawn.com",
+      src: data.rootURI + 'chrome/content/zutilo/preferences.xhtml',
+      scripts: [data.rootURI + 'chrome/content/zutilo/preferences.js']
+    })
 }
 
 // eslint-disable-next-line no-unused-vars
