@@ -336,7 +336,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         clipboard() {
-            const clipboard = ZutiloChrome.getFromClipboard(true).trim()
+            const clipboard = Zotero.Utilities.Internal.getClipboard("text/plain").trim()
             debug(`clipboard: ${clipboard}`)
             if (!clipboard || !clipboard.startsWith('{')) return null
 
@@ -526,7 +526,7 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        var clipboardText = ZutiloChrome.getFromClipboard().trim()
+        var clipboardText = Zotero.Utilities.Internal.getClipboard("text/plain").trim()
         if (!clipboardText) {
             return false;
         }
