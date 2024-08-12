@@ -1,7 +1,5 @@
 <!ENTITY zutilo.name            "Zutilo">
 
-<!ENTITY zutilo.startup.upgradetitle    "Zutilo : message de mise à jour">
-
 <!ENTITY zutilo.preferences.title    "Préférences de l'extension Zutilo">
 
 <!ENTITY zutilo.preferences.userInterface "Interface utilisateur">

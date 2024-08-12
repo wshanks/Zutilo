@@ -123,7 +123,6 @@ var Zutilo = {
 
         Services.scriptloader.loadSubScript(
                 'chrome://zutilo/content/zutiloChrome.js', scope);
-        scope.ZutiloChrome.init();
 
         Services.scriptloader.loadSubScript(
                 'chrome://zutilo/content/zoteroOverlay.js', scope);

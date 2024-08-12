@@ -22,36 +22,6 @@ Cu.import('chrome://zutilo/content/zutilo.js');
 // elements).
 ZutiloChrome.XULRootElements = [];
 
-ZutiloChrome.init = function() {
-    window.setTimeout(function() {
-            if (typeof ZutiloChrome != 'undefined') {
-                ZutiloChrome.showUpgradeMessage();
-            }
-        }, 500);
-};
-
-ZutiloChrome.showUpgradeMessage = function() {
-    var lastVersion = Zutilo.Prefs.get('lastVersion');
-
-    AddonManager.getAddonByID(Zutilo.id,
-        function(aAddon) {
-            if (lastVersion != aAddon.version) {
-                Zutilo.Prefs.set('lastVersion', aAddon.version);
-
-                // lastVersion == '' for new install.  Don't show upgrade
-                // message to new users
-                var upgradeMessageStr = Zutilo.getString('zutilo.startup.upgrademessage');
-                if (lastVersion !== '' && upgradeMessageStr !== '') {
-                    window.openDialog(
-                        'chrome://zutilo/content/zutiloUpgraded.xul',
-                        'zutilo-startup-upgradewindow', 'chrome, centerscreen',
-                        {upgradeMessage: upgradeMessageStr});
-                }
-            }
-        }
-    );
-};
-
 /******************************************/
 // XUL related functions
 /******************************************/
