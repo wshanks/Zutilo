@@ -273,7 +273,6 @@ Zutilo.Prefs = {
               Zutilo.rootURI + 'chrome/content/zutilo/preferences.js'
               // Zutilo.rootURI + 'chrome/content/zutilo/keyconfig_adapted.js'
             ],
-            extraDTD: ['chrome://zutilo/locale/zutilo.dtd'],
         })
     },
 
