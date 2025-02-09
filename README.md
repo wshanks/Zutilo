@@ -13,11 +13,11 @@ All of Zutilo's graphical elements can be disabled individually, so that unwante
 
 > [!NOTE]
 > Zutilo is largely maintained by one person (@wshanks) who does not have much time for Zutilo any more.
-> @wshanks still uses Zotero but not as heavily and so has less need for the power user featurs of Zutilo.
+> @wshanks still uses Zotero but not as heavily and so has less need for the power user features of Zutilo.
 > Additional help adapting to new releases of Zotero and fixing other bugs is very welcome.
 > Without additional contributors, Zutilo may not be able to keep compatibility with future releases of Zotero.
-> As of Zotero version 7.0, some features of Zutilo, mainly keyboard short cuts no longer function.
-> There was alos a long gap between the release of Zotero 7 and a release of Zutilo that could be installed with it.
+> As of Zotero version 7.0, some features of Zutilo, mainly keyboard shortcuts, no longer function.
+> There was also a long gap between the release of Zotero 7 and a release of Zutilo that could be installed with it.
 
 ## Installation
 
