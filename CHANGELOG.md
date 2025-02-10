@@ -1,3 +1,12 @@
+* In version 4.0.1:
+
+    + Fixes for Zotero 7.1
+
+* In version 4.0.0:
+
+    + Fixes for Zotero 7.0
+    + New copy item IDs function
+
 * In version 3.10.0:
 
     + Fixes for Zotero 5.0.97-beta and upcoming Zotero 6
