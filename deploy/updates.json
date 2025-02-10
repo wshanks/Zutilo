@@ -18,6 +18,16 @@
           "applications": {
             "zotero": {
               "strict_min_version": "7.0.0",
+              "strict_max_version": "7.0.*"
+            }
+          }
+        },
+        {
+          "version": "4.0.1",
+          "update_link": "https://github.com/wshanks/Zutilo/releases/download/v4.0.1/zutilo.xpi",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "7.0.0",
               "strict_max_version": "7.*"
             }
           }
