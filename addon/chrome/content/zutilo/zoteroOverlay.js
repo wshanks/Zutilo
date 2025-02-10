@@ -7,7 +7,6 @@
 /* global window, document, Components */
 /* global Zotero, ZoteroPane, ZOTERO_CONFIG */
 /* global Zutilo, ZutiloChrome */
-Components.utils.import('resource://gre/modules/Services.jsm');
 Components.utils.import('chrome://zutilo/content/zutilo.js');
 Components.utils.import('resource://zotero/config.js');
 
@@ -178,10 +177,9 @@ ZutiloChrome.zoteroOverlay = {
     /******************************************/
     _copyToClipboard: function(clipboardText) {
         if (clipboardText) {
-            const gClipboardHelper =
-                Components.classes['@mozilla.org/widget/clipboardhelper;1']
-                .getService(Components.interfaces.nsIClipboardHelper);
-            gClipboardHelper.copyString(clipboardText, document);
+            Components.classes['@mozilla.org/widget/clipboardhelper;1']
+                .getService(Components.interfaces.nsIClipboardHelper)
+                .copyString(clipboardText);
         } else {
             var prompts = Services.prompt;
             var title = Zutilo.getString('zutilo.error.copynoitemstitle')
