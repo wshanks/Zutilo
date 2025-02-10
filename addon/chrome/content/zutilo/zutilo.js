@@ -9,7 +9,6 @@
 var EXPORTED_SYMBOLS = ['Zutilo'];
 
 const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
-Cu.import('resource://gre/modules/Services.jsm');
 var Zotero = null
 
 /**
