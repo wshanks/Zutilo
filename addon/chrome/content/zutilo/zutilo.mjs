@@ -5,16 +5,14 @@
 'use strict'
 /* global Components, Services */
 
-// eslint-disable-next-line no-unused-vars
-var EXPORTED_SYMBOLS = ['Zutilo'];
-
+ 
 const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 var Zotero = null
 
 /**
  * Zutilo namespace.
  */
-var Zutilo = {
+export var Zutilo = {
     /********************************************/
     // Basic information
     /********************************************/

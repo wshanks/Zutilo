@@ -12,8 +12,8 @@
     "zotero": {
       "id": "zutilo@www.wesailatdawn.com",
       "update_url": "https://raw.githubusercontent.com/wshanks/Zutilo/release/deploy/updates.json",
-      "strict_min_version": "7.0.0",
-      "strict_max_version": "7.*"
+      "strict_min_version": "8.0.0",
+      "strict_max_version": "8.*"
     }
   }
 }

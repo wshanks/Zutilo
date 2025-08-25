@@ -9,7 +9,6 @@
 const {classes: Cc, utils: Cu} = Components;
 var chromeHandle
 
-Cu.import("resource://gre/modules/Services.jsm");
 
 // eslint-disable-next-line no-unused-vars
 function install(data, reason) {
@@ -29,7 +28,7 @@ function startup(data, reason) {
         ["locale",  "zutilo", "zh-CN", "chrome/locale/zh-CN/zutilo/"]
     ])
 
-    Cu.import("chrome://zutilo/content/zutilo.js");
+    var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
     Zutilo.init(data.rootURI, Zotero);
 }
 
@@ -57,8 +56,6 @@ function shutdown(data, reason) {
 
     Cc["@mozilla.org/intl/stringbundle;1"].
         getService(Components.interfaces.nsIStringBundleService).flushBundles();
-
-    Cu.unload("chrome://zutilo/content/zutilo.js");
 }
 
 // eslint-disable-next-line no-unused-vars

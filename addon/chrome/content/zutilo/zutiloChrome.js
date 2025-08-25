@@ -11,8 +11,7 @@
 var Cc = Components.classes
 var Ci = Components.interfaces
 var Cu = Components.utils
-Cu.import('resource://gre/modules/AddonManager.jsm');
-Cu.import('chrome://zutilo/content/zutilo.js');
+var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
 
 /******************************************/
 // Initialization

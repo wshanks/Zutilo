@@ -7,8 +7,9 @@
 /* global window, document, Components */
 /* global Zotero, ZoteroPane, ZOTERO_CONFIG */
 /* global Zutilo, ZutiloChrome */
-Components.utils.import('chrome://zutilo/content/zutilo.js');
-Components.utils.import('resource://zotero/config.js');
+var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
+// Already declared in this context
+// var { ZOTERO_CONFIG } = ChromeUtils.importESModule("resource://zotero/config.mjs");
 
 function debug(msg, err) {
     if (err) {
@@ -57,10 +58,13 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select info tab of item pane
-        var tabIndex = 0;
-        var zoteroViewTabbox =
+        let tabIndex = 0;
+        let zoteroViewTabbox =
             ZoteroPane.document.getElementById('zotero-view-tabbox');
-        zoteroViewTabbox.selectedIndex = tabIndex;
+        // tabbox removed in Zotero 8 (just one big tab now)
+        if (zoteroViewTabbox !== undefined) {
+            zoteroViewTabbox.selectedIndex = tabIndex;
+        }
         // Focus first entry textbox of info pane
         ZoteroPane.document.getElementById('zotero-editpane-item-box').
             focusFirstField('info');
@@ -75,10 +79,13 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select note tab of item pane
-        var tabIndex = 1;
-        var zoteroViewTabbox =
+        let tabIndex = 1;
+        let zoteroViewTabbox =
             ZoteroPane.document.getElementById('zotero-view-tabbox');
-        zoteroViewTabbox.selectedIndex = tabIndex;
+        // tabbox removed in Zotero 8 (just one big tab now)
+        if (zoteroViewTabbox !== undefined) {
+            zoteroViewTabbox.selectedIndex = tabIndex;
+        }
         // Create new note
         ZoteroPane.newNote(false, zitems[0].key)
 
@@ -92,9 +99,12 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select tag tab of item pane
+        let tabbox = ZoteroPane.document.getElementById('zotero-view-tabbox')
         var tabIndex = 2
-        ZoteroPane.document.getElementById('zotero-view-tabbox').
+        // tabbox removed in Zotero 8 (just one big tab now)
+        if (tabbox !== undefined) {
             tabs.selectedIndex = tabIndex
+        }
         // Focus new tag entry textbox
         let header = ZoteroPane.document.querySelector(".tags-box-header")
         if (header === null) {
@@ -120,10 +130,13 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select related tab of item pane
-        var tabIndex = 3;
-        var zoteroViewTabbox =
+        let tabIndex = 3;
+        let zoteroViewTabbox =
             ZoteroPane.document.getElementById('zotero-view-tabbox');
-        zoteroViewTabbox.selectedIndex = tabIndex;
+        // tabbox removed in Zotero 8 (just one big tab now)
+        if (zoteroViewTabbox !== undefined) {
+            zoteroViewTabbox.selectedIndex = tabIndex;
+        }
         // Open add related window
         ZoteroPane.document.getElementById('zotero-editpane-related').add();
 
@@ -294,10 +307,13 @@ ZutiloChrome.zoteroOverlay = {
 
     CopyItems: new class {
         constructor() {
-            // this gets us a BlueBird promise which has isPending
-            this.ready = new Zotero.Promise((resolve, reject) => {
+            this.ready = false
+            this.ready_promise = new Promise((resolve, reject) => {
                 this._init()
-                    .then(() => resolve(true))
+                    .then(() => {
+                        resolve(true)
+                        this.ready = true
+                    })
                     .catch((err) => {
                         debug('CopyItems._init', err)
                         reject(err)
@@ -888,9 +904,9 @@ ZutiloChrome.zoteroOverlay = {
             bookItem.addRelatedItem(sectionItem);
             sectionItem.addRelatedItem(bookItem);
 
-            Zotero.Promise.coroutine(function*() {
-                yield sectionItem.saveTx()
-                yield bookItem.saveTx()
+            (async function() {
+                await sectionItem.saveTx()
+                await bookItem.saveTx()
 
                 // Update GUI and select textbox
                 context.editItemInfoGUI()
@@ -898,8 +914,8 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Duplicate item and then do the work
-        Zotero.Promise.coroutine(function*(context) {
-            let sectionItem = yield ZoteroPane.duplicateSelectedItem()
+        (async function(context) {
+            let sectionItem = await ZoteroPane.duplicateSelectedItem()
             modifyNewItem(context, sectionItem)
         })(this)
 
@@ -941,9 +957,9 @@ ZutiloChrome.zoteroOverlay = {
             bookItem.addRelatedItem(sectionItem)
             sectionItem.addRelatedItem(bookItem)
 
-            Zotero.Promise.coroutine(function*() {
-                yield sectionItem.saveTx()
-                yield bookItem.saveTx()
+            (async function() {
+                await sectionItem.saveTx()
+                await bookItem.saveTx()
 
                 // Update GUI and select textbox
                 context.editItemInfoGUI()
@@ -951,8 +967,8 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Duplicate item and then do the work
-        Zotero.Promise.coroutine(function*(context) {
-            let bookItem = yield ZoteroPane.duplicateSelectedItem()
+        (async function(context) {
+            let bookItem = await ZoteroPane.duplicateSelectedItem()
             modifyNewItem(context, bookItem)
         })(this)
 
@@ -1027,11 +1043,11 @@ ZutiloChrome.zoteroOverlay = {
 
     CheckVisibility: new class {
         copyJSON() {
-            return !ZutiloChrome.zoteroOverlay.CopyItems.ready.isPending() && ZutiloChrome.zoteroOverlay.CopyItems.sourceItem()
+            return ZutiloChrome.zoteroOverlay.CopyItems.ready && ZutiloChrome.zoteroOverlay.CopyItems.sourceItem()
         }
 
         pasteJSON() {
-            return !ZutiloChrome.zoteroOverlay.CopyItems.ready.isPending() && ZutiloChrome.zoteroOverlay.CopyItems.targetItems().length && ZutiloChrome.zoteroOverlay.CopyItems.clipboard()
+            return ZutiloChrome.zoteroOverlay.CopyItems.ready && ZutiloChrome.zoteroOverlay.CopyItems.targetItems().length && ZutiloChrome.zoteroOverlay.CopyItems.clipboard()
         }
 
         pasteJSONIntoEmptyFields() {

@@ -11,8 +11,8 @@
 /********************************************/
 // Include core modules and built-in modules
 /********************************************/
-Components.utils.import('resource://gre/modules/AddonManager.jsm');
-Components.utils.import('chrome://zutilo/content/zutilo.js');
+var { AddonManager } = ChromeUtils.importESModule("resource://gre/modules/AddonManager.sys.mjs");
+var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
 
 /********************************************/
 // Define keys object
@@ -297,18 +297,18 @@ keys.categories.showFile = 'attachments'
 keys.shortcuts.showFile = function(win) {
     let zitems = win.ZoteroPane.getSelectedItems()
 
-    var _getBestFile = win.Zotero.Promise.coroutine(function* (item) {
+    var _getBestFile = (async function (item) {
         if(item.isAttachment()) {
             if(item.attachmentLinkMode === win.Zotero.Attachments.LINK_MODE_LINKED_URL) return false;
             return item;
         } else {
-            return yield item.getBestAttachment();
+            return await item.getBestAttachment();
         }
     });
 
-    win.Zotero.Promise.coroutine(function* (zitems){
+    (async function (zitems){
         for (let item of zitems) {
-            var attachment = yield _getBestFile(item);
+            var attachment = await _getBestFile(item);
             if(attachment) {
                 win.ZoteroPane_Local.showAttachmentInFilesystem(attachment.id);
             }

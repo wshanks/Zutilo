@@ -6,15 +6,15 @@
 'use strict';
 /* global window, document, Components */
 /* global keyconfigOnLoad, Zutilo */
-Components.utils.import('chrome://zutilo/content/zutilo.js');
+var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
 
 // eslint-disable-next-line no-unused-vars
-function initializePrefWindow() {
+window.initializePrefWindow = function() {
     // keyconfigOnLoad();
 }
 
 // eslint-disable-next-line no-unused-vars
-function buildMenuPrefs() {
+window.buildMenuPrefs = function() {
     for (const menuName of ['item', 'collection']) {
         for (const functionName of Zutilo._menuFunctions[menuName]) {
             addMenuRadiogroup(menuName, functionName);
@@ -56,10 +56,4 @@ function addMenuRadiogroup(menuName, menuFunction) {
 
     var menuRows = document.getElementById(`zutilo-prefpane-${menuName}-rows`);
     menuRows.appendChild(newRow);
-}
-
-// eslint-disable-next-line no-unused-vars
-function showReadme() {
-    window.openDialog('chrome://zutilo/content/readme.xul',
-        'zutilo-readme-window', 'chrome');
 }
