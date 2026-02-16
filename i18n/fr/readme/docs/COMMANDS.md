@@ -62,6 +62,10 @@ Dans les préférences de Zutilo (accessibles depuis le menu "Outils" de Zotero)
   Copie dans le presse-papiers les liens (www.zotero.org) pour chaque document sélectionné. 
   Si vous avez un profil (www.zotero.org), suivre un tel lien ouvrira la page du document correspondant dans le profil sur (www.zotero.org). 
   Si vous n'avez pas de profil (www.zotero.org), un lien de remplacement est toujours généré mais cela peut s'avérer inutile.
+* __Copy PDF links:__
+    Copy links of the form "zotero://open-pdf/library/items/ITEM_ID" to the clipboard for each selected item.
+    Following links from other applications can open PDF items in the Zotero client but might require additional set up.
+    Note that no validation is done to ensure that the selected items are PDF files that Zotero will be able to open rather than regular items that do not have PDF view.
 
 * __Ouvrir les liens zotero://… des documents :__ 
   Ouvre les liens (www.zotero.org) pour chaque document sélectionné. 

@@ -1,3 +1,7 @@
+* In version 4.2.0:
+
+    + Add new "Copy PDF links" menu item
+
 * In verison 4.1.0:
 
     + Fixes for Zotero 8.0

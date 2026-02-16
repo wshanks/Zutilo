@@ -62,6 +62,10 @@ In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these fun
     Copy (www.zotero.org) links to the clipboard for each selected item.
     If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
     If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
+* __Copy PDF links:__
+    Copy links of the form "zotero://open-pdf/library/items/ITEM_ID" to the clipboard for each selected item.
+    Following links from other applications can open PDF items in the Zotero client but might require additional set up.
+    Note that no validation is done to ensure that the selected items are PDF files that Zotero will be able to open rather than regular items that do not have PDF view.
 
 * __Open Zotero URIs:__
     Open (www.zotero.org) links for each selected item.
