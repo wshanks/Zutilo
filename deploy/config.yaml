@@ -12,11 +12,11 @@ git_release:
 
 version_strings:
 - path: addon/install.rdf
-  pattern: (<em:version>)(?P<release>.*)(</em:version>)
+  pattern: ("version": ")(?P<release>.*)(",)
 - path: deploy/update.rdf
-  pattern: (<em:version>)(?P<release>.*)(</em:version>)
+  pattern: ("version": )(?P<release>.*)(,)
 - path: deploy/update.rdf
-  pattern: (<em:updateLink>https://github.com/wshanks/Zutilo/releases/download/v)(?P<release>.*)(/zutilo.xpi</em:updateLink>)
+  pattern: ("updateLink": "https://github.com/wshanks/Zutilo/releases/download/v)(?P<release>.*)(/zutilo.xpi",)
 - path: package.json
   pattern: '^(  "version": ")(?P<release>.*)(",)$'
 - path: package-lock.json

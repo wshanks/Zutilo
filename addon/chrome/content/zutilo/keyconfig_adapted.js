@@ -9,7 +9,6 @@
 /* global Zutilo */
 var Cc = Components.classes
 var Ci = Components.interfaces
-Components.utils.import('resource://gre/modules/Services.jsm');
 
 var gPrefService = Components.classes['@mozilla.org/preferences-service;1'].
     getService(Components.interfaces.nsIPrefService).getBranch('');

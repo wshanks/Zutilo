@@ -7,9 +7,9 @@
 /* global window, document, Components */
 /* global Zotero, ZoteroPane, ZOTERO_CONFIG */
 /* global Zutilo, ZutiloChrome */
-Components.utils.import('resource://gre/modules/Services.jsm');
-Components.utils.import('chrome://zutilo/content/zutilo.js');
-Components.utils.import('resource://zotero/config.js');
+var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
+// Already declared in this context
+// var { ZOTERO_CONFIG } = ChromeUtils.importESModule("resource://zotero/config.mjs");
 
 function debug(msg, err) {
     if (err) {
@@ -58,10 +58,13 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select info tab of item pane
-        var tabIndex = 0;
-        var zoteroViewTabbox =
+        let tabIndex = 0;
+        let zoteroViewTabbox =
             ZoteroPane.document.getElementById('zotero-view-tabbox');
-        zoteroViewTabbox.selectedIndex = tabIndex;
+        // tabbox removed in Zotero 8 (just one big tab now)
+        if (zoteroViewTabbox !== undefined) {
+            zoteroViewTabbox.selectedIndex = tabIndex;
+        }
         // Focus first entry textbox of info pane
         ZoteroPane.document.getElementById('zotero-editpane-item-box').
             focusFirstField('info');
@@ -76,10 +79,13 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select note tab of item pane
-        var tabIndex = 1;
-        var zoteroViewTabbox =
+        let tabIndex = 1;
+        let zoteroViewTabbox =
             ZoteroPane.document.getElementById('zotero-view-tabbox');
-        zoteroViewTabbox.selectedIndex = tabIndex;
+        // tabbox removed in Zotero 8 (just one big tab now)
+        if (zoteroViewTabbox !== undefined) {
+            zoteroViewTabbox.selectedIndex = tabIndex;
+        }
         // Create new note
         ZoteroPane.newNote(false, zitems[0].key)
 
@@ -93,9 +99,12 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select tag tab of item pane
+        let tabbox = ZoteroPane.document.getElementById('zotero-view-tabbox')
         var tabIndex = 2
-        ZoteroPane.document.getElementById('zotero-view-tabbox').
+        // tabbox removed in Zotero 8 (just one big tab now)
+        if (tabbox !== undefined) {
             tabs.selectedIndex = tabIndex
+        }
         // Focus new tag entry textbox
         let header = ZoteroPane.document.querySelector(".tags-box-header")
         if (header === null) {
@@ -121,10 +130,13 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select related tab of item pane
-        var tabIndex = 3;
-        var zoteroViewTabbox =
+        let tabIndex = 3;
+        let zoteroViewTabbox =
             ZoteroPane.document.getElementById('zotero-view-tabbox');
-        zoteroViewTabbox.selectedIndex = tabIndex;
+        // tabbox removed in Zotero 8 (just one big tab now)
+        if (zoteroViewTabbox !== undefined) {
+            zoteroViewTabbox.selectedIndex = tabIndex;
+        }
         // Open add related window
         ZoteroPane.document.getElementById('zotero-editpane-related').add();
 
@@ -178,14 +190,11 @@ ZutiloChrome.zoteroOverlay = {
     /******************************************/
     _copyToClipboard: function(clipboardText) {
         if (clipboardText) {
-            const gClipboardHelper =
-                Components.classes['@mozilla.org/widget/clipboardhelper;1']
-                .getService(Components.interfaces.nsIClipboardHelper);
-            gClipboardHelper.copyString(clipboardText, document);
+            Components.classes['@mozilla.org/widget/clipboardhelper;1']
+                .getService(Components.interfaces.nsIClipboardHelper)
+                .copyString(clipboardText);
         } else {
-            var prompts = Components.
-                classes['@mozilla.org/embedcomp/prompt-service;1'].
-                getService(Components.interfaces.nsIPromptService);
+            var prompts = Services.prompt;
             var title = Zutilo.getString('zutilo.error.copynoitemstitle')
             var text = Zutilo.getString('zutilo.error.copynoitemstext')
             prompts.alert(null, title, text)
@@ -298,10 +307,13 @@ ZutiloChrome.zoteroOverlay = {
 
     CopyItems: new class {
         constructor() {
-            // this gets us a BlueBird promise which has isPending
-            this.ready = new Zotero.Promise((resolve, reject) => {
+            this.ready = false
+            this.ready_promise = new Promise((resolve, reject) => {
                 this._init()
-                    .then(() => resolve(true))
+                    .then(() => {
+                        resolve(true)
+                        this.ready = true
+                    })
                     .catch((err) => {
                         debug('CopyItems._init', err)
                         reject(err)
@@ -338,7 +350,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         clipboard() {
-            const clipboard = ZutiloChrome.getFromClipboard(true).trim()
+            const clipboard = Zotero.Utilities.Internal.getClipboard("text/plain").trim()
             debug(`clipboard: ${clipboard}`)
             if (!clipboard || !clipboard.startsWith('{')) return null
 
@@ -528,7 +540,7 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        var clipboardText = ZutiloChrome.getFromClipboard().trim()
+        var clipboardText = Zotero.Utilities.Internal.getClipboard("text/plain").trim()
         if (!clipboardText) {
             return false;
         }
@@ -553,9 +565,7 @@ ZutiloChrome.zoteroOverlay = {
         if (!this.checkItemNumber(attachmentArray, 'attachment1')) {
             return false;
         }
-        var prompts = Components.
-            classes['@mozilla.org/embedcomp/prompt-service;1'].
-            getService(Components.interfaces.nsIPromptService);
+        var prompts = Services.prompt;
         var promptTitle
         if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
             promptTitle = Zutilo.getString('zutilo.attachments.modifyTitle')
@@ -663,9 +673,7 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        var prompts = Components.
-            classes['@mozilla.org/embedcomp/prompt-service;1'].
-            getService(Components.interfaces.nsIPromptService);
+        var prompts = Services.prompt;
         for (var index = 0; index < attachmentArray.length; index++) {
             var title = Zutilo._bundle.
                 formatStringFromName('zutilo.attachments.showTitle',
@@ -830,6 +838,26 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
+    copyZoteroItemID: function() {
+        var zitems = this.getSelectedItems();
+        var ids = [];
+
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
+            return false;
+        }
+
+        for (var ii = 0; ii < zitems.length; ii++) {
+
+            ids.push(zitems[ii].key)
+        }
+
+        var clipboardText = ids.join('\r\n');
+
+        this._copyToClipboard(clipboardText)
+
+        return true;
+    },
+
     _getZoteroItemURI: function() {
         let zitems = this.getSelectedItems();
         let links = [];
@@ -887,9 +915,7 @@ ZutiloChrome.zoteroOverlay = {
 
         var bookItem = zitems[0];
         if (bookItem.itemTypeID != Zotero.ItemTypes.getID('book')) {
-            var prompts =
-                Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
-                getService(Components.interfaces.nsIPromptService);
+            var prompts = Services.prompt;
             prompts.alert(
                 null,
                 Zutilo.getString('zutilo.error.bookitemtitle'),
@@ -915,9 +941,9 @@ ZutiloChrome.zoteroOverlay = {
             bookItem.addRelatedItem(sectionItem);
             sectionItem.addRelatedItem(bookItem);
 
-            Zotero.Promise.coroutine(function*() {
-                yield sectionItem.saveTx()
-                yield bookItem.saveTx()
+            (async function() {
+                await sectionItem.saveTx()
+                await bookItem.saveTx()
 
                 // Update GUI and select textbox
                 context.editItemInfoGUI()
@@ -925,8 +951,8 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Duplicate item and then do the work
-        Zotero.Promise.coroutine(function*(context) {
-            let sectionItem = yield ZoteroPane.duplicateSelectedItem()
+        (async function(context) {
+            let sectionItem = await ZoteroPane.duplicateSelectedItem()
             modifyNewItem(context, sectionItem)
         })(this)
 
@@ -943,9 +969,7 @@ ZutiloChrome.zoteroOverlay = {
 
         var sectionItem = zitems[0];
         if (sectionItem.itemTypeID != Zotero.ItemTypes.getID('bookSection')) {
-            var prompts =
-                Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
-                getService(Components.interfaces.nsIPromptService);
+            var prompts = Services.prompt;
             prompts.alert(
                 null,
                 Zutilo.getString('zutilo.error.booksectiontitle'),
@@ -970,9 +994,9 @@ ZutiloChrome.zoteroOverlay = {
             bookItem.addRelatedItem(sectionItem)
             sectionItem.addRelatedItem(bookItem)
 
-            Zotero.Promise.coroutine(function*() {
-                yield sectionItem.saveTx()
-                yield bookItem.saveTx()
+            (async function() {
+                await sectionItem.saveTx()
+                await bookItem.saveTx()
 
                 // Update GUI and select textbox
                 context.editItemInfoGUI()
@@ -980,8 +1004,8 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Duplicate item and then do the work
-        Zotero.Promise.coroutine(function*(context) {
-            let bookItem = yield ZoteroPane.duplicateSelectedItem()
+        (async function(context) {
+            let bookItem = await ZoteroPane.duplicateSelectedItem()
             modifyNewItem(context, bookItem)
         })(this)
 
@@ -996,75 +1020,11 @@ ZutiloChrome.zoteroOverlay = {
         // Add all Zutilo overlay elements to the window
         ZutiloChrome.zoteroOverlay.overlayZoteroPane(document)
         this.initKeys();
-
-        var toolsPopup = document.getElementById('menu_ToolsPopup')
-        toolsPopup.addEventListener('popupshowing',
-            ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
     },
 
     overlayZoteroPane: function(doc) {
-        var menuPopup
-        menuPopup = doc.getElementById('menu_ToolsPopup')
-        ZutiloChrome.zoteroOverlay.prefsMenuItem(doc, menuPopup)
         ZutiloChrome.zoteroOverlay.zoteroPopup('item', doc)
         ZutiloChrome.zoteroOverlay.zoteroPopup('collection', doc)
-    },
-
-    prefsSeparatorListener: function() {
-        var addonsMenuItem = document.getElementById('menu_addons')
-        var nextSibling = addonsMenuItem
-        var needSeparator = true
-        while (nextSibling) {
-            if (nextSibling.nodeName == 'menuseparator') {
-                needSeparator = false
-                break
-            }
-            nextSibling = nextSibling.nextSibling
-        }
-        if (needSeparator) {
-            var zutiloSeparator = document.createElement('menuseparator')
-            zutiloSeparator.setAttribute('id', 'zutilo-toolsmenu-separator')
-            var toolsPopup = document.getElementById('menu_ToolsPopup')
-            toolsPopup.insertBefore(zutiloSeparator,
-                addonsMenuItem.nextSibling)
-            var removeListener = function() {
-                toolsPopup.removeChild(zutiloSeparator)
-                toolsPopup.removeEventListener('popuphiding',
-                    removeListener, false)
-            }
-            toolsPopup.addEventListener('popuphiding', removeListener,
-                false)
-        }
-    },
-
-    pageloadListener: function(event) {
-        if (event.originalTarget.location == Zutilo.zoteroTabURL) {
-            ZutiloChrome.zoteroOverlay.overlayZoteroPane(event.originalTarget);
-        }
-    },
-
-    prefsMenuItem: function(doc, menuPopup) {
-        // Add Zutilo preferences item to Tools menu
-        if (menuPopup === null) {
-            // Don't do anything if elements not loaded yet
-            return;
-        }
-
-        var zutiloMenuItem = doc.createElement('menuitem')
-        var zutiloMenuItemID = 'zutilo-preferences'
-        zutiloMenuItem.setAttribute('id', zutiloMenuItemID)
-        zutiloMenuItem.setAttribute(
-            'label',
-            Zutilo.getString('zutilo.preferences.menuitem')
-        )
-        zutiloMenuItem.addEventListener('command',
-            function() {
-                ZutiloChrome.openPreferences()
-            }, false)
-
-        menuPopup.appendChild(zutiloMenuItem)
-
-        ZutiloChrome.registerXUL(zutiloMenuItemID, doc)
     },
 
     /******************************************/
@@ -1087,7 +1047,7 @@ ZutiloChrome.zoteroOverlay = {
             zoteroMenu.removeChild(child)
         }
 
-        var zutiloSeparator = doc.createElement('menuseparator');
+        var zutiloSeparator = doc.createXULElement('menuseparator');
         var zutiloSeparatorID = `zutilo-${menuName}menu-separator`;
         zutiloSeparator.setAttribute('id', zutiloSeparatorID);
         zoteroMenu.appendChild(zutiloSeparator);
@@ -1097,7 +1057,7 @@ ZutiloChrome.zoteroOverlay = {
                                  true, doc);
 
         // Zutilo submenu
-        var zutiloSubmenu = doc.createElement('menu');
+        var zutiloSubmenu = doc.createXULElement('menu');
         var zutiloSubmenuID = `zutilo-${menuName}menu-submenu`;
         zutiloSubmenu.setAttribute('id', zutiloSubmenuID);
         zutiloSubmenu.setAttribute(
@@ -1108,7 +1068,7 @@ ZutiloChrome.zoteroOverlay = {
         ZutiloChrome.registerXUL(zutiloSubmenuID, doc);
 
         // Zutilo submenu popup
-        var zutiloSubmenuPopup = doc.createElement('menupopup');
+        var zutiloSubmenuPopup = doc.createXULElement('menupopup');
         zutiloSubmenuPopup.setAttribute('id', `zutilo-${menuName}menu-submenupopup`);
         zutiloSubmenu.appendChild(zutiloSubmenuPopup);
 
@@ -1120,11 +1080,11 @@ ZutiloChrome.zoteroOverlay = {
 
     CheckVisibility: new class {
         copyJSON() {
-            return !ZutiloChrome.zoteroOverlay.CopyItems.ready.isPending() && ZutiloChrome.zoteroOverlay.CopyItems.sourceItem()
+            return ZutiloChrome.zoteroOverlay.CopyItems.ready && ZutiloChrome.zoteroOverlay.CopyItems.sourceItem()
         }
 
         pasteJSON() {
-            return !ZutiloChrome.zoteroOverlay.CopyItems.ready.isPending() && ZutiloChrome.zoteroOverlay.CopyItems.targetItems().length && ZutiloChrome.zoteroOverlay.CopyItems.clipboard()
+            return ZutiloChrome.zoteroOverlay.CopyItems.ready && ZutiloChrome.zoteroOverlay.CopyItems.targetItems().length && ZutiloChrome.zoteroOverlay.CopyItems.clipboard()
         }
 
         pasteJSONIntoEmptyFields() {
@@ -1202,7 +1162,7 @@ ZutiloChrome.zoteroOverlay = {
 
     // Create Zotero item menu item
     zoteroMenuItem: function(menuName, functionName, IDPrefix, doc) {
-        var menuFunc = doc.createElement('menuitem');
+        var menuFunc = doc.createXULElement('menuitem');
         menuFunc.setAttribute('id', IDPrefix + functionName);
         menuFunc.setAttribute(
             'label',
@@ -1231,7 +1191,7 @@ ZutiloChrome.zoteroOverlay = {
     // Keyboard shortcut functions
     /******************************************/
     initKeys: function() {
-        var keyset = document.createElement('keyset');
+        var keyset = document.createXULElement('keyset');
         this.keyset = keyset;
         this.keyset.setAttribute('id', 'zutilo-keyset');
         document.getElementById('mainKeyset').parentNode.
@@ -1253,7 +1213,7 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     createKey: function(keyLabel) {
-        var key = document.createElement('key');
+        var key = document.createXULElement('key');
         key.setAttribute('id', Zutilo.keys.keyID(keyLabel));
         this.keyset.appendChild(key);
         // Set label attribute so that keys show up nicely in keyconfig
@@ -1447,9 +1407,7 @@ ZutiloChrome.zoteroOverlay = {
     checkItemNumber: function(itemArray, checkType) {
         var checkBool = true;
 
-        var prompts = Components.
-            classes['@mozilla.org/embedcomp/prompt-service;1'].
-            getService(Components.interfaces.nsIPromptService);
+        var prompts = Services.prompt;
 
         var errorTitle = Zutilo.getString('zutilo.checkItems.errorTitle')
         switch (checkType) {

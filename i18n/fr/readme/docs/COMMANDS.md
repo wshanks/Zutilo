@@ -55,6 +55,9 @@ Dans les préférences de Zutilo (accessibles depuis le menu "Outils" de Zotero)
   Copie dans le presse-papiers les liens sous la forme "zotero://select/library/items/ITEM_ID" pour chaque document sélectionné. 
   Suivre des liens depuis d'autres applications peut sélectionner des documents dans le client Zotero, mais cela peut nécessiter une configuration supplémentaire.
 
+* __Copier les identifiants des documents :__
+  Copier l'ID de chaque élément sélectionné dans le presse-papiers.
+
 * __Copier les liens zotero.org/… des documents :__
   Copie dans le presse-papiers les liens (www.zotero.org) pour chaque document sélectionné. 
   Si vous avez un profil (www.zotero.org), suivre un tel lien ouvrira la page du document correspondant dans le profil sur (www.zotero.org). 
