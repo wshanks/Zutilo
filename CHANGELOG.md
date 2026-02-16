@@ -1,3 +1,8 @@
+* In verison 4.1.0:
+
+    + Fixes for Zotero 8.0
+    + Drop support for Zotero 7
+
 * In version 4.0.1:
 
     + Fixes for Zotero 7.1
