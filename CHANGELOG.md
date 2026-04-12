@@ -1,3 +1,7 @@
+* In version 4.2.1:
+
+    + Mark compatible with Zotero 9
+
 * In version 4.2.0:
 
     + Add new "Copy PDF links" menu item

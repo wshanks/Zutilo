@@ -1,3 +1,7 @@
+* In version 4.2.1:
+
+    + Mark compatible with Zotero 9
+
 * In version 3.10.0:
 
     + Fixes for Zotero 5.0.97-beta and upcoming Zotero 6

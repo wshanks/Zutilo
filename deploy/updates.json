@@ -51,6 +51,16 @@
               "strict_max_version": "8.*"
             }
           }
+        },
+        {
+          "version": "4.2.1",
+          "update_link": "https://github.com/wshanks/Zutilo/releases/download/v4.2.1/zutilo.xpi",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "8.0.0",
+              "strict_max_version": "9.*"
+            }
+          }
         }
       ]
     }

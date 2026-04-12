@@ -2,10 +2,9 @@
 '''Copy new, uncommitted strings from English to non-English locales in lieu of
 getting translations'''
 
+import os
 from glob import iglob
 from itertools import chain
-import os
-# NOTE: requires Python >= 3.5
 from subprocess import run, PIPE
 
 
@@ -45,7 +44,5 @@ def main():
                        doc.replace('en-US', '{locale}'))
     update_locales('addon/chrome/locale/en-US/zutilo/zutilo.properties',
                    'addon/chrome/locale/{locale}/zutilo/zutilo.properties')
-    update_locales('addon/chrome/locale/en-US/zutilo/zutilo.dtd',
-                   'addon/chrome/locale/{locale}/zutilo/zutilo.dtd')
 
 main()
