@@ -1,6 +1,6 @@
 ### Fonctions du menu des documents Zotero
 Chacune des fonctions ci-dessous peut être appelée à partir du menu contextuel d'un document Zotero, accessible par un clic-droit dans le volet des documents, le volet central de Zotero où la liste de tous les documents d'une collection est affichée.
-Dans les préférences de Zutilo (accessibles depuis le menu "Outils" de Zotero), chacune de ces fonctions peut être configurée pour apparaître dans le menu contextuel de Zotero, dans un sous-menu Zutilo du menu contextuel de Zotero, ou pour ne pas apparaître du tout.
+In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings in Zotero 8+, or Tools menu in Zotero 7), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
 * __Copier les marqueurs :__ 
   A partir d'un clic-droit sur une sélection de documents dans la bibiothèque Zotero, copie les marqueurs de ces documents dans le presse-papiers sous la forme d'une liste délimitée "\r\n". 
@@ -127,7 +127,7 @@ Dans les préférences de Zutilo (accessibles depuis le menu "Outils" de Zotero)
 
 ### Fonctions du menu des collections Zotero
 Chacune des fonctions ci-dessous peut être appelée à partir du menu contextuel de la collection Zotero, accessible par un clic droit sur une collection dans le volet des collections, le volet de gauche de Zotero où la liste de toutes les collections est affichée.
-Dans les préférences de Zutilo (accessibles depuis le menu "Outils de Zotero"), chacune de ces fonctions peut être configurée pour apparaître dans le menu contextuel de Zotero, dans un sous-menu Zutilo du menu contextuel de Zotero, ou pour ne pas apparaître du tout.
+In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings in Zotero 8+, or Tools menu in Zotero 7), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
 * __Copier le lien zotero://… de la collection :__ 
   Copie dans le presse-papiers le lien de la collection sélectionnée sous la forme "zotero://select/library/collections/ITEM_ID". 

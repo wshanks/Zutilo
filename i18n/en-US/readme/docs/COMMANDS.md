@@ -1,6 +1,6 @@
 ### Item menu functions
 Each of the functions below can be called from the Zotero item context menu (accessed by right-clicking in the items pane in the middle of Zotero where all of a collection's items are listed).
-In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
+In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings in Zotero 8+, or Tools menu in Zotero 7), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
 * __Copy tags:__
     Right click items in the Zotero library and copy their tags to the clipboard as a '\r\n' delimited list.
@@ -62,6 +62,10 @@ In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these fun
     Copy (www.zotero.org) links to the clipboard for each selected item.
     If you have a (www.zotero.org) profile, following such a link will open the page for the corresponding item in profile on (www.zotero.org).
     If you do not have a (www.zotero.org) profile, a placeholder link is still generated but might not be useful.
+* __Copy PDF links:__
+    Copy links of the form "zotero://open-pdf/library/items/ITEM_ID" to the clipboard for each selected item.
+    Following links from other applications can open PDF items in the Zotero client but might require additional set up.
+    Note that no validation is done to ensure that the selected items are PDF files that Zotero will be able to open rather than regular items that do not have PDF view.
 
 * __Open Zotero URIs:__
     Open (www.zotero.org) links for each selected item.
@@ -123,7 +127,7 @@ In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these fun
 
 ### Collection menu functions
 Each of the functions below can be called from the Zotero collection context menu (accessed by right-clicking on a collection in the collections pane at the right of Zotero where all the collections are listed).
-In the Zutilo preferences (accessed from Zotero "Tools" menu), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
+In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings in Zotero 8+, or Tools menu in Zotero 7), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
 * __Copy select collection link:__
     Copy links of the form "zotero://select/library/collections/ITEM_ID" to the clipboard for the selected collection.
