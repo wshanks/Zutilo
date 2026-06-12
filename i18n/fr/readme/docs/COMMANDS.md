@@ -51,8 +51,9 @@ In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings i
   Chaque préférence doit être réglée sur ce qui apparaît dans l'éditeur de configuration pour la préférence `export.quickCopy.setting` lorsque le convertisseurs souhaité est défini comme le "Format par défaut" dans les préférences de Zotero.
   L'éditeur de configuration peut être ouvert à partir de l'onglet "Avancées" de la fenêtre des préférences de Zotero.
 
-* __Copier les liens zotero://… des documents :__
+* __Copier les URL Zotero :__
   Copie dans le presse-papiers les liens sous la forme "zotero://select/library/items/ITEM_ID" pour chaque document sélectionné.
+
   Suivre des liens depuis d'autres applications peut sélectionner des documents dans le client Zotero, mais cela peut nécessiter une configuration supplémentaire.
 
 * __Copier les liens Markdown :__
@@ -60,9 +61,6 @@ In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings i
 
 * __Copier les liens org-mode :__
   Comme « Copier les liens zotero://… des documents », mais chaque lien est mis en forme comme un lien Emacs org-mode incluant le titre du document, par exemple « [[zotero://select/library/items/ITEM_ID][Titre du document]] ».
-
-* __Copier les liens Markdown :__ 
-  Comme « Copier les liens zotero://… des documents », mais chaque lien est mis en forme comme un lien Markdown incluant le titre du document, par exemple « [Titre du document](zotero://select/library/items/ITEM_ID) ».
 
 * __Copier les identifiants des documents :__
   Copier l'ID de chaque élément sélectionné dans le presse-papiers.
@@ -138,7 +136,7 @@ In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings i
 Chacune des fonctions ci-dessous peut être appelée à partir du menu contextuel de la collection Zotero, accessible par un clic droit sur une collection dans le volet des collections, le volet de gauche de Zotero où la liste de toutes les collections est affichée.
 In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings in Zotero 8+, or Tools menu in Zotero 7), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
-* __Copier le lien zotero://… de la collection :__
+* __Copier les URL Zotero :__
   Copie dans le presse-papiers le lien de la collection sélectionnée sous la forme "zotero://select/library/collections/ITEM_ID".
   Suivre des liens depuis d'autres applications peut sélectionner la collection dans le client Zotero, mais cela peut nécessiter une configuration supplémentaire.
 
