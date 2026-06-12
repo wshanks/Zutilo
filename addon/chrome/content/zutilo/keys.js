@@ -139,7 +139,11 @@ keys.shortcuts.copyZoteroSelectLink = function(win) {
 };
 keys.categories.copyZoteroSelectLinkMarkdown = 'copying'
 keys.shortcuts.copyZoteroSelectLinkMarkdown = function(win) {
-    win.ZutiloChrome.zoteroOverlay.copyZoteroSelectLinkMarkdown()
+  win.ZutiloChrome.zoteroOverlay.copyZoteroSelectLinkMarkdown()
+};
+keys.categories.copyZoteroSelectLinkOrgMode = 'copying'
+keys.shortcuts.copyZoteroSelectLinkOrgMode = function(win) {
+    win.ZutiloChrome.zoteroOverlay.copyZoteroSelectLinkOrgMode()
 };
 keys.categories.copyZoteroPDFLink = 'copying'
 keys.shortcuts.copyZoteroPDFLink = function(win) {
