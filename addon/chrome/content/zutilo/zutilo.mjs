@@ -32,6 +32,8 @@ export var Zutilo = {
         'copyZoteroSelectLink', 'copyZoteroSelectLinkMarkdown',
         'copyZoteroPDFLink', 'copyZoteroItemID', 'copyZoteroItemURI', 'createBookSection',
         'copyZoteroSelectLinkOrgMode',
+        'copyZoteroSelectLink', 'copyZoteroSelectLinkOrgMode',
+        'copyZoteroSelectLinkMarkdown', 'copyZoteroPDFLink', 'copyZoteroItemID', 'copyZoteroItemURI', 'createBookSection',
         'createBookItem', 'copyChildIDs', 'relocateChildren', 'copyJSON',
         'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields',
         'pasteJSONAll', 'pasteJSONItemType', 'openZoteroItemURI'

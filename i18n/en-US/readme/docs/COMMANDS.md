@@ -61,6 +61,9 @@ In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings i
 * __Copy org-mode links:__
     Like "Copy select item links", but each link is formatted as an Emacs org-mode link that also includes the item's title, e.g. "[[zotero://select/library/items/ITEM_ID][Item title]]".
 
+* __Copy Markdown links:__
+    Like "Copy select item links", but each link is formatted as a Markdown link that also includes the item's title, e.g. "[Item title](zotero://select/library/items/ITEM_ID)".
+
 * __Copy Zotero IDs:__
     Copy the ID of each selected item to the clipboard.
 

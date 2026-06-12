@@ -945,6 +945,22 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
+    copyZoteroSelectLinkMarkdown: function() {
+        var links = this._getZoteroSelectURLs();
+
+        if (!links.length) {
+            return false;
+        }
+
+        var clipboardText = links.map(function(link) {
+            return '[' + link.title + '](' + link.url + ')'
+        }).join('\r\n');
+
+        this._copyToClipboard(clipboardText)
+
+        return true;
+    },
+
     copyZoteroPDFLink: function () {
         var zitems = this.getSelectedItems();
         var links = [];

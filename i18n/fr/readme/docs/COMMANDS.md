@@ -61,6 +61,9 @@ In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings i
 * __Copier les liens org-mode :__
   Comme « Copier les liens zotero://… des documents », mais chaque lien est mis en forme comme un lien Emacs org-mode incluant le titre du document, par exemple « [[zotero://select/library/items/ITEM_ID][Titre du document]] ».
 
+* __Copier les liens Markdown :__ 
+  Comme « Copier les liens zotero://… des documents », mais chaque lien est mis en forme comme un lien Markdown incluant le titre du document, par exemple « [Titre du document](zotero://select/library/items/ITEM_ID) ».
+
 * __Copier les identifiants des documents :__
   Copier l'ID de chaque élément sélectionné dans le presse-papiers.
 
