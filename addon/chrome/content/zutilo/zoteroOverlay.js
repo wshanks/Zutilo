@@ -823,6 +823,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         var clipboardText = links.join(Zotero.isWin ? '\r\n' : '\n');
+
         return links;
     },
 
