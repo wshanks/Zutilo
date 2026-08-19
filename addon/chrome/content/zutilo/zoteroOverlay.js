@@ -301,6 +301,12 @@ ZutiloChrome.zoteroOverlay = {
 
     Collection: new class {
         selected() {
+            // getSelectedCollection() was removed in Zotero 10; older
+            // versions (still supported per manifest strict_min_version)
+            // don't have getSelectedCollections().
+            if (window.ZoteroPane.getSelectedCollections) {
+                return window.ZoteroPane.getSelectedCollections()[0];
+            }
             return window.ZoteroPane.getSelectedCollection();
         }
     },
