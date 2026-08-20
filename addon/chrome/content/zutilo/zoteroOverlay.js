@@ -219,7 +219,7 @@ ZutiloChrome.zoteroOverlay = {
             }
         }
 
-        var clipboardText = creatorsArray.join('\r\n');
+        var clipboardText = creatorsArray.join(Zotero.isWin ? '\r\n' : '\n');
 
         this._copyToClipboard(clipboardText)
 
@@ -251,7 +251,7 @@ ZutiloChrome.zoteroOverlay = {
                 }
             }
         }
-        var clipboardText = tagsArray.join('\r\n');
+        var clipboardText = tagsArray.join(Zotero.isWin ? '\r\n' : '\n');
 
         this._copyToClipboard(clipboardText)
 
@@ -713,7 +713,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         if (paths.length > 0) {
-            var clipboardText = paths.join('\r\n')
+            var clipboardText = paths.join(Zotero.isWin ? '\r\n' : '\n')
 
             this._copyToClipboard(clipboardText)
         }
@@ -801,7 +801,7 @@ ZutiloChrome.zoteroOverlay = {
             links.push('zotero://select/' + path + '/items/'+ zitems[ii].key)
         }
 
-        var clipboardText = links.join('\r\n');
+        var clipboardText = links.join(Zotero.isWin ? '\r\n' : '\n');
 
         this._copyToClipboard(clipboardText)
 
@@ -837,7 +837,7 @@ ZutiloChrome.zoteroOverlay = {
             links.push('zotero://open-pdf/' + path + '/items/' + zitems[ii].key + '?page=')
         }
 
-        var clipboardText = links.join('\r\n');
+        var clipboardText = links.join(Zotero.isWin ? '\r\n' : '\n');
 
         this._copyToClipboard(clipboardText)
 
@@ -857,7 +857,7 @@ ZutiloChrome.zoteroOverlay = {
             ids.push(zitems[ii].key)
         }
 
-        var clipboardText = ids.join('\r\n');
+        var clipboardText = ids.join(Zotero.isWin ? '\r\n' : '\n');
 
         this._copyToClipboard(clipboardText)
 
@@ -904,7 +904,7 @@ ZutiloChrome.zoteroOverlay = {
             return false
         }
 
-        var clipboardText = links.join('\r\n')
+        var clipboardText = links.join(Zotero.isWin ? '\r\n' : '\n')
 
         this._copyToClipboard(clipboardText)
 
