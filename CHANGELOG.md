@@ -1,3 +1,8 @@
+* In version 4.2.2:
+
+    + Address compatibility with Zotero 10 and mark as compatible
+    + Fix new line separators when copying items on Windows
+
 * In version 4.2.1:
 
     + Mark compatible with Zotero 9
