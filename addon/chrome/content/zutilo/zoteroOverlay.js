@@ -300,14 +300,17 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     Collection: new class {
+        // Return an array of the selected collections. Zotero 10 allows
+        // multiple collections to be selected and replaced
+        // getSelectedCollection() with getSelectedCollections(); older
+        // versions (still supported per manifest strict_min_version) only
+        // have getSelectedCollection(), so wrap its result in an array.
         selected() {
-            // getSelectedCollection() was removed in Zotero 10; older
-            // versions (still supported per manifest strict_min_version)
-            // don't have getSelectedCollections().
             if (window.ZoteroPane.getSelectedCollections) {
-                return window.ZoteroPane.getSelectedCollections()[0];
+                return window.ZoteroPane.getSelectedCollections();
             }
-            return window.ZoteroPane.getSelectedCollection();
+            const collection = window.ZoteroPane.getSelectedCollection();
+            return collection ? [collection] : [];
         }
     },
 
@@ -756,8 +759,9 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     copyZoteroCollectionSelectLink: function() {
-        const collection = ZutiloChrome.zoteroOverlay.Collection.selected()
-        if (!collection) return
+        const collections = ZutiloChrome.zoteroOverlay.Collection.selected()
+        if (collections.length !== 1) return
+        const collection = collections[0]
 
         if (collection.libraryID === Zotero.Libraries.userLibraryID) {
           this._copyToClipboard(`zotero://select/library/collections/${collection.key}`)
@@ -767,9 +771,9 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     copyZoteroCollectionURI: function() {
-        const collection = ZutiloChrome.zoteroOverlay.Collection.selected()
-        if (!collection) return
-        this._copyToClipboard(Zotero.URI.getCollectionURI(collection))
+        const collections = ZutiloChrome.zoteroOverlay.Collection.selected()
+        if (collections.length !== 1) return
+        this._copyToClipboard(Zotero.URI.getCollectionURI(collections[0]))
     },
 
     copyZoteroSelectLink: function() {
@@ -1110,11 +1114,11 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         copyZoteroCollectionSelectLink() {
-            return ZutiloChrome.zoteroOverlay.Collection.selected()
+            return ZutiloChrome.zoteroOverlay.Collection.selected().length === 1
         }
 
         copyZoteroCollectionURI() {
-            return (typeof Zotero.Users.getCurrentUserID() !== 'undefined') && ZutiloChrome.zoteroOverlay.Collection.selected()
+            return (typeof Zotero.Users.getCurrentUserID() !== 'undefined') && ZutiloChrome.zoteroOverlay.Collection.selected().length === 1
         }
     },
 
