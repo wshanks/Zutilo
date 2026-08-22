@@ -62,7 +62,7 @@ ZutiloChrome.zoteroOverlay = {
         let zoteroViewTabbox =
             ZoteroPane.document.getElementById('zotero-view-tabbox');
         // tabbox removed in Zotero 8 (just one big tab now)
-        if (zoteroViewTabbox !== undefined) {
+        if (zoteroViewTabbox) {
             zoteroViewTabbox.selectedIndex = tabIndex;
         }
         // Focus first entry textbox of info pane
@@ -83,7 +83,7 @@ ZutiloChrome.zoteroOverlay = {
         let zoteroViewTabbox =
             ZoteroPane.document.getElementById('zotero-view-tabbox');
         // tabbox removed in Zotero 8 (just one big tab now)
-        if (zoteroViewTabbox !== undefined) {
+        if (zoteroViewTabbox) {
             zoteroViewTabbox.selectedIndex = tabIndex;
         }
         // Create new note
@@ -102,7 +102,7 @@ ZutiloChrome.zoteroOverlay = {
         let tabbox = ZoteroPane.document.getElementById('zotero-view-tabbox')
         var tabIndex = 2
         // tabbox removed in Zotero 8 (just one big tab now)
-        if (tabbox !== undefined) {
+        if (tabbox) {
             tabs.selectedIndex = tabIndex
         }
         // Focus new tag entry textbox
@@ -134,7 +134,7 @@ ZutiloChrome.zoteroOverlay = {
         let zoteroViewTabbox =
             ZoteroPane.document.getElementById('zotero-view-tabbox');
         // tabbox removed in Zotero 8 (just one big tab now)
-        if (zoteroViewTabbox !== undefined) {
+        if (zoteroViewTabbox) {
             zoteroViewTabbox.selectedIndex = tabIndex;
         }
         // Open add related window
