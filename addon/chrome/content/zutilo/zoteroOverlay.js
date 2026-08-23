@@ -780,9 +780,11 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        var libraryType
-        var path
+        var libraryType;
+        var path;
         for (var ii = 0; ii < zitems.length; ii++) {
+            var collections = zitems[ii].getCollections();
+            var collectionKey = collections.length > 0 ? Zotero.Collections.get(collections[0]).key : null;
 
             libraryType = Zotero.Libraries.get(zitems[ii].libraryID).libraryType
 
@@ -797,6 +799,11 @@ ZutiloChrome.zoteroOverlay = {
                     // Feeds?
                     continue
             }
+
+            if (collectionKey) {
+                path += '/collections/' + collectionKey;
+            }
+
 
             links.push('zotero://select/' + path + '/items/'+ zitems[ii].key)
         }
@@ -843,6 +850,41 @@ ZutiloChrome.zoteroOverlay = {
 
         return true;
     },
+    // copyZoteroSelectLink: function() {
+    //     var zitems = this.getSelectedItems();
+    //     var links = [];
+
+    //     if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
+    //         return false;
+    //     }
+
+    //     var libraryType
+    //     var path
+    //     for (var ii = 0; ii < zitems.length; ii++) {
+
+    //         libraryType = Zotero.Libraries.get(zitems[ii].libraryID).libraryType
+
+    //         switch (libraryType) {
+    //             case 'group':
+    //                 path = Zotero.URI.getLibraryPath(zitems[ii].libraryID)
+    //                 break;
+    //             case 'user':
+    //                 path = 'library'
+    //                 break;
+    //             default:
+    //                 // Feeds?
+    //                 continue
+    //         }
+
+    //         links.push('zotero://select/' + path + '/items/'+ zitems[ii].key)
+    //     }
+
+    //     var clipboardText = links.join('\r\n');
+
+    //     this._copyToClipboard(clipboardText)
+
+    //     return true;
+    // },
 
     copyZoteroItemID: function() {
         var zitems = this.getSelectedItems();
