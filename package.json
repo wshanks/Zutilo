@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/wshanks/Zutilo#readme",
   "devDependencies": {
-    "eslint": "^6.1.0"
+    "eslint": "^10.3.0"
   }
 }
