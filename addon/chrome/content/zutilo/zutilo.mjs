@@ -5,7 +5,7 @@
 'use strict'
 /* global Components, Services */
 
- 
+
 const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 var Zotero = null
 
@@ -29,7 +29,11 @@ export var Zutilo = {
     _itemMenuItems_static: ['copyTags', 'removeTags', 'pasteTags', 'relateItems',
         'showAttachments', 'modifyAttachments', 'modifyURLAttachments',
         'copyAttachmentPaths', 'copyCreators', 'copyItems',
-        'copyZoteroSelectLink', 'copyZoteroPDFLink', 'copyZoteroItemID', 'copyZoteroItemURI', 'createBookSection',
+        'copyZoteroSelectLink', 'copyZoteroSelectLinkMarkdown',
+        'copyZoteroPDFLink', 'copyZoteroItemID', 'copyZoteroItemURI', 'createBookSection',
+        'copyZoteroSelectLinkOrgMode',
+        'copyZoteroSelectLink', 'copyZoteroSelectLinkOrgMode',
+        'copyZoteroSelectLinkMarkdown', 'copyZoteroPDFLink', 'copyZoteroItemID', 'copyZoteroItemURI', 'createBookSection',
         'createBookItem', 'copyChildIDs', 'relocateChildren', 'copyJSON',
         'pasteJSONIntoEmptyFields', 'pasteJSONFromNonEmptyFields',
         'pasteJSONAll', 'pasteJSONItemType', 'openZoteroItemURI'
@@ -222,7 +226,7 @@ Zutilo.Prefs = {
         this.setDefaults()
         this.register()
 
-        
+
     },
 
     setDefaults: function() {

@@ -773,11 +773,29 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     copyZoteroSelectLink: function() {
+        var links = this._getZoteroSelectURLs();
+
+        if (!links) {
+            return false;
+        }
+
+        var clipboardText = links.map(function(link) {
+            return link.url
+        }).join('\r\n');
+
+        this._copyToClipboard(clipboardText)
+
+        return true;
+    },
+
+    // Returns an array of { url, title } objects for the selected items, or
+    // null (after showing an error alert) if the selection is invalid.
+    _getZoteroSelectURLs: function() {
         var zitems = this.getSelectedItems();
         var links = [];
 
         if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
-            return false;
+            return null;
         }
 
         var libraryType
@@ -798,10 +816,145 @@ ZutiloChrome.zoteroOverlay = {
                     continue
             }
 
-            links.push('zotero://select/' + path + '/items/'+ zitems[ii].key)
+            links.push({
+                url: 'zotero://select/' + path + '/items/' + zitems[ii].key,
+                title: zitems[ii].getDisplayTitle()
+            })
         }
 
         var clipboardText = links.join(Zotero.isWin ? '\r\n' : '\n');
+
+        return links;
+    },
+
+    copyZoteroSelectLinkMarkdown: function() {
+        var links = this._getZoteroSelectURLs();
+
+        if (!links || !links.length) {
+            return false;
+        }
+
+        var clipboardText = links.map(function(link) {
+            return '[' + link.title + '](' + link.url + ')'
+        }).join('\r\n');
+
+        this._copyToClipboard(clipboardText)
+
+        return true;
+    },
+
+    _getZoteroSelectURLs: function() {
+        var zitems = this.getSelectedItems();
+        var links = [];
+
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
+            return links;
+        }
+
+        var libraryType
+        var path
+        for (var ii = 0; ii < zitems.length; ii++) {
+
+            libraryType = Zotero.Libraries.get(zitems[ii].libraryID).libraryType
+
+            switch (libraryType) {
+                case 'group':
+                    path = Zotero.URI.getLibraryPath(zitems[ii].libraryID)
+                    break;
+                case 'user':
+                    path = 'library'
+                    break;
+                default:
+                    // Feeds?
+                    continue
+            }
+
+            links.push({
+                url: 'zotero://select/' + path + '/items/' + zitems[ii].key,
+                title: zitems[ii].getDisplayTitle()
+            })
+        }
+
+        return links;
+    },
+
+    copyZoteroSelectLinkOrgMode: function() {
+        var links = this._getZoteroSelectURLs();
+
+        if (!links.length) {
+            return false;
+        }
+
+        var clipboardText = links.map(function(link) {
+            return '[[' + link.url + '][' + link.title + ']]'
+        }).join('\r\n');
+
+        this._copyToClipboard(clipboardText)
+
+        return true;
+    },
+
+    _getZoteroSelectURLs: function() {
+        var zitems = this.getSelectedItems();
+        var links = [];
+
+        if (!this.checkItemNumber(zitems, 'regularNoteAttachment1')) {
+            return links;
+        }
+
+        var libraryType
+        var path
+        for (var ii = 0; ii < zitems.length; ii++) {
+
+            libraryType = Zotero.Libraries.get(zitems[ii].libraryID).libraryType
+
+            switch (libraryType) {
+                case 'group':
+                    path = Zotero.URI.getLibraryPath(zitems[ii].libraryID)
+                    break;
+                case 'user':
+                    path = 'library'
+                    break;
+                default:
+                    // Feeds?
+                    continue
+            }
+
+            links.push({
+                url: 'zotero://select/' + path + '/items/' + zitems[ii].key,
+                title: zitems[ii].getDisplayTitle()
+            })
+        }
+
+        return links;
+    },
+
+    copyZoteroSelectLinkOrgMode: function() {
+        var links = this._getZoteroSelectURLs();
+
+        if (!links.length) {
+            return false;
+        }
+
+        var clipboardText = links.map(function(link) {
+            return '[[' + link.url + '][' + link.title + ']]'
+        }).join('\r\n');
+
+        this._copyToClipboard(clipboardText)
+
+        return true;
+    },
+
+    copyZoteroSelectLinkMarkdown: function() {
+        var links = this._getZoteroSelectURLs();
+
+        if (!links.length) {
+            return false;
+        }
+
+        var clipboardText = links.map(function(link) {
+            return '[' + link.title + '](' + link.url + ')'
+        }).join('\r\n');
 
         this._copyToClipboard(clipboardText)
 

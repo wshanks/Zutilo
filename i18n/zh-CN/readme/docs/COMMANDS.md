@@ -51,9 +51,18 @@ In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings i
     Each preference should be set to whatever appears in the config editor for the `export.quickCopy.setting` preference when the desired translator is set as the "Default output format" in Zotero's preferences.
         The config editor can be opened from the Advanced pane of Zotero's preferences window.
 
-* __Copy select item links:__
+* __Copy Zotero URLs:__
     Copy links of the form "zotero://select/library/items/ITEM_ID" to the clipboard for each selected item.
     Following links from other applications can select items in the Zotero client but might require additional set up.
+
+* __Copy Markdown links:__
+    Like "Copy select item links", but each link is formatted as a Markdown link that also includes the item's title, e.g. "[Item title](zotero://select/library/items/ITEM_ID)".
+
+* __Copy org-mode links:__
+    Like "Copy Zotero URLs", but each link is formatted as an Emacs org-mode link that also includes the item's title, e.g. "[[zotero://select/library/items/ITEM_ID][Item title]]".
+
+* __Copy Markdown links:__
+    Like "Copy Zotero URLs", but each link is formatted as a Markdown link that also includes the item's title, e.g. "[Item title](zotero://select/library/items/ITEM_ID)".
 
 * __Copy Zotero IDs:__
     Copy the ID of each selected item to the clipboard.
@@ -129,7 +138,7 @@ In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings i
 Each of the functions below can be called from the Zotero collection context menu (accessed by right-clicking on a collection in the collections pane at the right of Zotero where all the collections are listed).
 In the Zutilo preferences (accessed from Zotero preferences: Edit → Settings in Zotero 8+, or Tools menu in Zotero 7), each of these functions can be set to show up in the Zotero item menu, in a Zutilo submenu of the Zotero item menu, or not to appear at all.
 
-* __Copy select collection link:__
+* __Copy Zotero URLs:__
     Copy links of the form "zotero://select/library/collections/ITEM_ID" to the clipboard for the selected collection.
     Following links from other applications can select the collection in the Zotero client but might require additional set up.
 
@@ -202,7 +211,7 @@ The following two functions allow you to easily show or hide the collections pan
     Show or hide the collections pane.
 
 Like the functions above, the following two functions allow you to easily show or hide the collections pane (left pane) and the item pane (right pane).
-However, when the pane is shown, the thicker vertical divider ("splitter", "grippy", appears when the pane is hidden) remains visible until the width of the pane is adjusted. 
+However, when the pane is shown, the thicker vertical divider ("splitter", "grippy", appears when the pane is hidden) remains visible until the width of the pane is adjusted.
 
 * __Item pane: Show / hide (sticky):__
     Show or hide the item pane.
