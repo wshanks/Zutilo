@@ -1232,15 +1232,25 @@ ZutiloChrome.zoteroOverlay = {
                 Zutilo.keys.shortcuts[keyLabel](window);
             });
 
-        var keyObj = Zutilo.keys.getKey(keyLabel);
+        this.setKeyAttributes(key, Zutilo.keys.getKey(keyLabel));
+    },
 
+    // A shortcut's keys onto its <key>: a character as `key`, a named key
+    // (F1-F24, arrows, Home, ...) as `keycode`. Until 4.3 the keycode branch
+    // wrote `key` from the empty `key` field, so a function-key shortcut was
+    // never applied.
+    setKeyAttributes: function(key, keyObj) {
+        key.removeAttribute('modifiers');
+        key.removeAttribute('key');
+        key.removeAttribute('keycode');
+        keyObj = keyObj || {};
         if (keyObj.modifiers) {
             key.setAttribute('modifiers', keyObj.modifiers);
         }
         if (keyObj.key) {
             key.setAttribute('key', keyObj.key);
         } else if (keyObj.keycode) {
-            key.setAttribute('key', keyObj.key);
+            key.setAttribute('keycode', keyObj.keycode);
         } else {
             // No key or keycode.  Set to empty string to disable.
             key.setAttribute('key', '');
@@ -1256,23 +1266,7 @@ ZutiloChrome.zoteroOverlay = {
             return
         }
 
-        key.removeAttribute('modifiers');
-        key.removeAttribute('key');
-        key.removeAttribute('keycode');
-
-        var keyObj = Zutilo.keys.getKey(keyLabel);
-
-        if (keyObj.modifiers) {
-            key.setAttribute('modifiers', keyObj.modifiers);
-        }
-        if (keyObj.key) {
-            key.setAttribute('key', keyObj.key);
-        } else if (keyObj.keycode) {
-            key.setAttribute('key', keyObj.key);
-        } else {
-            // No key or keycode.  Set to empty string to disable.
-            key.setAttribute('key', '');
-        }
+        this.setKeyAttributes(key, Zutilo.keys.getKey(keyLabel));
 
         // Regenerate keys
         var keyset = this.keyset;
