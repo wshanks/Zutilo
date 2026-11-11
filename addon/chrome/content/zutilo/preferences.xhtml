@@ -21,39 +21,15 @@
      </groupbox>
    </vbox>
 
-   <vbox class="main-section">
+   <vbox class="main-section" id="zutilo-shortcuts-section">
       <label><html:h2 data-l10n-id='zutilo-preferences-shortcuts'></html:h2></label>
-      <tree id="key-tree" flex="1" enableColumnDrag="true" height="300"
-          seltype="single" onselect="keyView.selectionChanged();">
-          <treecols>
-              <treecol id="shortcut-name"
-                  data-l10n-id="zutilo-preferences-shortcuts-labels"
-                  flex="1" sortDirection="ascending" sortActive="true"
-                  persist="width,ordinal,sortDirection,sortActive,hidden"/>
-              <splitter class="tree-splitter"/>
-              <treecol id="shortcut-category"
-                  data-l10n-id="zutilo-preferences-shortcuts-categories"
-                  flex="1"
-                  persist="width,ordinal,sortDirection,sortActive,hidden"/>
-              <splitter class="tree-splitter"/>
-              <treecol id="shortcut-value"
-                  data-l10n-id="zutilo-preferences-shortcuts-keys"
-                  flex="1"
-                  persist="width,ordinal,sortDirection,sortActive,hidden"/>
-           </treecols>
-
-          <treechildren alternatingbackground="true"/>
-      </tree>
-
-      <groupbox id="editbox" orient="horizontal">
-          <textbox id="edit" flex="1" onfocus="this.select();"
-              onkeypress="Recognize(event);"/>
-          <button data-l10n-id="zutilo-preferences-shortcuts-apply"
-              oncommand="applyShortcut();"/>
-          <button data-l10n-id="zutilo-preferences-shortcuts-disable"
-              oncommand="Disable();"/>
-      </groupbox>
-
+      <!-- The shortcut editor (preferences.js, ZutiloShortcutEditor): every
+           function, its category and its keys; built by script, no inline
+           handlers (Zotero 7+ settings panes do not run them). -->
+      <html:p id="zutilo-shortcut-help" data-l10n-id="zutilo-preferences-shortcuts-help"></html:p>
+      <html:input type="search" id="zutilo-shortcut-filter" data-l10n-id="zutilo-preferences-shortcuts-filter"/>
+      <html:div id="zutilo-shortcut-status" role="status" aria-live="polite"></html:div>
+      <html:div id="zutilo-shortcut-list" role="list"></html:div>
    </vbox>
 
    <vbox class="main-section">

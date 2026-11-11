@@ -268,7 +268,9 @@ Zutilo.Prefs = {
             src: Zutilo.rootURI + 'chrome/content/zutilo/preferences.xhtml',
             scripts: [
               Zutilo.rootURI + 'chrome/content/zutilo/preferences.js'
-              // Zutilo.rootURI + 'chrome/content/zutilo/keyconfig_adapted.js'
+            ],
+            stylesheets: [
+              Zutilo.rootURI + 'chrome/content/zutilo/preferences.css'
             ],
         })
     },
