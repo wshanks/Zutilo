@@ -8,6 +8,7 @@
 /* global Zutilo, APP_SHUTDOWN */
 const {classes: Cc, utils: Cu} = Components;
 var chromeHandle
+var Zutilo
 
 
 // eslint-disable-next-line no-unused-vars
@@ -28,7 +29,8 @@ function startup(data, reason) {
         ["locale",  "zutilo", "zh-CN", "chrome/locale/zh-CN/zutilo/"]
     ])
 
-    var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
+    // Kept at file level: shutdown() needs it too
+    Zutilo = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs").Zutilo;
     Zutilo.init(data.rootURI, Zotero);
 }
 
@@ -42,12 +44,19 @@ function shutdown(data, reason) {
     while (windows.hasMoreElements()) {
         var tmpWin=windows.getNext();
 
+        if (typeof tmpWin.ZutiloChrome == 'undefined') {
+            continue;
+        }
         tmpWin.ZutiloChrome.removeXUL();
         if (typeof tmpWin.ZutiloChrome.zoteroOverlay != 'undefined') {
             tmpWin.ZutiloChrome.zoteroOverlay.unload();
         }
         delete tmpWin.ZutiloChrome;
-        delete tmpWin.Zutilo;
+        // `var { Zutilo }` of the window scripts: not configurable, so a
+        // delete throws in strict mode and stopped the shutdown here
+        try {
+            tmpWin.Zutilo = undefined;
+        } catch (e) {}
     }
 
     Zutilo.cleanup();
