@@ -40,10 +40,6 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     unload: function() {
-        var toolsPopup = document.getElementById('menu_ToolsPopup')
-        toolsPopup.removeEventListener('popupshowing',
-            ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
-
         document.getElementById('zotero-itemmenu').removeEventListener('popupshowing', refreshZoteroItemPopup, false)
         document.getElementById('zotero-collectionmenu').removeEventListener('popupshowing', refreshZoteroCollectionPopup, false)
     },
@@ -1271,8 +1267,7 @@ ZutiloChrome.zoteroOverlay = {
         var key = document.createXULElement('key');
         key.setAttribute('id', Zutilo.keys.keyID(keyLabel));
         this.keyset.appendChild(key);
-        // Set label attribute so that keys show up nicely in keyconfig
-        // extension
+        // A label, so that the key can be named wherever keys are listed
         key.setAttribute('label', 'Zutilo: ' + Zutilo.keys.keyName(keyLabel));
         // key.setAttribute('command', 'zutilo-keyset-command');
         key.setAttribute('oncommand', '//');

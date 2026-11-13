@@ -61,12 +61,9 @@ function addMenuRadiogroup(menuName, menuFunction) {
 /******************************************/
 // Shortcut editor
 /******************************************/
-// Zutilo 3.x set its shortcuts in its own preferences window
-// (keyconfig_adapted.js: a XUL tree and a <textbox> recorder). Zotero 7 moved
-// plugin settings into its own Settings window, where that code no longer ran
-// (no <textbox>, no inline handlers), so from 4.0 shortcuts could only be set
-// by hand in the Config Editor. This is the same editor for Zotero 7+, built
-// by script, with the same pref format, so shortcuts set in any version keep
+// Every function with its category and keys, built by script in Zotero's
+// Settings window (no inline handlers: settings panes do not run them). The
+// pref format is the one of every earlier Zutilo, so stored shortcuts keep
 // working: extensions.zutilo.shortcut.<name> =
 // {"modifiers": "accel,alt", "key": "L", "keycode": ""}.
 var ZutiloShortcutEditor = {

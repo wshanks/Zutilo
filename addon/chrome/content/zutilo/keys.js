@@ -6,7 +6,7 @@
 'use strict';
 /* global Components, AddonManager, Services */
 /* global Zotero */
-/* global Zutilo, gKeys */
+/* global Zutilo */
 
 /********************************************/
 // Include core modules and built-in modules
@@ -33,19 +33,6 @@ var keys = {
 
     keyID: function(keyLabel) {
         return 'zutilo-key-' + keyLabel
-    },
-
-    keysEqual: function(key1, key2) {
-        var keyEquality =
-            (key1.modifiers == key2.modifiers && key1.key == key2.key &&
-             key1.keycode == key2.keycode);
-        return keyEquality
-    },
-
-    getLabels: function() {
-        for (var shortcut in Zutilo.keys.shortcuts) {
-            gKeys.push(shortcut)
-        }
     },
 
     categoryName: function(categoryLabel) {
