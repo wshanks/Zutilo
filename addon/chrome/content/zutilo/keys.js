@@ -266,15 +266,11 @@ keys.shortcuts.attachLinkFile = function(win) {
 };
 keys.categories.recognizeSelected = 'other'
 keys.shortcuts.recognizeSelected = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     win.ZoteroPane_Local.recognizeSelected()
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 keys.categories.createParentItemsFromSelected  = 'itemcreation'
 keys.shortcuts.createParentItemsFromSelected  = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     win.ZoteroPane_Local.createParentItemsFromSelected()
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 keys.categories.renameSelectedAttachmentsFromParents = 'attachments'
 keys.shortcuts.renameSelectedAttachmentsFromParents = function(win) {
@@ -296,26 +292,20 @@ keys.shortcuts.renameSelectedAttachmentsFromParents = function(win) {
 keys.categories.findPDF = 'attachments'
 keys.shortcuts.findPDF = function(win)
 {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     let items = win.ZoteroPane_Local.getSelectedItems();
     win.Zotero.Attachments.addAvailableFiles(items);
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 
 keys.categories.attachURI = 'attachments'
 keys.shortcuts.attachURI = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
     win.ZoteroPane_Local.addAttachmentFromURI(true, itemID)
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 }
 
 keys.categories.attachStoredFile = 'attachments'
 keys.shortcuts.attachStoredFile = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
     win.ZoteroPane_Local.addAttachmentFromDialog(false, itemID)
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 }
 
 keys.categories.showFile = 'attachments'
@@ -347,11 +337,9 @@ keys.shortcuts.showFile = function(win) {
 /***********************************************/
 keys.categories.advancedSearch = 'uinavigation'
 keys.shortcuts.advancedSearch = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-    // Advanced search is part of the library view since Zotero 10
+    // In Zotero 10 and 11 advanced search is part of the library view
     // (openAdvancedSearchWindow() is a deprecated alias of this)
     win.ZoteroPane_Local.toggleAdvancedSearchState('open')
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 
 keys.categories.duplicateItem = 'itemcreation'
