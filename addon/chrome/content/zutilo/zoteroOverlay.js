@@ -51,10 +51,10 @@ ZutiloChrome.zoteroOverlay = {
     /******************************************/
     // Functions for GUI keyboard shortcuts
     /******************************************/
-    // The item pane of Zotero 7+: no tabbox any more, one scrolling pane of
-    // sections (info-box, notes-box, tags-box, related-box, ...) inside
-    // <item-details>. Look inside the active pane first: with several
-    // library tabs (Zotero 11) an id is not unique in the window.
+    // The item pane: one scrolling pane of sections (info-box, notes-box,
+    // tags-box, related-box, ...) inside <item-details>. Look inside the
+    // active pane first: with several library tabs (Zotero 11) an id is not
+    // unique in the window.
     _itemDetails: function() {
         let itemPane = ZoteroPane.itemPane;
         let elem = itemPane && itemPane.querySelector
@@ -84,19 +84,11 @@ ZutiloChrome.zoteroOverlay = {
         return pane;
     },
 
-    // The old tabbox of Zotero <= 6, if there is one
-    _selectItemPaneTab: function(tabIndex) {
-        let zoteroViewTabbox =
-            ZoteroPane.document.getElementById('zotero-view-tabbox');
-        if (zoteroViewTabbox) {
-            zoteroViewTabbox.selectedIndex = tabIndex;
-        }
-    },
-
-    // Zotero <= 6 had four tabs in the item pane: Info, Notes, Tags, Related.
-    // Zotero 7+ shows the same things as sections of one pane, so "focus tab
-    // N" goes to the section of that name and "next / previous tab" to the
-    // next / previous section of the pane (there are more than four now).
+    // The item pane once had four tabs: Info, Notes, Tags, Related (hence
+    // the functions' ids). It now shows the same things as sections of one
+    // pane, so "focus tab N" goes to the section of that name and "next /
+    // previous tab" to the next / previous section of the pane (there are
+    // more than four).
     _itemPaneTabSections: ['info', 'notes', 'tags', 'related'],
 
     focusItemPaneSection: function(paneID) {
@@ -112,20 +104,10 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     selectItemPaneTab: function(tabIndex) {
-        let tabbox = ZoteroPane.document.getElementById('zotero-view-tabbox');
-        if (tabbox) {
-            tabbox.tabs.selectedIndex = tabIndex;
-            return true;
-        }
         return this.focusItemPaneSection(this._itemPaneTabSections[tabIndex]);
     },
 
     advanceItemPaneTab: function(direction) {
-        let tabbox = ZoteroPane.document.getElementById('zotero-view-tabbox');
-        if (tabbox) {
-            tabbox.tabs.advanceSelectedTab(direction, true);
-            return true;
-        }
         let details = this._itemDetails();
         if (!details || !details.getEnabledPanes) {
             return false;
@@ -156,19 +138,11 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        // Select info tab of item pane
-        this._selectItemPaneTab(0);
-        // Focus first entry textbox of info pane
+        // Go to the Info section and focus its first field, the title
         let infoBox = this._showItemPaneSection('info');
-        if (infoBox && infoBox.getTitleField) {
-            // Zotero 7+
-            let field = infoBox.getTitleField();
-            if (field) {
-                field.focus();
-            }
-        } else {
-            ZoteroPane.document.getElementById('zotero-editpane-item-box').
-                focusFirstField('info');
+        let field = infoBox ? infoBox.getTitleField() : null;
+        if (field) {
+            field.focus();
         }
 
         return true;
@@ -180,8 +154,6 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        // Select note tab of item pane
-        this._selectItemPaneTab(1);
         // Create new note
         ZoteroPane.newNote(false, zitems[0].key)
 
@@ -194,27 +166,10 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        // Select tag tab of item pane
-        this._selectItemPaneTab(2);
-        // Focus new tag entry textbox
+        // Go to the Tags section; it opens a new row and focuses it
         let tagsBox = this._showItemPaneSection('tags');
-        if (tagsBox && tagsBox.newTag) {
-            // Zotero 7+: the tags section opens a new row and focuses it
+        if (tagsBox) {
             tagsBox.newTag();
-            return true;
-        }
-        let header = ZoteroPane.document.querySelector(".tags-box-header")
-        if (header === null) {
-            // Zotero version < 5.0.78
-            let tagPane = ZoteroPane.document.getElementById('zotero-editpane-tags')
-            if (tagPane._tagColors === undefined) {
-                window.setTimeout(function() {tagPane.new()}, 200)
-            } else {
-                tagPane.newTag()
-            }
-        } else {
-            let addButton = header.querySelector("button")
-            addButton.click()
         }
 
         return true;
@@ -226,23 +181,13 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        // Select related tab of item pane
-        this._selectItemPaneTab(3);
+        // Go to the Related section
         let relatedBox = this._showItemPaneSection('related') ||
             ZoteroPane.document.getElementById('zotero-editpane-related');
         // Open add related window
         relatedBox.add();
 
         return true;
-    },
-
-    showItemPane: function() {
-        var itemPane = ZoteroPane.document.getElementById('zotero-item-pane');
-        if (itemPane.getAttribute('collapsed') == 'true') {
-            itemPane.setAttribute('collapsed', 'false');
-            ZoteroPane.document.getElementById('zotero-items-splitter').
-                removeAttribute('state');
-        }
     },
 
     updatePaneVisibility: function(paneName, command, keepSplitter) {
@@ -401,19 +346,13 @@ ZutiloChrome.zoteroOverlay = {
 
     Collection: new class {
         selected() {
-            // getSelectedCollection() was removed in Zotero 10; older
-            // versions (still supported per manifest strict_min_version)
-            // don't have getSelectedCollections().
             if (!window.ZoteroPane.collectionsView) {
                 // A window that is still loading (Zotero 11's File > New
                 // Window): getSelectedCollections() throws there, which
                 // stopped Zutilo's start in that window before its keys
                 return undefined;
             }
-            if (window.ZoteroPane.getSelectedCollections) {
-                return window.ZoteroPane.getSelectedCollections()[0];
-            }
-            return window.ZoteroPane.getSelectedCollection();
+            return window.ZoteroPane.getSelectedCollections()[0];
         }
     },
 

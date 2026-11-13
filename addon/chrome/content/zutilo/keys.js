@@ -255,22 +255,12 @@ keys.shortcuts.relateDialog = function(win) {
 keys.categories.newItemMenu = 'itemcreation'
 keys.shortcuts.newItemMenu = function(win) {
     let button = keys.libraryElement(win, 'zotero-tb-add');
-    let popup = button.firstChild;
-    if (popup.openPopup) {
-        // XUL popups lost showPopup() (Zotero 7+)
-        popup.openPopup(button, 'after_start', 0, 0, false, false);
-    } else {
-        popup.showPopup();
-    }
+    button.firstChild.openPopup(button, 'after_start', 0, 0, false, false);
 };
 keys.categories.lookupID = 'itemcreation'
 keys.shortcuts.lookupID = function(win) {
-    if (win.Zotero_Lookup && win.Zotero_Lookup.showPanel) {
-        // Zotero 7+: what the toolbar button and Zotero's own command do
-        win.Zotero_Lookup.showPanel();
-    } else {
-        win.document.getElementById('zotero-lookup-panel').showPopup()
-    }
+    // What the toolbar button and Zotero's own command do
+    win.Zotero_Lookup.showPanel();
 }
 keys.categories.linked = 'itemcreation'
 keys.shortcuts.linked = function(win) {
@@ -301,16 +291,8 @@ keys.shortcuts.createParentItemsFromSelected  = function(win) {
 };
 keys.categories.renameSelectedAttachmentsFromParents = 'attachments'
 keys.shortcuts.renameSelectedAttachmentsFromParents = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-    if (win.ZoteroPane_Local.renameSelectedAttachmentsFromParents) {
-        // Zotero <= 7
-        win.ZoteroPane_Local.renameSelectedAttachmentsFromParents()
-        return
-    }
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
-    // Zotero 8+ has no such ZoteroPane function any more: the item menu's
-    // "Rename File from Parent Metadata" goes through renameFiles.mjs.
-    // As before, it renames the selected attachment items.
+    // What the item pane's "Rename File to Match Parent Item" button calls
+    // (renameFiles.mjs), for the selected attachment items.
     var { canRenameFileFromParent, renameFileFromParent } =
         ChromeUtils.importESModule('chrome://zotero/content/renameFiles.mjs');
     var attachments = win.ZoteroPane.getSelectedItems().
@@ -329,12 +311,7 @@ keys.shortcuts.findPDF = function(win)
 {
     // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     let items = win.ZoteroPane_Local.getSelectedItems();
-    if (win.Zotero.Attachments.addAvailableFiles) {
-        // Zotero 8+ (addAvailablePDFs is deprecated there)
-        win.Zotero.Attachments.addAvailableFiles(items);
-    } else {
-        win.Zotero.Attachments.addAvailablePDFs(items);
-    }
+    win.Zotero.Attachments.addAvailableFiles(items);
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 
@@ -384,13 +361,9 @@ keys.shortcuts.showFile = function(win) {
 keys.categories.advancedSearch = 'uinavigation'
 keys.shortcuts.advancedSearch = function(win) {
     // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-    if (win.ZoteroPane_Local.toggleAdvancedSearchState) {
-        // Zotero 11: advanced search is part of the library view and
-        // openAdvancedSearchWindow() is a deprecated alias of this
-        win.ZoteroPane_Local.toggleAdvancedSearchState('open')
-    } else {
-        win.ZoteroPane_Local.openAdvancedSearchWindow()
-    }
+    // Advanced search is part of the library view since Zotero 10
+    // (openAdvancedSearchWindow() is a deprecated alias of this)
+    win.ZoteroPane_Local.toggleAdvancedSearchState('open')
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 
@@ -412,13 +385,10 @@ keys.shortcuts.openStyleEditor = function(win) {
 keys.categories.generateReport = 'other'
 keys.shortcuts.generateReport = function(win) {
     let context = win.ZoteroPane.document.defaultView
-    // Zotero >=6
-    if (context.document.activeElement.id == win.ZoteroPane.collectionsView.id
-            // Zotero <=5
-            || context.document.activeElement.id == "zotero-collections-tree") {
+    if (context.document.activeElement.id == win.ZoteroPane.collectionsView.id) {
         context.Zotero_Report_Interface.loadCollectionReport()
     } else {
-        // "zotero-items-tree" whether it is the active element or not
+        // The items tree, whether it is the active element or not
         let zitems = win.ZoteroPane.getSelectedItems()
         if (zitems.length > 0) {
             context.Zotero_Report_Interface.loadItemReport()
@@ -430,33 +400,11 @@ keys.categories.focusZoteroCollectionsTree = 'uinavigation'
 keys.shortcuts.focusZoteroCollectionsTree = function(win) {
     win.ZutiloChrome.zoteroOverlay.
         updatePaneVisibility('zotero-collections', 'show');
-    // Zotero >=6
-    if (win.ZoteroPane.collectionsView.focus) {
-        win.ZoteroPane.collectionsView.focus();
-    }
-    // Zotero 5.0.97-beta.39
-    else if (win.document.getElementById('collection-tree')) {
-        win.document.getElementById('collection-tree').focus();
-    }
-    // Zotero <=5
-    else {
-        win.document.getElementById('zotero-collections-tree').focus();
-    }
+    win.ZoteroPane.collectionsView.focus();
 };
 keys.categories.focusZoteroItemsTree = 'uinavigation'
 keys.shortcuts.focusZoteroItemsTree = function(win) {
-    // Zotero >=6
-    if (win.ZoteroPane.itemsView.focus) {
-        win.ZoteroPane.itemsView.focus();
-    }
-    // Zotero 5.0.97-beta.39
-    else if (win.ZoteroPane.itemsView.tree && win.ZoteroPane.itemsView.tree.focus) {
-        win.ZoteroPane.itemsView.tree.focus();
-    }
-    // Zotero <=5
-    else {
-        win.document.getElementById('zotero-items-tree').focus();
-    }
+    win.ZoteroPane.itemsView.focus();
 };
 keys.categories.advanceTabboxTab = 'uinavigation'
 keys.shortcuts.advanceTabboxTab = function(win) {
@@ -491,14 +439,8 @@ keys.shortcuts.selectTabboxTab3 = function(win) {
 
 keys.categories.locateMenu = 'uinavigation'
 keys.shortcuts.locateMenu = function(win) {
-    let oldMenu = win.document.getElementById('zotero-tb-locate-menu');
-    if (oldMenu) {
-        // Zotero <= 6: the Locate button of the items toolbar
-        oldMenu.showPopup();
-        return;
-    }
-    // Zotero 7+: the Locate button at the bottom of the item pane's side
-    // bar. It builds its menu and opens it on a mouse press.
+    // The Locate button at the bottom of the item pane's side bar. It
+    // builds its menu and opens it on a mouse press.
     let itemPane = win.ZoteroPane.itemPane;
     let button = itemPane && itemPane.querySelector
         ? itemPane.querySelector('toolbarbutton[data-action="locate"]') : null;
