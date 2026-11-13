@@ -82,6 +82,19 @@ var keys = {
         return elem || win.document.getElementById(id);
     },
 
+    // Shortcuts added after a window built its keys (the add-on lookups
+    // below answer later): build that window's keys again.
+    reloadWindowKeys: function() {
+        var windows = Services.wm.getEnumerator('navigator:browser');
+        while (windows.hasMoreElements()) {
+            let win = windows.getNext();
+            if (win.ZutiloChrome && win.ZutiloChrome.zoteroOverlay &&
+                    win.ZutiloChrome.zoteroOverlay.keyset) {
+                win.ZutiloChrome.zoteroOverlay.reloadKeys();
+            }
+        }
+    },
+
     alts: {},
     categories: {},
     shortcuts: {}
@@ -559,8 +572,8 @@ keys.shortcuts.toggleZoteroItemPaneStickySplitter = function(win) {
                                                         'toggle', true)
 };
 
-AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
-    if (aAddon === null || !aAddon.isActive) {
+AddonManager.getAddonByID('better-bibtex@iris-advies.com').then(function(aAddon) {
+    if (!aAddon || !aAddon.isActive) {
         return
     }
 
@@ -591,10 +604,11 @@ AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
     // created in the getAddonByID callback.
     // TODO: Only add defaults for the shortcuts generated here.
     Zutilo.Prefs.setDefaults()
-})
+    keys.reloadWindowKeys()
+}).catch((err) => Components.utils.reportError(err))
 
-AddonManager.getAddonByID('zotfile@columbia.edu', function(aAddon) {
-    if (aAddon === null || !aAddon.isActive) {
+AddonManager.getAddonByID('zotfile@columbia.edu').then(function(aAddon) {
+    if (!aAddon || !aAddon.isActive) {
         return
     }
 
@@ -614,10 +628,11 @@ AddonManager.getAddonByID('zotfile@columbia.edu', function(aAddon) {
     }
 
     Zutilo.Prefs.setDefaults()
-})
+    keys.reloadWindowKeys()
+}).catch((err) => Components.utils.reportError(err))
 
-AddonManager.getAddonByID('mdnotes@mdnotes.github.io', function (aAddon) {
-    if (aAddon === null || !aAddon.isActive) {
+AddonManager.getAddonByID('mdnotes@mdnotes.github.io').then(function(aAddon) {
+    if (!aAddon || !aAddon.isActive) {
         return
     }
 
@@ -641,4 +656,5 @@ AddonManager.getAddonByID('mdnotes@mdnotes.github.io', function (aAddon) {
         win.Zotero.Mdnotes.createNoteFileMenu(false)
     }
     Zutilo.Prefs.setDefaults()
-})
+    keys.reloadWindowKeys()
+}).catch((err) => Components.utils.reportError(err))
