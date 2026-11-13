@@ -265,10 +265,6 @@ Sinon, le rapport est généré pour les documents sélectionnés.
 
 Les fonctions suivantes sont disponibles seulement lorsque [Better BibTeX](https://github.com/retorquere/zotero-better-bibtex) est installé.
 
-* __Verrouiller la clé de citation :__ Verrouille la clé pour les documents sélectionnés.
-
-* __Déverrouiller la clé de citation :__ Déverrouille la clé pour les documents sélectionnés.
-
 * __Rafraîchir la clé de citation :__ Force à rafraîchir la clé pour les documents sélectionnés.
 
 * __Pousser les références vers TeXstudio :__ Pousse les références vers TeXstudio.

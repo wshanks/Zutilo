@@ -265,10 +265,6 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
 
 The following functions are only available when [Better BibTeX](https://github.com/retorquere/zotero-better-bibtex) is installed.
 
-* __Pin key:__ Pin the key for the currently selected items.
-
-* __Unpin key:__ Unpin the key for the currently selected items.
-
 * __Force-refresh key:__ Force-refresh the key for the currently selected items.
 
 * __Push to TeXstudio:__ Push references to TeXstudio.

@@ -95,24 +95,6 @@ var keys = {
         }
     },
 
-    // Better BibTeX's object once it has finished starting, or null if it
-    // does not show up within a minute.
-    whenBBTReady: async function() {
-        var { Zotero } = ChromeUtils.importESModule(
-            'chrome://zotero/content/zotero.mjs');
-        var { setTimeout } = ChromeUtils.importESModule(
-            'resource://gre/modules/Timer.sys.mjs');
-        for (let tries = 0; tries < 120; tries++) {
-            let bbt = Zotero.BetterBibTeX;
-            if (bbt && bbt.ready) {
-                await bbt.ready;
-                return bbt;
-            }
-            await new Promise((resolve) => setTimeout(resolve, 500));
-        }
-        return null;
-    },
-
     alts: {},
     categories: {},
     shortcuts: {}
@@ -594,34 +576,6 @@ AddonManager.getAddonByID('better-bibtex@iris-advies.com').then(function(aAddon)
     if (!aAddon || !aAddon.isActive) {
         return
     }
-
-    // Pin / unpin: only where the installed Better BibTeX still has them.
-    // Better BibTeX 9 (Zotero 8+) keeps the key in Zotero's own Citation Key
-    // field and has no KeyManager.pin() / unpin(): no shortcut is offered
-    // there, rather than one that does nothing. Better BibTeX starts on its
-    // own schedule, so this is decided once it says it is ready.
-    keys.whenBBTReady().then(function(bbt) {
-        if (!bbt || !bbt.KeyManager ||
-                typeof bbt.KeyManager.pin != 'function' ||
-                typeof bbt.KeyManager.unpin != 'function') {
-            return
-        }
-
-        keys.categories.BBTPin = 'bbt'
-        keys.shortcuts.BBTPin = function(win) {
-            win.Zotero.BetterBibTeX.ready.then(
-                function() {win.Zotero.BetterBibTeX.KeyManager.pin('selected')})
-        }
-
-        keys.categories.BBTUnpin = 'bbt'
-        keys.shortcuts.BBTUnpin = function(win) {
-            win.Zotero.BetterBibTeX.ready.then(function() {
-                win.Zotero.BetterBibTeX.KeyManager.unpin('selected')})
-        }
-
-        Zutilo.Prefs.setDefaults()
-        keys.reloadWindowKeys()
-    }).catch((err) => Components.utils.reportError(err))
 
     keys.categories.BBTRefresh = 'bbt'
     keys.shortcuts.BBTRefresh = function(win) {
