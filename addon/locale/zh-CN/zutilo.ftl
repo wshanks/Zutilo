@@ -17,6 +17,6 @@ zutilo-preferences-shortcuts-disable =
 zutilo-preferences-readme-caption = 关于 Zutilo
 zutilo-preferences-readme-button =
   .value = 显示自述文档
-zutilo-about-opengithub =
   .href = https://github.com/wshanks/Zutilo/tree/master/i18n/zh-CN/readme
+zutilo-about-opengithub =
   .value = 打开 GitHub 页面

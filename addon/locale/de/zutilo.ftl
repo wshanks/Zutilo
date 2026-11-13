@@ -17,6 +17,6 @@ zutilo-preferences-shortcuts-disable =
 zutilo-preferences-readme-caption = Über Zutilo
 zutilo-preferences-readme-button =
   .value = Liesmich Dokument zeigen
-zutilo-about-opengithub =
   .href = https://github.com/wshanks/Zutilo/tree/master/i18n/de/readme
+zutilo-about-opengithub =
   .value = GitHub Seite öffnen

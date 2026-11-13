@@ -35,6 +35,6 @@ zutilo-preferences-shortcuts-count = { $assigned } commandes sur { $total } ont 
 zutilo-preferences-readme-caption = À propos de Zutilo
 zutilo-preferences-readme-button =
   .value = Afficher le lisez-moi
-zutilo-about-opengithub =
   .href = https://github.com/wshanks/Zutilo/tree/master/i18n/fr/readme
+zutilo-about-opengithub =
   .value = Ouvrir la page de développement (sur GitHub)
