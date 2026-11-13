@@ -592,13 +592,29 @@ AddonManager.getAddonByID('better-bibtex@iris-advies.com').then(function(aAddon)
     keys.categories.BBTRefresh = 'bbt'
     keys.shortcuts.BBTRefresh = function(win) {
         win.Zotero.BetterBibTeX.ready.then(function() {
-            win.Zotero.BetterBibTeX.KeyManager.refresh('selected', true)})
+            let keyManager = win.Zotero.BetterBibTeX.KeyManager
+            if (keyManager.refresh) {
+                keyManager.refresh('selected', true)
+            } else {
+                // Better BibTeX 9: what its own "Regenerate BibTeX key"
+                // item menu entry calls
+                keyManager.fill('selected', {warn: true, replace: true})
+            }
+        }).catch((err) => win.Zotero.logError(err))
     }
 
     keys.categories.BBTtoTeXstudio = 'bbt'
     keys.shortcuts.BBTtoTeXstudio = function(win) {
         win.Zotero.BetterBibTeX.ready.then(function() {
-            win.Zotero.BetterBibTeX.ZoteroPane.toTeXstudio()})
+            let bbt = win.Zotero.BetterBibTeX
+            if (bbt.ZoteroPane && bbt.ZoteroPane.toTeXstudio) {
+                bbt.ZoteroPane.toTeXstudio()
+            } else {
+                // Better BibTeX 9: what its own "Push to TeXstudio" item
+                // menu entry calls
+                bbt.MenuHelper.toTeXstudio()
+            }
+        }).catch((err) => win.Zotero.logError(err))
     }
     // Call setDefaults again so it generates defaults for these shortcuts
     // created in the getAddonByID callback.
