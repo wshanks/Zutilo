@@ -220,6 +220,7 @@ Zutilo.Prefs = {
 
         // Register observer to handle pref changes
         this.setDefaults()
+        this.registerPane()
         this.register()
 
         
@@ -262,7 +263,12 @@ Zutilo.Prefs = {
         defaults.setCharPref('lastVersion', '');
         defaults.setBoolPref('showStatusPopupItems', true);
         defaults.setBoolPref('warnZoteroNotActive', true);
+    },
 
+    // Once per startup: setDefaults() runs again whenever the number of
+    // alternative QuickCopy items changes, and registered one more settings
+    // pane each time.
+    registerPane: function() {
         Zotero.PreferencePanes.register({
             pluginID: Zutilo.id,
             src: Zutilo.rootURI + 'chrome/content/zutilo/preferences.xhtml',

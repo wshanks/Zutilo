@@ -1306,8 +1306,10 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     reloadKeys: function() {
-        for (let key of this.keyset.children) {
-            this.keyset.removeChild(key)
+        // Not a loop over the live children: removing while iterating skips
+        // every other key and left duplicates behind
+        while (this.keyset.firstChild) {
+            this.keyset.removeChild(this.keyset.firstChild)
         }
         for (var keyLabel in Zutilo.keys.shortcuts) {
             this.createKey(keyLabel)
