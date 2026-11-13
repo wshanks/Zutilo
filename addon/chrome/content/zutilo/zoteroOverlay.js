@@ -1030,12 +1030,14 @@ ZutiloChrome.zoteroOverlay = {
 
             // Change authors to book authors
             var creators = sectionItem.getCreators();
+            var bookAuthorID = Zotero.CreatorTypes.getID('bookAuthor');
             for (var index = 0; index < creators.length; index++) {
                 if (creators[index].creatorTypeID ==
                         Zotero.CreatorTypes.getID('author')) {
-                    creators[index] = Zotero.CreatorTypes.getID('bookAuthors');
+                    creators[index].creatorTypeID = bookAuthorID;
                 }
             }
+            sectionItem.setCreators(creators);
 
             // Relate items
             bookItem.addRelatedItem(sectionItem);
