@@ -268,13 +268,3 @@ Les fonctions suivantes sont disponibles seulement lorsque [Better BibTeX](https
 * __Rafraîchir la clé de citation :__ Force à rafraîchir la clé pour les documents sélectionnés.
 
 * __Pousser les références vers TeXstudio :__ Pousse les références vers TeXstudio.
-
-### Fonctions de ZotFile
-
-Les fonctions suivantes sont disponibles seulement lorsque [ZotFile](zotfile.com) est installé.
-
-* __ZotFile : joindre un nouveau fichier :__ Attache au document sélectionné le fichier le plus récent dans le répertoire source de ZotFile.
-
-* __ZotFile : déplacer et renommer les pièces jointes :__ Déplace et renomme les fichiers associés aux pièces jointes sélectionnées pour suivre le format configuré dans les préférences de ZotFile.
-
-* __ZotFile : Extraire les annotations :__ Déclenche la fonction "Extraire les annotations" de ZotFile.

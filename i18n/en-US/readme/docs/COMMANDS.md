@@ -268,13 +268,3 @@ The following functions are only available when [Better BibTeX](https://github.c
 * __Force-refresh key:__ Force-refresh the key for the currently selected items.
 
 * __Push to TeXstudio:__ Push references to TeXstudio.
-
-### ZotFile functions
-
-The following functions are only available when [ZotFile](zotfile.com) is installed.
-
-* __Attach new file:__ Attach the newest file in the ZotFile source directory to the currently selected item.
-
-* __Move and rename attachments:__ Move and rename the files associated with the currently selected attachments to following the format configured in ZotFile's preferences.
-
-* __Extract annotations:__ Trigger ZotFile's "Extract Annotations" function.

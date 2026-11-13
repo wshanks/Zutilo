@@ -9,14 +9,6 @@ Because these paths are relative, you can move all your attachments to a new dir
 If you use more than one computer, you can set the base attachment directory to a different location on each machine (e.g. a DropBox or SyncThing folder) and still have all of the links to attachments work by setting this preference to the right location on each machine.
 Relative attachment paths can be configured under the "Files and Folders" tab of the Advanced Section of Zotero's preferences.
 
-#### Linked file attachment organization (ZotFile)
-
-The [ZotFile extension](http://www.columbia.edu/~jpl2136/zotfile.html) provides extra support for linked file attachments in Zotero.
-ZotFile can be set to automatically convert new imported file attachments to linked file attachments and rename and move the attachment files to a file location based on the attachment parent's metadata.
-This feature makes maintaining a directory of linked file attachments as easy as using Zotero's imported attachments.
-You can, for example, have ZotFile store attachments in directories named after the journal with a subfolder for the publication year and then name the attachment file after the author and title of the work.
-ZotFile has several other features for working with attachments that are worth investigating in its documentation.
-
 ### Item field modification functions
 
 Zutilo provides several functions for copying and pasting item fields.
