@@ -73,6 +73,15 @@ var keys = {
         }
     },
 
+    // An element of the library view by its id. Zotero 11 can hold several
+    // library tabs in a window, each with its own toolbar and panes, so an
+    // id is looked up in the active one first.
+    libraryElement: function(win, id) {
+        let view = win.ZoteroPane.libraryView;
+        let elem = view && view.getElement ? view.getElement(id) : null;
+        return elem || win.document.getElementById(id);
+    },
+
     alts: {},
     categories: {},
     shortcuts: {}
@@ -232,11 +241,23 @@ keys.shortcuts.relateDialog = function(win) {
 /***********************************************/
 keys.categories.newItemMenu = 'itemcreation'
 keys.shortcuts.newItemMenu = function(win) {
-    win.document.getElementById('zotero-tb-add').firstChild.showPopup();
+    let button = keys.libraryElement(win, 'zotero-tb-add');
+    let popup = button.firstChild;
+    if (popup.openPopup) {
+        // XUL popups lost showPopup() (Zotero 7+)
+        popup.openPopup(button, 'after_start', 0, 0, false, false);
+    } else {
+        popup.showPopup();
+    }
 };
 keys.categories.lookupID = 'itemcreation'
 keys.shortcuts.lookupID = function(win) {
-    win.document.getElementById('zotero-lookup-panel').showPopup()
+    if (win.Zotero_Lookup && win.Zotero_Lookup.showPanel) {
+        // Zotero 7+: what the toolbar button and Zotero's own command do
+        win.Zotero_Lookup.showPanel();
+    } else {
+        win.document.getElementById('zotero-lookup-panel').showPopup()
+    }
 }
 keys.categories.linked = 'itemcreation'
 keys.shortcuts.linked = function(win) {
