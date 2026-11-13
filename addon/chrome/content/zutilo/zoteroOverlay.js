@@ -1091,8 +1091,8 @@ ZutiloChrome.zoteroOverlay = {
             bookItem.setField(Zotero.ItemFields.getID('abstractNote'), '')
 
             // Relate items
-            bookItem.addRelatedItem(sectionItem)
-            sectionItem.addRelatedItem(bookItem)
+            bookItem.addRelatedItem(sectionItem);
+            sectionItem.addRelatedItem(bookItem);
 
             (async function() {
                 await sectionItem.saveTx()
