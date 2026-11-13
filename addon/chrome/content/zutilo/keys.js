@@ -316,7 +316,12 @@ keys.shortcuts.findPDF = function(win)
 {
     // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     let items = win.ZoteroPane_Local.getSelectedItems();
-    win.Zotero.Attachments.addAvailablePDFs(items);
+    if (win.Zotero.Attachments.addAvailableFiles) {
+        // Zotero 8+ (addAvailablePDFs is deprecated there)
+        win.Zotero.Attachments.addAvailableFiles(items);
+    } else {
+        win.Zotero.Attachments.addAvailablePDFs(items);
+    }
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 
@@ -365,7 +370,15 @@ keys.shortcuts.showFile = function(win) {
 /***********************************************/
 keys.categories.advancedSearch = 'uinavigation'
 keys.shortcuts.advancedSearch = function(win) {
-    win.ZoteroPane_Local.openAdvancedSearchWindow()
+    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
+    if (win.ZoteroPane_Local.toggleAdvancedSearchState) {
+        // Zotero 11: advanced search is part of the library view and
+        // openAdvancedSearchWindow() is a deprecated alias of this
+        win.ZoteroPane_Local.toggleAdvancedSearchState('open')
+    } else {
+        win.ZoteroPane_Local.openAdvancedSearchWindow()
+    }
+    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 
 keys.categories.duplicateItem = 'itemcreation'
