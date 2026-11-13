@@ -1,3 +1,50 @@
+* In version 4.3.0 (unreleased):
+
+    + Support Zotero 10 and 11; Zotero 10.0 is now the minimum version
+    + Bring back the keyboard shortcut editor in Zutilo's settings: search, record a shortcut by pressing its keys, warnings when the keys are already used by another Zutilo function or by Zotero
+    + Fix shortcuts on function keys and other named keys, which were never applied
+    + Fix the item pane shortcuts: Edit item info, Add note, Add tag, Add related item
+    + The item pane "tab" shortcuts now go to the item pane's sections (Info, Notes, Tags, Related; next and previous section); existing shortcuts keep working
+    + Fix the Open New Item menu, Add by identifier and Locate menu shortcuts
+    + Fix Locate item with Zotero's renamed "Google Scholar" engine
+    + Fix Rename attachments
+    + Fix Create book item (the new book was not saved) and Create book section (authors now become book authors)
+    + Fix the Better BibTeX shortcuts, which never appeared; Force-refresh key and Push to TeXstudio work with Better BibTeX 9
+    + Fix shortcuts in windows opened with File > New Window, and the pane show / hide shortcuts acting on the wrong library tab (Zotero 11)
+    + Fix duplicate shortcuts and settings panes after changing the number of alternative QuickCopy items
+    + Fix an error when disabling or updating Zutilo, which left part of it running
+    + Fix the "Show readme document" link in the settings
+    + Remove Better BibTeX's Pin key and Unpin key shortcuts (Better BibTeX 9 has no such functions)
+    + Remove the ZotFile and Mdnotes shortcuts (neither plugin has a release for Zotero 7 or later)
+    + Remove code, preferences, strings and files that only older Zotero versions used
+
+* In version 4.2.2:
+
+    + Address compatibility with Zotero 10 and mark as compatible
+    + Fix new line separators when copying items on Windows
+
+* In version 4.2.1:
+
+    + Mark compatible with Zotero 9
+
+* In version 4.2.0:
+
+    + Add new "Copy PDF links" menu item
+
+* In verison 4.1.0:
+
+    + Fixes for Zotero 8.0
+    + Drop support for Zotero 7
+
+* In version 4.0.1:
+
+    + Fixes for Zotero 7.1
+
+* In version 4.0.0:
+
+    + Fixes for Zotero 7.0
+    + New copy item IDs function
+
 * In version 3.10.0:
 
     + Fixes for Zotero 5.0.97-beta and upcoming Zotero 6
