@@ -289,8 +289,26 @@ keys.shortcuts.createParentItemsFromSelected  = function(win) {
 keys.categories.renameSelectedAttachmentsFromParents = 'attachments'
 keys.shortcuts.renameSelectedAttachmentsFromParents = function(win) {
     // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-    win.ZoteroPane_Local.renameSelectedAttachmentsFromParents()
+    if (win.ZoteroPane_Local.renameSelectedAttachmentsFromParents) {
+        // Zotero <= 7
+        win.ZoteroPane_Local.renameSelectedAttachmentsFromParents()
+        return
+    }
     // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
+    // Zotero 8+ has no such ZoteroPane function any more: the item menu's
+    // "Rename File from Parent Metadata" goes through renameFiles.mjs.
+    // As before, it renames the selected attachment items.
+    var { canRenameFileFromParent, renameFileFromParent } =
+        ChromeUtils.importESModule('chrome://zotero/content/renameFiles.mjs');
+    var attachments = win.ZoteroPane.getSelectedItems().
+        filter((item) => item.isAttachment());
+    (async function() {
+        for (let attachment of attachments) {
+            if (await canRenameFileFromParent(attachment)) {
+                await renameFileFromParent(attachment);
+            }
+        }
+    })().catch((err) => win.Zotero.logError(err));
 };
 
 keys.categories.findPDF = 'attachments'
