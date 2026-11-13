@@ -447,7 +447,26 @@ keys.shortcuts.selectTabboxTab3 = function(win) {
 
 keys.categories.locateMenu = 'uinavigation'
 keys.shortcuts.locateMenu = function(win) {
-    win.document.getElementById('zotero-tb-locate-menu').showPopup();
+    let oldMenu = win.document.getElementById('zotero-tb-locate-menu');
+    if (oldMenu) {
+        // Zotero <= 6: the Locate button of the items toolbar
+        oldMenu.showPopup();
+        return;
+    }
+    // Zotero 7+: the Locate button at the bottom of the item pane's side
+    // bar. It builds its menu and opens it on a mouse press.
+    let itemPane = win.ZoteroPane.itemPane;
+    let button = itemPane && itemPane.querySelector
+        ? itemPane.querySelector('toolbarbutton[data-action="locate"]') : null;
+    if (!button) {
+        button = win.document.querySelector(
+            'item-pane-sidenav toolbarbutton[data-action="locate"]');
+    }
+    if (!button || button.open) {
+        return;
+    }
+    button.dispatchEvent(new win.MouseEvent(
+        'mousedown', {button: 0, bubbles: true, cancelable: true}));
 };
 
 keys.categories.locateItem = 'uinavigation'
