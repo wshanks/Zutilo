@@ -246,7 +246,15 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     updatePaneVisibility: function(paneName, command, keepSplitter) {
-        var pane = ZoteroPane.document.getElementById(paneName + '-pane');
+        // Zotero 11 can hold several library tabs in a window, each with its
+        // own panes and splitters under the same ids: take the active tab's,
+        // not the first in the document.
+        var view = ZoteroPane.libraryView;
+        var getElement = function(id) {
+            var elem = view && view.getElement ? view.getElement(id) : null;
+            return elem || ZoteroPane.document.getElementById(id);
+        };
+        var pane = getElement(paneName + '-pane');
         // It is zotero-item-pane but zotero-items-splitter
         var splitterStr
         if (paneName == 'zotero-item') {
@@ -254,8 +262,7 @@ ZutiloChrome.zoteroOverlay = {
         } else {
             splitterStr = '-splitter'
         }
-        var splitter = ZoteroPane.document.getElementById(paneName +
-                                                          splitterStr);
+        var splitter = getElement(paneName + splitterStr);
 
         switch (command) {
             case 'toggle':
