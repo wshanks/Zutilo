@@ -144,44 +144,44 @@ Zutilo met actuellement en place plusieurs raccourcis clavier utiles pour modifi
 Les fonctions suivantes sont effectives lorsqu'un seul document Zotero est sélectionné.
 
 * __Modifier Info :__ 
-  Sélectionne l'onglet "Info" dans le volet du document.
+  Affiche la section "Info" du volet du document.
   Le curseur est positionné sur le premier champ modifiable du document.
 
 * __Ajouter une note :__ 
-  Sélectionne l'onglet "Notes" dans le volet du document. 
-  Crée une nouvelle note. 
+  Crée une nouvelle note fille pour le document. 
   Ajouté pour être complet, mais Zotero a déjà un raccourci clavier pour cela. 
   Il peut être défini dans les préférences de Zotero.
 
 * __Ajouter un marqueur :__ 
-  Sélectionne l'onglet "Marqueurs" du volet du document.
+  Affiche la section "Marqueurs" du volet du document.
   Ouvre une zone de texte pour créer un nouveau marqueur.
 
 * __Ajouter un document connexe :__ 
-  Sélectionne l'onglet "Connexe" du volet du document.
+  Affiche la section "Connexe" du volet du document.
   Ouvre la boîte de dialogue pour ajouter des documents liés.
 
-Les quatre fonctions suivantes sont similaires aux quatre fonctions d'édition des documents ci-dessus, excepté le fait qu'elles se concentrent sur l'onglet correspondant dans le volet du document.
+Les quatre fonctions suivantes sont similaires aux quatre fonctions d'édition des documents ci-dessus, excepté le fait qu'elles se contentent d'aller à la section correspondante du volet du document : le volet défile jusqu'à la section et son en-tête reçoit le curseur.
+(Jusqu'à Zotero 6, c'étaient les quatre onglets du volet du document ; depuis Zotero 7, le volet est une seule liste de sections.)
 
-* __Curseur dans le volet du document : onglet Info :__
-  Sélectionne l'onglet "Info" dans le volet du document.
+* __Curseur dans le volet du document : section Info :__
+  Affiche la section "Info" du volet du document.
 
-* __Curseur dans le volet du document : onglet Notes :__ 
-  Sélectionne l'onglet "Notes" dans le volet du document.
+* __Curseur dans le volet du document : section Notes :__ 
+  Affiche la section "Notes" du volet du document.
 
-* __Curseur dans le volet du document : onglet Marqueurs :__ 
-  Sélectionne l'onglet "Marqueurs" du volet du document.
+* __Curseur dans le volet du document : section Marqueurs :__ 
+  Affiche la section "Marqueurs" du volet du document.
 
-* __Curseur dans le volet du document : onglet Connexe :__ 
-  Sélectionne l'onglet "Connexe" du volet du document.
+* __Curseur dans le volet du document : section Connexe :__ 
+  Affiche la section "Connexe" du volet du document.
 
-Les deux fonctions suivantes vous permettent de faire défiler les quatre mêmes onglets dans le volet du document.
+Les deux fonctions suivantes vous permettent de faire défiler toutes les sections du volet du document (Résumé, Pièces jointes, Bibliothèques et collections, ... en plus des quatre ci-dessus).
 
-* __Curseur dans le volet du document : onglet suivant :__ 
-  Sélectionne l'onglet suivant dans le volet du document.
+* __Curseur dans le volet du document : section suivante :__ 
+  Passe à la section suivante du volet du document.
 
-* __Curseur dans le volet du document : onglet précédent :__ 
-  Sélectionne l'onglet précédent dans le volet du document.
+* __Curseur dans le volet du document : section précédente :__ 
+  Passe à la section précédente du volet du document.
 
 Zutilo dispose de plusieurs raccourcis clavier utiles pour naviguer entre et dans les trois volets principaux.
 Si le volet concerné est masqué, les fonctions suivantes l'affichent.
