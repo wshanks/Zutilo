@@ -55,15 +55,21 @@ ZutiloChrome.zoteroOverlay = {
     // sections (info-box, notes-box, tags-box, related-box, ...) inside
     // <item-details>. Look inside the active pane first: with several
     // library tabs (Zotero 11) an id is not unique in the window.
-    _itemPaneElement: function(selector, id) {
+    _itemDetails: function() {
         let itemPane = ZoteroPane.itemPane;
         let elem = itemPane && itemPane.querySelector
-            ? itemPane.querySelector(selector) : null;
-        return elem || ZoteroPane.document.getElementById(id);
+            ? itemPane.querySelector('item-details') : null;
+        return elem ||
+            ZoteroPane.document.getElementById('zotero-item-details');
     },
 
-    _itemDetails: function() {
-        return this._itemPaneElement('item-details', 'zotero-item-details');
+    // A section's box. Inside <item-details> only: the item pane holds other
+    // boxes of the same kind (the note editor has its own tags and related
+    // boxes, the duplicates pane its own info box).
+    _itemPaneElement: function(selector, id) {
+        let details = this._itemDetails();
+        let elem = details ? details.querySelector(selector) : null;
+        return elem || ZoteroPane.document.getElementById(id);
     },
 
     // Bring a section of the item pane ('info', 'notes', 'tags', 'related',
