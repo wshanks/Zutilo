@@ -92,6 +92,63 @@ ZutiloChrome.zoteroOverlay = {
         }
     },
 
+    // Zotero <= 6 had four tabs in the item pane: Info, Notes, Tags, Related.
+    // Zotero 7+ shows the same things as sections of one pane, so "focus tab
+    // N" goes to the section of that name and "next / previous tab" to the
+    // next / previous section of the pane (there are more than four now).
+    _itemPaneTabSections: ['info', 'notes', 'tags', 'related'],
+
+    focusItemPaneSection: function(paneID) {
+        let pane = this._showItemPaneSection(paneID);
+        if (!pane) {
+            return false;
+        }
+        let head = pane.querySelector('collapsible-section > .head');
+        if (head) {
+            head.focus();
+        }
+        return true;
+    },
+
+    selectItemPaneTab: function(tabIndex) {
+        let tabbox = ZoteroPane.document.getElementById('zotero-view-tabbox');
+        if (tabbox) {
+            tabbox.tabs.selectedIndex = tabIndex;
+            return true;
+        }
+        return this.focusItemPaneSection(this._itemPaneTabSections[tabIndex]);
+    },
+
+    advanceItemPaneTab: function(direction) {
+        let tabbox = ZoteroPane.document.getElementById('zotero-view-tabbox');
+        if (tabbox) {
+            tabbox.tabs.advanceSelectedTab(direction, true);
+            return true;
+        }
+        let details = this._itemDetails();
+        if (!details || !details.getEnabledPanes) {
+            return false;
+        }
+        let panes = details.getEnabledPanes().filter((elem) => !elem.hidden);
+        if (!panes.length) {
+            return false;
+        }
+        // The current section: the one holding the focus, else the one at
+        // the top of the pane
+        let active = ZoteroPane.document.activeElement;
+        let current = panes.findIndex((elem) => elem.contains(active));
+        if (current == -1) {
+            let top = panes[0].parentElement.getBoundingClientRect().top;
+            current = panes.findIndex(
+                (elem) => elem.getBoundingClientRect().bottom > top + 2);
+            if (current == -1) {
+                current = 0;
+            }
+        }
+        let next = (current + direction + panes.length) % panes.length;
+        return this.focusItemPaneSection(panes[next].dataset.pane);
+    },
+
     editItemInfoGUI: function() {
         var zitems = this.getSelectedItems('regular');
         if (!this.checkItemNumber(zitems, 'regularSingle')) {

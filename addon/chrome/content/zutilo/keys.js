@@ -396,34 +396,32 @@ keys.shortcuts.focusZoteroItemsTree = function(win) {
 keys.categories.advanceTabboxTab = 'uinavigation'
 keys.shortcuts.advanceTabboxTab = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').
-        tabs.advanceSelectedTab(1, true);
+    win.ZutiloChrome.zoteroOverlay.advanceItemPaneTab(1);
 };
 keys.categories.reverseTabboxTab = 'uinavigation'
 keys.shortcuts.reverseTabboxTab = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').
-        tabs.advanceSelectedTab(-1, true);
+    win.ZutiloChrome.zoteroOverlay.advanceItemPaneTab(-1);
 };
 keys.categories.selectTabboxTab0 = 'uinavigation'
 keys.shortcuts.selectTabboxTab0 = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 0;
+    win.ZutiloChrome.zoteroOverlay.selectItemPaneTab(0);
 };
 keys.categories.selectTabboxTab1 = 'uinavigation'
 keys.shortcuts.selectTabboxTab1 = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 1;
+    win.ZutiloChrome.zoteroOverlay.selectItemPaneTab(1);
 };
 keys.categories.selectTabboxTab2 = 'uinavigation'
 keys.shortcuts.selectTabboxTab2 = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 2;
+    win.ZutiloChrome.zoteroOverlay.selectItemPaneTab(2);
 };
 keys.categories.selectTabboxTab3 = 'uinavigation'
 keys.shortcuts.selectTabboxTab3 = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 3;
+    win.ZutiloChrome.zoteroOverlay.selectItemPaneTab(3);
 };
 
 keys.categories.locateMenu = 'uinavigation'
