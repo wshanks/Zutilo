@@ -16,6 +16,18 @@ All of Zutilo's graphical elements can be disabled individually, so that unwante
 New updates will not be published to the location checked by previous versions of Zutilo (the Mozilla Add-ons page).
 To receive new Zutilo updates, please update to the latest version of Zutilo.
 
+## 兼容性
+
+Zutilo 的此分支（`z11`）面向 Zotero 10 和 Zotero 11，至少需要 Zotero 10.0。
+Zutilo 的所有功能、条目和分类的右键菜单以及设置，都已在 Zotero 10.0.8 和 Zotero 11.0-beta.4 中用脚本对测试条目运行过，两者结果相同。
+快捷键编辑器已恢复：在 Zutilo 的设置中，点击某个功能的快捷键，然后按下按键。
+此分支移除了以下功能，因为它们无法在 Zotero 10 或 11 中工作：
+
+* Better BibTeX 的“固定 BBT Citation Key”和“解除固定 BBT Citation Key”：Better BibTeX 9 已没有这些功能（引用关键词位于 Zotero 自带的“引用关键词”字段中）。
+* ZotFile 和 Mdnotes 的快捷键：这两个插件都没有适用于 Zotero 7 或更高版本的发布版本。
+
+已为这些功能保存的快捷键会被忽略。
+
 ## Installation
 
 Download the Zutilo `zutilo.xpi` file from [Zutilo's GitHub releases page](https://github.com/wshanks/Zutilo/releases).

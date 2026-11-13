@@ -11,15 +11,29 @@ Here are some of Zutilo's features:
 Zutilo strives to enable whatever Zotero workflow is desired and otherwise to get out of the way.
 All of Zutilo's graphical elements can be disabled individually, so that unwanted features do not clutter the user interface.
 
-**NOTE:** As of version 3.0, Zutilo is distributed from the [GitHub releases page](https://github.com/wshanks/Zutilo/releases).
-New updates will not be published to the location checked by previous versions of Zutilo (the Mozilla Add-ons page).
-To receive new Zutilo updates, please update to the latest version of Zutilo.
+> [!NOTE]
+> Zutilo is largely maintained by one person (@wshanks) who does not have much time for Zutilo any more.
+> @wshanks still uses Zotero but not as heavily and so has less need for the power user features of Zutilo.
+> Additional help adapting to new releases of Zotero and fixing other bugs is very welcome.
+> Without additional contributors, Zutilo may not be able to keep compatibility with future releases of Zotero.
+
+## Compatibility
+
+This branch (`z11`) of Zutilo targets Zotero 10 and Zotero 11; it needs at least Zotero 10.0.
+Every Zutilo function, the item and collection menus and the settings were run by script against test items in Zotero 10.0.8 and in Zotero 11.0-beta.4, with the same results in both.
+The keyboard shortcut editor is back: in Zutilo's settings, click a function's shortcut, then press the keys.
+Removed on this branch, because they cannot work in Zotero 10 or 11:
+
+* Better BibTeX's "Pin key" and "Unpin key": Better BibTeX 9 no longer has these functions (the citation key is in Zotero's own Citation Key field).
+* The ZotFile and Mdnotes shortcuts: neither plugin has a release for Zotero 7 or later.
+
+Shortcuts already stored for these functions are ignored.
 
 ## Installation
 
 Download the Zutilo `zutilo.xpi` file from [Zutilo's GitHub releases page](https://github.com/wshanks/Zutilo/releases).
-Then go to Tools->Add-ons in Zotero Standalone.
-Click on the gear button in the upper right area of the Add-ons Manager window that appears and choose "Install Add-on From File."
+Then, in Zotero, go to Tools->Plugins.
+Click on the gear button in the upper right area of the Plugins Manager window that appears and choose "Install Plugin From File…".
 Then select the downloaded `zutilo.xpi` file.
 
 **NOTE for Firefox users:** Firefox treats `.xpi` files as Firefox add-ons and tries to install them.
@@ -29,12 +43,12 @@ In that case, you must download it either with a different browser or with a com
 
 ## Getting started
 
-Zutilo can be customized via its preferences window, which can reached via the Zotero Addons Manager or the Tools menu.
+Zutilo can be customized in its pane of Zotero's settings ("Zutilo Utility for Zotero"), which is reached via Edit->Settings (on macOS, via the Zotero menu).
 
 ### Zotero item menu
 
 By default, Zutilo adds a set of menu items to a submenu (named `Zutilo`) of the menu that appears when an item is right-clicked in Zotero.
-Which items appear can be set in Zutilo's preferences window.
+Which items appear can be set in Zutilo's settings.
 Items can be set to appear in the Zutilo submenu or directly in the Zotero item menu.
 Not all available functions are visible in Zutilo submenu by default.
 
@@ -43,7 +57,7 @@ Not all available functions are visible in Zutilo submenu by default.
 All of the functions that can appear in the item menu can also be called by keyboard shortcuts.
 Zutilo also provides some additional keyboard shortcut functions that are not available from the item menu.
 By default, no keyboard shortcuts are defined.
-A shortcut key combination can be set for each function in Zutilo's preferences.
+A shortcut key combination can be set for each function in Zutilo's settings: click the function's shortcut, then press the keys.
 If the key combination is already assigned for another function, a warning will be displayed.
 
 ## Usage notes

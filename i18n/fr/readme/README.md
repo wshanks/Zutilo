@@ -15,12 +15,24 @@ Zutilo s'efforce de réaliser tous vos souhaits en termes de flux de travail Zot
 Les nouvelles mises à jour ne seront pas publiées à l'emplacement vérifié par les versions précédentes de Zutilo (la page des modules complémentaires de Mozilla).
 Pour recevoir les nouvelles mises à jour de Zutilo, veuillez effectuer une mise à jour vers la dernière version de Zutilo.
 
+## Compatibilité
+
+Cette branche (`z11`) de Zutilo vise Zotero 10 et Zotero 11 ; elle demande au moins Zotero 10.0.
+Toutes les fonctions de Zutilo, les menus contextuels des documents et des collections et les paramètres ont été exécutés par script sur des documents de test dans Zotero 10.0.8 et dans Zotero 11.0-beta.4, avec les mêmes résultats dans les deux.
+L'éditeur de raccourcis clavier est de retour : dans les paramètres de Zutilo, cliquer sur le raccourci d'une fonction, puis appuyer sur les touches.
+Retirés de cette branche, parce qu'ils ne peuvent pas fonctionner dans Zotero 10 ou 11 :
+
+* « Verrouiller la clé de citation » et « Déverrouiller la clé de citation » de Better BibTeX : Better BibTeX 9 n'a plus ces fonctions (la clé de citation est dans le champ « Clé de citation » de Zotero lui-même).
+* Les raccourcis de ZotFile et de Mdnotes : aucune de ces deux extensions n'a de version pour Zotero 7 ou ultérieur.
+
+Les raccourcis déjà enregistrés pour ces fonctions sont ignorés.
+
 
 ## Installation
 
 Télécharger le fichier `zutilo.xpi` de Zutilo à partir de [la page des versions GitHub de Zutilo](https://github.com/wshanks/Zutilo/releases).
 Dans Zotero, aller dans le menu _Outils_ → _Extensions_.
-Cliquer sur la roue dentée et choisir _Install Add-on From File_.
+Cliquer sur la roue dentée de la fenêtre _Plugins Manager_ et choisir _Install Plugin From File…_ (ces deux libellés ne sont pas traduits dans Zotero).
 Sélectionner et charger le fichier `zutilo.xpi`.
 
 
@@ -31,12 +43,12 @@ Dans ce cas, vous devez télécharger le fichier`.xpi` soit avec un autre naviga
 
 ## Démarrer
 
-Une fois Zutilo installé, il peut être personnalisé via sa fenêtre de préférences, accessible à partir du gestionnaire de modules complémentaires de Zotero ou à partir du menu _Outils_ >_Préférences de Zutilo..._
+Une fois Zutilo installé, il peut être personnalisé dans son volet des paramètres de Zotero (« Zutilo Utility for Zotero »), accessible par le menu _Édition_ → _Paramètres_ (sur macOS, par le menu _Zotero_).
 
 ### Le menu Zutilo dans Zotero
 
 Par défaut, Zutilo ajoute un ensemble d'options de menu dans un sous-menu `Zutilo` du menu contextuel d'un document Zotero, affiché par un clic droit sur un document.
-Les options qui apparaissent peuvent être définies dans la fenêtre des préférences de Zutilo.
+Les options qui apparaissent peuvent être définies dans les paramètres de Zutilo.
 Les options peuvent être configurées pour apparaître dans le sous-menu Zutilo ou directement dans le menu contextuel d'un document Zotero.
 Toutes les fonctions disponibles ne sont pas visibles par défaut dans le sous-menu de Zutilo .
 
@@ -46,7 +58,7 @@ Toutes les fonctions disponibles ne sont pas visibles par défaut dans le sous-m
 Toutes les fonctions qui peuvent apparaître dans le menu contextuel d'un document Zotero peuvent également être appelées par des raccourcis clavier.
 Zutilo propose également quelques fonctions supplémentaires de raccourcis clavier qui ne sont pas disponibles depuis le menu le menu contextuel d'un document Zotero.
 Par défaut, aucun raccourci clavier n'est défini.
-Une combinaison de touches de raccourci peut être définie pour chaque fonction dans les préférences de Zutilo.
+Une combinaison de touches de raccourci peut être définie pour chaque fonction dans les paramètres de Zutilo : cliquer sur le raccourci de la fonction, puis appuyer sur les touches.
 Si la combinaison de touches est déjà affectée à une autre fonction, un avertissement s'affiche.
 
 ## Notes d'utilisation
