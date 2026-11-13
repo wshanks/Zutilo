@@ -3,16 +3,6 @@ zutilo-preferences-ui-itemmenu = Zotero item menu
 zutilo-preferences-ui-collectionmenuLabel = Zotero collection menu
 
 zutilo-preferences-shortcuts = Shortcuts
-zutilo-preferences-shortcuts-labels =
-  .label = Name
-zutilo-preferences-shortcuts-categories =
-  .label = Category
-zutilo-preferences-shortcuts-keys =
-  .label = Shortcut
-zutilo-preferences-shortcuts-apply =
-  .label = Apply
-zutilo-preferences-shortcuts-disable =
-  .label = Disable
 zutilo-preferences-shortcuts-help = Click a shortcut, then press the keys. Escape cancels; Backspace or Delete removes the shortcut. Use Ctrl, Alt or ⌘ (or a function key), so typing is never taken over.
 zutilo-preferences-shortcuts-filter =
   .placeholder = Find a command or a shortcut
@@ -30,7 +20,6 @@ zutilo-preferences-shortcuts-assigned = { $name }: { $keys }
 zutilo-preferences-shortcuts-cleared = { $name }: no shortcut
 zutilo-preferences-shortcuts-zotero = Zotero: { $command }
 zutilo-preferences-shortcuts-zutilo = Zutilo: { $name }
-zutilo-preferences-shortcuts-count = { $assigned } of { $total } commands have a shortcut
 
 zutilo-preferences-readme-caption = About Zutilo
 zutilo-preferences-readme-button =

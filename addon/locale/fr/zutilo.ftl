@@ -3,16 +3,6 @@ zutilo-preferences-ui-itemmenu = Menu des documents Zotero
 zutilo-preferences-ui-collectionmenuLabel = Menu des collections Zotero
 
 zutilo-preferences-shortcuts = Raccourcis-clavier
-zutilo-preferences-shortcuts-labels =
-  .label = Nom
-zutilo-preferences-shortcuts-categories =
-  .label = Catégorie
-zutilo-preferences-shortcuts-keys =
-  .label = Raccourci
-zutilo-preferences-shortcuts-apply =
-  .label = Appliquer
-zutilo-preferences-shortcuts-disable =
-  .label = Désactiver
 zutilo-preferences-shortcuts-help = Cliquez sur un raccourci, puis appuyez sur les touches. Échap annule ; Retour arrière ou Suppr retire le raccourci. Utilisez Ctrl, Alt ou ⌘ (ou une touche de fonction), pour ne jamais gêner la saisie.
 zutilo-preferences-shortcuts-filter =
   .placeholder = Chercher une commande ou un raccourci
@@ -30,7 +20,6 @@ zutilo-preferences-shortcuts-assigned = { $name } : { $keys }
 zutilo-preferences-shortcuts-cleared = { $name } : aucun raccourci
 zutilo-preferences-shortcuts-zotero = Zotero : { $command }
 zutilo-preferences-shortcuts-zutilo = Zutilo : { $name }
-zutilo-preferences-shortcuts-count = { $assigned } commandes sur { $total } ont un raccourci
 
 zutilo-preferences-readme-caption = À propos de Zutilo
 zutilo-preferences-readme-button =

@@ -3,16 +3,6 @@ zutilo-preferences-ui-itemmenu = Zotero item menu
 zutilo-preferences-ui-collectionmenuLabel = Zotero collection menu
 
 zutilo-preferences-shortcuts = Shortcuts
-zutilo-preferences-shortcuts-labels =
-  .label = Name
-zutilo-preferences-shortcuts-categories =
-  .label = Category
-zutilo-preferences-shortcuts-keys =
-  .label = Combinacíon
-zutilo-preferences-shortcuts-apply =
-  .label = Aplicar
-zutilo-preferences-shortcuts-disable =
-  .label = Deshabilitar
 
 zutilo-preferences-readme-caption = Acerca de Zutilo
 zutilo-preferences-readme-button =
