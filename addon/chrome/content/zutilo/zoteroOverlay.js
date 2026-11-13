@@ -51,6 +51,47 @@ ZutiloChrome.zoteroOverlay = {
     /******************************************/
     // Functions for GUI keyboard shortcuts
     /******************************************/
+    // The item pane of Zotero 7+: no tabbox any more, one scrolling pane of
+    // sections (info-box, notes-box, tags-box, related-box, ...) inside
+    // <item-details>. Look inside the active pane first: with several
+    // library tabs (Zotero 11) an id is not unique in the window.
+    _itemPaneElement: function(selector, id) {
+        let itemPane = ZoteroPane.itemPane;
+        let elem = itemPane && itemPane.querySelector
+            ? itemPane.querySelector(selector) : null;
+        return elem || ZoteroPane.document.getElementById(id);
+    },
+
+    _itemDetails: function() {
+        return this._itemPaneElement('item-details', 'zotero-item-details');
+    },
+
+    // Bring a section of the item pane ('info', 'notes', 'tags', 'related',
+    // ...) to the top, as a click on its button in the side bar does.
+    // Returns the section element, or null if the item has no such section.
+    _showItemPaneSection: function(paneID) {
+        let details = this._itemDetails();
+        if (!details || !details.getEnabledPanes) {
+            return null;
+        }
+        let pane = details.getEnabledPanes().
+            find((elem) => elem.dataset.pane == paneID);
+        if (!pane) {
+            return null;
+        }
+        details.scrollToPane(paneID, 'instant');
+        return pane;
+    },
+
+    // The old tabbox of Zotero <= 6, if there is one
+    _selectItemPaneTab: function(tabIndex) {
+        let zoteroViewTabbox =
+            ZoteroPane.document.getElementById('zotero-view-tabbox');
+        if (zoteroViewTabbox) {
+            zoteroViewTabbox.selectedIndex = tabIndex;
+        }
+    },
+
     editItemInfoGUI: function() {
         var zitems = this.getSelectedItems('regular');
         if (!this.checkItemNumber(zitems, 'regularSingle')) {
@@ -58,16 +99,21 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select info tab of item pane
-        let tabIndex = 0;
-        let zoteroViewTabbox =
-            ZoteroPane.document.getElementById('zotero-view-tabbox');
-        // tabbox removed in Zotero 8 (just one big tab now)
-        if (zoteroViewTabbox !== undefined) {
-            zoteroViewTabbox.selectedIndex = tabIndex;
-        }
+        this._selectItemPaneTab(0);
         // Focus first entry textbox of info pane
-        ZoteroPane.document.getElementById('zotero-editpane-item-box').
-            focusFirstField('info');
+        let infoBox = this._itemPaneElement('info-box',
+                                            'zotero-editpane-info-box');
+        if (infoBox && infoBox.getTitleField) {
+            // Zotero 7+
+            this._showItemPaneSection('info');
+            let field = infoBox.getTitleField();
+            if (field) {
+                field.focus();
+            }
+        } else {
+            ZoteroPane.document.getElementById('zotero-editpane-item-box').
+                focusFirstField('info');
+        }
 
         return true;
     },
@@ -79,13 +125,7 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select note tab of item pane
-        let tabIndex = 1;
-        let zoteroViewTabbox =
-            ZoteroPane.document.getElementById('zotero-view-tabbox');
-        // tabbox removed in Zotero 8 (just one big tab now)
-        if (zoteroViewTabbox !== undefined) {
-            zoteroViewTabbox.selectedIndex = tabIndex;
-        }
+        this._selectItemPaneTab(1);
         // Create new note
         ZoteroPane.newNote(false, zitems[0].key)
 
@@ -99,13 +139,15 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select tag tab of item pane
-        let tabbox = ZoteroPane.document.getElementById('zotero-view-tabbox')
-        var tabIndex = 2
-        // tabbox removed in Zotero 8 (just one big tab now)
-        if (tabbox !== undefined) {
-            tabs.selectedIndex = tabIndex
-        }
+        this._selectItemPaneTab(2);
         // Focus new tag entry textbox
+        let tagsBox = this._itemPaneElement('tags-box', 'zotero-editpane-tags');
+        if (tagsBox && tagsBox.newTag) {
+            // Zotero 7+: the tags section opens a new row and focuses it
+            this._showItemPaneSection('tags');
+            tagsBox.newTag();
+            return true;
+        }
         let header = ZoteroPane.document.querySelector(".tags-box-header")
         if (header === null) {
             // Zotero version < 5.0.78
@@ -130,15 +172,10 @@ ZutiloChrome.zoteroOverlay = {
         }
 
         // Select related tab of item pane
-        let tabIndex = 3;
-        let zoteroViewTabbox =
-            ZoteroPane.document.getElementById('zotero-view-tabbox');
-        // tabbox removed in Zotero 8 (just one big tab now)
-        if (zoteroViewTabbox !== undefined) {
-            zoteroViewTabbox.selectedIndex = tabIndex;
-        }
+        this._selectItemPaneTab(3);
+        this._showItemPaneSection('related');
         // Open add related window
-        ZoteroPane.document.getElementById('zotero-editpane-related').add();
+        this._itemPaneElement('related-box', 'zotero-editpane-related').add();
 
         return true;
     },
