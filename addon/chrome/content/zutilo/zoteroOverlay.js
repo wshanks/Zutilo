@@ -63,18 +63,13 @@ ZutiloChrome.zoteroOverlay = {
             ZoteroPane.document.getElementById('zotero-item-details');
     },
 
-    // A section's box. Inside <item-details> only: the item pane holds other
-    // boxes of the same kind (the note editor has its own tags and related
-    // boxes, the duplicates pane its own info box).
-    _itemPaneElement: function(selector, id) {
-        let details = this._itemDetails();
-        let elem = details ? details.querySelector(selector) : null;
-        return elem || ZoteroPane.document.getElementById(id);
-    },
-
     // Bring a section of the item pane ('info', 'notes', 'tags', 'related',
     // ...) to the top, as a click on its button in the side bar does.
-    // Returns the section element, or null if the item has no such section.
+    // Returns the section's box (info-box, tags-box, ...), or null if the
+    // item has no such section. The box is taken from the pane's own list of
+    // sections, not by tag name: the item pane holds other boxes of the same
+    // kind (the attachment and note sections have their own tags and related
+    // boxes, the duplicates pane its own info box).
     _showItemPaneSection: function(paneID) {
         let details = this._itemDetails();
         if (!details || !details.getEnabledPanes) {
@@ -164,11 +159,9 @@ ZutiloChrome.zoteroOverlay = {
         // Select info tab of item pane
         this._selectItemPaneTab(0);
         // Focus first entry textbox of info pane
-        let infoBox = this._itemPaneElement('info-box',
-                                            'zotero-editpane-info-box');
+        let infoBox = this._showItemPaneSection('info');
         if (infoBox && infoBox.getTitleField) {
             // Zotero 7+
-            this._showItemPaneSection('info');
             let field = infoBox.getTitleField();
             if (field) {
                 field.focus();
@@ -204,10 +197,9 @@ ZutiloChrome.zoteroOverlay = {
         // Select tag tab of item pane
         this._selectItemPaneTab(2);
         // Focus new tag entry textbox
-        let tagsBox = this._itemPaneElement('tags-box', 'zotero-editpane-tags');
+        let tagsBox = this._showItemPaneSection('tags');
         if (tagsBox && tagsBox.newTag) {
             // Zotero 7+: the tags section opens a new row and focuses it
-            this._showItemPaneSection('tags');
             tagsBox.newTag();
             return true;
         }
@@ -236,9 +228,10 @@ ZutiloChrome.zoteroOverlay = {
 
         // Select related tab of item pane
         this._selectItemPaneTab(3);
-        this._showItemPaneSection('related');
+        let relatedBox = this._showItemPaneSection('related') ||
+            ZoteroPane.document.getElementById('zotero-editpane-related');
         // Open add related window
-        this._itemPaneElement('related-box', 'zotero-editpane-related').add();
+        relatedBox.add();
 
         return true;
     },
