@@ -472,6 +472,12 @@ keys.shortcuts.locateMenu = function(win) {
 keys.categories.locateItem = 'uinavigation'
 keys.shortcuts.locateItem = function(win) {
     let label = Zutilo.Prefs.get("locateItemEngine")
+    // Zotero renamed its "Google Scholar Search" engine to "Google Scholar"
+    // (Zutilo's default until 4.3): follow it, as Zotero does for its users
+    if (label == 'Google Scholar Search' && win.Zotero.LocateManager &&
+            !win.Zotero.LocateManager.getEngineByName(label)) {
+        label = 'Google Scholar'
+    }
     win.Zotero_LocateMenu.locateItem({"target": {"label": label}})
 };
 

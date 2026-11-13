@@ -256,7 +256,7 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
 
 * __Locate item:__
     Equivalent to using one of the Lookup engines from the Locate menu accessed from the top of the item pane.
-    The default engine is "Google Scholar Search".
+    The default engine is "Google Scholar".
     To change the engine, modify the `extensions.zutilo.locateItemEngine` preference in the config editor.
     The config editor can be opened from the Advanced pane of Zotero's preferences window.
     For a list of valid engine names, select "Developer->Run JavaScript" from Zotero's "Tools" menu and enter and run this command: `Zotero.LocateManager.getVisibleEngines().map(engine => engine.name)`.
