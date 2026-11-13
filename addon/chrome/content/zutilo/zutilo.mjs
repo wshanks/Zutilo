@@ -17,8 +17,6 @@ export var Zutilo = {
     // Basic information
     /********************************************/
     id: 'zutilo@www.wesailatdawn.com',
-    zoteroID: 'zotero@chnm.gmu.edu',
-    zoteroTabURL: 'chrome://zotero/content/tab.xul',
     // All strings here should be the exact name of Zutilo functions that take
     // no argument and that should be able to be called from the Zotero item
     // menu
@@ -58,8 +56,6 @@ export var Zutilo = {
 
         this.observers.register()
         Zutilo.Prefs.init()
-        // Zutilo.ZoteroPrefs.init()
-
 
         this.prepareWindows()
     },
@@ -256,13 +252,6 @@ Zutilo.Prefs = {
         }
         // locateItem engine label
         defaults.setCharPref('locateItemEngine', 'Google Scholar')
-        // Other preferences
-        defaults.setCharPref('attachLinkAppearance', 'Zotero');
-        defaults.setCharPref('attachmentImportProcessType', 'Zotero');
-        defaults.setCharPref('attachPageAppearance', 'Zotero');
-        defaults.setCharPref('lastVersion', '');
-        defaults.setBoolPref('showStatusPopupItems', true);
-        defaults.setBoolPref('warnZoteroNotActive', true);
     },
 
     // Once per startup: setDefaults() runs again whenever the number of
@@ -396,44 +385,3 @@ Zutilo.Prefs = {
         }
     }
 }
-
-
-// This object was used to watch a Zotero pref, but it's not necessary now.
-// Leaving Zutilo.ZoteroPrefs code here for possible future use
-/*
-Zutilo.ZoteroPrefs = {
-
-    init: function() {
-        this.prefBranch = Services.prefs.getBranch('extensions.zotero.');
-
-        // Register observer to handle pref changes
-        this.register();
-    },
-
-    //
-    // Methods to register a preferences observer
-    //
-    register: function() {
-        this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch);
-        this.prefBranch.addObserver('', this, false);
-    },
-
-    unregister: function() {
-        if (!this.prefBranch){
-            return;
-        }
-        this.prefBranch.removeObserver('', this);
-    },
-
-    observe: function(subject, topic, data) {
-        if(topic!='nsPref:changed'){
-            return;
-        }
-        // subject is the nsIPrefBranch we're observing (after appropriate QI)
-        // data is the name of the pref that's been changed (relative to
-        // subject)
-        switch (data){
-        }
-    }
-};
-*/
