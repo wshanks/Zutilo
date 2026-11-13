@@ -397,6 +397,12 @@ ZutiloChrome.zoteroOverlay = {
             // getSelectedCollection() was removed in Zotero 10; older
             // versions (still supported per manifest strict_min_version)
             // don't have getSelectedCollections().
+            if (!window.ZoteroPane.collectionsView) {
+                // A window that is still loading (Zotero 11's File > New
+                // Window): getSelectedCollections() throws there, which
+                // stopped Zutilo's start in that window before its keys
+                return undefined;
+            }
             if (window.ZoteroPane.getSelectedCollections) {
                 return window.ZoteroPane.getSelectedCollections()[0];
             }
