@@ -7,10 +7,24 @@
    on top, the legend of the menu icons, then a line per function -- its name,
    its three context-menu choices as icons (or an empty cell), its shortcut and
    the shortcut's clear button, in aligned columns. */
-#zutilo-shortcut-filter { width: 100%; box-sizing: border-box; margin: 0 0 6px; }
-.zutilo-menu-legend { gap: 18px; flex-wrap: wrap; margin: 0 0 2px; color: var(--fill-secondary, GrayText); }
-.zutilo-menu-legend-item { gap: 6px; }
-.zutilo-menu-legend-item label { margin: 0; }
+#zutilo-filter-row { display: flex; align-items: center; gap: 6px; margin: 0 0 6px; }
+#zutilo-shortcut-filter { flex: 1 1 auto; min-width: 0; box-sizing: border-box; margin: 0; }
+/* The filters: two chips beside the search, and the legend's three choices
+   (MJT 2026-11-15). Pressed = filtering. */
+.zutilo-filter-chip, .zutilo-menu-legend-item {
+  display: inline-flex; align-items: center; gap: 6px; margin: 0;
+  padding: 2px 8px; border-radius: 12px; font: inherit;
+  border: 1px solid var(--fill-quinary, ThreeDShadow); background: transparent; color: inherit;
+}
+.zutilo-filter-chip { flex: none; white-space: nowrap; }
+.zutilo-filter-chip:hover, .zutilo-menu-legend-item:hover { background: var(--fill-quinary, rgba(0, 0, 0, 0.05)); }
+.zutilo-filter-chip[aria-pressed="true"], .zutilo-menu-legend-item[aria-pressed="true"] {
+  border-color: var(--accent-blue, #4072e5); background: color-mix(in srgb, var(--accent-blue, #4072e5) 18%, transparent);
+}
+.zutilo-menu-legend { gap: 8px; flex-wrap: wrap; margin: 0 0 4px; color: var(--fill-secondary, GrayText); }
+.zutilo-menu-legend-item { border-color: transparent; }
+.zutilo-filter-empty { padding: 10px 16px; color: var(--fill-secondary, GrayText); }
+.zutilo-filter-empty[hidden] { display: none; }
 #zutilo-shortcut-help { margin: 0 0 6px; color: var(--fill-secondary, GrayText); }
 #zutilo-shortcut-list {
   max-height: 60vh; overflow-y: auto;

@@ -15,7 +15,11 @@
            context-menu choices when it can be in a menu, and its shortcut; built
            by script, no inline handlers (Zotero's settings panes do not run
            them). -->
-      <html:input type="search" id="zutilo-shortcut-filter" data-l10n-id="zutilo-preferences-shortcuts-filter"/>
+      <html:div id="zutilo-filter-row">
+        <html:input type="search" id="zutilo-shortcut-filter" data-l10n-id="zutilo-preferences-shortcuts-filter"/>
+        <html:button id="zutilo-filter-with" class="zutilo-filter-chip" aria-pressed="false" data-l10n-id="zutilo-preferences-filter-with"></html:button>
+        <html:button id="zutilo-filter-without" class="zutilo-filter-chip" aria-pressed="false" data-l10n-id="zutilo-preferences-filter-without"></html:button>
+      </html:div>
       <hbox id="zutilo-prefpane-menu-legend" class="zutilo-menu-legend" align="center"/>
       <html:p id="zutilo-shortcut-help" data-l10n-id="zutilo-preferences-shortcuts-help"></html:p>
       <html:div id="zutilo-shortcut-list" role="list"></html:div>

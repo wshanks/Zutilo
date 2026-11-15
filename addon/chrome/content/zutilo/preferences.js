@@ -37,20 +37,29 @@ function menuChoiceIcon(choice) {
     return 'chrome://zotero/skin/16/universal/hide.svg';
 }
 
-function buildMenuLegend(legend) {
+// The legend is also a filter (MJT 2026-11-15): a click on a choice shows only
+// the functions placed there; a second click shows them all again.
+function buildMenuLegend(legend, onPick) {
+    const html = 'http://www.w3.org/1999/xhtml';
     legend.textContent = '';
+    const buttons = [];
     for (const choice of MENU_CHOICES) {
-        const item = document.createXULElement('hbox');
-        item.setAttribute('align', 'center');
-        item.classList.add('zutilo-menu-legend-item');
+        const item = document.createElementNS(html, 'button');
+        item.className = 'zutilo-menu-legend-item';
+        item.dataset.choice = choice;
+        item.setAttribute('aria-pressed', 'false');
+        document.l10n.setAttributes(item, 'zutilo-preferences-filter-placement');
         const icon = document.createXULElement('image');
         icon.classList.add('zutilo-menu-icon');
         icon.setAttribute('src', menuChoiceIcon(choice));
-        const label = document.createXULElement('label');
-        label.setAttribute('value', Zutilo.getString(`zutilo.preferences.itemmenu.${choice}`));
+        const label = document.createElementNS(html, 'span');
+        label.textContent = Zutilo.getString(`zutilo.preferences.itemmenu.${choice}`);
         item.append(icon, label);
+        item.addEventListener('click', () => onPick(choice));
         legend.appendChild(item);
+        buttons.push(item);
     }
+    return buttons;
 }
 
 // A function's menu choices: a radiogroup bound to its pref. Built once with the
@@ -113,9 +122,26 @@ var ZutiloShortcutEditor = {
                 }
             }
             this._names = [...new Set([...Object.keys(Zutilo.keys.shortcuts), ...this._menus.keys()])];
+            // The filters: the search, where a function is placed (the legend),
+            // and whether it has a shortcut (two chips); they combine.
+            this._placement = null;
+            this._withKeys = null;
             const legend = document.getElementById('zutilo-prefpane-menu-legend');
-            if (legend) {
-                buildMenuLegend(legend);
+            this._legendButtons = legend ? buildMenuLegend(legend, choice => {
+                this._placement = this._placement == choice ? null : choice;
+                this.filter();
+            }) : [];
+            this._chips = {
+                with: document.getElementById('zutilo-filter-with'),
+                without: document.getElementById('zutilo-filter-without')
+            };
+            for (const [which, chip] of Object.entries(this._chips)) {
+                if (chip) {
+                    chip.addEventListener('click', () => {
+                        this._withKeys = this._withKeys == which ? null : which;
+                        this.filter();
+                    });
+                }
             }
             this._filter.addEventListener('input', () => this.filter());
             this.build();
@@ -534,21 +560,46 @@ var ZutiloShortcutEditor = {
             this._rows.set(r.name, entry);
             head.rows.push(entry);
         }
+        this._empty = document.createElementNS(html, 'div');
+        this._empty.className = 'zutilo-filter-empty';
+        this._empty.hidden = true;
+        document.l10n.setAttributes(this._empty, 'zutilo-preferences-filter-none');
+        list.appendChild(this._empty);
         this.refresh();
     },
 
-    // The search hides lines (and a heading left with none); it never rebuilds.
+    // The filters hide lines (and a heading left with none); they never rebuild.
     filter: function() {
         const q = (this._filter.value || '').trim().toLowerCase();
-        for (const head of this._heads) {
+        for (const b of this._legendButtons || []) {
+            b.setAttribute('aria-pressed', String(b.dataset.choice == this._placement));
+        }
+        for (const [which, chip] of Object.entries(this._chips || {})) {
+            if (chip) {
+                chip.setAttribute('aria-pressed', String(which == this._withKeys));
+            }
+        }
+        let shown = 0;
+        for (const head of this._heads || []) {
             let any = false;
             for (const e of head.rows) {
                 const keyText = e.btn ? this.format(this._get(e.row.dataset.name)) : '';
-                const show = !q || (e.label + ' ' + e.category + ' ' + keyText + ' ' + e.row.dataset.name).toLowerCase().includes(q);
+                const group = e.row.querySelector('radiogroup');
+                let show = !q || (e.label + ' ' + e.category + ' ' + keyText + ' ' + e.row.dataset.name).toLowerCase().includes(q);
+                if (show && this._placement) {
+                    show = !!group && group.value == this._placement;
+                }
+                if (show && this._withKeys) {
+                    show = this._withKeys == 'with' ? !!keyText : !keyText;
+                }
                 e.row.hidden = !show;
                 any = any || show;
+                shown += show ? 1 : 0;
             }
             head.el.hidden = !any;
+        }
+        if (this._empty) {
+            this._empty.hidden = shown > 0;
         }
     },
 
