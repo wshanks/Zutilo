@@ -37,3 +37,11 @@ zutilo-preferences-filter-placement =
 zutilo-preferences-filter-none = Aucune fonction ne correspond.
 zutilo-preferences-shortcuts-plugin = { $plugin } : { $name }
 zutilo-preferences-shortcuts-clash = Aussi utilisé par : { $names }
+zutilo-preferences-shortcuts-zotero-code = Zotero ({ $where ->
+        [reader] lecteur
+        [note] éditeur de notes
+        [items] liste des documents
+        [collections] volet des collections
+        [window] toutes les fenêtres
+       *[main] fenêtre principale
+    }) : { $name }

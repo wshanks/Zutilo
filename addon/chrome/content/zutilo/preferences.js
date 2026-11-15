@@ -147,6 +147,20 @@ var ZutiloShortcutEditor = {
                 }
             }
             this._filter.addEventListener('input', () => this.filter());
+            // Zotero's code-handled shortcuts for this platform; the warnings
+            // are drawn again once they are in.
+            this._zoteroCode = [];
+            fetch('chrome://zutilo/content/zoteroShortcuts.json')
+                .then(r => r.json())
+                .then(data => {
+                    const onPlatform = e => !e.platform
+                        || (e.platform == 'mac' ? Zotero.isMac
+                            : e.platform == 'notmac' ? !Zotero.isMac
+                            : e.platform == 'linux' ? Zotero.isLinux : true);
+                    this._zoteroCode = ((data && data.shortcuts) || []).filter(onPlatform);
+                    this.refresh();
+                })
+                .catch(e => Zotero.logError(e));
             // Another plugin's shortcuts changed while the pane is open: the
             // warnings follow.
             this._changedObserver = {observe: () => this.refresh()};
@@ -361,6 +375,16 @@ var ZutiloShortcutEditor = {
                 if (this.sameKey(k, ek)) {
                     out.add(this._labelFor(doc, el));
                 }
+            }
+        }
+        // Zotero's shortcuts handled in code (keydown handlers: the reader,
+        // the note editor, the library's trees, the tab bar), which no <key>
+        // element shows: zoteroShortcuts.json, each entry with its source.
+        // MJT 2026-11-15: Ctrl+P (Print in the reader) gave no warning.
+        for (const e of (this._zoteroCode || [])) {
+            if (this.sameKey(k, e)) {
+                out.add(await this._l10n('zutilo-preferences-shortcuts-zotero-code',
+                    {where: (e.where && e.where[0]) || 'main', name: e.label}));
             }
         }
         // Other plugins' shortcuts, published under the plugin-shortcuts
