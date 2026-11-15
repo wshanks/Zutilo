@@ -15,6 +15,7 @@ window.initializePrefWindow = function() {
 
 // eslint-disable-next-line no-unused-vars
 window.buildMenuPrefs = function() {
+    buildMenuLegend();
     for (const menuName of ['item', 'collection']) {
         for (const functionName of Zutilo._menuFunctions[menuName]) {
             addMenuRadiogroup(menuName, functionName);
@@ -22,19 +23,46 @@ window.buildMenuPrefs = function() {
     }
 }
 
+// Each function takes one line: its name, then its three choices as icons in
+// aligned columns -- Zotero's own menu (Zotero's Z), Zutilo's submenu (Zutilo's
+// icon), hidden (Zotero's hide icon). The wording is said once, in the legend
+// above the lists, and on each choice as its tooltip and accessible name (MJT
+// 2026-11-15: "too heavy to put the same text again and again").
+const MENU_CHOICES = ['Zotero', 'Zutilo', 'Hide'];
+
+function menuChoiceIcon(choice) {
+    if (choice == 'Zotero') {
+        return 'chrome://zotero/skin/z.svg';
+    }
+    if (choice == 'Zutilo') {
+        return Zutilo.rootURI + 'zutilo.png';
+    }
+    return 'chrome://zotero/skin/16/universal/hide.svg';
+}
+
+function buildMenuLegend() {
+    const legend = document.getElementById('zutilo-prefpane-menu-legend');
+    if (!legend) {
+        return;
+    }
+    legend.textContent = '';
+    for (const choice of MENU_CHOICES) {
+        const item = document.createXULElement('hbox');
+        item.setAttribute('align', 'center');
+        item.classList.add('zutilo-menu-legend-item');
+        const icon = document.createXULElement('image');
+        icon.classList.add('zutilo-menu-icon');
+        icon.setAttribute('src', menuChoiceIcon(choice));
+        const label = document.createXULElement('label');
+        label.setAttribute('value', Zutilo.getString(`zutilo.preferences.itemmenu.${choice}`));
+        item.append(icon, label);
+        legend.appendChild(item);
+    }
+}
+
 function addMenuRadiogroup(menuName, menuFunction) {
-    var newRow = document.createXULElement('groupbox');
-
-    var newHbox = document.createXULElement('hbox');
-    newHbox.setAttribute('align', 'center');
-    var newLabel = document.createXULElement('label');
-    newLabel.setAttribute(
-        'value',
-        Zutilo.getString(`zutilo.preferences.${menuName}menu.${menuFunction}`)
-    )
-    newHbox.appendChild(newLabel);
-    newRow.appendChild(newHbox);
-
+    // The radiogroup is the row: a radiogroup finds the radios among its
+    // descendants, and the name before them is an ordinary label.
     var newRadiogroup = document.createXULElement('radiogroup');
     newRadiogroup.classList.add('zutilo-menu-choice');
     newRadiogroup.setAttribute('orient', 'horizontal');
@@ -42,21 +70,27 @@ function addMenuRadiogroup(menuName, menuFunction) {
     newRadiogroup.setAttribute('preference',
                                `extensions.zutilo.${menuName}menu.${menuFunction}`);
 
-    var newRadio;
-    for (const label of ['Zotero', 'Zutilo', 'Hide']) {
-        newRadio = document.createXULElement('radio');
-        newRadio.setAttribute(
-            'label',
-            Zutilo.getString(`zutilo.preferences.${menuName}menu.${label}`)
-        )
-        newRadio.setAttribute('value', label);
+    var newLabel = document.createXULElement('label');
+    newLabel.classList.add('zutilo-menu-name');
+    newLabel.setAttribute(
+        'value',
+        Zutilo.getString(`zutilo.preferences.${menuName}menu.${menuFunction}`)
+    )
+    newRadiogroup.appendChild(newLabel);
+
+    for (const choice of MENU_CHOICES) {
+        const text = Zutilo.getString(`zutilo.preferences.${menuName}menu.${choice}`);
+        const newRadio = document.createXULElement('radio');
+        newRadio.setAttribute('value', choice);
+        // radio.js shows `src` as the radio's icon (.radio-icon), Firefox 140 and 153.
+        newRadio.setAttribute('src', menuChoiceIcon(choice));
+        newRadio.setAttribute('tooltiptext', text);
+        newRadio.setAttribute('aria-label', text);
         newRadiogroup.appendChild(newRadio);
     }
 
-    newRow.appendChild(newRadiogroup);
-
     var menuRows = document.getElementById(`zutilo-prefpane-${menuName}-rows`);
-    menuRows.appendChild(newRow);
+    menuRows.appendChild(newRadiogroup);
 }
 
 /******************************************/

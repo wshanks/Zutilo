@@ -3,9 +3,25 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* Menu items: each function's three choices indented under its name, so the
-   list reads as name -> choices (preferences.js, addMenuRadiogroup). */
-.zutilo-menu-choice { margin-inline-start: 16px; }
+/* Menu items: one line per function, its name then its three choices as icons
+   in aligned columns; their wording once, in the legend (preferences.js,
+   buildMenuLegend / addMenuRadiogroup). */
+.zutilo-menu-legend { gap: 18px; flex-wrap: wrap; margin: 0 0 6px; color: var(--fill-secondary, GrayText); }
+.zutilo-menu-legend-item { gap: 6px; }
+.zutilo-menu-legend-item label { margin: 0; }
+.zutilo-menu-icon,
+.zutilo-menu-choice .radio-icon {
+  width: 16px; height: 16px;
+  -moz-context-properties: fill; fill: currentColor;
+}
+.zutilo-menu-choice {
+  display: grid; grid-template-columns: 17em repeat(3, 64px); align-items: center;
+  padding: 1px 6px; border-radius: 4px;
+}
+.zutilo-menu-choice:hover { background: var(--fill-quinary, rgba(0, 0, 0, 0.05)); }
+.zutilo-menu-name { margin: 0; overflow: hidden; text-overflow: ellipsis; }
+.zutilo-menu-choice radio { margin: 0; }
+.zutilo-menu-choice .radio-label { display: none; }
 
 /* The shortcut editor (preferences.js, ZutiloShortcutEditor). */
 #zutilo-shortcut-help { margin: 0 0 6px; color: var(--fill-secondary, GrayText); }
