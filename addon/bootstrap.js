@@ -29,9 +29,15 @@ function startup(data, reason) {
         ["locale",  "zutilo", "zh-CN", "chrome/locale/zh-CN/zutilo/"]
     ])
 
+    // The core module under a URL of this version's own. Firefox keeps a
+    // module for the whole session by its URL, so with a plain URL an in-place
+    // upgrade (or reinstall) ran the new add-on against the OLD version's
+    // zutilo.mjs until Zotero restarted. Every script that imports it uses the
+    // same URL (Zutilo.moduleURL; zutilo.mjs hands it on).
+    const moduleURL = "chrome://zutilo/content/zutilo.mjs?v=" + encodeURIComponent(data.version);
     // Kept at file level: shutdown() needs it too
-    Zutilo = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs").Zutilo;
-    Zutilo.init(data.rootURI, Zotero);
+    Zutilo = ChromeUtils.importESModule(moduleURL).Zutilo;
+    Zutilo.init(data.rootURI, Zotero, moduleURL);
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -52,6 +58,9 @@ function shutdown(data, reason) {
             tmpWin.ZutiloChrome.zoteroOverlay.unload();
         }
         delete tmpWin.ZutiloChrome;
+        try {
+            delete tmpWin.ZutiloModuleURL;
+        } catch (e) {}
         // `var { Zutilo }` of the window scripts: not configurable, so a
         // delete throws in strict mode and stopped the shutdown here
         try {

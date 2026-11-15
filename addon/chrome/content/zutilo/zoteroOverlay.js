@@ -7,7 +7,7 @@
 /* global window, document, Components */
 /* global Zotero, ZoteroPane, ZOTERO_CONFIG */
 /* global Zutilo, ZutiloChrome */
-var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
+var { Zutilo } = ChromeUtils.importESModule(window.ZutiloModuleURL || "chrome://zutilo/content/zutilo.mjs");
 // Already declared in this context
 // var { ZOTERO_CONFIG } = ChromeUtils.importESModule("resource://zotero/config.mjs");
 

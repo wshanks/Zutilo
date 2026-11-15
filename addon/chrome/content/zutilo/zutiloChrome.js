@@ -11,7 +11,7 @@
 var Cc = Components.classes
 var Ci = Components.interfaces
 var Cu = Components.utils
-var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
+var { Zutilo } = ChromeUtils.importESModule(window.ZutiloModuleURL || "chrome://zutilo/content/zutilo.mjs");
 
 /******************************************/
 // Initialization

@@ -12,7 +12,9 @@
 // Include core modules and built-in modules
 /********************************************/
 var { AddonManager } = ChromeUtils.importESModule("resource://gre/modules/AddonManager.sys.mjs");
-var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
+// Loaded by zutilo.mjs into the Zutilo object: `this.moduleURL` is the
+// versioned URL it was imported under (bootstrap.js).
+var { Zutilo } = ChromeUtils.importESModule(this.moduleURL || "chrome://zutilo/content/zutilo.mjs");
 
 /********************************************/
 // Define keys object
