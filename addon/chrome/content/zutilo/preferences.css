@@ -38,7 +38,7 @@
 }
 .zutilo-shortcut-category[hidden] { display: none; }
 .zutilo-shortcut-row {
-  display: grid; grid-template-columns: minmax(0, 1fr) 168px 8em 24px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 168px 18px 8em 24px;
   align-items: center; column-gap: 6px; padding: 1px 8px 1px 16px;
 }
 .zutilo-shortcut-row[hidden] { display: none; }
@@ -58,3 +58,8 @@
 .zutilo-shortcut-key.zutilo-recording { outline: 2px solid var(--accent-blue, #4072e5); }
 .zutilo-shortcut-clear { min-width: 0; width: 24px; margin: 0; padding: 0; }
 .zutilo-shortcut-clear[hidden] { visibility: hidden; display: inline-block; }
+/* The clash warning before a shortcut (preferences.js refresh): who else uses
+   those keys is in its tooltip. */
+.zutilo-shortcut-warn { color: var(--accent-orange, #d97706); text-align: center; cursor: help; }
+.zutilo-shortcut-warn[hidden] { visibility: hidden; display: inline; }
+.zutilo-clash .zutilo-shortcut-key { outline: 1px solid var(--accent-orange, #d97706); outline-offset: -1px; }

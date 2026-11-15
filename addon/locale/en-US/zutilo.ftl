@@ -35,3 +35,5 @@ zutilo-preferences-filter-without = Without shortcut
 zutilo-preferences-filter-placement =
     .title = Show only the functions placed here (click again to show all)
 zutilo-preferences-filter-none = No function matches.
+zutilo-preferences-shortcuts-plugin = { $plugin }: { $name }
+zutilo-preferences-shortcuts-clash = Also used by: { $names }

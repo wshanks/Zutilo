@@ -6,7 +6,10 @@
 'use strict';
 /* global window, document, Components, KeyboardEvent, Services, Zotero */
 /* global Zutilo */
-var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
+// The core module under the URL the running version imported it with
+// (bootstrap.js; zutilo.mjs init publishes it as a default pref).
+var { Zutilo } = ChromeUtils.importESModule(
+    Services.prefs.getDefaultBranch('extensions.zutilo.').getStringPref('moduleURL', 'chrome://zutilo/content/zutilo.mjs'));
 
 // eslint-disable-next-line no-unused-vars
 window.initializePrefWindow = function() {
@@ -144,6 +147,16 @@ var ZutiloShortcutEditor = {
                 }
             }
             this._filter.addEventListener('input', () => this.filter());
+            // Another plugin's shortcuts changed while the pane is open: the
+            // warnings follow.
+            this._changedObserver = {observe: () => this.refresh()};
+            Services.obs.addObserver(this._changedObserver, Zutilo.SHORTCUTS_CHANGED);
+            window.addEventListener('unload', () => {
+                try {
+                    Services.obs.removeObserver(this._changedObserver, Zutilo.SHORTCUTS_CHANGED);
+                }
+                catch (e) {}
+            }, {once: true});
             this.build();
         } catch (e) {
             Zotero.logError(e);
@@ -350,6 +363,14 @@ var ZutiloShortcutEditor = {
                 }
             }
         }
+        // Other plugins' shortcuts, published under the plugin-shortcuts
+        // convention (zutilo.mjs). Zutilo's keys act anywhere in a main
+        // window, which every `where` value of the convention overlaps.
+        for (const p of (this._pluginCache || this._pluginShortcuts())) {
+            if (this.sameKey(k, p.s)) {
+                out.add(await this._l10n('zutilo-preferences-shortcuts-plugin', {plugin: p.plugin, name: p.s.label || p.s.id}));
+            }
+        }
         if (k.key && this.normalizeModifiers(k.modifiers) == this.normalizeModifiers('accel,shift')) {
             const branch = Services.prefs.getBranch('extensions.zotero.keys.');
             for (const cmd of branch.getChildList('')) {
@@ -363,6 +384,40 @@ var ZutiloShortcutEditor = {
             }
         }
         return [...out];
+    },
+
+    // Every other plugin's published shortcuts, asked fresh (the replies come
+    // back synchronously, inside the request): [{plugin: name, s: shortcut}].
+    _pluginShortcuts: function() {
+        const out = [];
+        const reqID = 'zutilo-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+        const listener = {
+            observe: (subject, topic, data) => {
+                try {
+                    const r = JSON.parse(data || '{}');
+                    if (r.v != 1 || r.id != reqID || !r.plugin || r.plugin.id == Zutilo.id) {
+                        return;
+                    }
+                    for (const s of (r.shortcuts || [])) {
+                        if (s && (s.key || s.keycode)) {
+                            out.push({plugin: String(r.plugin.name || r.plugin.id), s: {
+                                id: s.id, label: s.label, modifiers: s.modifiers || '', key: s.key || '', keycode: s.keycode || ''
+                            }});
+                        }
+                    }
+                }
+                catch (e) {}
+            }
+        };
+        Services.obs.addObserver(listener, Zutilo.SHORTCUTS_REPLY);
+        try {
+            Services.obs.notifyObservers(null, Zutilo.SHORTCUTS_REQUEST, JSON.stringify({v: 1, id: reqID}));
+        }
+        catch (e) {}
+        finally {
+            Services.obs.removeObserver(listener, Zutilo.SHORTCUTS_REPLY);
+        }
+        return out;
     },
 
     _labelFor: function(doc, el) {
@@ -542,7 +597,15 @@ var ZutiloShortcutEditor = {
                 empty.className = 'zutilo-menu-none';
                 row.appendChild(empty);
             }
-            const entry = {row: row, label: r.label, category: r.category, btn: null, clear: null};
+            // A warning when the shortcut is also someone else's right now
+            // (another Zutilo function, Zotero, another plugin): the check made
+            // when recording, kept visible (MJT 2026-11-15).
+            const warn = document.createElementNS(html, 'span');
+            warn.className = 'zutilo-shortcut-warn';
+            warn.textContent = '⚠';
+            warn.hidden = true;
+            row.appendChild(warn);
+            const entry = {row: row, label: r.label, category: r.category, btn: null, clear: null, warn: warn};
             if (r.name in Zutilo.keys.shortcuts) {
                 const btn = document.createElementNS(html, 'button');
                 document.l10n.setAttributes(btn, 'zutilo-preferences-shortcuts-set', {name: r.label});
@@ -609,16 +672,34 @@ var ZutiloShortcutEditor = {
             return;
         }
         const none = await this._l10n('zutilo-preferences-shortcuts-none');
+        // One request to the other plugins for the whole pass.
+        this._pluginCache = this._pluginShortcuts();
+        try {
+            await this._refreshRows(none);
+        }
+        finally {
+            this._pluginCache = null;
+        }
+        this.filter();
+    },
+
+    _refreshRows: async function(none) {
         for (const [name, e] of this._rows) {
             e.row.classList.toggle('zutilo-pending', !!(this._pending && this._pending.name == name));
             if (!e.btn || (this._recording && this._recording.button == e.btn)) {
                 continue;
             }
-            const keyText = this.format(this._get(name));
+            const k = this._get(name);
+            const keyText = this.format(k);
             e.btn.className = 'zutilo-shortcut-key' + (keyText ? '' : ' zutilo-none');
             e.btn.textContent = keyText || none;
             e.clear.hidden = !keyText;
+            const clashes = keyText ? await this.conflicts(name, k) : [];
+            e.warn.hidden = !clashes.length;
+            e.warn.title = clashes.length
+                ? await this._l10n('zutilo-preferences-shortcuts-clash', {names: clashes.join(', ')})
+                : '';
+            e.row.classList.toggle('zutilo-clash', !!clashes.length);
         }
-        this.filter();
     }
 };
