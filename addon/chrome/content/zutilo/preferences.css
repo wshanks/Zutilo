@@ -3,6 +3,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+/* Menu items: each function's three choices indented under its name, so the
+   list reads as name -> choices (preferences.js, addMenuRadiogroup). */
+.zutilo-menu-choice { margin-inline-start: 16px; }
+
 /* The shortcut editor (preferences.js, ZutiloShortcutEditor). */
 #zutilo-shortcut-help { margin: 0 0 6px; color: var(--fill-secondary, GrayText); }
 #zutilo-shortcut-filter { width: 100%; box-sizing: border-box; margin: 0 0 6px; }

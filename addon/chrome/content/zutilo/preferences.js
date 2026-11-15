@@ -36,6 +36,7 @@ function addMenuRadiogroup(menuName, menuFunction) {
     newRow.appendChild(newHbox);
 
     var newRadiogroup = document.createXULElement('radiogroup');
+    newRadiogroup.classList.add('zutilo-menu-choice');
     newRadiogroup.setAttribute('orient', 'horizontal');
     newRadiogroup.setAttribute('align', 'center');
     newRadiogroup.setAttribute('preference',
