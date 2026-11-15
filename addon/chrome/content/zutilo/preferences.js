@@ -165,7 +165,13 @@ var ZutiloShortcutEditor = {
             // warnings follow.
             this._changedObserver = {observe: () => this.refresh()};
             Services.obs.addObserver(this._changedObserver, Zutilo.SHORTCUTS_CHANGED);
-            window.addEventListener('unload', () => {
+            // Given back on the PANE's unload, not the window's: Zotero sends
+            // `unload` to each pane's root and then nukes the pane's sandbox
+            // (Zotero_Preferences.onUnload), so a window `unload` listener runs
+            // into a dead object, logs "can't access dead object" and leaves the
+            // observer behind (found 2026-11-15).
+            const paneRoot = document.getElementById('zutilo-shortcuts-section');
+            (paneRoot && paneRoot.parentElement || window).addEventListener('unload', () => {
                 try {
                     Services.obs.removeObserver(this._changedObserver, Zutilo.SHORTCUTS_CHANGED);
                 }

@@ -80,3 +80,12 @@ function shutdown(data, reason) {
 function uninstall(data, reason) {
 
 }
+
+// Zotero calls these for every main window; without them it logs "missing
+// bootstrap method" twice per window opened or closed. Zutilo sets its
+// windows up through its own window listener (zutilo.mjs prepareWindows).
+// eslint-disable-next-line no-unused-vars
+function onMainWindowLoad({ window }) {}
+
+// eslint-disable-next-line no-unused-vars
+function onMainWindowUnload({ window }) {}
