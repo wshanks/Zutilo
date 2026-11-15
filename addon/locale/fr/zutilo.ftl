@@ -3,6 +3,7 @@ zutilo-preferences-ui-itemmenu = Menu des documents Zotero
 zutilo-preferences-ui-collectionmenuLabel = Menu des collections Zotero
 
 zutilo-preferences-shortcuts = Raccourcis-clavier
+zutilo-preferences-functions = Menus et raccourcis-clavier
 zutilo-preferences-shortcuts-help = Cliquez sur un raccourci, puis appuyez sur les touches. Échap annule ; Retour arrière ou Suppr retire le raccourci. Utilisez Ctrl, Alt ou ⌘ (ou une touche de fonction), pour ne jamais gêner la saisie.
 zutilo-preferences-shortcuts-filter =
   .placeholder = Chercher une commande ou un raccourci

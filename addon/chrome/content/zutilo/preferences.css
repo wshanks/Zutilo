@@ -3,49 +3,44 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* Menu items: one line per function, its name then its three choices as icons
-   in aligned columns; their wording once, in the legend (preferences.js,
-   buildMenuLegend / addMenuRadiogroup). */
-.zutilo-menu-legend { gap: 18px; flex-wrap: wrap; margin: 0 0 6px; color: var(--fill-secondary, GrayText); }
+/* ONE list of every function (preferences.js, ZutiloShortcutEditor): the search
+   on top, the legend of the menu icons, then a line per function -- its name,
+   its three context-menu choices as icons (or an empty cell), its shortcut and
+   the shortcut's clear button, in aligned columns. */
+#zutilo-shortcut-filter { width: 100%; box-sizing: border-box; margin: 0 0 6px; }
+.zutilo-menu-legend { gap: 18px; flex-wrap: wrap; margin: 0 0 2px; color: var(--fill-secondary, GrayText); }
 .zutilo-menu-legend-item { gap: 6px; }
 .zutilo-menu-legend-item label { margin: 0; }
+#zutilo-shortcut-help { margin: 0 0 6px; color: var(--fill-secondary, GrayText); }
+#zutilo-shortcut-list {
+  max-height: 60vh; overflow-y: auto;
+  border: 1px solid var(--fill-quinary, ThreeDShadow); border-radius: 5px; padding: 2px 0;
+}
+#zutilo-shortcut-status { min-height: 1.6em; margin: 6px 0 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#zutilo-shortcut-status:empty { min-height: 0; }
+.zutilo-shortcut-category {
+  padding: 6px 8px 2px; font-weight: 600; font-size: 0.92em;
+  color: var(--fill-secondary, GrayText);
+}
+.zutilo-shortcut-category[hidden] { display: none; }
+.zutilo-shortcut-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) 168px 8em 24px;
+  align-items: center; column-gap: 6px; padding: 1px 8px 1px 16px;
+}
+.zutilo-shortcut-row[hidden] { display: none; }
+.zutilo-shortcut-row:hover { background: var(--fill-quinary, rgba(0, 0, 0, 0.05)); }
+.zutilo-shortcut-row.zutilo-pending { outline: 2px solid var(--accent-orange, #d97706); outline-offset: -2px; }
+.zutilo-shortcut-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .zutilo-menu-icon,
 .zutilo-menu-choice .radio-icon {
   width: 16px; height: 16px;
   -moz-context-properties: fill; fill: currentColor;
 }
-.zutilo-menu-choice {
-  display: grid; grid-template-columns: 17em repeat(3, 64px); align-items: center;
-  padding: 1px 6px; border-radius: 4px;
-}
-.zutilo-menu-choice:hover { background: var(--fill-quinary, rgba(0, 0, 0, 0.05)); }
-.zutilo-menu-name { margin: 0; overflow: hidden; text-overflow: ellipsis; }
-.zutilo-menu-choice radio { margin: 0; }
+.zutilo-menu-choice { display: flex; margin: 0; }
+.zutilo-menu-choice radio { width: 56px; margin: 0; }
 .zutilo-menu-choice .radio-label { display: none; }
-
-/* The shortcut editor (preferences.js, ZutiloShortcutEditor). */
-#zutilo-shortcut-help { margin: 0 0 6px; color: var(--fill-secondary, GrayText); }
-#zutilo-shortcut-filter { width: 100%; box-sizing: border-box; margin: 0 0 6px; }
-#zutilo-shortcut-status { min-height: 1.6em; margin: 0 0 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-#zutilo-shortcut-status:empty { min-height: 0; }
-#zutilo-shortcut-list {
-  max-height: 420px; overflow-y: auto;
-  border: 1px solid var(--fill-quinary, ThreeDShadow); border-radius: 5px; padding: 2px 0;
-}
-.zutilo-shortcut-category {
-  padding: 6px 8px 2px; font-weight: 600; font-size: 0.92em;
-  color: var(--fill-secondary, GrayText);
-}
-.zutilo-shortcut-row {
-  display: flex; align-items: center; gap: 6px; padding: 1px 8px 1px 16px;
-}
-.zutilo-shortcut-row:hover { background: var(--fill-quinary, rgba(0, 0, 0, 0.05)); }
-.zutilo-shortcut-row.zutilo-pending { outline: 2px solid var(--accent-orange, #d97706); outline-offset: -2px; }
-.zutilo-shortcut-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.zutilo-shortcut-key {
-  flex: none; min-width: 9em; text-align: center; font-family: inherit;
-}
+.zutilo-shortcut-key { width: 100%; margin: 0; text-align: center; font-family: inherit; }
 .zutilo-shortcut-key.zutilo-none { color: var(--fill-secondary, GrayText); }
 .zutilo-shortcut-key.zutilo-recording { outline: 2px solid var(--accent-blue, #4072e5); }
-.zutilo-shortcut-clear { flex: none; min-width: 0; width: 24px; padding: 0; }
+.zutilo-shortcut-clear { min-width: 0; width: 24px; margin: 0; padding: 0; }
 .zutilo-shortcut-clear[hidden] { visibility: hidden; display: inline-block; }

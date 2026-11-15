@@ -13,21 +13,18 @@ window.initializePrefWindow = function() {
     ZutiloShortcutEditor.init();
 }
 
+// Kept for a pane document that still calls it on load; the one list is built
+// by ZutiloShortcutEditor.init().
 // eslint-disable-next-line no-unused-vars
-window.buildMenuPrefs = function() {
-    buildMenuLegend();
-    for (const menuName of ['item', 'collection']) {
-        for (const functionName of Zutilo._menuFunctions[menuName]) {
-            addMenuRadiogroup(menuName, functionName);
-        }
-    }
-}
+window.buildMenuPrefs = function() {}
 
-// Each function takes one line: its name, then its three choices as icons in
-// aligned columns -- Zotero's own menu (Zotero's Z), Zutilo's submenu (Zutilo's
-// icon), hidden (Zotero's hide icon). The wording is said once, in the legend
-// above the lists, and on each choice as its tooltip and accessible name (MJT
-// 2026-11-15: "too heavy to put the same text again and again").
+// ONE list of every function (MJT 2026-11-15: "merge everything in the same
+// list, with the search bar at the top"): a line each -- its name, then, for a
+// function that can be in a context menu, its three menu choices as icons in
+// aligned columns (Zotero's own menu: Zotero's Z; Zutilo's submenu: Zutilo's
+// icon; hidden: Zotero's hide icon), then its shortcut. The choices' wording is
+// said once, in the legend, and on each choice as its tooltip and accessible
+// name ("too heavy to put the same text again and again").
 const MENU_CHOICES = ['Zotero', 'Zutilo', 'Hide'];
 
 function menuChoiceIcon(choice) {
@@ -40,11 +37,7 @@ function menuChoiceIcon(choice) {
     return 'chrome://zotero/skin/16/universal/hide.svg';
 }
 
-function buildMenuLegend() {
-    const legend = document.getElementById('zutilo-prefpane-menu-legend');
-    if (!legend) {
-        return;
-    }
+function buildMenuLegend(legend) {
     legend.textContent = '';
     for (const choice of MENU_CHOICES) {
         const item = document.createXULElement('hbox');
@@ -60,37 +53,26 @@ function buildMenuLegend() {
     }
 }
 
-function addMenuRadiogroup(menuName, menuFunction) {
-    // The radiogroup is the row: a radiogroup finds the radios among its
-    // descendants, and the name before them is an ordinary label.
-    var newRadiogroup = document.createXULElement('radiogroup');
-    newRadiogroup.classList.add('zutilo-menu-choice');
-    newRadiogroup.setAttribute('orient', 'horizontal');
-    newRadiogroup.setAttribute('align', 'center');
-    newRadiogroup.setAttribute('preference',
-                               `extensions.zutilo.${menuName}menu.${menuFunction}`);
-
-    var newLabel = document.createXULElement('label');
-    newLabel.classList.add('zutilo-menu-name');
-    newLabel.setAttribute(
-        'value',
-        Zutilo.getString(`zutilo.preferences.${menuName}menu.${menuFunction}`)
-    )
-    newRadiogroup.appendChild(newLabel);
-
+// A function's menu choices: a radiogroup bound to its pref. Built once with the
+// list -- a search only hides lines -- so Zotero's settings binding, made when
+// the pane loads, stays on the same elements.
+function menuRadiogroup(menuName, menuFunction) {
+    const group = document.createXULElement('radiogroup');
+    group.classList.add('zutilo-menu-choice');
+    group.setAttribute('orient', 'horizontal');
+    group.setAttribute('align', 'center');
+    group.setAttribute('preference', `extensions.zutilo.${menuName}menu.${menuFunction}`);
     for (const choice of MENU_CHOICES) {
         const text = Zutilo.getString(`zutilo.preferences.${menuName}menu.${choice}`);
-        const newRadio = document.createXULElement('radio');
-        newRadio.setAttribute('value', choice);
+        const radio = document.createXULElement('radio');
+        radio.setAttribute('value', choice);
         // radio.js shows `src` as the radio's icon (.radio-icon), Firefox 140 and 153.
-        newRadio.setAttribute('src', menuChoiceIcon(choice));
-        newRadio.setAttribute('tooltiptext', text);
-        newRadio.setAttribute('aria-label', text);
-        newRadiogroup.appendChild(newRadio);
+        radio.setAttribute('src', menuChoiceIcon(choice));
+        radio.setAttribute('tooltiptext', text);
+        radio.setAttribute('aria-label', text);
+        group.appendChild(radio);
     }
-
-    var menuRows = document.getElementById(`zutilo-prefpane-${menuName}-rows`);
-    menuRows.appendChild(newRadiogroup);
+    return group;
 }
 
 /******************************************/
@@ -121,12 +103,53 @@ var ZutiloShortcutEditor = {
                     this._vkNames[KeyboardEvent[prop]] = prop.slice(4);
                 }
             }
-            this._names = Object.keys(Zutilo.keys.shortcuts);
-            this._filter.addEventListener('input', () => this.render());
-            this.render();
+            // Every function: those with a shortcut, and those that can be in a
+            // context menu (two of which, the extra QuickCopy formats, have no
+            // shortcut). `_menus`: function -> 'item' | 'collection'.
+            this._menus = new Map();
+            for (const menuName of ['item', 'collection']) {
+                for (const fn of (Zutilo._menuFunctions[menuName] || [])) {
+                    this._menus.set(fn, menuName);
+                }
+            }
+            this._names = [...new Set([...Object.keys(Zutilo.keys.shortcuts), ...this._menus.keys()])];
+            const legend = document.getElementById('zutilo-prefpane-menu-legend');
+            if (legend) {
+                buildMenuLegend(legend);
+            }
+            this._filter.addEventListener('input', () => this.filter());
+            this.build();
         } catch (e) {
             Zotero.logError(e);
         }
+    },
+
+    // A function's name as the menu settings have always shown it, else as the
+    // shortcut list did.
+    _label: function(name) {
+        const menuName = this._menus.get(name);
+        if (menuName) {
+            try {
+                const s = Zutilo.getString(`zutilo.preferences.${menuName}menu.${name}`);
+                if (s && s != `zutilo.preferences.${menuName}menu.${name}`) {
+                    return s;
+                }
+            } catch (e) {}
+        }
+        return this._name(name);
+    },
+
+    // The category a line is listed under: its shortcut's; a menu-only function
+    // (an extra QuickCopy format) goes with QuickCopy.
+    _categoryOf: function(name) {
+        if (Zutilo.keys.categories[name]) {
+            return this._category(name);
+        }
+        const base = name.replace(/_alt\d+$/, '').replace(/Alt\d+$/, '');
+        if (Zutilo.keys.categories[base]) {
+            return this._category(base);
+        }
+        return this._category('copyItems');
     },
 
     _l10n: async function(id, args) {
@@ -361,7 +384,7 @@ var ZutiloShortcutEditor = {
         this._say(this.isSet(k)
             ? await this._l10n('zutilo-preferences-shortcuts-assigned', {name: this._name(name), keys: this.format(k)})
             : await this._l10n('zutilo-preferences-shortcuts-cleared', {name: this._name(name)}));
-        this.render();
+        this.refresh();
     },
 
     _record: function(name, button) {
@@ -388,7 +411,7 @@ var ZutiloShortcutEditor = {
             r.button.removeEventListener('blur', this._onBlur);
             r.button.classList.remove('zutilo-recording');
             if (rerender) {
-                this.render();
+                this.refresh();
             }
         }
     },
@@ -426,7 +449,7 @@ var ZutiloShortcutEditor = {
         }
         this._stop();
         if (this.sameKey(k, this._get(r.name))) {
-            this.render();
+            this.refresh();
             return;
         }
         const conflicts = await this.conflicts(r.name, k);
@@ -440,56 +463,101 @@ var ZutiloShortcutEditor = {
         const cancel = await this._l10n('zutilo-preferences-shortcuts-cancel');
         this._say(msg, [
             {label: anyway, run: () => this.apply(r.name, k)},
-            {label: cancel, run: () => { this._pending = null; this._say(''); this.render(); }}
+            {label: cancel, run: () => { this._pending = null; this._say(''); this.refresh(); }}
         ]);
-        this.render();
+        this.refresh();
     },
 
-    render: async function() {
+    // The list, built once: a heading per category, a line per function (name,
+    // menu choices or an empty cell, shortcut button and its clear button).
+    build: function() {
         const html = 'http://www.w3.org/1999/xhtml';
-        const q = (this._filter.value || '').trim().toLowerCase();
-        const rows = this._names.map(name => {
-            const k = this._get(name);
-            return {name: name, label: this._name(name), category: this._category(name), key: k, keyText: this.format(k)};
-        }).filter(r => !q || (r.label + ' ' + r.category + ' ' + r.keyText + ' ' + r.name).toLowerCase().includes(q))
-            .sort((a, b) => a.category.localeCompare(b.category) || a.label.localeCompare(b.label));
-        const none = await this._l10n('zutilo-preferences-shortcuts-none');
         const list = this._list;
         list.textContent = '';
-        let lastCat = null;
+        this._rows = new Map();
+        this._heads = [];
+        const rows = this._names.map(name => ({name: name, label: this._label(name), category: this._categoryOf(name)}))
+            .sort((a, b) => a.category.localeCompare(b.category) || a.label.localeCompare(b.label));
+        let head = null;
         for (const r of rows) {
-            if (r.category != lastCat) {
-                lastCat = r.category;
+            if (!head || head.category != r.category) {
                 const h = document.createElementNS(html, 'div');
                 h.className = 'zutilo-shortcut-category';
                 h.textContent = r.category;
                 list.appendChild(h);
+                head = {el: h, category: r.category, rows: []};
+                this._heads.push(head);
             }
             const row = document.createElementNS(html, 'div');
             row.className = 'zutilo-shortcut-row';
             row.setAttribute('role', 'listitem');
             row.dataset.name = r.name;
-            if (this._pending && this._pending.name == r.name) {
-                row.classList.add('zutilo-pending');
-            }
             const label = document.createElementNS(html, 'span');
             label.className = 'zutilo-shortcut-label';
             label.textContent = r.label;
+            label.title = r.label;
             row.appendChild(label);
-            const btn = document.createElementNS(html, 'button');
-            btn.className = 'zutilo-shortcut-key' + (r.keyText ? '' : ' zutilo-none');
-            btn.textContent = r.keyText || none;
-            document.l10n.setAttributes(btn, 'zutilo-preferences-shortcuts-set', {name: r.label});
-            btn.addEventListener('click', () => this._record(r.name, btn));
-            row.appendChild(btn);
-            const clear = document.createElementNS(html, 'button');
-            clear.className = 'zutilo-shortcut-clear';
-            clear.textContent = '×';
-            clear.hidden = !r.keyText;
-            document.l10n.setAttributes(clear, 'zutilo-preferences-shortcuts-clear', {name: r.label});
-            clear.addEventListener('click', () => this.apply(r.name, {modifiers: '', key: '', keycode: ''}));
-            row.appendChild(clear);
+            const menuName = this._menus.get(r.name);
+            if (menuName) {
+                row.appendChild(menuRadiogroup(menuName, r.name));
+            }
+            else {
+                const empty = document.createElementNS(html, 'span');
+                empty.className = 'zutilo-menu-none';
+                row.appendChild(empty);
+            }
+            const entry = {row: row, label: r.label, category: r.category, btn: null, clear: null};
+            if (r.name in Zutilo.keys.shortcuts) {
+                const btn = document.createElementNS(html, 'button');
+                document.l10n.setAttributes(btn, 'zutilo-preferences-shortcuts-set', {name: r.label});
+                btn.addEventListener('click', () => this._record(r.name, btn));
+                const clear = document.createElementNS(html, 'button');
+                clear.className = 'zutilo-shortcut-clear';
+                clear.textContent = '×';
+                document.l10n.setAttributes(clear, 'zutilo-preferences-shortcuts-clear', {name: r.label});
+                clear.addEventListener('click', () => this.apply(r.name, {modifiers: '', key: '', keycode: ''}));
+                row.append(btn, clear);
+                entry.btn = btn;
+                entry.clear = clear;
+            }
             list.appendChild(row);
+            this._rows.set(r.name, entry);
+            head.rows.push(entry);
         }
+        this.refresh();
+    },
+
+    // The search hides lines (and a heading left with none); it never rebuilds.
+    filter: function() {
+        const q = (this._filter.value || '').trim().toLowerCase();
+        for (const head of this._heads) {
+            let any = false;
+            for (const e of head.rows) {
+                const keyText = e.btn ? this.format(this._get(e.row.dataset.name)) : '';
+                const show = !q || (e.label + ' ' + e.category + ' ' + keyText + ' ' + e.row.dataset.name).toLowerCase().includes(q);
+                e.row.hidden = !show;
+                any = any || show;
+            }
+            head.el.hidden = !any;
+        }
+    },
+
+    // Each shortcut button shows its keys now.
+    refresh: async function() {
+        if (!this._rows) {
+            return;
+        }
+        const none = await this._l10n('zutilo-preferences-shortcuts-none');
+        for (const [name, e] of this._rows) {
+            e.row.classList.toggle('zutilo-pending', !!(this._pending && this._pending.name == name));
+            if (!e.btn || (this._recording && this._recording.button == e.btn)) {
+                continue;
+            }
+            const keyText = this.format(this._get(name));
+            e.btn.className = 'zutilo-shortcut-key' + (keyText ? '' : ' zutilo-none');
+            e.btn.textContent = keyText || none;
+            e.clear.hidden = !keyText;
+        }
+        this.filter();
     }
 };

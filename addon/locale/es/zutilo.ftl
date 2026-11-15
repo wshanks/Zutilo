@@ -3,6 +3,7 @@ zutilo-preferences-ui-itemmenu = Zotero item menu
 zutilo-preferences-ui-collectionmenuLabel = Zotero collection menu
 
 zutilo-preferences-shortcuts = Shortcuts
+zutilo-preferences-functions = Menus and shortcuts
 
 zutilo-preferences-readme-caption = Acerca de Zutilo
 zutilo-preferences-readme-button =

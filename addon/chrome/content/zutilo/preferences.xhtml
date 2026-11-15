@@ -8,29 +8,18 @@
 <linkset>
   <html:link rel="localization" href="zutilo.ftl"/>
 </linkset>
-<vbox onload="initializePrefWindow(); buildMenuPrefs();">
-  <vbox class="main-section">
-      <label><html:h2 data-l10n-id='zutilo-preferences-menu-items'></html:h2></label>
-      <hbox id="zutilo-prefpane-menu-legend" class="zutilo-menu-legend" align="center"/>
-      <groupbox style="display:grid;" id="zutilo-prefpane-item-rows">
-        <label><html:h3 data-l10n-id='zutilo-preferences-ui-itemmenu'></html:h3></label>
-      </groupbox>
-
-
-     <groupbox id="zutilo-prefpane-collection-rows">
-        <label><html:h3 data-l10n-id='zutilo-preferences-ui-collectionmenuLabel'></html:h3></label>
-     </groupbox>
-   </vbox>
-
+<vbox onload="initializePrefWindow();">
    <vbox class="main-section" id="zutilo-shortcuts-section">
-      <label><html:h2 data-l10n-id='zutilo-preferences-shortcuts'></html:h2></label>
-      <!-- The shortcut editor (preferences.js, ZutiloShortcutEditor): every
-           function, its category and its keys; built by script, no inline
-           handlers (Zotero's settings panes do not run them). -->
-      <html:p id="zutilo-shortcut-help" data-l10n-id="zutilo-preferences-shortcuts-help"></html:p>
+      <label><html:h2 data-l10n-id='zutilo-preferences-functions'></html:h2></label>
+      <!-- ONE list (preferences.js, ZutiloShortcutEditor): every function, its
+           context-menu choices when it can be in a menu, and its shortcut; built
+           by script, no inline handlers (Zotero's settings panes do not run
+           them). -->
       <html:input type="search" id="zutilo-shortcut-filter" data-l10n-id="zutilo-preferences-shortcuts-filter"/>
-      <html:div id="zutilo-shortcut-status" role="status" aria-live="polite"></html:div>
+      <hbox id="zutilo-prefpane-menu-legend" class="zutilo-menu-legend" align="center"/>
+      <html:p id="zutilo-shortcut-help" data-l10n-id="zutilo-preferences-shortcuts-help"></html:p>
       <html:div id="zutilo-shortcut-list" role="list"></html:div>
+      <html:div id="zutilo-shortcut-status" role="status" aria-live="polite"></html:div>
    </vbox>
 
    <vbox class="main-section">

@@ -3,6 +3,7 @@ zutilo-preferences-ui-itemmenu = Zotero 选项菜单
 zutilo-preferences-ui-collectionmenuLabel = Zotero collection menu
 
 zutilo-preferences-shortcuts = 快捷键列表
+zutilo-preferences-functions = Menus and shortcuts
 
 zutilo-preferences-readme-caption = 关于 Zutilo
 zutilo-preferences-readme-button =

@@ -3,6 +3,7 @@ zutilo-preferences-ui-itemmenu = Zotero item menu
 zutilo-preferences-ui-collectionmenuLabel = Zotero collection menu
 
 zutilo-preferences-shortcuts = Shortcuts
+zutilo-preferences-functions = Menus and shortcuts
 zutilo-preferences-shortcuts-help = Click a shortcut, then press the keys. Escape cancels; Backspace or Delete removes the shortcut. Use Ctrl, Alt or ⌘ (or a function key), so typing is never taken over.
 zutilo-preferences-shortcuts-filter =
   .placeholder = Find a command or a shortcut
