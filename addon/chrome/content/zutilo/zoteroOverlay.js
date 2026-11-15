@@ -416,7 +416,9 @@ ZutiloChrome.zoteroOverlay = {
         this._copyJSON().catch((err) => debug('copyJSON', err))
     },
     _copyJSON: async function() {
-        await this.CopyItems.ready
+        // The promise, not `ready` (a boolean, which await does not wait for):
+        // until Zotero's schema update ends, `fields` is not built yet
+        await this.CopyItems.ready_promise
 
         const sourceItem = this.CopyItems.sourceItem()
         if (!sourceItem) {
@@ -472,7 +474,7 @@ ZutiloChrome.zoteroOverlay = {
         this.pasteJSON('item-type').catch((err) => debug('pasteJSONItemType', err))
     },
     pasteJSON: async function(mode) {
-        await this.CopyItems.ready
+        await this.CopyItems.ready_promise
 
         const copiedItem = this.CopyItems.clipboard()
         if (!copiedItem) {
