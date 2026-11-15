@@ -476,8 +476,18 @@ var ZutiloShortcutEditor = {
         list.textContent = '';
         this._rows = new Map();
         this._heads = [];
-        const rows = this._names.map(name => ({name: name, label: this._label(name), category: this._categoryOf(name)}))
-            .sort((a, b) => a.category.localeCompare(b.category) || a.label.localeCompare(b.label));
+        // A name that starts with its own category ("Attachments: Attach link to
+        // URI" under the heading "Attachments") drops that prefix: the heading
+        // says it (MJT 2026-11-15). Other prefixes ("Item pane: ...") name a
+        // group inside the category and stay.
+        const withoutCategory = (label, category) => {
+            const m = category && label.match(/^(.*?)\s*:\s*(.+)$/);
+            return m && m[1].toLowerCase() == category.toLowerCase() ? m[2] : label;
+        };
+        const rows = this._names.map(name => {
+            const category = this._categoryOf(name);
+            return {name: name, label: withoutCategory(this._label(name), category), category: category};
+        }).sort((a, b) => a.category.localeCompare(b.category) || a.label.localeCompare(b.label));
         let head = null;
         for (const r of rows) {
             if (!head || head.category != r.category) {
