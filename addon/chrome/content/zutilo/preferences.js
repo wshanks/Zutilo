@@ -322,8 +322,16 @@ var ZutiloShortcutEditor = {
     },
 
     // A key event as Zutilo's key object, or null for a modifier pressed alone.
-    // Letters and digits by their place on the keyboard (event.code), so a
-    // shortcut is the same whatever Shift or the layout does to the character.
+    // The character the keyboard types (event.key), because the <key> elements
+    // made from it match that character (as Zotero's own keys and its shortcut
+    // registry, zotero#6080, do); a character outside ASCII (a non-Latin layout,
+    // an AltGr / Option composition) gives the key's Latin letter (keyCode
+    // 65-90) instead, which Gecko also matches. Digits by their place
+    // (event.code): on some layouts the digit row types other characters
+    // (AZERTY: & é " ...), and Gecko matches the digit there too.
+    // MJT 2026-11-16, French keyboard: Ctrl+A was recorded by its place as
+    // Ctrl+Q (and said to clash with Quit), while the <key> made from it would
+    // have answered to the key printed Q.
     fromEvent: function(event) {
         if (['Shift', 'Control', 'Alt', 'Meta', 'OS', 'AltGraph', 'CapsLock', 'Fn'].includes(event.key)) {
             return null;
@@ -336,12 +344,23 @@ var ZutiloShortcutEditor = {
         if (event.altKey) mods.push('alt');
         if (event.shiftKey) mods.push('shift');
         let key = '', keycode = '';
-        const m = /^Key([A-Z])$/.exec(event.code || '') || /^Digit([0-9])$/.exec(event.code || '');
-        if (m) {
-            key = m[1];
+        const digit = /^Digit([0-9])$/.exec(event.code || '');
+        const k = event.key || '';
+        if (digit) {
+            key = digit[1];
         }
-        else if (event.key && event.key.length == 1 && event.key != ' ') {
-            key = event.key.toUpperCase();
+        else if (k.length == 1 && k != ' ') {
+            const c = k.toUpperCase();
+            const cc = c.charCodeAt(0);
+            if (cc >= 0x21 && cc <= 0x7e) {
+                key = c;
+            }
+            else if (event.keyCode >= 65 && event.keyCode <= 90) {
+                key = String.fromCharCode(event.keyCode);
+            }
+            else {
+                key = c;
+            }
         }
         else {
             keycode = this._vkNames[event.keyCode] || '';
