@@ -503,6 +503,13 @@ var ZutiloShortcutEditor = {
 
     _record: function(name, button) {
         this._stop();
+        // A clash question still open is answered "Cancel" by starting over:
+        // otherwise its row stays marked as waiting after the question is gone.
+        if (this._pending) {
+            this._pending = null;
+            this._say('');
+            this.refresh();
+        }
         this._recording = {name: name, button: button};
         button.classList.add('zutilo-recording');
         this._l10n('zutilo-preferences-shortcuts-press').then(t => {

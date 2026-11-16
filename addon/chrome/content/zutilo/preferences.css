@@ -41,7 +41,7 @@
 }
 /* Focus moves (Tab) and scrollIntoView keep a row below the pinned controls. */
 .zutilo-shortcut-row, .zutilo-shortcut-category { scroll-margin-top: 80px; }
-#zutilo-shortcut-status { min-height: 1.6em; margin: 6px 0 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#zutilo-shortcut-status { min-height: 1.6em; margin: 0 0 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 #zutilo-shortcut-status:empty { min-height: 0; }
 .zutilo-shortcut-category {
   padding: 6px 8px 2px; font-weight: 600; font-size: 0.92em;
@@ -49,7 +49,7 @@
 }
 .zutilo-shortcut-category[hidden] { display: none; }
 .zutilo-shortcut-row {
-  display: grid; grid-template-columns: 20px minmax(0, 1fr) 168px 18px 8em 24px;
+  display: grid; grid-template-columns: 20px minmax(0, 1fr) 168px 18px 10em 24px;
   align-items: center; column-gap: 6px; padding: 1px 8px 1px 6px;
 }
 /* The star before each name (preferences.js _toggleStar): an outline, faint
@@ -74,7 +74,8 @@
 .zutilo-menu-choice { display: flex; margin: 0; }
 .zutilo-menu-choice radio { width: 56px; margin: 0; }
 .zutilo-menu-choice .radio-label { display: none; }
-.zutilo-shortcut-key { width: 100%; margin: 0; text-align: center; font-family: inherit; }
+.zutilo-shortcut-key { width: 100%; margin: 0; text-align: center; font-family: inherit;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .zutilo-shortcut-key.zutilo-none { color: var(--fill-secondary, GrayText); }
 .zutilo-shortcut-key.zutilo-recording { outline: 2px solid var(--accent-blue, #4072e5); }
 .zutilo-shortcut-clear { min-width: 0; width: 24px; margin: 0; padding: 0; }

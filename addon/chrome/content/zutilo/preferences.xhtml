@@ -24,10 +24,14 @@
           <html:button id="zutilo-filter-without" class="zutilo-filter-chip" aria-pressed="false" data-l10n-id="zutilo-preferences-filter-without"></html:button>
         </html:div>
         <hbox id="zutilo-prefpane-menu-legend" class="zutilo-menu-legend" align="center"/>
+        <!-- What a key press did, or the question about a clash: pinned with the
+             controls, so it is always in sight (MJT 2026-11-16: under a list as
+             long as the pane it was out of view, and the row waited for an
+             answer nobody could see). -->
+        <html:div id="zutilo-shortcut-status" role="status" aria-live="polite"></html:div>
       </html:div>
       <html:p id="zutilo-shortcut-help" data-l10n-id="zutilo-preferences-shortcuts-help"></html:p>
       <html:div id="zutilo-shortcut-list" role="list"></html:div>
-      <html:div id="zutilo-shortcut-status" role="status" aria-live="polite"></html:div>
    </vbox>
 
    <vbox class="main-section">
