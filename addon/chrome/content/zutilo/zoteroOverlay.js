@@ -680,26 +680,50 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        function getPath(attachment) {
+        // A file under the linked-attachment base directory is stored relative
+        // to it ("attachments:sub/dir/file.pdf"), while the user types the full
+        // path Zotero shows: compared as stored, nothing ever matched
+        // (wshanks/Zutilo#314, #213; reproduced 2026-11-16 on 11.0-beta.4).
+        // The full path is compared and replaced, and Zotero's attachmentPath
+        // setter stores it relative again; the stored form, which "Show
+        // attachment paths" used to display, is still accepted.
+        function getPaths(attachment) {
             if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
-                return attachment.attachmentPath
+                const stored = attachment.attachmentPath
+                const full = Zotero.Attachments.resolveRelativePath(stored) || stored
+                return full == stored ? [full] : [full, stored]
             } else if (mode == Zotero.Attachments.LINK_MODE_LINKED_URL) {
-                return attachment.getField('url')
+                return [attachment.getField('url')]
             }
+            return []
         }
 
-        function setPath(attachment, path) {
+        function setPath(attachment, path, oldFullPath) {
             if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
                 attachment.attachmentPath = path
             } else if (mode == Zotero.Attachments.LINK_MODE_LINKED_URL) {
-                attachment.setField('title', path)
+                // The title follows the address only when it was the address:
+                // a title of the user's own stays (wshanks/Zutilo#287).
+                if (attachment.getField('title') == oldFullPath) {
+                    attachment.setField('title', path)
+                }
                 attachment.setField('url', path)
             }
         }
 
+        function replaced(oldFullPath) {
+            if (checkGlobal.value) {
+                return oldFullPath.replace(
+                    new RegExp(Zutilo.escapeForRegExp(oldPath), 'g'), newPath)
+            }
+            if (oldFullPath.substr(0, oldPath.length) == oldPath) {
+                return newPath + oldFullPath.substr(oldPath.length)
+            }
+            return oldFullPath
+        }
+
         // Loop through attachments and replace partial paths; the changed ones
         // are saved together (saveBatch: one transaction)
-        var newFullPath
         var newPaths = new Map()
         for (var index = 0; index < attachmentArray.length; index++) {
             // Only modify linked file attachments since paths for the other
@@ -707,31 +731,18 @@ ZutiloChrome.zoteroOverlay = {
             if (attachmentArray[index].attachmentLinkMode != mode) {
                 continue
             }
-            var oldFullPath = getPath(attachmentArray[index])
-            if (checkGlobal.value) {
-                newFullPath =
-                    oldFullPath.replace(
-                        new RegExp(Zutilo.escapeForRegExp(oldPath), 'g'),
-                        newPath);
-            } else {
-                // If only check beginning of strings, just do quick compare
-                // and substitution (I think this might be faster than
-                // replace() ).
-                if (oldFullPath.substr(0, oldPath.length) == oldPath) {
-                    newFullPath =
-                        newPath + oldFullPath.substr(oldPath.length);
-                } else {
-                    newFullPath = oldFullPath
-                }
-            }
-            // attachmentPath stores the unmodified path
             // only save to database if path was actually modified
-            if (newFullPath != oldFullPath) {
-                newPaths.set(attachmentArray[index], newFullPath)
+            for (const oldFullPath of getPaths(attachmentArray[index])) {
+                const newFullPath = replaced(oldFullPath)
+                if (newFullPath != oldFullPath) {
+                    newPaths.set(attachmentArray[index], {old: oldFullPath, new: newFullPath})
+                    break
+                }
             }
         }
         this.saveBatch([...newPaths.keys()], (attachment) => {
-            setPath(attachment, newPaths.get(attachment))
+            const p = newPaths.get(attachment)
+            setPath(attachment, p.new, p.old)
         }, 'undo-action-edit-metadata').catch((err) => debug('modifyAttachments', err))
 
         return true;
@@ -762,7 +773,10 @@ ZutiloChrome.zoteroOverlay = {
                     Zotero.Attachments.LINK_MODE_LINKED_URL) {
                 text = attachmentArray[index].getField('url')
             } else {
-                text = attachmentArray[index].attachmentPath
+                // The full path, which "Modify attachment paths" compares
+                // (not the stored "attachments:..." form under a base directory).
+                const stored = attachmentArray[index].attachmentPath
+                text = Zotero.Attachments.resolveRelativePath(stored) || stored
             }
             prompts.alert(null, title, text);
         }
