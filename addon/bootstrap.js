@@ -83,7 +83,14 @@ function uninstall(data, reason) {
 
 // Zotero calls these for every main window; without them it logs "missing
 // bootstrap method" twice per window opened or closed. Zutilo sets its
-// windows up through its own window listener (zutilo.mjs prepareWindows).
+// windows up through its own window listener (zutilo.mjs prepareWindows),
+// on purpose: on Zotero 11 these two follow a window's LIBRARY TABS, not the
+// window (Zotero.Plugins.notifyMainWindowLoad when its first library tab has
+// loaded, notifyMainWindowUnload when its last one closes, the window staying
+// open). A window holding only reader tabs gets no Load, and Zutilo's keys
+// work there too. Checked 2026-11-16 on 11.0-beta.4: the first window, File >
+// New Window, a reader tab moved to a new window, a library tab added to it
+// and closed again, windows closed -- keys in each, no error.
 // eslint-disable-next-line no-unused-vars
 function onMainWindowLoad({ window }) {}
 
