@@ -26,10 +26,21 @@
 .zutilo-filter-empty { padding: 10px 16px; color: var(--fill-secondary, GrayText); }
 .zutilo-filter-empty[hidden] { display: none; }
 #zutilo-shortcut-help { margin: 0 0 6px; color: var(--fill-secondary, GrayText); }
+/* ONE scrollbar, the settings pane's (MJT 2026-11-16). The list used to scroll
+   on its own inside the scrolling pane: the wheel over the list moved only the
+   list, so once the pane was scrolled down its top (the search, the legend)
+   did not come back. Now the list takes its full length and the search, the
+   filters and the legend stay on top while it scrolls under them. */
+#zutilo-controls {
+  position: sticky; top: 0; z-index: 1;
+  padding-top: 4px;
+  background-color: var(--material-sidepane, Window);
+}
 #zutilo-shortcut-list {
-  max-height: 60vh; overflow-y: auto;
   border: 1px solid var(--fill-quinary, ThreeDShadow); border-radius: 5px; padding: 2px 0;
 }
+/* Focus moves (Tab) and scrollIntoView keep a row below the pinned controls. */
+.zutilo-shortcut-row, .zutilo-shortcut-category { scroll-margin-top: 80px; }
 #zutilo-shortcut-status { min-height: 1.6em; margin: 6px 0 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 #zutilo-shortcut-status:empty { min-height: 0; }
 .zutilo-shortcut-category {
