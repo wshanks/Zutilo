@@ -45,3 +45,10 @@ zutilo-preferences-shortcuts-zotero-code = Zotero ({ $where ->
         [window] toutes les fenêtres
        *[main] fenêtre principale
     }) : { $name }
+zutilo-preferences-starred = Favoris
+zutilo-preferences-star =
+    .title = Ajouter aux favoris : afficher en haut de la liste
+    .aria-label = Ajouter { $name } aux favoris
+zutilo-preferences-unstar =
+    .title = Retirer des favoris : remettre dans son groupe
+    .aria-label = Retirer { $name } des favoris

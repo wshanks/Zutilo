@@ -28,3 +28,10 @@ zutilo-preferences-shortcuts-zotero-code = Zotero ({ $where ->
         [window] any window
        *[main] main window
     }): { $name }
+zutilo-preferences-starred = Starred
+zutilo-preferences-star =
+    .title = Star: show at the top of the list
+    .aria-label = Star { $name }
+zutilo-preferences-unstar =
+    .title = Unstar: put back in its group
+    .aria-label = Unstar { $name }

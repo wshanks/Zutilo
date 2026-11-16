@@ -49,9 +49,19 @@
 }
 .zutilo-shortcut-category[hidden] { display: none; }
 .zutilo-shortcut-row {
-  display: grid; grid-template-columns: minmax(0, 1fr) 168px 18px 8em 24px;
-  align-items: center; column-gap: 6px; padding: 1px 8px 1px 16px;
+  display: grid; grid-template-columns: 20px minmax(0, 1fr) 168px 18px 8em 24px;
+  align-items: center; column-gap: 6px; padding: 1px 8px 1px 6px;
 }
+/* The star before each name (preferences.js _toggleStar): an outline, faint
+   until the line is hovered or focused; filled once starred. */
+.zutilo-star {
+  min-width: 0; width: 20px; height: 20px; margin: 0; padding: 0;
+  border: none; background: none; font-size: 15px; line-height: 1;
+  color: var(--fill-secondary, GrayText); opacity: 0.45; cursor: pointer;
+}
+.zutilo-shortcut-row:hover .zutilo-star, .zutilo-star:focus-visible { opacity: 1; }
+.zutilo-star[aria-pressed="true"] { color: var(--accent-yellow, #faa700); opacity: 1; }
+.zutilo-starred-category::before { content: "\2605"; margin-inline-end: 5px; color: var(--accent-yellow, #faa700); }
 .zutilo-shortcut-row[hidden] { display: none; }
 .zutilo-shortcut-row:hover { background: var(--fill-quinary, rgba(0, 0, 0, 0.05)); }
 .zutilo-shortcut-row.zutilo-pending { outline: 2px solid var(--accent-orange, #d97706); outline-offset: -2px; }

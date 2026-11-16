@@ -30,6 +30,9 @@ window.buildMenuPrefs = function() {}
 // name ("too heavy to put the same text again and again").
 const MENU_CHOICES = ['Zotero', 'Zutilo', 'Hide'];
 
+// The starred functions, listed on top (ZutiloShortcutEditor._starred).
+const STARRED_PREF = 'extensions.zutilo.starred';
+
 function menuChoiceIcon(choice) {
     if (choice == 'Zotero') {
         return 'chrome://zotero/skin/z.svg';
@@ -599,20 +602,46 @@ var ZutiloShortcutEditor = {
             const category = this._categoryOf(name);
             return {name: name, label: withoutCategory(this._label(name), category), category: category};
         }).sort((a, b) => a.category.localeCompare(b.category) || a.label.localeCompare(b.label));
-        let head = null;
-        for (const r of rows) {
-            if (!head || head.category != r.category) {
-                const h = document.createElementNS(html, 'div');
-                h.className = 'zutilo-shortcut-category';
-                h.textContent = r.category;
-                list.appendChild(h);
-                head = {el: h, category: r.category, rows: []};
-                this._heads.push(head);
+        // The headings first: "Starred" on top, then one per category; the
+        // lines go under them in label order (_insertRow).
+        const makeHead = (category, l10nId) => {
+            const h = document.createElementNS(html, 'div');
+            h.className = 'zutilo-shortcut-category';
+            if (l10nId) {
+                h.classList.add('zutilo-starred-category');
+                document.l10n.setAttributes(h, l10nId);
             }
+            else {
+                h.textContent = category;
+            }
+            list.appendChild(h);
+            const head = {el: h, category: category, rows: []};
+            this._heads.push(head);
+            return head;
+        };
+        this._starredHead = makeHead('', 'zutilo-preferences-starred');
+        this._catHeads = new Map();
+        for (const r of rows) {
+            if (!this._catHeads.has(r.category)) {
+                this._catHeads.set(r.category, makeHead(r.category));
+            }
+        }
+        this._empty = document.createElementNS(html, 'div');
+        this._empty.className = 'zutilo-filter-empty';
+        this._empty.hidden = true;
+        document.l10n.setAttributes(this._empty, 'zutilo-preferences-filter-none');
+        list.appendChild(this._empty);
+        const starred = this._starred();
+        for (const r of rows) {
             const row = document.createElementNS(html, 'div');
             row.className = 'zutilo-shortcut-row';
             row.setAttribute('role', 'listitem');
             row.dataset.name = r.name;
+            // The star: a starred function is listed on top, under "Starred".
+            const star = document.createElementNS(html, 'button');
+            star.className = 'zutilo-star';
+            star.addEventListener('click', () => this._toggleStar(r.name));
+            row.appendChild(star);
             const label = document.createElementNS(html, 'span');
             label.className = 'zutilo-shortcut-label';
             label.textContent = r.label;
@@ -635,7 +664,7 @@ var ZutiloShortcutEditor = {
             warn.textContent = '⚠';
             warn.hidden = true;
             row.appendChild(warn);
-            const entry = {row: row, label: r.label, category: r.category, btn: null, clear: null, warn: warn};
+            const entry = {row: row, label: r.label, category: r.category, btn: null, clear: null, warn: warn, star: star, head: null};
             if (r.name in Zutilo.keys.shortcuts) {
                 const btn = document.createElementNS(html, 'button');
                 document.l10n.setAttributes(btn, 'zutilo-preferences-shortcuts-set', {name: r.label});
@@ -649,16 +678,73 @@ var ZutiloShortcutEditor = {
                 entry.btn = btn;
                 entry.clear = clear;
             }
-            list.appendChild(row);
             this._rows.set(r.name, entry);
-            head.rows.push(entry);
+            const isStarred = starred.has(r.name);
+            this._drawStar(entry, r.name, isStarred);
+            this._insertRow(isStarred ? this._starredHead : this._catHeads.get(r.category), entry);
         }
-        this._empty = document.createElementNS(html, 'div');
-        this._empty.className = 'zutilo-filter-empty';
-        this._empty.hidden = true;
-        document.l10n.setAttributes(this._empty, 'zutilo-preferences-filter-none');
-        list.appendChild(this._empty);
         this.refresh();
+    },
+
+    // Starred functions (MJT 2026-11-16: "there are too many commands. But a
+    // specific user probably only wants a small sub-set of them"): listed on
+    // top under "Starred", kept in a pref of their own (a JSON list of names).
+    _starred: function() {
+        try {
+            const v = JSON.parse(Services.prefs.getStringPref(STARRED_PREF, '[]'));
+            return new Set(Array.isArray(v) ? v : []);
+        } catch (e) {
+            return new Set();
+        }
+    },
+
+    _drawStar: function(entry, name, on) {
+        entry.star.textContent = on ? '★' : '☆';
+        entry.star.setAttribute('aria-pressed', String(on));
+        document.l10n.setAttributes(entry.star, on ? 'zutilo-preferences-unstar' : 'zutilo-preferences-star', {name: entry.label});
+        entry.row.classList.toggle('zutilo-starred', on);
+    },
+
+    // A line goes into its heading's block in label order: before the first
+    // line that sorts after it, else before the next heading.
+    _insertRow: function(head, entry) {
+        const i = head.rows.findIndex(e => e.label.localeCompare(entry.label) > 0);
+        let at;
+        if (i >= 0) {
+            at = head.rows[i].row;
+        }
+        else {
+            const next = this._heads[this._heads.indexOf(head) + 1];
+            at = next ? next.el : this._empty;
+        }
+        this._list.insertBefore(entry.row, at);
+        head.rows.splice(i >= 0 ? i : head.rows.length, 0, entry);
+        entry.head = head;
+    },
+
+    // The line MOVES (the same nodes, its menu choices and shortcut button
+    // with it): to the top when starred, back to its category when not. The
+    // pane keeps its scroll position and the star keeps the focus.
+    _toggleStar: function(name) {
+        const entry = this._rows.get(name);
+        if (!entry) {
+            return;
+        }
+        const starred = this._starred();
+        const on = !starred.has(name);
+        if (on) {
+            starred.add(name);
+        }
+        else {
+            starred.delete(name);
+        }
+        Services.prefs.setStringPref(STARRED_PREF, JSON.stringify([...starred]));
+        const from = entry.head;
+        from.rows.splice(from.rows.indexOf(entry), 1);
+        this._insertRow(on ? this._starredHead : this._catHeads.get(entry.category), entry);
+        this._drawStar(entry, name, on);
+        entry.star.focus({preventScroll: true});
+        this.filter();
     },
 
     // The filters hide lines (and a heading left with none); they never rebuild.
