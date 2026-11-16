@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Zutilo Utility for Zotero",
-  "version": "4.3.0-z11.20",
+  "version": "4.3.0-z11.21",
   "description": "A utility adding assorted macros for Zotero",
   "author": "Will Shanks",
   "icons": {
