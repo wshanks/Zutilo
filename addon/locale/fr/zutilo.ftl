@@ -52,3 +52,10 @@ zutilo-preferences-star =
 zutilo-preferences-unstar =
     .title = Retirer des favoris : remettre dans son groupe
     .aria-label = Retirer { $name } des favoris
+zutilo-preferences-shortcuts-context-name = { $context ->
+        [typing] pendant la saisie dans une note ou un commentaire ({ $name })
+       *[document] dans un PDF ou un EPUB ouvert ({ $name })
+    }
+zutilo-preferences-shortcuts-assigned-context = { $name } : { $keys }. Ces touches restent à Zotero { $names } ; ce raccourci marche partout ailleurs.
+zutilo-preferences-shortcuts-context-tip = Ces touches restent à Zotero { $names } ; ce raccourci marche partout ailleurs.
+zutilo-preferences-shortcuts-note-toggle = (Cliquez pour afficher ou masquer cette ligne.)

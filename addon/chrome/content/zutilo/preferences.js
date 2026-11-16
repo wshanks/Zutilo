@@ -32,6 +32,8 @@ const MENU_CHOICES = ['Zotero', 'Zutilo', 'Hide'];
 
 // The starred functions, listed on top (ZutiloShortcutEditor._starred).
 const STARRED_PREF = 'extensions.zutilo.starred';
+// Functions whose clash / context line the user folded away (a click on the row's icon).
+const NOTES_HIDDEN_PREF = 'extensions.zutilo.shortcutNotesHidden';
 
 function menuChoiceIcon(choice) {
     if (choice == 'Zotero') {
@@ -360,10 +362,37 @@ var ZutiloShortcutEditor = {
         return /^VK_F\d+$/.test(k.keycode);
     },
 
+    // Where one of Zotero's code-handled keys acts (zoteroShortcuts.json):
+    // "typing" while text is edited -- the note editor, an annotation comment --
+    // "document" while a PDF / EPUB / snapshot page has the focus, else
+    // "library" (the main window, the items list, the collections pane).
+    // Zutilo's commands act on the library's selection: a key Zotero takes only
+    // while typing or reading never stands in their way (MJT 2026-11-16, Ctrl+I
+    // = Italic in a comment vs "Attach link to file"). The editor or the reader
+    // consumes the key first there, so Zutilo's shortcut simply does not run
+    // in that place, and does everywhere else.
+    _codeContext: function(e) {
+        const where = e.where || [];
+        if (where.includes('note') || /^reader\.comment\./.test(e.id || '')) {
+            return 'typing';
+        }
+        if (where.includes('reader')) {
+            return 'document';
+        }
+        return 'library';
+    },
+
     // What else answers to these keys: another Zutilo command, a key of a Zotero
     // window (its own or another plugin's), or one of Zotero's own shortcuts
-    // (extensions.zotero.keys.*, pressed with Ctrl+Shift / Cmd+Shift).
+    // (extensions.zotero.keys.*, pressed with Ctrl+Shift / Cmd+Shift) -- the
+    // clashes; and the keys Zotero uses only while typing or in an open
+    // document -- notes, never a clash (_codeContext).
     conflicts: async function(name, k) {
+        return (await this.clashes(name, k)).hard;
+    },
+
+    clashes: async function(name, k) {
+        const byContext = new Map();
         const out = new Set();
         for (const other of this._names) {
             if (other != name && this.sameKey(k, this._get(other))) {
@@ -392,8 +421,17 @@ var ZutiloShortcutEditor = {
         // MJT 2026-11-15: Ctrl+P (Print in the reader) gave no warning.
         for (const e of (this._zoteroCode || [])) {
             if (this.sameKey(k, e)) {
-                out.add(await this._l10n('zutilo-preferences-shortcuts-zotero-code',
-                    {where: (e.where && e.where[0]) || 'main', name: e.label}));
+                const context = this._codeContext(e);
+                if (context == 'library') {
+                    out.add(await this._l10n('zutilo-preferences-shortcuts-zotero-code',
+                        {where: (e.where && e.where[0]) || 'main', name: e.label}));
+                }
+                else {
+                    if (!byContext.has(context)) {
+                        byContext.set(context, new Set());
+                    }
+                    byContext.get(context).add(String(e.label || '').replace(/\s*\([^)]*\)\s*$/, ''));
+                }
             }
         }
         // Other plugins' shortcuts, published under the plugin-shortcuts
@@ -416,7 +454,11 @@ var ZutiloShortcutEditor = {
                 }
             }
         }
-        return [...out];
+        const notes = [];
+        for (const [context, labels] of byContext) {
+            notes.push(await this._l10n('zutilo-preferences-shortcuts-context-name', {context, name: [...labels].join(', ')}));
+        }
+        return {hard: [...out], notes: notes};
     },
 
     // Every other plugin's published shortcuts, asked fresh (the replies come
@@ -495,6 +537,11 @@ var ZutiloShortcutEditor = {
     apply: async function(name, k) {
         Zutilo.keys.setKey(name, {modifiers: k.modifiers || '', key: k.key || '', keycode: k.keycode || ''});
         this._pending = null;
+        // A new shortcut shows its line, even where the old one's was folded.
+        const hidden = this._notesHidden();
+        if (hidden.delete(name)) {
+            this._setNotesHidden(hidden);
+        }
         this._say(this.isSet(k)
             ? await this._l10n('zutilo-preferences-shortcuts-assigned', {name: this._name(name), keys: this.format(k)})
             : await this._l10n('zutilo-preferences-shortcuts-cleared', {name: this._name(name)}));
@@ -573,9 +620,14 @@ var ZutiloShortcutEditor = {
             this.refresh();
             return;
         }
-        const conflicts = await this.conflicts(r.name, k);
+        const found = await this.clashes(r.name, k);
+        const conflicts = found.hard;
         if (!conflicts.length) {
             await this.apply(r.name, k);
+            if (found.notes.length) {
+                this._say(await this._l10n('zutilo-preferences-shortcuts-assigned-context',
+                    {name: this._name(r.name), keys: this.format(k), names: found.notes.join('; ')}));
+            }
             return;
         }
         this._pending = {name: r.name, key: k};
@@ -666,12 +718,18 @@ var ZutiloShortcutEditor = {
             // A warning when the shortcut is also someone else's right now
             // (another Zutilo function, Zotero, another plugin): the check made
             // when recording, kept visible (MJT 2026-11-15).
-            const warn = document.createElementNS(html, 'span');
+            // A click on it shows or folds the message in a line under the row
+            // (MJT 2026-11-16), which stays after the shortcut is assigned.
+            const warn = document.createElementNS(html, 'button');
             warn.className = 'zutilo-shortcut-warn';
             warn.textContent = '⚠';
             warn.hidden = true;
+            warn.addEventListener('click', () => this._toggleNote(r.name));
             row.appendChild(warn);
-            const entry = {row: row, label: r.label, category: r.category, btn: null, clear: null, warn: warn, star: star, head: null};
+            const detail = document.createElementNS(html, 'div');
+            detail.className = 'zutilo-shortcut-detail';
+            detail.hidden = true;
+            const entry = {row: row, label: r.label, category: r.category, btn: null, clear: null, warn: warn, detail: detail, star: star, head: null};
             if (r.name in Zutilo.keys.shortcuts) {
                 const btn = document.createElementNS(html, 'button');
                 document.l10n.setAttributes(btn, 'zutilo-preferences-shortcuts-set', {name: r.label});
@@ -685,6 +743,7 @@ var ZutiloShortcutEditor = {
                 entry.btn = btn;
                 entry.clear = clear;
             }
+            row.appendChild(detail);
             this._rows.set(r.name, entry);
             const isStarred = starred.has(r.name);
             this._drawStar(entry, r.name, isStarred);
@@ -696,6 +755,34 @@ var ZutiloShortcutEditor = {
     // Starred functions (MJT 2026-11-16: "there are too many commands. But a
     // specific user probably only wants a small sub-set of them"): listed on
     // top under "Starred", kept in a pref of their own (a JSON list of names).
+    _notesHidden: function() {
+        try {
+            return new Set(JSON.parse(Services.prefs.getStringPref(NOTES_HIDDEN_PREF, '[]')));
+        }
+        catch (e) {
+            return new Set();
+        }
+    },
+
+    _setNotesHidden: function(set) {
+        Services.prefs.setStringPref(NOTES_HIDDEN_PREF, JSON.stringify([...set]));
+    },
+
+    // The icon's click: fold or show the line under the row.
+    _toggleNote: function(name) {
+        const hidden = this._notesHidden();
+        if (!hidden.delete(name)) {
+            hidden.add(name);
+        }
+        this._setNotesHidden(hidden);
+        const e = this._rows && this._rows.get(name);
+        if (e && e.detail) {
+            const show = !hidden.has(name) && !e.warn.hidden;
+            e.detail.hidden = !show;
+            e.warn.setAttribute('aria-expanded', String(show));
+        }
+    },
+
     _starred: function() {
         try {
             const v = JSON.parse(Services.prefs.getStringPref(STARRED_PREF, '[]'));
@@ -817,11 +904,23 @@ var ZutiloShortcutEditor = {
             e.btn.className = 'zutilo-shortcut-key' + (keyText ? '' : ' zutilo-none');
             e.btn.textContent = keyText || none;
             e.clear.hidden = !keyText;
-            const clashes = keyText ? await this.conflicts(name, k) : [];
-            e.warn.hidden = !clashes.length;
-            e.warn.title = clashes.length
+            const found = keyText ? await this.clashes(name, k) : {hard: [], notes: []};
+            const clashes = found.hard;
+            const noted = !clashes.length && found.notes.length;
+            e.warn.hidden = !clashes.length && !noted;
+            e.warn.textContent = clashes.length ? '⚠' : 'ⓘ';
+            e.warn.classList.toggle('zutilo-shortcut-note', !!noted);
+            const message = clashes.length
                 ? await this._l10n('zutilo-preferences-shortcuts-clash', {names: clashes.join(', ')})
+                : (noted ? await this._l10n('zutilo-preferences-shortcuts-context-tip', {names: found.notes.join('; ')}) : '');
+            e.warn.title = message
+                ? message + ' ' + await this._l10n('zutilo-preferences-shortcuts-note-toggle')
                 : '';
+            const show = !!message && !this._notesHidden().has(name);
+            e.detail.textContent = message;
+            e.detail.classList.toggle('zutilo-clash-detail', !!clashes.length);
+            e.detail.hidden = !show;
+            e.warn.setAttribute('aria-expanded', String(show));
             e.row.classList.toggle('zutilo-clash', !!clashes.length);
         }
     }

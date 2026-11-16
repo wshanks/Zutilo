@@ -35,3 +35,10 @@ zutilo-preferences-star =
 zutilo-preferences-unstar =
     .title = Unstar: put back in its group
     .aria-label = Unstar { $name }
+zutilo-preferences-shortcuts-context-name = { $context ->
+        [typing] while typing in a note or a comment ({ $name })
+       *[document] in an open PDF or EPUB ({ $name })
+    }
+zutilo-preferences-shortcuts-assigned-context = { $name }: { $keys }. These keys stay Zotero's { $names }; this shortcut works everywhere else.
+zutilo-preferences-shortcuts-context-tip = These keys stay Zotero's { $names }; this shortcut works everywhere else.
+zutilo-preferences-shortcuts-note-toggle = (Click to show or hide this line.)
