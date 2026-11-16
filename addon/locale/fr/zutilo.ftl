@@ -17,8 +17,6 @@ zutilo-preferences-shortcuts-needs-modifier = { $keys } seul gênerait la saisie
 zutilo-preferences-shortcuts-conflict = { $keys } est déjà utilisé par : { $names }
 zutilo-preferences-shortcuts-assign-anyway = Attribuer quand même
 zutilo-preferences-shortcuts-cancel = Annuler
-zutilo-preferences-shortcuts-assigned = { $name } : { $keys }
-zutilo-preferences-shortcuts-cleared = { $name } : aucun raccourci
 zutilo-preferences-shortcuts-zotero = Zotero : { $command }
 zutilo-preferences-shortcuts-zutilo = Zutilo : { $name }
 
@@ -56,6 +54,5 @@ zutilo-preferences-shortcuts-context-name = { $context ->
         [typing] pendant la saisie dans une note ou un commentaire ({ $name })
        *[document] dans un PDF ou un EPUB ouvert ({ $name })
     }
-zutilo-preferences-shortcuts-assigned-context = { $name } : { $keys }. Ces touches restent à Zotero { $names } ; ce raccourci marche partout ailleurs.
 zutilo-preferences-shortcuts-context-tip = Ces touches restent à Zotero { $names } ; ce raccourci marche partout ailleurs.
 zutilo-preferences-shortcuts-note-toggle = (Cliquez pour afficher ou masquer cette ligne.)

@@ -104,13 +104,13 @@ var ZutiloShortcutEditor = {
     _names: [],
     _recording: null,    // {name, button}
     _pending: null,      // {name, key, conflicts}
+    _rowMsg: null,       // {name, text, actions}: a refused key or the clash question, under its row
     _vkNames: null,
 
     init: function() {
         try {
             this._list = document.getElementById('zutilo-shortcut-list');
             this._filter = document.getElementById('zutilo-shortcut-filter');
-            this._status = document.getElementById('zutilo-shortcut-status');
             if (!this._list) {
                 return;
             }
@@ -520,31 +520,52 @@ var ZutiloShortcutEditor = {
         return el.id || this.format({modifiers: el.getAttribute('modifiers'), key: el.getAttribute('key'), keycode: el.getAttribute('keycode')});
     },
 
-    _say: function(text, actions) {
-        const s = this._status;
-        s.textContent = '';
-        const span = document.createElementNS('http://www.w3.org/1999/xhtml', 'span');
+    // The line under a row: its text, and buttons when it asks something.
+    _fillDetail: function(e, text, actions, clash) {
+        const html = 'http://www.w3.org/1999/xhtml';
+        e.detail.textContent = '';
+        const span = document.createElementNS(html, 'span');
         span.textContent = text || '';
-        s.appendChild(span);
+        e.detail.appendChild(span);
         for (const a of (actions || [])) {
-            const b = document.createElementNS('http://www.w3.org/1999/xhtml', 'button');
+            const b = document.createElementNS(html, 'button');
             b.textContent = a.label;
             b.addEventListener('click', a.run);
-            s.appendChild(b);
+            e.detail.appendChild(b);
+        }
+        e.detail.classList.toggle('zutilo-clash-detail', !!clash);
+    },
+
+    // A refused key or the clash question goes in the line under the row being
+    // set, right after its shortcut, and nothing is said when a shortcut is
+    // simply set or removed: the key button shows it. MJT 2026-11-16, of the
+    // line above the list ("Attach link to file: Ctrl+L"): "No need for the
+    // text here, it is confusing. Only add the warning just after the shortcut
+    // when needed." _say() with no text takes the message away.
+    _say: function(name, text, actions) {
+        const prev = this._rowMsg;
+        this._rowMsg = name && text ? {name: name, text: text, actions: actions || []} : null;
+        const old = prev && this._rows && this._rows.get(prev.name);
+        if (old) {
+            old.detail.textContent = '';
+            old.detail.hidden = true;
+        }
+        const e = this._rowMsg && this._rows && this._rows.get(name);
+        if (e) {
+            this._fillDetail(e, text, this._rowMsg.actions, true);
+            e.detail.hidden = false;
         }
     },
 
     apply: async function(name, k) {
         Zutilo.keys.setKey(name, {modifiers: k.modifiers || '', key: k.key || '', keycode: k.keycode || ''});
         this._pending = null;
+        this._say();
         // A new shortcut shows its line, even where the old one's was folded.
         const hidden = this._notesHidden();
         if (hidden.delete(name)) {
             this._setNotesHidden(hidden);
         }
-        this._say(this.isSet(k)
-            ? await this._l10n('zutilo-preferences-shortcuts-assigned', {name: this._name(name), keys: this.format(k)})
-            : await this._l10n('zutilo-preferences-shortcuts-cleared', {name: this._name(name)}));
         this.refresh();
     },
 
@@ -552,9 +573,9 @@ var ZutiloShortcutEditor = {
         this._stop();
         // A clash question still open is answered "Cancel" by starting over:
         // otherwise its row stays marked as waiting after the question is gone.
-        if (this._pending) {
+        if (this._pending || this._rowMsg) {
             this._pending = null;
-            this._say('');
+            this._say();
             this.refresh();
         }
         this._recording = {name: name, button: button};
@@ -594,8 +615,8 @@ var ZutiloShortcutEditor = {
         event.stopPropagation();
         const plain = !event.ctrlKey && !event.altKey && !event.metaKey && !event.shiftKey;
         if (plain && event.key == 'Escape') {
+            this._say();
             this._stop(true);
-            this._say('');
             return;
         }
         if (plain && (event.key == 'Backspace' || event.key == 'Delete')) {
@@ -604,6 +625,7 @@ var ZutiloShortcutEditor = {
             return;
         }
         if (plain && event.key == 'Tab') {
+            this._say();
             this._stop(true);
             return;
         }
@@ -612,9 +634,11 @@ var ZutiloShortcutEditor = {
             return;
         }
         if (!this.acceptable(k)) {
-            this._say(await this._l10n('zutilo-preferences-shortcuts-needs-modifier', {keys: this.format(k)}));
+            // Still recording: the reason stays under the row until a key is taken.
+            this._say(r.name, await this._l10n('zutilo-preferences-shortcuts-needs-modifier', {keys: this.format(k)}));
             return;
         }
+        this._say();
         this._stop();
         if (this.sameKey(k, this._get(r.name))) {
             this.refresh();
@@ -623,20 +647,18 @@ var ZutiloShortcutEditor = {
         const found = await this.clashes(r.name, k);
         const conflicts = found.hard;
         if (!conflicts.length) {
+            // A key Zotero keeps while typing or in a document: the row's own
+            // line says so after the refresh (refresh, found.notes).
             await this.apply(r.name, k);
-            if (found.notes.length) {
-                this._say(await this._l10n('zutilo-preferences-shortcuts-assigned-context',
-                    {name: this._name(r.name), keys: this.format(k), names: found.notes.join('; ')}));
-            }
             return;
         }
         this._pending = {name: r.name, key: k};
         const msg = await this._l10n('zutilo-preferences-shortcuts-conflict', {keys: this.format(k), names: conflicts.join(', ')});
         const anyway = await this._l10n('zutilo-preferences-shortcuts-assign-anyway');
         const cancel = await this._l10n('zutilo-preferences-shortcuts-cancel');
-        this._say(msg, [
+        this._say(r.name, msg, [
             {label: anyway, run: () => this.apply(r.name, k)},
-            {label: cancel, run: () => { this._pending = null; this._say(''); this.refresh(); }}
+            {label: cancel, run: () => { this._pending = null; this._say(); this.refresh(); }}
         ]);
         this.refresh();
     },
@@ -896,7 +918,13 @@ var ZutiloShortcutEditor = {
     _refreshRows: async function(none) {
         for (const [name, e] of this._rows) {
             e.row.classList.toggle('zutilo-pending', !!(this._pending && this._pending.name == name));
+            // A refused key or the clash question holds the line under its row (_say).
+            const said = this._rowMsg && this._rowMsg.name == name ? this._rowMsg : null;
             if (!e.btn || (this._recording && this._recording.button == e.btn)) {
+                if (said) {
+                    this._fillDetail(e, said.text, said.actions, true);
+                    e.detail.hidden = false;
+                }
                 continue;
             }
             const k = this._get(name);
@@ -916,9 +944,13 @@ var ZutiloShortcutEditor = {
             e.warn.title = message
                 ? message + ' ' + await this._l10n('zutilo-preferences-shortcuts-note-toggle')
                 : '';
-            const show = !!message && !this._notesHidden().has(name);
-            e.detail.textContent = message;
-            e.detail.classList.toggle('zutilo-clash-detail', !!clashes.length);
+            const show = !!said || (!!message && !this._notesHidden().has(name));
+            if (said) {
+                this._fillDetail(e, said.text, said.actions, true);
+            }
+            else {
+                this._fillDetail(e, message, null, !!clashes.length);
+            }
             e.detail.hidden = !show;
             e.warn.setAttribute('aria-expanded', String(show));
             e.row.classList.toggle('zutilo-clash', !!clashes.length);

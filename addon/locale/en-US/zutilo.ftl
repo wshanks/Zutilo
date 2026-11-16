@@ -17,8 +17,6 @@ zutilo-preferences-shortcuts-needs-modifier = { $keys } alone would take over ty
 zutilo-preferences-shortcuts-conflict = { $keys } is already used by: { $names }
 zutilo-preferences-shortcuts-assign-anyway = Assign anyway
 zutilo-preferences-shortcuts-cancel = Cancel
-zutilo-preferences-shortcuts-assigned = { $name }: { $keys }
-zutilo-preferences-shortcuts-cleared = { $name }: no shortcut
 zutilo-preferences-shortcuts-zotero = Zotero: { $command }
 zutilo-preferences-shortcuts-zutilo = Zutilo: { $name }
 
@@ -56,6 +54,5 @@ zutilo-preferences-shortcuts-context-name = { $context ->
         [typing] while typing in a note or a comment ({ $name })
        *[document] in an open PDF or EPUB ({ $name })
     }
-zutilo-preferences-shortcuts-assigned-context = { $name }: { $keys }. These keys stay Zotero's { $names }; this shortcut works everywhere else.
 zutilo-preferences-shortcuts-context-tip = These keys stay Zotero's { $names }; this shortcut works everywhere else.
 zutilo-preferences-shortcuts-note-toggle = (Click to show or hide this line.)
