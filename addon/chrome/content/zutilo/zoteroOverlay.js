@@ -299,6 +299,32 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
+    /* ONE transaction per batch command (MJT 2026-11-16). Each selected item
+       used to be saved in its own transaction (saveTx): one commit and one
+       items-list refresh per item, and several commands did not even wait for
+       their saves. Zotero's own batch actions save every item inside one
+       executeTransaction (collectionViewItemTree.jsx's coloured-tag keys,
+       Zotero.Items.trash), so the notifier fires once, at the commit. Where
+       Zotero keeps an undo history (Zotero 11), the batch is also one undo
+       step, under Zotero's own label (an 'undo-action-*' id of zotero.ftl).
+       `change(item)` edits the item; returning false skips it. Resolves to the
+       number of items saved. */
+    saveBatch: async function(items, change, undoAction, undoArgs) {
+        let saved = 0
+        await Zotero.DB.executeTransaction(async () => {
+            for (const item of items) {
+                if (await change(item) === false || !item.hasChanged()) continue
+                await item.save()
+                saved++
+            }
+            if (saved && undoAction && Zotero.UndoHistory
+                && typeof Zotero.UndoHistory.stageAction === 'function') {
+                Zotero.UndoHistory.stageAction(undoAction, Object.assign({count: saved}, undoArgs || {}))
+            }
+        })
+        return saved
+    },
+
     removeTags: function() {
         var zitems = this.getSelectedItems(['regular', 'note', 'attachment']);
 
@@ -306,10 +332,10 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        for (let idx = 0; idx < zitems.length; idx++) {
-            zitems[idx].removeAllTags()
-            zitems[idx].saveTx()
-        }
+        this.saveBatch(zitems, (zitem) => {
+            if (!zitem.getTags().length) return false
+            zitem.removeAllTags()
+        }, 'undo-action-remove-all-tags').catch((err) => debug('removeTags', err))
     },
 
     copyChildIDs: function() {
@@ -332,12 +358,10 @@ ZutiloChrome.zoteroOverlay = {
         }
         var newParent = zitems[0];
 
-        var child;
-        for (var idx = 0; idx < Zutilo.itemClipboard.length; idx++) {
-            child = Zotero.Items.get(Zutilo.itemClipboard[idx]);
+        var children = Zutilo.itemClipboard.map((id) => Zotero.Items.get(id)).filter(Boolean)
+        this.saveBatch(children, (child) => {
             child.parentKey = newParent.key
-            child.saveTx()
-        }
+        }, 'undo-action-change-parent-item').catch((err) => debug('relocateChildren', err))
     },
 
     Collection: new class {
@@ -491,7 +515,9 @@ ZutiloChrome.zoteroOverlay = {
             return JSON.stringify(['creatorType', 'name', 'firstName', 'lastName'].map((field) => creator[field] || ''))
         }
 
-        for (const item of items) {
+        // Edits one item; true = it needs saving (saveBatch saves them all in
+        // one transaction).
+        const apply = (item) => {
             let save = false
 
             for (const [field, value] of Object.entries(copiedItem)) {
@@ -578,8 +604,10 @@ ZutiloChrome.zoteroOverlay = {
             }
 
             debug(`pasteJSON: ${item.id}, save: ${save}`)
-            if (save) await item.saveTx()
+            return save
         }
+        await this.saveBatch(items, apply,
+            mode === 'item-type' ? 'undo-action-change-type' : 'undo-action-edit-metadata')
     },
 
     pasteTags: function() {
@@ -598,12 +626,11 @@ ZutiloChrome.zoteroOverlay = {
         tagArray = tagArray.map(function(val) {return val.trim()});
         tagArray = tagArray.filter(Boolean)
 
-        for (let zitem of zitems) {
+        this.saveBatch(zitems, (zitem) => {
             for (let tag of tagArray) {
                 zitem.addTag(tag)
             }
-            zitem.saveTx()
-        }
+        }, 'undo-action-add-tag').catch((err) => debug('pasteTags', err))
 
         return true;
     },
@@ -670,8 +697,10 @@ ZutiloChrome.zoteroOverlay = {
             }
         }
 
-        // Loop through attachments and replace partial paths
+        // Loop through attachments and replace partial paths; the changed ones
+        // are saved together (saveBatch: one transaction)
         var newFullPath
+        var newPaths = new Map()
         for (var index = 0; index < attachmentArray.length; index++) {
             // Only modify linked file attachments since paths for the other
             // attachment types are managed by Zotero.
@@ -698,11 +727,12 @@ ZutiloChrome.zoteroOverlay = {
             // attachmentPath stores the unmodified path
             // only save to database if path was actually modified
             if (newFullPath != oldFullPath) {
-                // TODO: wrap all saves in one transaction
-                setPath(attachmentArray[index], newFullPath)
-                attachmentArray[index].saveTx();
+                newPaths.set(attachmentArray[index], newFullPath)
             }
         }
+        this.saveBatch([...newPaths.keys()], (attachment) => {
+            setPath(attachment, newPaths.get(attachment))
+        }, 'undo-action-edit-metadata').catch((err) => debug('modifyAttachments', err))
 
         return true;
     },
@@ -771,14 +801,13 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        for (let zitem of zitems) {
+        this.saveBatch(zitems, (zitem) => {
             for (let addItem of zitems) {
                 if (zitem != addItem) {
                     zitem.addRelatedItem(addItem)
                 }
             }
-            zitem.saveTx()
-        }
+        }, 'undo-action-relate-items').catch((err) => debug('relateItems', err))
 
         return true;
     },
