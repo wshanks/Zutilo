@@ -9,14 +9,6 @@ Comme ces chemins sont relatifs, vous pouvez aisément déplacer toutes vos piè
 Si vous utilisez plus d'un ordinateur, vous pouvez paramétrer le répertoire de base des pièces jointes pour un emplacement différent sur chaque machine (par exemple, un dossier DropBox ou SyncThing). Vous serez assuré que tous les liens vers les pièces jointes fonctionnent en paramétrant cette préférence pour le bon emplacement sur chaque machine.
 Les chemins relatifs des pièces jointes peuvent être configurés sous l'onglet "Fichiers et dossiers" de la section "Avancées" des préférences de Zotero.
 
-#### Organisation des pièces jointes liées (ZotFile)
-
-L'extension [ZotFile](http://www.columbia.edu/~jpl2136/zotfile.html) fournit des fonctionnalités supplémentaires pour les pièces jointes liées dans Zotero.
-ZotFile peut être configuré pour convertir automatiquement les nouvelles pièces jointes importées en pièces jointes liées, et pour renommer et déplacer les fichiers joints vers un emplacement de fichier basé sur les métadonnées de leur document parent.
-Cette fonctionnalité rend la maintenance d'un répertoire de pièces jointes liées aussi facile que l'utilisation des pièces jointes importées  dans Zotero.
-Vous pouvez, par exemple, faire en sorte que ZotFile stocke les pièces jointes dans des répertoires portant le nom de la revue avec un sous-dossier pour l'année de publication, puis nommer le fichier joint en fonction de l'auteur et du titre de l'article.
-ZotFile dispose de plusieurs autres fonctionnalités pour travailler avec des pièces jointes, qui méritent d'être étudiées dans sa documentation.
-
 ### Fonctionnalités de modification des champs d'un document
 
 Zutilo dispose de plusieurs fonctionnalités pour copier et coller les champs d'un document.

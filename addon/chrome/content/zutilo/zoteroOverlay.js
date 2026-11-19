@@ -7,7 +7,7 @@
 /* global window, document, Components */
 /* global Zotero, ZoteroPane, ZOTERO_CONFIG */
 /* global Zutilo, ZutiloChrome */
-var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
+var { Zutilo } = ChromeUtils.importESModule(window.ZutiloModuleURL || "chrome://zutilo/content/zutilo.mjs");
 // Already declared in this context
 // var { ZOTERO_CONFIG } = ChromeUtils.importESModule("resource://zotero/config.mjs");
 
@@ -40,10 +40,6 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     unload: function() {
-        var toolsPopup = document.getElementById('menu_ToolsPopup')
-        toolsPopup.removeEventListener('popupshowing',
-            ZutiloChrome.zoteroOverlay.prefsSeparatorListener, false)
-
         document.getElementById('zotero-itemmenu').removeEventListener('popupshowing', refreshZoteroItemPopup, false)
         document.getElementById('zotero-collectionmenu').removeEventListener('popupshowing', refreshZoteroCollectionPopup, false)
     },
@@ -51,23 +47,99 @@ ZutiloChrome.zoteroOverlay = {
     /******************************************/
     // Functions for GUI keyboard shortcuts
     /******************************************/
+    // The item pane: one scrolling pane of sections (info-box, notes-box,
+    // tags-box, related-box, ...) inside <item-details>. Look inside the
+    // active pane first: with several library tabs (Zotero 11) an id is not
+    // unique in the window.
+    _itemDetails: function() {
+        let itemPane = ZoteroPane.itemPane;
+        let elem = itemPane && itemPane.querySelector
+            ? itemPane.querySelector('item-details') : null;
+        return elem ||
+            ZoteroPane.document.getElementById('zotero-item-details');
+    },
+
+    // Bring a section of the item pane ('info', 'notes', 'tags', 'related',
+    // ...) to the top, as a click on its button in the side bar does.
+    // Returns the section's box (info-box, tags-box, ...), or null if the
+    // item has no such section. The box is taken from the pane's own list of
+    // sections, not by tag name: the item pane holds other boxes of the same
+    // kind (the attachment and note sections have their own tags and related
+    // boxes, the duplicates pane its own info box).
+    _showItemPaneSection: function(paneID) {
+        let details = this._itemDetails();
+        if (!details || !details.getEnabledPanes) {
+            return null;
+        }
+        let pane = details.getEnabledPanes().
+            find((elem) => elem.dataset.pane == paneID);
+        if (!pane) {
+            return null;
+        }
+        details.scrollToPane(paneID, 'instant');
+        return pane;
+    },
+
+    // The item pane once had four tabs: Info, Notes, Tags, Related (hence
+    // the functions' ids). It now shows the same things as sections of one
+    // pane, so "focus tab N" goes to the section of that name and "next /
+    // previous tab" to the next / previous section of the pane (there are
+    // more than four).
+    _itemPaneTabSections: ['info', 'notes', 'tags', 'related'],
+
+    focusItemPaneSection: function(paneID) {
+        let pane = this._showItemPaneSection(paneID);
+        if (!pane) {
+            return false;
+        }
+        let head = pane.querySelector('collapsible-section > .head');
+        if (head) {
+            head.focus();
+        }
+        return true;
+    },
+
+    selectItemPaneTab: function(tabIndex) {
+        return this.focusItemPaneSection(this._itemPaneTabSections[tabIndex]);
+    },
+
+    advanceItemPaneTab: function(direction) {
+        let details = this._itemDetails();
+        if (!details || !details.getEnabledPanes) {
+            return false;
+        }
+        let panes = details.getEnabledPanes().filter((elem) => !elem.hidden);
+        if (!panes.length) {
+            return false;
+        }
+        // The current section: the one holding the focus, else the one at
+        // the top of the pane
+        let active = ZoteroPane.document.activeElement;
+        let current = panes.findIndex((elem) => elem.contains(active));
+        if (current == -1) {
+            let top = panes[0].parentElement.getBoundingClientRect().top;
+            current = panes.findIndex(
+                (elem) => elem.getBoundingClientRect().bottom > top + 2);
+            if (current == -1) {
+                current = 0;
+            }
+        }
+        let next = (current + direction + panes.length) % panes.length;
+        return this.focusItemPaneSection(panes[next].dataset.pane);
+    },
+
     editItemInfoGUI: function() {
         var zitems = this.getSelectedItems('regular');
         if (!this.checkItemNumber(zitems, 'regularSingle')) {
             return false;
         }
 
-        // Select info tab of item pane
-        let tabIndex = 0;
-        let zoteroViewTabbox =
-            ZoteroPane.document.getElementById('zotero-view-tabbox');
-        // tabbox removed in Zotero 8 (just one big tab now)
-        if (zoteroViewTabbox !== undefined) {
-            zoteroViewTabbox.selectedIndex = tabIndex;
+        // Go to the Info section and focus its first field, the title
+        let infoBox = this._showItemPaneSection('info');
+        let field = infoBox ? infoBox.getTitleField() : null;
+        if (field) {
+            field.focus();
         }
-        // Focus first entry textbox of info pane
-        ZoteroPane.document.getElementById('zotero-editpane-item-box').
-            focusFirstField('info');
 
         return true;
     },
@@ -78,14 +150,6 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        // Select note tab of item pane
-        let tabIndex = 1;
-        let zoteroViewTabbox =
-            ZoteroPane.document.getElementById('zotero-view-tabbox');
-        // tabbox removed in Zotero 8 (just one big tab now)
-        if (zoteroViewTabbox !== undefined) {
-            zoteroViewTabbox.selectedIndex = tabIndex;
-        }
         // Create new note
         ZoteroPane.newNote(false, zitems[0].key)
 
@@ -98,26 +162,10 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        // Select tag tab of item pane
-        let tabbox = ZoteroPane.document.getElementById('zotero-view-tabbox')
-        var tabIndex = 2
-        // tabbox removed in Zotero 8 (just one big tab now)
-        if (tabbox !== undefined) {
-            tabs.selectedIndex = tabIndex
-        }
-        // Focus new tag entry textbox
-        let header = ZoteroPane.document.querySelector(".tags-box-header")
-        if (header === null) {
-            // Zotero version < 5.0.78
-            let tagPane = ZoteroPane.document.getElementById('zotero-editpane-tags')
-            if (tagPane._tagColors === undefined) {
-                window.setTimeout(function() {tagPane.new()}, 200)
-            } else {
-                tagPane.newTag()
-            }
-        } else {
-            let addButton = header.querySelector("button")
-            addButton.click()
+        // Go to the Tags section; it opens a new row and focuses it
+        let tagsBox = this._showItemPaneSection('tags');
+        if (tagsBox) {
+            tagsBox.newTag();
         }
 
         return true;
@@ -129,31 +177,25 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        // Select related tab of item pane
-        let tabIndex = 3;
-        let zoteroViewTabbox =
-            ZoteroPane.document.getElementById('zotero-view-tabbox');
-        // tabbox removed in Zotero 8 (just one big tab now)
-        if (zoteroViewTabbox !== undefined) {
-            zoteroViewTabbox.selectedIndex = tabIndex;
-        }
+        // Go to the Related section
+        let relatedBox = this._showItemPaneSection('related') ||
+            ZoteroPane.document.getElementById('zotero-editpane-related');
         // Open add related window
-        ZoteroPane.document.getElementById('zotero-editpane-related').add();
+        relatedBox.add();
 
         return true;
     },
 
-    showItemPane: function() {
-        var itemPane = ZoteroPane.document.getElementById('zotero-item-pane');
-        if (itemPane.getAttribute('collapsed') == 'true') {
-            itemPane.setAttribute('collapsed', 'false');
-            ZoteroPane.document.getElementById('zotero-items-splitter').
-                removeAttribute('state');
-        }
-    },
-
     updatePaneVisibility: function(paneName, command, keepSplitter) {
-        var pane = ZoteroPane.document.getElementById(paneName + '-pane');
+        // Zotero 11 can hold several library tabs in a window, each with its
+        // own panes and splitters under the same ids: take the active tab's,
+        // not the first in the document.
+        var view = ZoteroPane.libraryView;
+        var getElement = function(id) {
+            var elem = view && view.getElement ? view.getElement(id) : null;
+            return elem || ZoteroPane.document.getElementById(id);
+        };
+        var pane = getElement(paneName + '-pane');
         // It is zotero-item-pane but zotero-items-splitter
         var splitterStr
         if (paneName == 'zotero-item') {
@@ -161,8 +203,7 @@ ZutiloChrome.zoteroOverlay = {
         } else {
             splitterStr = '-splitter'
         }
-        var splitter = ZoteroPane.document.getElementById(paneName +
-                                                          splitterStr);
+        var splitter = getElement(paneName + splitterStr);
 
         switch (command) {
             case 'toggle':
@@ -258,6 +299,32 @@ ZutiloChrome.zoteroOverlay = {
         return true;
     },
 
+    /* ONE transaction per batch command (MJT 2026-11-16). Each selected item
+       used to be saved in its own transaction (saveTx): one commit and one
+       items-list refresh per item, and several commands did not even wait for
+       their saves. Zotero's own batch actions save every item inside one
+       executeTransaction (collectionViewItemTree.jsx's coloured-tag keys,
+       Zotero.Items.trash), so the notifier fires once, at the commit. Where
+       Zotero keeps an undo history (Zotero 11), the batch is also one undo
+       step, under Zotero's own label (an 'undo-action-*' id of zotero.ftl).
+       `change(item)` edits the item; returning false skips it. Resolves to the
+       number of items saved. */
+    saveBatch: async function(items, change, undoAction, undoArgs) {
+        let saved = 0
+        await Zotero.DB.executeTransaction(async () => {
+            for (const item of items) {
+                if (await change(item) === false || !item.hasChanged()) continue
+                await item.save()
+                saved++
+            }
+            if (saved && undoAction && Zotero.UndoHistory
+                && typeof Zotero.UndoHistory.stageAction === 'function') {
+                Zotero.UndoHistory.stageAction(undoAction, Object.assign({count: saved}, undoArgs || {}))
+            }
+        })
+        return saved
+    },
+
     removeTags: function() {
         var zitems = this.getSelectedItems(['regular', 'note', 'attachment']);
 
@@ -265,10 +332,10 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        for (let idx = 0; idx < zitems.length; idx++) {
-            zitems[idx].removeAllTags()
-            zitems[idx].saveTx()
-        }
+        this.saveBatch(zitems, (zitem) => {
+            if (!zitem.getTags().length) return false
+            zitem.removeAllTags()
+        }, 'undo-action-remove-all-tags').catch((err) => debug('removeTags', err))
     },
 
     copyChildIDs: function() {
@@ -291,23 +358,21 @@ ZutiloChrome.zoteroOverlay = {
         }
         var newParent = zitems[0];
 
-        var child;
-        for (var idx = 0; idx < Zutilo.itemClipboard.length; idx++) {
-            child = Zotero.Items.get(Zutilo.itemClipboard[idx]);
+        var children = Zutilo.itemClipboard.map((id) => Zotero.Items.get(id)).filter(Boolean)
+        this.saveBatch(children, (child) => {
             child.parentKey = newParent.key
-            child.saveTx()
-        }
+        }, 'undo-action-change-parent-item').catch((err) => debug('relocateChildren', err))
     },
 
     Collection: new class {
         selected() {
-            // getSelectedCollection() was removed in Zotero 10; older
-            // versions (still supported per manifest strict_min_version)
-            // don't have getSelectedCollections().
-            if (window.ZoteroPane.getSelectedCollections) {
-                return window.ZoteroPane.getSelectedCollections()[0];
+            if (!window.ZoteroPane.collectionsView) {
+                // A window that is still loading (Zotero 11's File > New
+                // Window): getSelectedCollections() throws there, which
+                // stopped Zutilo's start in that window before its keys
+                return undefined;
             }
-            return window.ZoteroPane.getSelectedCollection();
+            return window.ZoteroPane.getSelectedCollections()[0];
         }
     },
 
@@ -375,7 +440,9 @@ ZutiloChrome.zoteroOverlay = {
         this._copyJSON().catch((err) => debug('copyJSON', err))
     },
     _copyJSON: async function() {
-        await this.CopyItems.ready
+        // The promise, not `ready` (a boolean, which await does not wait for):
+        // until Zotero's schema update ends, `fields` is not built yet
+        await this.CopyItems.ready_promise
 
         const sourceItem = this.CopyItems.sourceItem()
         if (!sourceItem) {
@@ -431,7 +498,7 @@ ZutiloChrome.zoteroOverlay = {
         this.pasteJSON('item-type').catch((err) => debug('pasteJSONItemType', err))
     },
     pasteJSON: async function(mode) {
-        await this.CopyItems.ready
+        await this.CopyItems.ready_promise
 
         const copiedItem = this.CopyItems.clipboard()
         if (!copiedItem) {
@@ -448,7 +515,9 @@ ZutiloChrome.zoteroOverlay = {
             return JSON.stringify(['creatorType', 'name', 'firstName', 'lastName'].map((field) => creator[field] || ''))
         }
 
-        for (const item of items) {
+        // Edits one item; true = it needs saving (saveBatch saves them all in
+        // one transaction).
+        const apply = (item) => {
             let save = false
 
             for (const [field, value] of Object.entries(copiedItem)) {
@@ -535,8 +604,10 @@ ZutiloChrome.zoteroOverlay = {
             }
 
             debug(`pasteJSON: ${item.id}, save: ${save}`)
-            if (save) await item.saveTx()
+            return save
         }
+        await this.saveBatch(items, apply,
+            mode === 'item-type' ? 'undo-action-change-type' : 'undo-action-edit-metadata')
     },
 
     pasteTags: function() {
@@ -555,12 +626,11 @@ ZutiloChrome.zoteroOverlay = {
         tagArray = tagArray.map(function(val) {return val.trim()});
         tagArray = tagArray.filter(Boolean)
 
-        for (let zitem of zitems) {
+        this.saveBatch(zitems, (zitem) => {
             for (let tag of tagArray) {
                 zitem.addTag(tag)
             }
-            zitem.saveTx()
-        }
+        }, 'undo-action-add-tag').catch((err) => debug('pasteTags', err))
 
         return true;
     },
@@ -610,56 +680,70 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        function getPath(attachment) {
+        // A file under the linked-attachment base directory is stored relative
+        // to it ("attachments:sub/dir/file.pdf"), while the user types the full
+        // path Zotero shows: compared as stored, nothing ever matched
+        // (wshanks/Zutilo#314, #213; reproduced 2026-11-16 on 11.0-beta.4).
+        // The full path is compared and replaced, and Zotero's attachmentPath
+        // setter stores it relative again; the stored form, which "Show
+        // attachment paths" used to display, is still accepted.
+        function getPaths(attachment) {
             if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
-                return attachment.attachmentPath
+                const stored = attachment.attachmentPath
+                const full = Zotero.Attachments.resolveRelativePath(stored) || stored
+                return full == stored ? [full] : [full, stored]
             } else if (mode == Zotero.Attachments.LINK_MODE_LINKED_URL) {
-                return attachment.getField('url')
+                return [attachment.getField('url')]
             }
+            return []
         }
 
-        function setPath(attachment, path) {
+        function setPath(attachment, path, oldFullPath) {
             if (mode == Zotero.Attachments.LINK_MODE_LINKED_FILE) {
                 attachment.attachmentPath = path
             } else if (mode == Zotero.Attachments.LINK_MODE_LINKED_URL) {
-                attachment.setField('title', path)
+                // The title follows the address only when it was the address:
+                // a title of the user's own stays (wshanks/Zutilo#287).
+                if (attachment.getField('title') == oldFullPath) {
+                    attachment.setField('title', path)
+                }
                 attachment.setField('url', path)
             }
         }
 
-        // Loop through attachments and replace partial paths
-        var newFullPath
+        function replaced(oldFullPath) {
+            if (checkGlobal.value) {
+                return oldFullPath.replace(
+                    new RegExp(Zutilo.escapeForRegExp(oldPath), 'g'), newPath)
+            }
+            if (oldFullPath.substr(0, oldPath.length) == oldPath) {
+                return newPath + oldFullPath.substr(oldPath.length)
+            }
+            return oldFullPath
+        }
+
+        // Loop through attachments and replace partial paths; the changed ones
+        // are saved together (saveBatch: one transaction)
+        var newPaths = new Map()
         for (var index = 0; index < attachmentArray.length; index++) {
             // Only modify linked file attachments since paths for the other
             // attachment types are managed by Zotero.
             if (attachmentArray[index].attachmentLinkMode != mode) {
                 continue
             }
-            var oldFullPath = getPath(attachmentArray[index])
-            if (checkGlobal.value) {
-                newFullPath =
-                    oldFullPath.replace(
-                        new RegExp(Zutilo.escapeForRegExp(oldPath), 'g'),
-                        newPath);
-            } else {
-                // If only check beginning of strings, just do quick compare
-                // and substitution (I think this might be faster than
-                // replace() ).
-                if (oldFullPath.substr(0, oldPath.length) == oldPath) {
-                    newFullPath =
-                        newPath + oldFullPath.substr(oldPath.length);
-                } else {
-                    newFullPath = oldFullPath
+            // only save to database if path was actually modified
+            for (const oldFullPath of getPaths(attachmentArray[index])) {
+                const newFullPath = replaced(oldFullPath)
+                if (newFullPath != oldFullPath) {
+                    newPaths.set(attachmentArray[index], {old: oldFullPath, new: newFullPath})
+                    break
                 }
             }
-            // attachmentPath stores the unmodified path
-            // only save to database if path was actually modified
-            if (newFullPath != oldFullPath) {
-                // TODO: wrap all saves in one transaction
-                setPath(attachmentArray[index], newFullPath)
-                attachmentArray[index].saveTx();
-            }
         }
+        this.saveBatch([...newPaths.keys()], (attachment) => {
+            const p = newPaths.get(attachment)
+            setPath(attachment, p.new, p.old)
+        }, 'undo-action-edit-metadata').catch((err) => debug('modifyAttachments', err))
 
         return true;
     },
@@ -689,7 +773,10 @@ ZutiloChrome.zoteroOverlay = {
                     Zotero.Attachments.LINK_MODE_LINKED_URL) {
                 text = attachmentArray[index].getField('url')
             } else {
-                text = attachmentArray[index].attachmentPath
+                // The full path, which "Modify attachment paths" compares
+                // (not the stored "attachments:..." form under a base directory).
+                const stored = attachmentArray[index].attachmentPath
+                text = Zotero.Attachments.resolveRelativePath(stored) || stored
             }
             prompts.alert(null, title, text);
         }
@@ -728,14 +815,13 @@ ZutiloChrome.zoteroOverlay = {
             return false;
         }
 
-        for (let zitem of zitems) {
+        this.saveBatch(zitems, (zitem) => {
             for (let addItem of zitems) {
                 if (zitem != addItem) {
                     zitem.addRelatedItem(addItem)
                 }
             }
-            zitem.saveTx()
-        }
+        }, 'undo-action-relate-items').catch((err) => debug('relateItems', err))
 
         return true;
     },
@@ -936,12 +1022,14 @@ ZutiloChrome.zoteroOverlay = {
 
             // Change authors to book authors
             var creators = sectionItem.getCreators();
+            var bookAuthorID = Zotero.CreatorTypes.getID('bookAuthor');
             for (var index = 0; index < creators.length; index++) {
                 if (creators[index].creatorTypeID ==
                         Zotero.CreatorTypes.getID('author')) {
-                    creators[index] = Zotero.CreatorTypes.getID('bookAuthors');
+                    creators[index].creatorTypeID = bookAuthorID;
                 }
             }
+            sectionItem.setCreators(creators);
 
             // Relate items
             bookItem.addRelatedItem(sectionItem);
@@ -997,8 +1085,8 @@ ZutiloChrome.zoteroOverlay = {
             bookItem.setField(Zotero.ItemFields.getID('abstractNote'), '')
 
             // Relate items
-            bookItem.addRelatedItem(sectionItem)
-            sectionItem.addRelatedItem(bookItem)
+            bookItem.addRelatedItem(sectionItem);
+            sectionItem.addRelatedItem(bookItem);
 
             (async function() {
                 await sectionItem.saveTx()
@@ -1210,8 +1298,10 @@ ZutiloChrome.zoteroOverlay = {
     },
 
     reloadKeys: function() {
-        for (let key of this.keyset.children) {
-            this.keyset.removeChild(key)
+        // Not a loop over the live children: removing while iterating skips
+        // every other key and left duplicates behind
+        while (this.keyset.firstChild) {
+            this.keyset.removeChild(this.keyset.firstChild)
         }
         for (var keyLabel in Zutilo.keys.shortcuts) {
             this.createKey(keyLabel)
@@ -1222,8 +1312,7 @@ ZutiloChrome.zoteroOverlay = {
         var key = document.createXULElement('key');
         key.setAttribute('id', Zutilo.keys.keyID(keyLabel));
         this.keyset.appendChild(key);
-        // Set label attribute so that keys show up nicely in keyconfig
-        // extension
+        // A label, so that the key can be named wherever keys are listed
         key.setAttribute('label', 'Zutilo: ' + Zutilo.keys.keyName(keyLabel));
         // key.setAttribute('command', 'zutilo-keyset-command');
         key.setAttribute('oncommand', '//');
@@ -1232,15 +1321,25 @@ ZutiloChrome.zoteroOverlay = {
                 Zutilo.keys.shortcuts[keyLabel](window);
             });
 
-        var keyObj = Zutilo.keys.getKey(keyLabel);
+        this.setKeyAttributes(key, Zutilo.keys.getKey(keyLabel));
+    },
 
+    // A shortcut's keys onto its <key>: a character as `key`, a named key
+    // (F1-F24, arrows, Home, ...) as `keycode`. Until 4.3 the keycode branch
+    // wrote `key` from the empty `key` field, so a function-key shortcut was
+    // never applied.
+    setKeyAttributes: function(key, keyObj) {
+        key.removeAttribute('modifiers');
+        key.removeAttribute('key');
+        key.removeAttribute('keycode');
+        keyObj = keyObj || {};
         if (keyObj.modifiers) {
             key.setAttribute('modifiers', keyObj.modifiers);
         }
         if (keyObj.key) {
             key.setAttribute('key', keyObj.key);
         } else if (keyObj.keycode) {
-            key.setAttribute('key', keyObj.key);
+            key.setAttribute('keycode', keyObj.keycode);
         } else {
             // No key or keycode.  Set to empty string to disable.
             key.setAttribute('key', '');
@@ -1256,23 +1355,7 @@ ZutiloChrome.zoteroOverlay = {
             return
         }
 
-        key.removeAttribute('modifiers');
-        key.removeAttribute('key');
-        key.removeAttribute('keycode');
-
-        var keyObj = Zutilo.keys.getKey(keyLabel);
-
-        if (keyObj.modifiers) {
-            key.setAttribute('modifiers', keyObj.modifiers);
-        }
-        if (keyObj.key) {
-            key.setAttribute('key', keyObj.key);
-        } else if (keyObj.keycode) {
-            key.setAttribute('key', keyObj.key);
-        } else {
-            // No key or keycode.  Set to empty string to disable.
-            key.setAttribute('key', '');
-        }
+        this.setKeyAttributes(key, Zutilo.keys.getKey(keyLabel));
 
         // Regenerate keys
         var keyset = this.keyset;

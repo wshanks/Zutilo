@@ -1,0 +1,1405 @@
+{
+ "_about": "Keyboard shortcuts Zotero 10 and 11 handle in code (keydown handlers), which no <key> element shows. Read by the settings pane's conflict check (preferences.js). Built 2026-11-15 from the zotero, reader, pdf.js and note-editor sources (10.0.9 and main); each entry names its source. Entries Zotero also declares as <key> elements are left out: the check reads those live.",
+ "shortcuts": [
+  {
+   "id": "reopenClosedTab",
+   "label": "Reopen closed tab",
+   "modifiers": "accel,shift",
+   "key": "T",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1235 (10.0.9: :918)"
+  },
+  {
+   "id": "prevTabPageUp",
+   "label": "Previous tab",
+   "modifiers": "control",
+   "keycode": "VK_PAGE_UP",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1245 (10.0.9: :928)"
+  },
+  {
+   "id": "nextTabPageDown",
+   "label": "Next tab",
+   "modifiers": "control",
+   "keycode": "VK_PAGE_DOWN",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1252 (10.0.9: :935)"
+  },
+  {
+   "id": "prevTabBracket",
+   "label": "Previous tab",
+   "modifiers": "accel,shift",
+   "key": "[",
+   "where": [
+    "main"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1263 (10.0.9: :946)"
+  },
+  {
+   "id": "nextTabBracket",
+   "label": "Next tab",
+   "modifiers": "accel,shift",
+   "key": "]",
+   "where": [
+    "main"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1271 (10.0.9: :954)"
+  },
+  {
+   "id": "prevTabArrow",
+   "label": "Previous tab",
+   "modifiers": "accel,alt",
+   "keycode": "VK_LEFT",
+   "where": [
+    "main"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1278 (10.0.9: :961)"
+  },
+  {
+   "id": "nextTabArrow",
+   "label": "Next tab",
+   "modifiers": "accel,alt",
+   "keycode": "VK_RIGHT",
+   "where": [
+    "main"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1285 (10.0.9: :968)"
+  },
+  {
+   "id": "nextTabCtrlTab",
+   "label": "Next tab",
+   "modifiers": "control",
+   "keycode": "VK_TAB",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1295 (10.0.9: :978)"
+  },
+  {
+   "id": "prevTabCtrlShiftTab",
+   "label": "Previous tab",
+   "modifiers": "control,shift",
+   "keycode": "VK_TAB",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1295 (10.0.9: :978)"
+  },
+  {
+   "id": "goToTab1",
+   "label": "Go to tab 1",
+   "modifiers": "accel",
+   "key": "1",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1313 (10.0.9: :996)"
+  },
+  {
+   "id": "goToTab2",
+   "label": "Go to tab 2",
+   "modifiers": "accel",
+   "key": "2",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1313 (10.0.9: :996)"
+  },
+  {
+   "id": "goToTab3",
+   "label": "Go to tab 3",
+   "modifiers": "accel",
+   "key": "3",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1313 (10.0.9: :996)"
+  },
+  {
+   "id": "goToTab4",
+   "label": "Go to tab 4",
+   "modifiers": "accel",
+   "key": "4",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1313 (10.0.9: :996)"
+  },
+  {
+   "id": "goToTab5",
+   "label": "Go to tab 5",
+   "modifiers": "accel",
+   "key": "5",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1313 (10.0.9: :996)"
+  },
+  {
+   "id": "goToTab6",
+   "label": "Go to tab 6",
+   "modifiers": "accel",
+   "key": "6",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1313 (10.0.9: :996)"
+  },
+  {
+   "id": "goToTab7",
+   "label": "Go to tab 7",
+   "modifiers": "accel",
+   "key": "7",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1313 (10.0.9: :996)"
+  },
+  {
+   "id": "goToTab8",
+   "label": "Go to tab 8",
+   "modifiers": "accel",
+   "key": "8",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1313 (10.0.9: :996)"
+  },
+  {
+   "id": "goToLastTab",
+   "label": "Go to last tab",
+   "modifiers": "accel",
+   "key": "9",
+   "where": [
+    "main"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1330 (10.0.9: :1013)"
+  },
+  {
+   "id": "macControlReturnSwallowed",
+   "label": "Nothing: Control+Return is blocked (macOS 15 context-menu key)",
+   "modifiers": "control",
+   "keycode": "VK_RETURN",
+   "where": [
+    "window"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "zotero platformKeys.js:135-141 (same in 10.0.9)"
+  },
+  {
+   "id": "zoteroKeys.library",
+   "label": "Focus the collections pane",
+   "modifiers": "accel,shift",
+   "key": "L",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1594 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.quicksearch",
+   "label": "Focus the search box",
+   "modifiers": "accel,shift",
+   "key": "K",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1597 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.newItem",
+   "label": "New item",
+   "modifiers": "accel,shift",
+   "key": "N",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1600 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.newNote",
+   "label": "New note",
+   "modifiers": "accel,shift",
+   "key": "O",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1628 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.sync",
+   "label": "Sync with zotero.org",
+   "modifiers": "accel,shift",
+   "key": "Y",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1645 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.saveToZotero",
+   "label": "Add feed item to library",
+   "modifiers": "accel,shift",
+   "key": "S",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1648 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.toggleAllRead",
+   "label": "Mark all feed items as read",
+   "modifiers": "accel,shift",
+   "key": "R",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1656 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.toggleRead",
+   "label": "Mark feed item as read or unread",
+   "modifiers": "accel,shift",
+   "key": "`",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "partly",
+   "source": "zotero zoteroPane.js:1662 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.library.alt",
+   "label": "Focus the collections pane",
+   "modifiers": "accel,alt,shift",
+   "key": "L",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1594 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.quicksearch.alt",
+   "label": "Focus the search box",
+   "modifiers": "accel,alt,shift",
+   "key": "K",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1597 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.newItem.alt",
+   "label": "New item",
+   "modifiers": "accel,alt,shift",
+   "key": "N",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1600 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.newNote.alt",
+   "label": "New note in its own tab or window",
+   "modifiers": "accel,alt,shift",
+   "key": "O",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1628 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.sync.alt",
+   "label": "Sync with zotero.org",
+   "modifiers": "accel,alt,shift",
+   "key": "Y",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1645 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.saveToZotero.alt",
+   "label": "Add feed item to library",
+   "modifiers": "accel,alt,shift",
+   "key": "S",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1648 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.toggleAllRead.alt",
+   "label": "Mark all feed items as read",
+   "modifiers": "accel,alt,shift",
+   "key": "R",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1656 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "zoteroKeys.toggleRead.alt",
+   "label": "Mark feed item as read or unread",
+   "modifiers": "accel,alt,shift",
+   "key": "`",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "partly",
+   "source": "zotero zoteroPane.js:1662 in :1579-1690 (handleKeyPress; 10.0.9: :1301-1412); letter: defaults/preferences/zotero.js:98-108"
+  },
+  {
+   "id": "items.deleteForced.mac",
+   "label": "Move selected items to the trash",
+   "modifiers": "accel",
+   "keycode": "VK_BACK_SPACE",
+   "where": [
+    "items"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1568-1576, handleKeyPress (10.0.9: :1290-1298)"
+  },
+  {
+   "id": "items.deleteForced.mac.del",
+   "label": "Move selected items to the trash",
+   "modifiers": "accel",
+   "keycode": "VK_DELETE",
+   "where": [
+    "items"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1568-1576, handleKeyPress (10.0.9: :1290-1298)"
+  },
+  {
+   "id": "items.delete.ctrl",
+   "label": "Remove selected items (same as Delete)",
+   "modifiers": "accel",
+   "keycode": "VK_DELETE",
+   "where": [
+    "items"
+   ],
+   "platform": "notmac",
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1568-1576, handleKeyPress (10.0.9: :1290-1298)"
+  },
+  {
+   "id": "items.delete.alt",
+   "label": "Remove selected items (same as Delete)",
+   "modifiers": "alt",
+   "keycode": "VK_DELETE",
+   "where": [
+    "items"
+   ],
+   "consumes": "yes",
+   "source": "zotero zoteroPane.js:1568-1576, handleKeyPress (10.0.9: :1290-1298)"
+  },
+  {
+   "id": "collections.deleteWithItems.mac",
+   "label": "Delete collection and its items",
+   "modifiers": "accel",
+   "keycode": "VK_BACK_SPACE",
+   "where": [
+    "collections"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "zotero collectionTree.jsx:191-195 (10.0.9: :180-184)"
+  },
+  {
+   "id": "collections.deleteWithItems.mac.del",
+   "label": "Delete collection and its items",
+   "modifiers": "accel",
+   "keycode": "VK_DELETE",
+   "where": [
+    "collections"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "zotero collectionTree.jsx:191-195 (10.0.9: :180-184)"
+  },
+  {
+   "id": "collections.delete.ctrl",
+   "label": "Delete collection (same as Delete)",
+   "modifiers": "accel",
+   "keycode": "VK_DELETE",
+   "where": [
+    "collections"
+   ],
+   "platform": "notmac",
+   "consumes": "yes",
+   "source": "zotero collectionTree.jsx:191-195 (10.0.9: :180-184)"
+  },
+  {
+   "id": "collections.delete.alt",
+   "label": "Delete collection (same as Delete)",
+   "modifiers": "alt",
+   "keycode": "VK_DELETE",
+   "where": [
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero collectionTree.jsx:191-195 (10.0.9: :180-184)"
+  },
+  {
+   "id": "collections.rename",
+   "label": "Rename collection",
+   "modifiers": "",
+   "keycode": "VK_F2",
+   "where": [
+    "collections"
+   ],
+   "platform": "notmac",
+   "consumes": "no",
+   "source": "zotero collectionTree.jsx:196 (10.0.9: :185)"
+  },
+  {
+   "id": "collections.rename.ctrl",
+   "label": "Rename collection",
+   "modifiers": "accel",
+   "keycode": "VK_F2",
+   "where": [
+    "collections"
+   ],
+   "platform": "notmac",
+   "consumes": "no",
+   "source": "zotero collectionTree.jsx:196 (10.0.9: :185)"
+  },
+  {
+   "id": "collections.rename.alt",
+   "label": "Rename collection",
+   "modifiers": "alt",
+   "keycode": "VK_F2",
+   "where": [
+    "collections"
+   ],
+   "platform": "notmac",
+   "consumes": "no",
+   "source": "zotero collectionTree.jsx:196 (10.0.9: :185)"
+  },
+  {
+   "id": "collections.rename.shift",
+   "label": "Rename collection",
+   "modifiers": "shift",
+   "keycode": "VK_F2",
+   "where": [
+    "collections"
+   ],
+   "platform": "notmac",
+   "consumes": "no",
+   "source": "zotero collectionTree.jsx:196 (10.0.9: :185)"
+  },
+  {
+   "id": "lists.contextMenu",
+   "label": "Open the context menu",
+   "modifiers": "shift",
+   "keycode": "VK_F10",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "no",
+   "source": "zotero components/virtualized-table.jsx:711 (10.0.9: :707)"
+  },
+  {
+   "id": "lists.toggleRowSelection",
+   "label": "Toggle selection of the focused row",
+   "modifiers": "accel",
+   "keycode": "VK_SPACE",
+   "where": [
+    "items",
+    "collections"
+   ],
+   "consumes": "yes",
+   "source": "zotero components/virtualized-table.jsx:699-704 and :557-569 (10.0.9: :695-700, :410)"
+  },
+  {
+   "id": "reader.print",
+   "label": "Print",
+   "modifiers": "accel",
+   "key": "P",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:275-279 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.zoomIn",
+   "label": "Zoom in",
+   "modifiers": "accel",
+   "key": "=",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:290-294 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.zoomInPlus",
+   "label": "Zoom in",
+   "modifiers": "accel",
+   "key": "+",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:290-294 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.zoomOut",
+   "label": "Zoom out",
+   "modifiers": "accel",
+   "key": "-",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:295-299 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.zoomReset",
+   "label": "Reset zoom",
+   "modifiers": "accel",
+   "key": "0",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:300-304 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.goToPage",
+   "label": "Go to page (focus the page number)",
+   "modifiers": "accel,alt",
+   "key": "G",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:269-274 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.readAloudR",
+   "label": "Read aloud from the selection (or close Read Aloud)",
+   "modifiers": "accel,shift",
+   "key": "R",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:280-289 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.readAloudL",
+   "label": "Read aloud from the selection (or close Read Aloud)",
+   "modifiers": "accel,shift",
+   "key": "L",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:280-289 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.back.alt",
+   "label": "Go back",
+   "modifiers": "alt",
+   "keycode": "VK_LEFT",
+   "where": [
+    "reader"
+   ],
+   "platform": "notmac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:106-118 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.forward.alt",
+   "label": "Go forward",
+   "modifiers": "alt",
+   "keycode": "VK_RIGHT",
+   "where": [
+    "reader"
+   ],
+   "platform": "notmac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:119-131 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.back.cmdBracket",
+   "label": "Go back",
+   "modifiers": "accel",
+   "key": "[",
+   "where": [
+    "reader"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:106-118 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.forward.cmdBracket",
+   "label": "Go forward",
+   "modifiers": "accel",
+   "key": "]",
+   "where": [
+    "reader"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:119-131 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.back.cmdArrow",
+   "label": "Go back",
+   "modifiers": "accel",
+   "keycode": "VK_LEFT",
+   "where": [
+    "reader"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:106-118 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.forward.cmdArrow",
+   "label": "Go forward",
+   "modifiers": "accel",
+   "keycode": "VK_RIGHT",
+   "where": [
+    "reader"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:119-131 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.back.ctrlBracket",
+   "label": "Go back",
+   "modifiers": "control",
+   "key": "[",
+   "where": [
+    "reader"
+   ],
+   "platform": "linux",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:106-118 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.forward.ctrlBracket",
+   "label": "Go forward",
+   "modifiers": "control",
+   "key": "]",
+   "where": [
+    "reader"
+   ],
+   "platform": "linux",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:119-131 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.readAloud.prevParagraph.mac",
+   "label": "Previous paragraph (Read Aloud)",
+   "modifiers": "alt",
+   "keycode": "VK_LEFT",
+   "where": [
+    "reader"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:418-423 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.readAloud.nextParagraph.mac",
+   "label": "Next paragraph (Read Aloud)",
+   "modifiers": "alt",
+   "keycode": "VK_RIGHT",
+   "where": [
+    "reader"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:424-429 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.readAloud.extendBack",
+   "label": "Extend the Read Aloud annotation backward",
+   "modifiers": "accel",
+   "keycode": "VK_LEFT",
+   "where": [
+    "reader"
+   ],
+   "platform": "notmac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:66-71 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.readAloud.extendForward",
+   "label": "Extend the Read Aloud annotation forward",
+   "modifiers": "accel",
+   "keycode": "VK_RIGHT",
+   "where": [
+    "reader"
+   ],
+   "platform": "notmac",
+   "consumes": "yes",
+   "source": "reader src/common/keyboard-manager.js:72-77 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.tool1",
+   "label": "Highlight tool",
+   "modifiers": "alt",
+   "key": "1",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/common/keyboard-manager.js:365-399 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.tool2",
+   "label": "Underline tool",
+   "modifiers": "alt",
+   "key": "2",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/common/keyboard-manager.js:365-399 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.tool3",
+   "label": "Note tool",
+   "modifiers": "alt",
+   "key": "3",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/common/keyboard-manager.js:365-399 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.tool4",
+   "label": "Text tool (PDF); next annotation color (EPUB, snapshot)",
+   "modifiers": "alt",
+   "key": "4",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/common/keyboard-manager.js:365-399 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.tool5",
+   "label": "Select area tool (PDF)",
+   "modifiers": "alt",
+   "key": "5",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/common/keyboard-manager.js:365-399 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.tool6",
+   "label": "Draw tool (PDF)",
+   "modifiers": "alt",
+   "key": "6",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/common/keyboard-manager.js:365-399 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.tool7",
+   "label": "Eraser tool (PDF)",
+   "modifiers": "alt",
+   "key": "7",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/common/keyboard-manager.js:365-399 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.tool8",
+   "label": "Next annotation color (PDF)",
+   "modifiers": "alt",
+   "key": "8",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/common/keyboard-manager.js:365-399 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.highlightSelection",
+   "label": "Highlight selected text",
+   "modifiers": "control,alt",
+   "key": "1",
+   "where": [
+    "reader"
+   ],
+   "consumes": "partly",
+   "source": "reader src/pdf/pdf-view.js:4851 (10.0.9: :4122); reader src/dom/common/dom-view.tsx:1366 (10.0.9: :1370); reader src/common/components/view-popup/find-popup.js:79-86"
+  },
+  {
+   "id": "reader.underlineSelection",
+   "label": "Underline selected text",
+   "modifiers": "control,alt",
+   "key": "2",
+   "where": [
+    "reader"
+   ],
+   "consumes": "partly",
+   "source": "reader src/pdf/pdf-view.js:4864 (10.0.9: :4135); reader src/dom/common/dom-view.tsx:1366 (10.0.9: :1370); reader src/common/components/view-popup/find-popup.js:87-94"
+  },
+  {
+   "id": "reader.addNoteAnnotation",
+   "label": "Add note annotation",
+   "modifiers": "control,alt",
+   "key": "3",
+   "where": [
+    "reader"
+   ],
+   "consumes": "partly",
+   "source": "reader src/pdf/pdf-view.js:4876 (10.0.9: :4147); reader src/dom/common/dom-view.tsx:1366 (10.0.9: :1370)"
+  },
+  {
+   "id": "reader.addTextAnnotation",
+   "label": "Add text annotation (PDF)",
+   "modifiers": "control,alt",
+   "key": "4",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/pdf/pdf-view.js:4915 (10.0.9: :4186)"
+  },
+  {
+   "id": "reader.addImageAnnotation",
+   "label": "Add image annotation (PDF)",
+   "modifiers": "control,alt",
+   "key": "5",
+   "where": [
+    "reader"
+   ],
+   "consumes": "no",
+   "source": "reader src/pdf/pdf-view.js:4948 (10.0.9: :4219)"
+  },
+  {
+   "id": "reader.pdf.blockOpen",
+   "label": "Nothing: blocked (pdf.js Open file)",
+   "modifiers": "accel",
+   "key": "O",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4495-4498 (10.0.9: :3774-3777)"
+  },
+  {
+   "id": "reader.pdf.blockSave",
+   "label": "Nothing: blocked (pdf.js Save file)",
+   "modifiers": "accel",
+   "key": "S",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4495-4498 (10.0.9: :3774-3777)"
+  },
+  {
+   "id": "reader.pdf.prevPage",
+   "label": "Previous page (PDF)",
+   "modifiers": "alt",
+   "keycode": "VK_UP",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4511-4515 (10.0.9: :3790-3794)"
+  },
+  {
+   "id": "reader.pdf.nextPage",
+   "label": "Next page (PDF)",
+   "modifiers": "alt",
+   "keycode": "VK_DOWN",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4516-4520 (10.0.9: :3795-3799)"
+  },
+  {
+   "id": "reader.pdf.firstPage",
+   "label": "Go to first page (PDF)",
+   "modifiers": "accel",
+   "keycode": "VK_UP",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "pdf.js web/app.js:2980, :3028-3034"
+  },
+  {
+   "id": "reader.pdf.lastPage",
+   "label": "Go to last page (PDF)",
+   "modifiers": "accel",
+   "keycode": "VK_DOWN",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "pdf.js web/app.js:2980, :3035-3041"
+  },
+  {
+   "id": "reader.pdf.firstPage.shift",
+   "label": "Go to first page (PDF)",
+   "modifiers": "accel,shift",
+   "keycode": "VK_UP",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "pdf.js web/app.js:2980, :3028-3034"
+  },
+  {
+   "id": "reader.pdf.lastPage.shift",
+   "label": "Go to last page (PDF)",
+   "modifiers": "accel,shift",
+   "keycode": "VK_DOWN",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "pdf.js web/app.js:2980, :3035-3041"
+  },
+  {
+   "id": "reader.annotationStart.alt.left",
+   "label": "Move the start of the selected annotation",
+   "modifiers": "alt,shift",
+   "keycode": "VK_LEFT",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4647-4695 (10.0.9: :3920-3970); reader src/dom/common/dom-view.tsx:1271-1363 (10.0.9: :1275)"
+  },
+  {
+   "id": "reader.annotationStart.accel.left",
+   "label": "Move the start of the selected annotation",
+   "modifiers": "accel,shift",
+   "keycode": "VK_LEFT",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4647-4695 (10.0.9: :3920-3970); reader src/dom/common/dom-view.tsx:1271-1363 (10.0.9: :1275)"
+  },
+  {
+   "id": "reader.annotationStart.alt.right",
+   "label": "Move the start of the selected annotation",
+   "modifiers": "alt,shift",
+   "keycode": "VK_RIGHT",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4647-4695 (10.0.9: :3920-3970); reader src/dom/common/dom-view.tsx:1271-1363 (10.0.9: :1275)"
+  },
+  {
+   "id": "reader.annotationStart.accel.right",
+   "label": "Move the start of the selected annotation",
+   "modifiers": "accel,shift",
+   "keycode": "VK_RIGHT",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4647-4695 (10.0.9: :3920-3970); reader src/dom/common/dom-view.tsx:1271-1363 (10.0.9: :1275)"
+  },
+  {
+   "id": "reader.annotationStart.alt.up",
+   "label": "Move the start of the selected annotation",
+   "modifiers": "alt,shift",
+   "keycode": "VK_UP",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4647-4695 (10.0.9: :3920-3970); reader src/dom/common/dom-view.tsx:1271-1363 (10.0.9: :1275)"
+  },
+  {
+   "id": "reader.annotationStart.accel.up",
+   "label": "Move the start of the selected annotation",
+   "modifiers": "accel,shift",
+   "keycode": "VK_UP",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4647-4695 (10.0.9: :3920-3970); reader src/dom/common/dom-view.tsx:1271-1363 (10.0.9: :1275)"
+  },
+  {
+   "id": "reader.annotationStart.alt.down",
+   "label": "Move the start of the selected annotation",
+   "modifiers": "alt,shift",
+   "keycode": "VK_DOWN",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4647-4695 (10.0.9: :3920-3970); reader src/dom/common/dom-view.tsx:1271-1363 (10.0.9: :1275)"
+  },
+  {
+   "id": "reader.annotationStart.accel.down",
+   "label": "Move the start of the selected annotation",
+   "modifiers": "accel,shift",
+   "keycode": "VK_DOWN",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/pdf/pdf-view.js:4647-4695 (10.0.9: :3920-3970); reader src/dom/common/dom-view.tsx:1271-1363 (10.0.9: :1275)"
+  },
+  {
+   "id": "reader.comment.bold",
+   "label": "Bold (annotation comment)",
+   "modifiers": "accel",
+   "key": "B",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/components/common/editor.js:258-262 (identical in 10.0.9)"
+  },
+  {
+   "id": "reader.comment.italic",
+   "label": "Italic (annotation comment)",
+   "modifiers": "accel",
+   "key": "I",
+   "where": [
+    "reader"
+   ],
+   "consumes": "yes",
+   "source": "reader src/common/components/common/editor.js:263-266 (identical in 10.0.9)"
+  },
+  {
+   "id": "note.focusToolbar",
+   "label": "Focus the formatting toolbar",
+   "modifiers": "alt",
+   "keycode": "VK_F10",
+   "where": [
+    "note"
+   ],
+   "consumes": "no",
+   "source": "note-editor src/core/keymap.js:28"
+  },
+  {
+   "id": "note.joinUp",
+   "label": "Join with the block above",
+   "modifiers": "alt",
+   "keycode": "VK_UP",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:29"
+  },
+  {
+   "id": "note.joinDown",
+   "label": "Join with the block below",
+   "modifiers": "alt",
+   "keycode": "VK_DOWN",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:30"
+  },
+  {
+   "id": "note.bold",
+   "label": "Bold",
+   "modifiers": "accel",
+   "key": "B",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:33-34"
+  },
+  {
+   "id": "note.italic",
+   "label": "Italic",
+   "modifiers": "accel",
+   "key": "I",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:36-37"
+  },
+  {
+   "id": "note.underline",
+   "label": "Underline",
+   "modifiers": "accel",
+   "key": "U",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:39-40"
+  },
+  {
+   "id": "note.code",
+   "label": "Inline code",
+   "modifiers": "accel",
+   "key": "`",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:42"
+  },
+  {
+   "id": "note.link",
+   "label": "Insert or edit link",
+   "modifiers": "accel",
+   "key": "K",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:44-45"
+  },
+  {
+   "id": "note.insertCitation",
+   "label": "Insert citation",
+   "modifiers": "control,alt",
+   "key": "C",
+   "where": [
+    "note"
+   ],
+   "platform": "notmac",
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:51-54"
+  },
+  {
+   "id": "note.insertCitation.mac",
+   "label": "Insert citation",
+   "modifiers": "accel,control",
+   "key": "C",
+   "where": [
+    "note"
+   ],
+   "platform": "mac",
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:47-50"
+  },
+  {
+   "id": "note.bulletList",
+   "label": "Bulleted list",
+   "modifiers": "control,shift",
+   "key": "8",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:56"
+  },
+  {
+   "id": "note.numberedList",
+   "label": "Numbered list",
+   "modifiers": "control,shift",
+   "key": "9",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:57"
+  },
+  {
+   "id": "note.blockquote",
+   "label": "Block quote",
+   "modifiers": "control,shift",
+   "key": ">",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:58"
+  },
+  {
+   "id": "note.hardBreak",
+   "label": "Line break",
+   "modifiers": "accel",
+   "keycode": "VK_RETURN",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:65"
+  },
+  {
+   "id": "note.paragraph",
+   "label": "Paragraph",
+   "modifiers": "control,shift",
+   "key": "0",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:78"
+  },
+  {
+   "id": "note.codeBlock",
+   "label": "Code block",
+   "modifiers": "control,shift",
+   "key": "|",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:79"
+  },
+  {
+   "id": "note.heading1",
+   "label": "Heading 1",
+   "modifiers": "control,shift",
+   "key": "1",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:82-84"
+  },
+  {
+   "id": "note.heading2",
+   "label": "Heading 2",
+   "modifiers": "control,shift",
+   "key": "2",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:82-84"
+  },
+  {
+   "id": "note.heading3",
+   "label": "Heading 3",
+   "modifiers": "control,shift",
+   "key": "3",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:82-84"
+  },
+  {
+   "id": "note.heading4",
+   "label": "Heading 4",
+   "modifiers": "control,shift",
+   "key": "4",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:82-84"
+  },
+  {
+   "id": "note.heading5",
+   "label": "Heading 5",
+   "modifiers": "control,shift",
+   "key": "5",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:82-84"
+  },
+  {
+   "id": "note.heading6",
+   "label": "Heading 6",
+   "modifiers": "control,shift",
+   "key": "6",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:82-84"
+  },
+  {
+   "id": "note.horizontalRule",
+   "label": "Horizontal line",
+   "modifiers": "accel,shift",
+   "key": "_",
+   "where": [
+    "note"
+   ],
+   "consumes": "yes",
+   "source": "note-editor src/core/keymap.js:87-90"
+  }
+ ]
+}

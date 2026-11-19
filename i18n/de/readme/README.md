@@ -16,6 +16,18 @@ All of Zutilo's graphical elements can be disabled individually, so that unwante
 New updates will not be published to the location checked by previous versions of Zutilo (the Mozilla Add-ons page).
 To receive new Zutilo updates, please update to the latest version of Zutilo.
 
+## Kompatibilität
+
+Dieser Zweig (`z11`) von Zutilo ist für Zotero 10 und Zotero 11 bestimmt; er benötigt mindestens Zotero 10.0.
+Alle Funktionen von Zutilo, die Kontextmenüs für Einträge und Sammlungen und die Einstellungen wurden per Skript mit Testeinträgen in Zotero 10.0.8 und in Zotero 11.0-beta.4 ausgeführt, mit denselben Ergebnissen in beiden.
+Der Editor für Tastenkürzel ist zurück: In den Einstellungen von Zutilo auf das Tastenkürzel einer Funktion klicken und dann die Tasten drücken.
+In diesem Zweig entfernt, weil sie in Zotero 10 und 11 nicht funktionieren können:
+
+* „Pin key“ und „Unpin key“ von Better BibTeX: Better BibTeX 9 hat diese Funktionen nicht mehr (der Zitierschlüssel steht in Zoteros eigenem Feld „Zitierschlüssel“).
+* Die Tastenkürzel für ZotFile und Mdnotes: Für keines der beiden Plugins gibt es eine Version für Zotero 7 oder neuer.
+
+Bereits gespeicherte Tastenkürzel für diese Funktionen werden ignoriert.
+
 ## Installation
 
 Download the Zutilo `zutilo.xpi` file from [Zutilo's GitHub releases page](https://github.com/wshanks/Zutilo/releases).

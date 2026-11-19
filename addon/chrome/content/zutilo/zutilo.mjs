@@ -17,8 +17,6 @@ export var Zutilo = {
     // Basic information
     /********************************************/
     id: 'zutilo@www.wesailatdawn.com',
-    zoteroID: 'zotero@chnm.gmu.edu',
-    zoteroTabURL: 'chrome://zotero/content/tab.xul',
     // All strings here should be the exact name of Zutilo functions that take
     // no argument and that should be able to be called from the Zotero item
     // menu
@@ -45,10 +43,18 @@ export var Zutilo = {
     /********************************************/
     // Zutilo setup functions
     /********************************************/
-    init: function(rootURI, ZoteroHandle) {
+    init: function(rootURI, ZoteroHandle, moduleURL) {
         // There must be a better way to access Zotero than this
         Zotero = ZoteroHandle
         this.rootURI = rootURI
+        // This module's own URL (bootstrap.js: versioned), for the scripts
+        // that import it: keys.js reads this.moduleURL, the window scripts
+        // window.ZutiloModuleURL, the settings pane a default pref (never
+        // written to prefs.js).
+        this.moduleURL = moduleURL || 'chrome://zutilo/content/zutilo.mjs'
+        try {
+            Services.prefs.getDefaultBranch('extensions.zutilo.').setStringPref('moduleURL', this.moduleURL)
+        } catch (e) {}
 
         // Must be run before Prefs.init()
         Services.scriptloader.loadSubScript(
@@ -58,8 +64,6 @@ export var Zutilo = {
 
         this.observers.register()
         Zutilo.Prefs.init()
-        // Zutilo.ZoteroPrefs.init()
-
 
         this.prepareWindows()
     },
@@ -117,6 +121,7 @@ export var Zutilo = {
         // Define ZutiloChrome as window property so it can be deleted on
         // shutdown
         scope.ZutiloChrome = {};
+        scope.ZutiloModuleURL = this.moduleURL;
 
         Services.scriptloader.loadSubScript(
                 'chrome://zutilo/content/zutiloChrome.js', scope);
@@ -157,6 +162,11 @@ export var Zutilo = {
                             }
                         }
                     }
+                    Zutilo.shortcutsChanged();
+                    break;
+
+                case Zutilo.SHORTCUTS_REQUEST:
+                    Zutilo.replyShortcuts(data);
                     break;
 
                 default:
@@ -169,13 +179,83 @@ export var Zutilo = {
             Services.obs.addObserver(this, 'zutilo-zoterocollectionmenu-update',
                                      false);
             Services.obs.addObserver(this, 'zutilo-shortcut-update', false);
+            Services.obs.addObserver(this, Zutilo.SHORTCUTS_REQUEST, false);
         },
 
         unregister: function() {
             Services.obs.removeObserver(this, 'zutilo-zoteroitemmenu-update');
             Services.obs.removeObserver(this, 'zutilo-zoterocollectionmenu-update');
             Services.obs.removeObserver(this, 'zutilo-shortcut-update');
+            Services.obs.removeObserver(this, Zutilo.SHORTCUTS_REQUEST);
         }
+    },
+
+    /********************************************/
+    // The plugin-shortcuts convention (v1): plugins list each other's
+    // keyboard shortcuts through three observer topics with JSON-string
+    // data, so a user can see when two plugins claim the same keys. Zutilo
+    // publishes the shortcuts the user set, and its settings pane is a
+    // checker (preferences.js). Spec: docs/plugin-shortcuts.md.
+    /********************************************/
+    SHORTCUTS_REQUEST: 'zotero-plugin-shortcuts-request',
+    SHORTCUTS_REPLY: 'zotero-plugin-shortcuts-reply',
+    SHORTCUTS_CHANGED: 'zotero-plugin-shortcuts-changed',
+
+    // Zutilo's shortcuts that are set now, in the convention's format. Its
+    // keys are <key> elements in every main window, so they act anywhere in
+    // one ("main").
+    publishedShortcuts: function() {
+        const out = [];
+        for (const name of Object.keys(this.keys.shortcuts)) {
+            let k = null;
+            try {
+                k = this.keys.getKey(name);
+            }
+            catch (e) {}
+            if (!k || !(k.key || k.keycode)) {
+                continue;
+            }
+            let label = name;
+            try {
+                label = this.keys.keyName(name);
+            }
+            catch (e) {}
+            const s = {id: name, label: label, modifiers: k.modifiers || '', where: ['main']};
+            if (k.key) {
+                s.key = k.key;
+            }
+            else {
+                s.keycode = k.keycode;
+            }
+            out.push(s);
+        }
+        return out;
+    },
+
+    replyShortcuts: function(data) {
+        try {
+            const req = JSON.parse(data || '{}');
+            if (req.v != 1 || !req.id) {
+                return;
+            }
+            Services.obs.notifyObservers(null, this.SHORTCUTS_REPLY, JSON.stringify({
+                v: 1,
+                id: req.id,
+                plugin: {id: this.id, name: 'Zutilo'},
+                shortcuts: this.publishedShortcuts()
+            }));
+        }
+        catch (e) {
+            Zotero.logError(e);
+        }
+    },
+
+    shortcutsChanged: function() {
+        try {
+            Services.obs.notifyObservers(null, this.SHORTCUTS_CHANGED,
+                                         JSON.stringify({v: 1, plugin: {id: this.id}}));
+        }
+        catch (e) {}
     },
 
     /********************************************/
@@ -220,6 +300,7 @@ Zutilo.Prefs = {
 
         // Register observer to handle pref changes
         this.setDefaults()
+        this.registerPane()
         this.register()
 
         
@@ -254,21 +335,21 @@ Zutilo.Prefs = {
             defaults.setCharPref('quickCopy_alt' + altNum, '')
         }
         // locateItem engine label
-        defaults.setCharPref('locateItemEngine', 'Google Scholar Search')
-        // Other preferences
-        defaults.setCharPref('attachLinkAppearance', 'Zotero');
-        defaults.setCharPref('attachmentImportProcessType', 'Zotero');
-        defaults.setCharPref('attachPageAppearance', 'Zotero');
-        defaults.setCharPref('lastVersion', '');
-        defaults.setBoolPref('showStatusPopupItems', true);
-        defaults.setBoolPref('warnZoteroNotActive', true);
+        defaults.setCharPref('locateItemEngine', 'Google Scholar')
+    },
 
+    // Once per startup: setDefaults() runs again whenever the number of
+    // alternative QuickCopy items changes, and registered one more settings
+    // pane each time.
+    registerPane: function() {
         Zotero.PreferencePanes.register({
             pluginID: Zutilo.id,
             src: Zutilo.rootURI + 'chrome/content/zutilo/preferences.xhtml',
             scripts: [
               Zutilo.rootURI + 'chrome/content/zutilo/preferences.js'
-              // Zutilo.rootURI + 'chrome/content/zutilo/keyconfig_adapted.js'
+            ],
+            stylesheets: [
+              Zutilo.rootURI + 'chrome/content/zutilo/preferences.css'
             ],
         })
     },
@@ -388,44 +469,3 @@ Zutilo.Prefs = {
         }
     }
 }
-
-
-// This object was used to watch a Zotero pref, but it's not necessary now.
-// Leaving Zutilo.ZoteroPrefs code here for possible future use
-/*
-Zutilo.ZoteroPrefs = {
-
-    init: function() {
-        this.prefBranch = Services.prefs.getBranch('extensions.zotero.');
-
-        // Register observer to handle pref changes
-        this.register();
-    },
-
-    //
-    // Methods to register a preferences observer
-    //
-    register: function() {
-        this.prefBranch.QueryInterface(Components.interfaces.nsIPrefBranch);
-        this.prefBranch.addObserver('', this, false);
-    },
-
-    unregister: function() {
-        if (!this.prefBranch){
-            return;
-        }
-        this.prefBranch.removeObserver('', this);
-    },
-
-    observe: function(subject, topic, data) {
-        if(topic!='nsPref:changed'){
-            return;
-        }
-        // subject is the nsIPrefBranch we're observing (after appropriate QI)
-        // data is the name of the pref that's been changed (relative to
-        // subject)
-        switch (data){
-        }
-    }
-};
-*/

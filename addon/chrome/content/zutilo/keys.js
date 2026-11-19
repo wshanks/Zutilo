@@ -6,13 +6,15 @@
 'use strict';
 /* global Components, AddonManager, Services */
 /* global Zotero */
-/* global Zutilo, gKeys */
+/* global Zutilo */
 
 /********************************************/
 // Include core modules and built-in modules
 /********************************************/
 var { AddonManager } = ChromeUtils.importESModule("resource://gre/modules/AddonManager.sys.mjs");
-var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
+// Loaded by zutilo.mjs into the Zutilo object: `this.moduleURL` is the
+// versioned URL it was imported under (bootstrap.js).
+var { Zutilo } = ChromeUtils.importESModule(this.moduleURL || "chrome://zutilo/content/zutilo.mjs");
 
 /********************************************/
 // Define keys object
@@ -33,19 +35,6 @@ var keys = {
 
     keyID: function(keyLabel) {
         return 'zutilo-key-' + keyLabel
-    },
-
-    keysEqual: function(key1, key2) {
-        var keyEquality =
-            (key1.modifiers == key2.modifiers && key1.key == key2.key &&
-             key1.keycode == key2.keycode);
-        return keyEquality
-    },
-
-    getLabels: function() {
-        for (var shortcut in Zutilo.keys.shortcuts) {
-            gKeys.push(shortcut)
-        }
     },
 
     categoryName: function(categoryLabel) {
@@ -69,6 +58,28 @@ var keys = {
             for (let altNum = 1; altNum < total + 1; altNum++) {
                 Zutilo.keys.categories[alt + altNum] = Zutilo.keys.alts[alt]['category']
                 Zutilo.keys.shortcuts[alt + altNum] = Zutilo.keys.alts[alt]['generator'](altNum)
+            }
+        }
+    },
+
+    // An element of the library view by its id. Zotero 11 can hold several
+    // library tabs in a window, each with its own toolbar and panes, so an
+    // id is looked up in the active one first.
+    libraryElement: function(win, id) {
+        let view = win.ZoteroPane.libraryView;
+        let elem = view && view.getElement ? view.getElement(id) : null;
+        return elem || win.document.getElementById(id);
+    },
+
+    // Shortcuts added after a window built its keys (the add-on lookups
+    // below answer later): build that window's keys again.
+    reloadWindowKeys: function() {
+        var windows = Services.wm.getEnumerator('navigator:browser');
+        while (windows.hasMoreElements()) {
+            let win = windows.getNext();
+            if (win.ZutiloChrome && win.ZutiloChrome.zoteroOverlay &&
+                    win.ZutiloChrome.zoteroOverlay.keyset) {
+                win.ZutiloChrome.zoteroOverlay.reloadKeys();
             }
         }
     },
@@ -232,11 +243,13 @@ keys.shortcuts.relateDialog = function(win) {
 /***********************************************/
 keys.categories.newItemMenu = 'itemcreation'
 keys.shortcuts.newItemMenu = function(win) {
-    win.document.getElementById('zotero-tb-add').firstChild.showPopup();
+    let button = keys.libraryElement(win, 'zotero-tb-add');
+    button.firstChild.openPopup(button, 'after_start', 0, 0, false, false);
 };
 keys.categories.lookupID = 'itemcreation'
 keys.shortcuts.lookupID = function(win) {
-    win.document.getElementById('zotero-lookup-panel').showPopup()
+    // What the toolbar button and Zotero's own command do
+    win.Zotero_Lookup.showPanel();
 }
 keys.categories.linked = 'itemcreation'
 keys.shortcuts.linked = function(win) {
@@ -255,46 +268,46 @@ keys.shortcuts.attachLinkFile = function(win) {
 };
 keys.categories.recognizeSelected = 'other'
 keys.shortcuts.recognizeSelected = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     win.ZoteroPane_Local.recognizeSelected()
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 keys.categories.createParentItemsFromSelected  = 'itemcreation'
 keys.shortcuts.createParentItemsFromSelected  = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     win.ZoteroPane_Local.createParentItemsFromSelected()
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 };
 keys.categories.renameSelectedAttachmentsFromParents = 'attachments'
 keys.shortcuts.renameSelectedAttachmentsFromParents = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
-    win.ZoteroPane_Local.renameSelectedAttachmentsFromParents()
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
+    // What the item pane's "Rename File to Match Parent Item" button calls
+    // (renameFiles.mjs), for the selected attachment items.
+    var { canRenameFileFromParent, renameFileFromParent } =
+        ChromeUtils.importESModule('chrome://zotero/content/renameFiles.mjs');
+    var attachments = win.ZoteroPane.getSelectedItems().
+        filter((item) => item.isAttachment());
+    (async function() {
+        for (let attachment of attachments) {
+            if (await canRenameFileFromParent(attachment)) {
+                await renameFileFromParent(attachment);
+            }
+        }
+    })().catch((err) => win.Zotero.logError(err));
 };
 
 keys.categories.findPDF = 'attachments'
 keys.shortcuts.findPDF = function(win)
 {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     let items = win.ZoteroPane_Local.getSelectedItems();
-    win.Zotero.Attachments.addAvailablePDFs(items);
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
+    win.Zotero.Attachments.addAvailableFiles(items);
 };
 
 keys.categories.attachURI = 'attachments'
 keys.shortcuts.attachURI = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
     win.ZoteroPane_Local.addAttachmentFromURI(true, itemID)
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 }
 
 keys.categories.attachStoredFile = 'attachments'
 keys.shortcuts.attachStoredFile = function(win) {
-    // jscs: disable requireCamelCaseOrUpperCaseIdentifiers
     var itemID = win.ZoteroPane_Local.getSelectedItems()[0].id
     win.ZoteroPane_Local.addAttachmentFromDialog(false, itemID)
-    // jscs: enable requireCamelCaseOrUpperCaseIdentifiers
 }
 
 keys.categories.showFile = 'attachments'
@@ -326,7 +339,9 @@ keys.shortcuts.showFile = function(win) {
 /***********************************************/
 keys.categories.advancedSearch = 'uinavigation'
 keys.shortcuts.advancedSearch = function(win) {
-    win.ZoteroPane_Local.openAdvancedSearchWindow()
+    // In Zotero 10 and 11 advanced search is part of the library view
+    // (openAdvancedSearchWindow() is a deprecated alias of this)
+    win.ZoteroPane_Local.toggleAdvancedSearchState('open')
 };
 
 keys.categories.duplicateItem = 'itemcreation'
@@ -347,13 +362,10 @@ keys.shortcuts.openStyleEditor = function(win) {
 keys.categories.generateReport = 'other'
 keys.shortcuts.generateReport = function(win) {
     let context = win.ZoteroPane.document.defaultView
-    // Zotero >=6
-    if (context.document.activeElement.id == win.ZoteroPane.collectionsView.id
-            // Zotero <=5
-            || context.document.activeElement.id == "zotero-collections-tree") {
+    if (context.document.activeElement.id == win.ZoteroPane.collectionsView.id) {
         context.Zotero_Report_Interface.loadCollectionReport()
     } else {
-        // "zotero-items-tree" whether it is the active element or not
+        // The items tree, whether it is the active element or not
         let zitems = win.ZoteroPane.getSelectedItems()
         if (zitems.length > 0) {
             context.Zotero_Report_Interface.loadItemReport()
@@ -365,75 +377,70 @@ keys.categories.focusZoteroCollectionsTree = 'uinavigation'
 keys.shortcuts.focusZoteroCollectionsTree = function(win) {
     win.ZutiloChrome.zoteroOverlay.
         updatePaneVisibility('zotero-collections', 'show');
-    // Zotero >=6
-    if (win.ZoteroPane.collectionsView.focus) {
-        win.ZoteroPane.collectionsView.focus();
-    }
-    // Zotero 5.0.97-beta.39
-    else if (win.document.getElementById('collection-tree')) {
-        win.document.getElementById('collection-tree').focus();
-    }
-    // Zotero <=5
-    else {
-        win.document.getElementById('zotero-collections-tree').focus();
-    }
+    win.ZoteroPane.collectionsView.focus();
 };
 keys.categories.focusZoteroItemsTree = 'uinavigation'
 keys.shortcuts.focusZoteroItemsTree = function(win) {
-    // Zotero >=6
-    if (win.ZoteroPane.itemsView.focus) {
-        win.ZoteroPane.itemsView.focus();
-    }
-    // Zotero 5.0.97-beta.39
-    else if (win.ZoteroPane.itemsView.tree && win.ZoteroPane.itemsView.tree.focus) {
-        win.ZoteroPane.itemsView.tree.focus();
-    }
-    // Zotero <=5
-    else {
-        win.document.getElementById('zotero-items-tree').focus();
-    }
+    win.ZoteroPane.itemsView.focus();
 };
 keys.categories.advanceTabboxTab = 'uinavigation'
 keys.shortcuts.advanceTabboxTab = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').
-        tabs.advanceSelectedTab(1, true);
+    win.ZutiloChrome.zoteroOverlay.advanceItemPaneTab(1);
 };
 keys.categories.reverseTabboxTab = 'uinavigation'
 keys.shortcuts.reverseTabboxTab = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').
-        tabs.advanceSelectedTab(-1, true);
+    win.ZutiloChrome.zoteroOverlay.advanceItemPaneTab(-1);
 };
 keys.categories.selectTabboxTab0 = 'uinavigation'
 keys.shortcuts.selectTabboxTab0 = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 0;
+    win.ZutiloChrome.zoteroOverlay.selectItemPaneTab(0);
 };
 keys.categories.selectTabboxTab1 = 'uinavigation'
 keys.shortcuts.selectTabboxTab1 = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 1;
+    win.ZutiloChrome.zoteroOverlay.selectItemPaneTab(1);
 };
 keys.categories.selectTabboxTab2 = 'uinavigation'
 keys.shortcuts.selectTabboxTab2 = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 2;
+    win.ZutiloChrome.zoteroOverlay.selectItemPaneTab(2);
 };
 keys.categories.selectTabboxTab3 = 'uinavigation'
 keys.shortcuts.selectTabboxTab3 = function(win) {
     win.ZutiloChrome.zoteroOverlay.updatePaneVisibility('zotero-item', 'show');
-    win.document.getElementById('zotero-view-tabbox').tabs.selectedIndex = 3;
+    win.ZutiloChrome.zoteroOverlay.selectItemPaneTab(3);
 };
 
 keys.categories.locateMenu = 'uinavigation'
 keys.shortcuts.locateMenu = function(win) {
-    win.document.getElementById('zotero-tb-locate-menu').showPopup();
+    // The Locate button at the bottom of the item pane's side bar. It
+    // builds its menu and opens it on a mouse press.
+    let itemPane = win.ZoteroPane.itemPane;
+    let button = itemPane && itemPane.querySelector
+        ? itemPane.querySelector('toolbarbutton[data-action="locate"]') : null;
+    if (!button) {
+        button = win.document.querySelector(
+            'item-pane-sidenav toolbarbutton[data-action="locate"]');
+    }
+    if (!button || button.open) {
+        return;
+    }
+    button.dispatchEvent(new win.MouseEvent(
+        'mousedown', {button: 0, bubbles: true, cancelable: true}));
 };
 
 keys.categories.locateItem = 'uinavigation'
 keys.shortcuts.locateItem = function(win) {
     let label = Zutilo.Prefs.get("locateItemEngine")
+    // Zotero renamed its "Google Scholar Search" engine to "Google Scholar"
+    // (Zutilo's default until 4.3): follow it, as Zotero does for its users
+    if (label == 'Google Scholar Search' && win.Zotero.LocateManager &&
+            !win.Zotero.LocateManager.getEngineByName(label)) {
+        label = 'Google Scholar'
+    }
     win.Zotero_LocateMenu.locateItem({"target": {"label": label}})
 };
 
@@ -484,86 +491,41 @@ keys.shortcuts.toggleZoteroItemPaneStickySplitter = function(win) {
                                                         'toggle', true)
 };
 
-AddonManager.getAddonByID('better-bibtex@iris-advies.com', function(aAddon) {
-    if (aAddon === null || !aAddon.isActive) {
+AddonManager.getAddonByID('better-bibtex@iris-advies.com').then(function(aAddon) {
+    if (!aAddon || !aAddon.isActive) {
         return
-    }
-
-    keys.categories.BBTPin = 'bbt'
-    keys.shortcuts.BBTPin = function(win) {
-        win.Zotero.BetterBibTeX.ready.then(
-            function() {win.Zotero.BetterBibTeX.KeyManager.pin('selected')})
-    }
-
-    keys.categories.BBTUnpin = 'bbt'
-    keys.shortcuts.BBTUnpin = function(win) {
-        win.Zotero.BetterBibTeX.ready.then(function() {
-            win.Zotero.BetterBibTeX.KeyManager.unpin('selected')})
     }
 
     keys.categories.BBTRefresh = 'bbt'
     keys.shortcuts.BBTRefresh = function(win) {
         win.Zotero.BetterBibTeX.ready.then(function() {
-            win.Zotero.BetterBibTeX.KeyManager.refresh('selected', true)})
+            let keyManager = win.Zotero.BetterBibTeX.KeyManager
+            if (keyManager.refresh) {
+                keyManager.refresh('selected', true)
+            } else {
+                // Better BibTeX 9: what its own "Regenerate BibTeX key"
+                // item menu entry calls
+                keyManager.fill('selected', {warn: true, replace: true})
+            }
+        }).catch((err) => win.Zotero.logError(err))
     }
 
     keys.categories.BBTtoTeXstudio = 'bbt'
     keys.shortcuts.BBTtoTeXstudio = function(win) {
         win.Zotero.BetterBibTeX.ready.then(function() {
-            win.Zotero.BetterBibTeX.ZoteroPane.toTeXstudio()})
+            let bbt = win.Zotero.BetterBibTeX
+            if (bbt.ZoteroPane && bbt.ZoteroPane.toTeXstudio) {
+                bbt.ZoteroPane.toTeXstudio()
+            } else {
+                // Better BibTeX 9: what its own "Push to TeXstudio" item
+                // menu entry calls
+                bbt.MenuHelper.toTeXstudio()
+            }
+        }).catch((err) => win.Zotero.logError(err))
     }
     // Call setDefaults again so it generates defaults for these shortcuts
     // created in the getAddonByID callback.
     // TODO: Only add defaults for the shortcuts generated here.
     Zutilo.Prefs.setDefaults()
-})
-
-AddonManager.getAddonByID('zotfile@columbia.edu', function(aAddon) {
-    if (aAddon === null || !aAddon.isActive) {
-        return
-    }
-
-    keys.categories.ZotFileAttach = 'ZotFile'
-    keys.shortcuts.ZotFileAttach = function(win) {
-        win.Zotero.ZotFile.attachFileFromSourceDirectory()
-    }
-
-    keys.categories.ZotFileRename = 'ZotFile'
-    keys.shortcuts.ZotFileRename = function(win) {
-        win.Zotero.ZotFile.renameSelectedAttachments()
-    }
-
-    keys.categories.ZotFileExtractAnnotations = 'ZotFile'
-    keys.shortcuts.ZotFileExtractAnnotations = function(win) {
-        win.Zotero.ZotFile.pdfAnnotations.getAnnotations()
-    }
-
-    Zutilo.Prefs.setDefaults()
-})
-
-AddonManager.getAddonByID('mdnotes@mdnotes.github.io', function (aAddon) {
-    if (aAddon === null || !aAddon.isActive) {
-        return
-    }
-
-    keys.categories.MdnotesBatchExport = 'mdnotes'
-    keys.shortcuts.MdnotesBatchExport = function(win) {
-        win.Zotero.Mdnotes.batchExportMenu()
-    }
-
-    keys.categories.MdnotesExport = 'mdnotes'
-    keys.shortcuts.MdnotesExport = function(win) {
-        win.Zotero.Mdnotes.exportToMarkdownMenu()
-    }
-
-    keys.categories.MdnotesCreateStandaloneNote = 'mdnotes'
-    keys.shortcuts.MdnotesCreateStandaloneNote = function(win) {
-        win.Zotero.Mdnotes.createNoteFileMenu(true)
-    }
-
-    keys.categories.MdnotesCreateMdNote = 'mdnotes'
-    keys.shortcuts.MdnotesCreateMdNote = function(win) {
-        win.Zotero.Mdnotes.createNoteFileMenu(false)
-    }
-    Zutilo.Prefs.setDefaults()
-})
+    keys.reloadWindowKeys()
+}).catch((err) => Components.utils.reportError(err))

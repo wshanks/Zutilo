@@ -144,44 +144,44 @@ Zutilo currently implements several keyboard shortcuts that are useful for editi
 The following functions work when only a single Zotero item is selected:
 
 * __Edit item info:__
-    Select the "Info" tab in the item pane.
-    Set the focus to the first editable field of the item's info.
+    Go to the "Info" section of the item pane.
+    Set the focus to the first editable field of the item's info (its title).
 
 * __Add note:__
-    Select the "Notes" tab of the item pane.
-    Create a new note.
+    Create a new child note for the item.
     Added for completeness, but Zotero already has a keyboard shortcut that does this.
     It can be set in Zotero's preferences.
 
 * __Add tag:__
-    Select the "Tags" tab of the item pane.
+    Go to the "Tags" section of the item pane.
     Open a textbox for creating a new tag.
 
 * __Add related item:__
-    Select the "Related" tab of the item pane.
+    Go to the "Related" section of the item pane.
     Open the dialog for adding related items.
 
-The following four functions are similar to the four item editing functions above, except that they just set focus on the respective tab in the item pane.
+The following four functions are similar to the four item editing functions above, except that they just go to the respective section of the item pane: the pane scrolls to the section and its header gets the focus.
+(Up to Zotero 6 these were the four tabs of the item pane; since Zotero 7 the item pane is one list of sections.)
 
-* __Focus item pane: Info tab:__
-    Select the "Info" tab in the item pane.
+* __Item pane: Focus Info section:__
+    Go to the "Info" section of the item pane.
 
-* __Focus item pane: Notes tab:__
-    Select the "Notes" tab of the item pane.
+* __Item pane: Focus Notes section:__
+    Go to the "Notes" section of the item pane.
 
-* __Focus item pane: Tags tab:__
-    Select the "Tags" tab of the item pane.
+* __Item pane: Focus Tags section:__
+    Go to the "Tags" section of the item pane.
 
-* __Focus item pane: Related tab:__
-    Select the "Related" tab of the item pane.
+* __Item pane: Focus Related section:__
+    Go to the "Related" section of the item pane.
 
-The following two functions allow you to cycle through the same four tabs in the item pane.
+The following two functions allow you to cycle through all the sections of the item pane (Abstract, Attachments, Libraries and Collections, ... as well as the four above).
 
-* __Focus item pane: next tab:__
-    Select next tab in item pane.
+* __Item pane: Next section:__
+    Go to the next section of the item pane.
 
-* __Focus item pane: previous tab:__
-    Select previous tab in item pane.
+* __Item pane: Previous section:__
+    Go to the previous section of the item pane.
 
 Zutilo implements several keyboard shortcuts that are useful for navigating between and within the three main panes.
 If the relevant pane is hidden, the following functions will show it.
@@ -256,7 +256,7 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
 
 * __Locate item:__
     Equivalent to using one of the Lookup engines from the Locate menu accessed from the top of the item pane.
-    The default engine is "Google Scholar Search".
+    The default engine is "Google Scholar".
     To change the engine, modify the `extensions.zutilo.locateItemEngine` preference in the config editor.
     The config editor can be opened from the Advanced pane of Zotero's preferences window.
     For a list of valid engine names, select "Developer->Run JavaScript" from Zotero's "Tools" menu and enter and run this command: `Zotero.LocateManager.getVisibleEngines().map(engine => engine.name)`.
@@ -265,20 +265,6 @@ However, when the pane is shown, the thicker vertical divider ("splitter", "grip
 
 The following functions are only available when [Better BibTeX](https://github.com/retorquere/zotero-better-bibtex) is installed.
 
-* __Pin key:__ Pin the key for the currently selected items.
-
-* __Unpin key:__ Unpin the key for the currently selected items.
-
 * __Force-refresh key:__ Force-refresh the key for the currently selected items.
 
 * __Push to TeXstudio:__ Push references to TeXstudio.
-
-### ZotFile functions
-
-The following functions are only available when [ZotFile](zotfile.com) is installed.
-
-* __Attach new file:__ Attach the newest file in the ZotFile source directory to the currently selected item.
-
-* __Move and rename attachments:__ Move and rename the files associated with the currently selected attachments to following the format configured in ZotFile's preferences.
-
-* __Extract annotations:__ Trigger ZotFile's "Extract Annotations" function.

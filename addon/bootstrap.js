@@ -8,6 +8,7 @@
 /* global Zutilo, APP_SHUTDOWN */
 const {classes: Cc, utils: Cu} = Components;
 var chromeHandle
+var Zutilo
 
 
 // eslint-disable-next-line no-unused-vars
@@ -28,8 +29,15 @@ function startup(data, reason) {
         ["locale",  "zutilo", "zh-CN", "chrome/locale/zh-CN/zutilo/"]
     ])
 
-    var { Zutilo } = ChromeUtils.importESModule("chrome://zutilo/content/zutilo.mjs");
-    Zutilo.init(data.rootURI, Zotero);
+    // The core module under a URL of this version's own. Firefox keeps a
+    // module for the whole session by its URL, so with a plain URL an in-place
+    // upgrade (or reinstall) ran the new add-on against the OLD version's
+    // zutilo.mjs until Zotero restarted. Every script that imports it uses the
+    // same URL (Zutilo.moduleURL; zutilo.mjs hands it on).
+    const moduleURL = "chrome://zutilo/content/zutilo.mjs?v=" + encodeURIComponent(data.version);
+    // Kept at file level: shutdown() needs it too
+    Zutilo = ChromeUtils.importESModule(moduleURL).Zutilo;
+    Zutilo.init(data.rootURI, Zotero, moduleURL);
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -42,12 +50,22 @@ function shutdown(data, reason) {
     while (windows.hasMoreElements()) {
         var tmpWin=windows.getNext();
 
+        if (typeof tmpWin.ZutiloChrome == 'undefined') {
+            continue;
+        }
         tmpWin.ZutiloChrome.removeXUL();
         if (typeof tmpWin.ZutiloChrome.zoteroOverlay != 'undefined') {
             tmpWin.ZutiloChrome.zoteroOverlay.unload();
         }
         delete tmpWin.ZutiloChrome;
-        delete tmpWin.Zutilo;
+        try {
+            delete tmpWin.ZutiloModuleURL;
+        } catch (e) {}
+        // `var { Zutilo }` of the window scripts: not configurable, so a
+        // delete throws in strict mode and stopped the shutdown here
+        try {
+            tmpWin.Zutilo = undefined;
+        } catch (e) {}
     }
 
     Zutilo.cleanup();
@@ -62,3 +80,19 @@ function shutdown(data, reason) {
 function uninstall(data, reason) {
 
 }
+
+// Zotero calls these for every main window; without them it logs "missing
+// bootstrap method" twice per window opened or closed. Zutilo sets its
+// windows up through its own window listener (zutilo.mjs prepareWindows),
+// on purpose: on Zotero 11 these two follow a window's LIBRARY TABS, not the
+// window (Zotero.Plugins.notifyMainWindowLoad when its first library tab has
+// loaded, notifyMainWindowUnload when its last one closes, the window staying
+// open). A window holding only reader tabs gets no Load, and Zutilo's keys
+// work there too. Checked 2026-11-16 on 11.0-beta.4: the first window, File >
+// New Window, a reader tab moved to a new window, a library tab added to it
+// and closed again, windows closed -- keys in each, no error.
+// eslint-disable-next-line no-unused-vars
+function onMainWindowLoad({ window }) {}
+
+// eslint-disable-next-line no-unused-vars
+function onMainWindowUnload({ window }) {}

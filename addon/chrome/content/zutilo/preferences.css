@@ -1,0 +1,101 @@
+/* Copyright 2012 Will Shanks.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* ONE list of every function (preferences.js, ZutiloShortcutEditor): the search
+   on top, the legend of the menu icons, then a line per function -- its name,
+   its three context-menu choices as icons (or an empty cell), its shortcut and
+   the shortcut's clear button, in aligned columns. */
+#zutilo-filter-row { display: flex; align-items: center; gap: 6px; margin: 0 0 6px; }
+#zutilo-shortcut-filter { flex: 1 1 auto; min-width: 0; box-sizing: border-box; margin: 0; }
+/* The filters: two chips beside the search, and the legend's three choices
+   (MJT 2026-11-15). Pressed = filtering. */
+.zutilo-filter-chip, .zutilo-menu-legend-item {
+  display: inline-flex; align-items: center; gap: 6px; margin: 0;
+  padding: 2px 8px; border-radius: 12px; font: inherit;
+  border: 1px solid var(--fill-quinary, ThreeDShadow); background: transparent; color: inherit;
+}
+.zutilo-filter-chip { flex: none; white-space: nowrap; }
+.zutilo-filter-chip:hover, .zutilo-menu-legend-item:hover { background: var(--fill-quinary, rgba(0, 0, 0, 0.05)); }
+.zutilo-filter-chip[aria-pressed="true"], .zutilo-menu-legend-item[aria-pressed="true"] {
+  border-color: var(--accent-blue, #4072e5); background: color-mix(in srgb, var(--accent-blue, #4072e5) 18%, transparent);
+}
+.zutilo-menu-legend { gap: 8px; flex-wrap: wrap; margin: 0 0 4px; color: var(--fill-secondary, GrayText); }
+.zutilo-menu-legend-item { border-color: transparent; }
+.zutilo-filter-empty { padding: 10px 16px; color: var(--fill-secondary, GrayText); }
+.zutilo-filter-empty[hidden] { display: none; }
+#zutilo-shortcut-help { margin: 0 0 6px; color: var(--fill-secondary, GrayText); }
+/* ONE scrollbar, the settings pane's (MJT 2026-11-16). The list used to scroll
+   on its own inside the scrolling pane: the wheel over the list moved only the
+   list, so once the pane was scrolled down its top (the search, the legend)
+   did not come back. Now the list takes its full length and the search, the
+   filters and the legend stay on top while it scrolls under them. */
+#zutilo-controls {
+  position: sticky; top: 0; z-index: 1;
+  padding-top: 4px;
+  background-color: var(--material-sidepane, Window);
+}
+#zutilo-shortcut-list {
+  border: 1px solid var(--fill-quinary, ThreeDShadow); border-radius: 5px; padding: 2px 0;
+}
+/* Focus moves (Tab) and scrollIntoView keep a row below the pinned controls. */
+.zutilo-shortcut-row, .zutilo-shortcut-category { scroll-margin-top: 80px; }
+.zutilo-shortcut-category {
+  padding: 6px 8px 2px; font-weight: 600; font-size: 0.92em;
+  color: var(--fill-secondary, GrayText);
+}
+.zutilo-shortcut-category[hidden] { display: none; }
+.zutilo-shortcut-row {
+  display: grid; grid-template-columns: 20px minmax(0, 1fr) 168px 18px 10em 24px;
+  align-items: center; column-gap: 6px; padding: 1px 8px 1px 6px;
+}
+/* The star before each name (preferences.js _toggleStar): an outline, faint
+   until the line is hovered or focused; filled once starred. */
+.zutilo-star {
+  min-width: 0; width: 20px; height: 20px; margin: 0; padding: 0;
+  border: none; background: none; font-size: 15px; line-height: 1;
+  color: var(--fill-secondary, GrayText); opacity: 0.45; cursor: pointer;
+}
+.zutilo-shortcut-row:hover .zutilo-star, .zutilo-star:focus-visible { opacity: 1; }
+.zutilo-star[aria-pressed="true"] { color: var(--accent-yellow, #faa700); opacity: 1; }
+.zutilo-starred-category::before { content: "\2605"; margin-inline-end: 5px; color: var(--accent-yellow, #faa700); }
+.zutilo-shortcut-row[hidden] { display: none; }
+.zutilo-shortcut-row:hover { background: var(--fill-quinary, rgba(0, 0, 0, 0.05)); }
+.zutilo-shortcut-row.zutilo-pending { outline: 2px solid var(--accent-orange, #d97706); outline-offset: -2px; }
+.zutilo-shortcut-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.zutilo-menu-icon,
+.zutilo-menu-choice .radio-icon {
+  width: 16px; height: 16px;
+  -moz-context-properties: fill; fill: currentColor;
+}
+.zutilo-menu-choice { display: flex; margin: 0; }
+.zutilo-menu-choice radio { width: 56px; margin: 0; }
+.zutilo-menu-choice .radio-label { display: none; }
+.zutilo-shortcut-key { width: 100%; margin: 0; text-align: center; font-family: inherit;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.zutilo-shortcut-key.zutilo-none { color: var(--fill-secondary, GrayText); }
+.zutilo-shortcut-key.zutilo-recording { outline: 2px solid var(--accent-blue, #4072e5); }
+.zutilo-shortcut-clear { min-width: 0; width: 24px; margin: 0; padding: 0; }
+.zutilo-shortcut-clear[hidden] { visibility: hidden; display: inline-block; }
+/* The clash warning before a shortcut (preferences.js refresh): who else uses
+   those keys is in its tooltip. */
+.zutilo-shortcut-warn {
+  min-width: 0; margin: 0; padding: 0; border: none; background: none; font: inherit;
+  color: var(--accent-orange, #d97706); text-align: center; cursor: pointer;
+}
+.zutilo-shortcut-warn[hidden] { visibility: hidden; display: inline; }
+/* A key Zotero uses only while typing or in an open document: a note, not a
+   clash (preferences.js _codeContext). */
+.zutilo-shortcut-warn.zutilo-shortcut-note { color: var(--fill-secondary, GrayText); }
+/* The message under the row: across every column after the star, toggled by the
+   icon (preferences.js _toggleNote). */
+.zutilo-shortcut-detail {
+  grid-column: 2 / -1; padding: 0 0 3px; font-size: 0.92em;
+  color: var(--fill-secondary, GrayText); white-space: normal;
+}
+.zutilo-shortcut-detail.zutilo-clash-detail { color: var(--accent-orange, #d97706); }
+/* The clash question's answers, on the same line (preferences.js _say). */
+.zutilo-shortcut-detail button { margin: 2px 0 0 8px; font-size: inherit; }
+.zutilo-shortcut-detail[hidden] { display: none; }
+.zutilo-clash .zutilo-shortcut-key { outline: 1px solid var(--accent-orange, #d97706); outline-offset: -1px; }

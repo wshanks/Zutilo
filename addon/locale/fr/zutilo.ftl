@@ -3,20 +3,56 @@ zutilo-preferences-ui-itemmenu = Menu des documents Zotero
 zutilo-preferences-ui-collectionmenuLabel = Menu des collections Zotero
 
 zutilo-preferences-shortcuts = Raccourcis-clavier
-zutilo-preferences-shortcuts-labels =
-  .label = Nom
-zutilo-preferences-shortcuts-categories =
-  .label = Catégorie
-zutilo-preferences-shortcuts-keys =
-  .label = Raccourci
-zutilo-preferences-shortcuts-apply =
-  .label = Appliquer
-zutilo-preferences-shortcuts-disable =
-  .label = Désactiver
+zutilo-preferences-functions = Menus et raccourcis-clavier
+zutilo-preferences-shortcuts-help = Cliquez sur un raccourci, puis appuyez sur les touches. Échap annule ; Retour arrière ou Suppr retire le raccourci. Utilisez Ctrl, Alt ou ⌘ (ou une touche de fonction), pour ne jamais gêner la saisie.
+zutilo-preferences-shortcuts-filter =
+  .placeholder = Chercher une commande ou un raccourci
+zutilo-preferences-shortcuts-none = Aucun
+zutilo-preferences-shortcuts-press = Appuyez sur les touches…
+zutilo-preferences-shortcuts-set =
+  .title = Changer le raccourci de { $name }
+zutilo-preferences-shortcuts-clear =
+  .title = Retirer le raccourci de { $name }
+zutilo-preferences-shortcuts-needs-modifier = { $keys } seul gênerait la saisie : ajoutez Ctrl, Alt ou ⌘, ou utilisez une touche de fonction.
+zutilo-preferences-shortcuts-conflict = { $keys } est déjà utilisé par : { $names }
+zutilo-preferences-shortcuts-assign-anyway = Attribuer quand même
+zutilo-preferences-shortcuts-cancel = Annuler
+zutilo-preferences-shortcuts-zotero = Zotero : { $command }
+zutilo-preferences-shortcuts-zutilo = Zutilo : { $name }
 
 zutilo-preferences-readme-caption = À propos de Zutilo
 zutilo-preferences-readme-button =
   .value = Afficher le lisez-moi
-zutilo-about-opengithub =
   .href = https://github.com/wshanks/Zutilo/tree/master/i18n/fr/readme
+zutilo-about-opengithub =
   .value = Ouvrir la page de développement (sur GitHub)
+zutilo-preferences-filter-with = Avec raccourci
+    .title = N'afficher que les fonctions qui ont un raccourci
+zutilo-preferences-filter-without = Sans raccourci
+    .title = N'afficher que les fonctions sans raccourci
+zutilo-preferences-filter-placement =
+    .title = N'afficher que les fonctions placées ici (cliquez à nouveau pour tout afficher)
+zutilo-preferences-filter-none = Aucune fonction ne correspond.
+zutilo-preferences-shortcuts-plugin = { $plugin } : { $name }
+zutilo-preferences-shortcuts-clash = Aussi utilisé par : { $names }
+zutilo-preferences-shortcuts-zotero-code = Zotero ({ $where ->
+        [reader] lecteur
+        [note] éditeur de notes
+        [items] liste des documents
+        [collections] volet des collections
+        [window] toutes les fenêtres
+       *[main] fenêtre principale
+    }) : { $name }
+zutilo-preferences-starred = Favoris
+zutilo-preferences-star =
+    .title = Ajouter aux favoris : afficher en haut de la liste
+    .aria-label = Ajouter { $name } aux favoris
+zutilo-preferences-unstar =
+    .title = Retirer des favoris : remettre dans son groupe
+    .aria-label = Retirer { $name } des favoris
+zutilo-preferences-shortcuts-context-name = { $context ->
+        [typing] pendant la saisie dans une note ou un commentaire ({ $name })
+       *[document] dans un PDF ou un EPUB ouvert ({ $name })
+    }
+zutilo-preferences-shortcuts-context-tip = Ces touches restent à Zotero { $names } ; ce raccourci marche partout ailleurs.
+zutilo-preferences-shortcuts-note-toggle = (Cliquez pour afficher ou masquer cette ligne.)
